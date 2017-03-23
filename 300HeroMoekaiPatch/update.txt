@@ -1,4 +1,4 @@
 [Update]
 ver=2017.3.268
-download=
+download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
 info=1.修正 无限次信号 功能\n2.更新Launcher加载方式和自动更新功能
