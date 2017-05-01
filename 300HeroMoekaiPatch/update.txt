@@ -1,4 +1,4 @@
 [Update]
-ver=2017.5.1.16
+ver=2017.5.1.15
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
 info=1.移除失效的 反和谐聊天词 功能\n2.法克掉游戏的保护程序
