@@ -1,4 +1,4 @@
 [Update]
-ver=2017.3.268
+ver=2017.5.1.16
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=1.修改补丁加载方式，可在游戏运行时使用\n2.增加补丁加载情况的消息框提示\n3.增加黑条消息框提示开关，如游戏容易崩溃，可将\n  目录下MoekaiPatch.ini中的黑条消息框设为 0 关闭
+info=1.移除失效的 反和谐聊天词 功能\n2.法克掉游戏的保护程序
