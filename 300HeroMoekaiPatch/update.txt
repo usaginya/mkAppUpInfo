@@ -1,4 +1,5 @@
 [Update]
-ver=2017.5.1.15
+ver=2017.5.19.6
+md5=EF2655E53910555F624B3CFBFF41E040
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=1.移除失效的 反和谐聊天词 功能\n2.法克掉游戏的保护程序
+info=1.加入Box模块选择，使功能更丰富(需要占时关闭杀毒软件)\n2.双重法克保护程序，甩开检测风险\n3.扩展补丁载入方式，三式注入更强势\n4.昼夜模式左上角新增时间段图标，早午晚夜四图标直观当前昼夜状况
