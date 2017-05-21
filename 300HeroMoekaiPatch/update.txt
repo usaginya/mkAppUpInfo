@@ -1,5 +1,5 @@
 [Update]
 ver=2017.5.19.66
-md5=763D3E30EB1234FA84774E21360377DC
+md5=E4621AE00B3C8FA85A3BA1238BC47D36
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
 info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 加入Box模块选择，使功能更丰富(需要占时关闭杀毒软件)\n2. 双重法克保护程序，甩开检测风险\n3. 扩展补丁载入方式，三式注入更强势\n4. 昼夜模式左上角新增时间段图标，早午晚夜四图标直观当前昼夜状况\n5. 采用自校验获取更新信息\n6. 使用基础压缩方式压缩数据\n7. 修复一些逻辑BUG
