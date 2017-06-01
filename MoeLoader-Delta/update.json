@@ -45,6 +45,14 @@
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/lib/System.Utility.dll",
           "md5": "D95D1204DB1219BD5A985BB7323207E0"
+        },
+        {
+          "name": "SitePack.dll",
+          "state": "del",
+        },
+        {
+          "name": "HtmlAgilityPack.dll",
+          "state": "del",
         }
     ]
 }
