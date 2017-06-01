@@ -48,11 +48,11 @@
         },
         {
           "name": "SitePack.dll",
-          "state": "del",
+          "state": "del"
         },
         {
           "name": "HtmlAgilityPack.dll",
-          "state": "del",
+          "state": "del"
         }
     ]
 }
