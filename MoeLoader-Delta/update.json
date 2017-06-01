@@ -47,6 +47,14 @@
           "md5": "D95D1204DB1219BD5A985BB7323207E0"
         },
         {
+          "path": "lib",
+          "name": "Microsoft.Expression.Drawing.dll",
+          "ver": "2.0.20621.0",
+          "state": "up",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/lib/Microsoft.Expression.Drawing.dll",
+          "md5": "1AFCBEC2626988A2F359BF06B9637639"
+        },
+        {
           "name": "SitePack.dll",
           "state": "del"
         },
