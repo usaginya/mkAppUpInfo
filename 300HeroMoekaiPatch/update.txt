@@ -1,5 +1,5 @@
 [Update]
-ver=2017.5.30.3
-md5=E597839BA9EA79A45065834839B20076
+ver=2017.6.3.1
+md5=6EBD50537CB34CA2961450A17B3BDA53
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 修改补丁加载方式\n2. 可选择自动加载BOX模块选项
+info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 修改补丁加载方式\n2. 可选择启动时自动加载BOX模块\n3. 修改默认配置使用托盘提示
