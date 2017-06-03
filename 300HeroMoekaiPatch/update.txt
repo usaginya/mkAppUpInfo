@@ -1,5 +1,5 @@
 [Update]
-ver=2017.5.30.1
-md5=6C545580DFE73A3342A5CD3D308ED200
+ver=2017.5.30.2
+md5=84E5A19A82B1BBFD73D455A9220FFC28
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 增加补丁延迟初始化\n2. 更改昼夜图标显示层次
+info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 修改补丁加载方式\n2. 可选择自动加载BOX模块选项
