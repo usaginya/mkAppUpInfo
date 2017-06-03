@@ -17,10 +17,10 @@
         },
         {
           "name": "MoeToNew.exe",
-          "ver": "1.1.5.6",
+          "ver": "1.1.5.8",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeToNew.exe",
-          "md5": "8C67582FF36BF1CA92E6BFF271284A2B"
+          "md5": "5053D967335B269ECBFCE56AC5E3161C"
         },
         {
           "path": "SitePacks",
