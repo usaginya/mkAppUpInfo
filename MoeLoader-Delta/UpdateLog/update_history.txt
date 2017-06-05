@@ -9,11 +9,11 @@
 5. 增加全选、反选等菜单及快捷键
 6. 修改搜索站点显示搜索模式方式
 7. 强化 preview 预览窗口
-8. 修正分站点子目录保存BUG
+8. 修正分站点子目录保存失效的BUG
 9. 增加大量功能
 10. 更新大量界面UI
 11. 修正大量逻辑BUG
-12. 创建自动更新程序
+12. 创建自动更新程序MoeToNew
 ★ 详细更新细节访问: https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/UpdateLog/7039to7040.txt
 
 [2017-1-10]  ver 7.0.3.9Δ
