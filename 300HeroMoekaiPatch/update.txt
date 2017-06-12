@@ -1,5 +1,5 @@
 [Update]
-ver=2017.6.3.21
-md5=A9ED360E6F1722A47EFF8CA435F2292A
+ver=2017.6.12.1
+md5=8B83A53BC70AB7425D1988D173399C0D
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 增加游戏路径自动修复
+info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 去掉失效的功能
