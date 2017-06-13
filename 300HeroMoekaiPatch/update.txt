@@ -1,5 +1,5 @@
 [Update]
 ver=2017.6.13.1
-md5=4131533784E6F59660CF156F4B6726B7
+md5=38B02DC05FA4558B2F7D1E6A375398A6
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 增加 中午、下午 显示效果
+info=★ 联系作者QQ: 770278436 可取得最新版本\n1. 增加中午、下午时段的昼夜模式\n2. 显示昼夜时段图标，防止误关闭图标\n3. 加快装载Box模块重启游戏的速度
