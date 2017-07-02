@@ -1,5 +1,5 @@
 [Update]
 ver=2017.7.2.9
-md5=70A8FCA17041DFF1BBB40FD72B4CAF57
+md5=DD977438F6E4BEBC4CDB0FE31D6EB986
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
 info=★ 联系作者QQ: 770278436 可取得最新版本\n1.更换新UI界面\n2.更新hook游戏界面切换事件\n3.添加开局时双方对局信息显示面板\n4.更新昼夜图标\n5.更新300Box模块\n6.更新启动器处理逻辑
