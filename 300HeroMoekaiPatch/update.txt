@@ -1,5 +1,5 @@
 [Update]
 ver=2017.7.3.1
-md5=859A61D8693B675F52048C37F4523C6F
+md5=784EE2BB78F0935AE036C22729BD024C
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=★ 联系作者QQ: 770278436 可取得最新版本\n1.修正部分昵称信息获取失败问题\n2.恢复昼夜图标显示
+info=★ 联系作者QQ: 770278436 可取得最新版本\n1.修正部分昵称信息获取失败问题\n2.恢复昼夜图标显示\n3.修正每次出现游戏没在运行问题
