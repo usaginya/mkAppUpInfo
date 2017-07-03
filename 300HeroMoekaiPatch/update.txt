@@ -1,5 +1,5 @@
 [Update]
-ver=2017.7.3.2
-md5=1910362FA0CD2BC0F60E0123F0B7BAC1
+ver=2017.7.3.3
+md5=56158B8607E5DA5EBEFD957651984FB0
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=★ 联系作者QQ: 770278436 可取得最新版本\n1.修正部分昵称信息获取失败问题\n2.恢复昼夜图标显示\n3.修正每次出现游戏没在运行问题
+info=★ 联系作者QQ: 770278436 可取得最新版本\n1.修正特殊昵称信息获取失败问题\n2.修正昼夜图标显示逻辑\n3.修正启动时经常出现游戏未运行问题\n4.添加对局列表右键复制菜单功能
