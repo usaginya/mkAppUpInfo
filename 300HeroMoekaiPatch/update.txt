@@ -1,5 +1,5 @@
 [Update]
-ver=2017.7.7.1a
-md5=75E1BB12837474B0DAC1EF16F967AE5D
+ver=2017.7.7.102
+md5=F6FDD5680E856DC86DFA2CEA354379D8
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
 info=★ 联系作者QQ: 770278436 可取得最新版本\n1.更新BOX模块\n2.修正配置项LoadBox=0时无法启动的BUG
