@@ -1,5 +1,5 @@
 [Update]
-ver=2017.7.22.3
-md5=52E447A64A37BFC6C594128AF2FAE024
+ver=2017.7.22.31
+md5=46959795BB09D52BC84BA3A562C04AA8
 download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=★ 联系作者QQ: 770278436 可取得最新版本\n1.更新 300BOX模块至2.4.3版本\n2.移除 黑条提示框功能，改为托盘提示\n3.添加 对局面板配置开关\n4.添加 预备时玩家昵称显示功能\n5.修复 对局面板信息获取\n6.调整 对局信息多余数据\n7.添加 对局面板右键菜单-查看战报信息 功能\n8.调整 其它代码逻辑
+info=★ 联系作者QQ: 770278436 可取得最新版本\n1.更新 300BOX模块 屏蔽广告词
