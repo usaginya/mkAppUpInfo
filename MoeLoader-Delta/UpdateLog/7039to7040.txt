@@ -19,30 +19,6 @@
 【重构JSON解析方法中......Complete!】
 【建立sankaku用户密码APPkey加密方法中.......Complete!】
 【重构获取页面数据方法中.......idol子站Complete!.......chan子站Complete!】-2017.2.19
-### Salt ###############################
-password: choujin-steiner--密码--
-APPkey: sankakuapp_小写用户名_Z5NE9YASej
-######################################
-### idol ###############################
-# [登录取Cookie&Session方案]
-# 方法: POST
-# 地址: https://iapi.sankakucomplex.com/user/authenticate.json
-# UA:  SCChannelApp/2.3 (Android; idol)
-# 提交: login=hdy&password_hash=SHA1(choujin-steiner--密码--)&appkey=SHA1(用户名)
-# [appkey(hdy): 8646a44fc7efd3d2685d974188b3f73308649ce1]
-# 
-# [获取方案]
-# 方法: GET
-# 地址: (login=hdy&password_hash=ff02df44ccfa3389edefeff82bfecbcb4d7a3bc6)
-https://iapi.sankakucomplex.com/post/index.json?login=用户名&password_hash=SHA1(密码)&appkey=(APPKey)&tags=(搜索内容)&page=2&limit=2
-#
-#取得: JSON
-#######################################
-### chan #####无法抓到APP的包#############
-# 猜测 可能不需要Cookie
-# 测试结果 ヾ(｀Д′ )woc 还真不需要！
-# 方法和 idol 一样、只需获取、地址 iapi 改为 capi 就行
-#######################################
 【修改 sankakucomplex的自动标签获取方式Complete!】-2017.2.17
 【更新站点登录Cookie获取方式为指定站点获取Complete!】-2017.2.19
 ==========================================================================
