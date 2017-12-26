@@ -3,11 +3,13 @@
 [2017-12-26]  ver 7.0.4.7Δ (1nd Annv)
 1. 修正 页数和显示图片数可以输入0的BUG
 2. 修正 菜单"重试"功能可能导致卡死的BUG
-3. 修正 WorldCosplay站点默认只获取8张图片的BUG
-4. 更改 Gelbooru站点解析方法为网页与API自动适用
-5. 更改 部分站点网络访问方法为Session方式
-6. 更改 预览窗复制标签不换行
-7. 优化 基础和Session网络访问功能
+3. 修正 下载逻辑BUG
+4. 修正 konachan站点下载文件尺寸显示错误BUG
+5. 修正 WorldCosplay站点默认只获取8张图片的BUG
+6. 更改 Gelbooru站点解析方法为网页与API自动适用
+7. 更改 部分站点网络访问方法为Session方式
+8. 更改 预览窗复制标签不换行
+9. 优化 基础和Session网络访问功能
 
 [2017-10-27]  ver 7.0.4.6aΔ
 1. 更新 SitePack 站点包、lolibooru站点加入限制规则内(需要18x.txt)
