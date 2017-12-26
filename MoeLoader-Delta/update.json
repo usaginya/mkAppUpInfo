@@ -25,7 +25,7 @@
         {
           "path": "SitePacks",
           "name": "SitePack.dll",
-          "ver": "1.0.5.1",
+          "ver": "1.0.5.2",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/SitePacks/SitePack.dll",
           "md5": "72C9D4B577329EB3F668CD06FA24898F"
