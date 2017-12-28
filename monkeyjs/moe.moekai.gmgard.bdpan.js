@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士の庭度盘链接提取码补全
 // @namespace    moe.moekai.gmgard.bdpan
-// @version      1.1
+// @version      1.2
 // @description  将提取码补到度盘链接后面,配合网盘自动填写密码脚本使用
 // @author       YIU
 // @match        *://gmgard.com/gm*
@@ -15,7 +15,7 @@
 	//取提取码
 	function getcode(){
 		var getval;
-		var reg = /^.{2}$|^.{4}$/;
+		var reg = /^[^\x00-\xff][a-z\d]$|^[a-z\d][^\x00-\xff]$|^[a-z\d]{4}$/g;
 		var codes = [];
 		$('.label-inverse').each(function(){
 			getval = $(this).text();
