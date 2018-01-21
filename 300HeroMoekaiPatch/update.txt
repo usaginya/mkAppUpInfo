@@ -1,5 +1,0 @@
-[Update]
-ver=2017.7.22.31
-md5=8CC1C8A8CA7726DBE81B69C8C0F48A45
-download=https://github.com/usaginya/mkAppUpInfo/raw/master/300HeroMoekaiPatch/Moekai300.exe
-info=★ 联系作者QQ: 770278436 可取得最新版本\n1.更新 300BOX模块 屏蔽广告词
