@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
-// @match        http*://gmgard.com/gm*
+// @match        http*://gmgard.com/*
 // @icon         http://gmgard.com/favicon.ico
 // @run-at       document-end
 // @grant        none
@@ -16,6 +16,7 @@
 	$("#body").css("background-color","#ffffffaa");
 	$(".categories").css("background","#ffffff99");
 	$("#blog").css("background-color","#fff0");
+	$(".home-list").css("background-color","#f7f7de50");
 	$("#rankContent").css("background-color","#daebf470");
 	$(".author-info").css("background","#f3f3f380");
 	$("#rankContent").append("<style>.rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}</style>");
