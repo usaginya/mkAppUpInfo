@@ -11,7 +11,7 @@
 // ==/UserScript==
 
 (function() {
-	
+
 	$("hr").css("border-top-color","#eee8");
 	$("hr").css("border-bottom-color","#eee8");
 	$("#body").css("background-color","#ffffffaa");
@@ -25,13 +25,13 @@
 	$(".author-sign").css("background","#ffffff80");
 	$(".spoiler-content").css("background","none repeat scroll 0 0 #f5f5f590");
 	$(".spoiler-content span[style*='background-color']").css("background-color","#000000cc");
-	$("navbar-inner").css({"background-color":"#fff0","background-image":"linear-gradient(to bottom,#ffffffa0,#f2f2f280)"});
+	$(".navbar-inner").css({"background-color":"#fff0","background-image":"linear-gradient(to bottom,#ffffffa0,#f2f2f280)"});
 
 	$("#rankContent").append("<style>.rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}</style>");
 	$("#rankContent").append("<style>.rankflag::before{background:linear-gradient(210deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}</style>");
 
 	$("footer").css("background-color","#e2e2e2e0");
-	
+
 	$(window).scroll(function(){
 		if(!window.bubbleok)
 		{
