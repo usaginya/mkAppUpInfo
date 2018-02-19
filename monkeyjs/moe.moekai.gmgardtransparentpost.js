@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      1.0
+// @version      1.1
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -21,6 +21,7 @@
 
 	$(".reply-section").css("background","#efeeef90");
 	$(".home-list").css("background-color","#f7f7de50");
+	$(".home-settings").css("background","#dddddd50");
 	$("#rankContent").css("background-color","#daebf470");
 	$(".author-info").css("background","#f3f3f380");
 	$(".author-sign").css("background","#ffffff80");
