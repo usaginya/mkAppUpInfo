@@ -20,6 +20,7 @@
 	$(".home-list").css("background-color","#f7f7de50");
 	$("#rankContent").css("background-color","#daebf470");
 	$(".author-info").css("background","#f3f3f380");
+	$(".author-sign").css("background","#ffffff80");
 	$(".bubble").append("<style>.bubble::after{border-width:10px 15px 10px 0;border-color:transparent #ffffffe6;}</style>");
 	$("#rankContent").append("<style>.rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}</style>");
 	$("#rankContent").append("<style>.rankflag::before{background:linear-gradient(210deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}</style>");
