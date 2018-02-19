@@ -21,6 +21,8 @@
 	$("#rankContent").css("background-color","#daebf470");
 	$(".author-info").css("background","#f3f3f380");
 	$(".author-sign").css("background","#ffffff80");
+	$(".spoiler-content").css("background","none repeat scroll 0 0 #f5f5f590");
+	$(".spoiler-content span[style*='background-color']").css("background-color","#000000cc");
 	$(".bubble").append("<style>.bubble::after{border-width:10px 15px 10px 0;border-color:transparent #ffffffe6;}</style>");
 	$("#rankContent").append("<style>.rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}</style>");
 	$("#rankContent").append("<style>.rankflag::before{background:linear-gradient(210deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}</style>");
