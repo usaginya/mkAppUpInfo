@@ -61,7 +61,7 @@
 	function FlipEvent(e)
 	{
 		var limit = 0;
-		var si = setInterval(okcheck, 600);
+		var si = setInterval(okcheck, 800);
 
 		function okcheck(){
 			if($(".bubble").length>0 && !$(e.target.parentNode).attr("class"))
@@ -70,7 +70,7 @@
 				changeCommentStyle();
 				AddPostFlipListener();
 			}
-			else if(limit > 4)
+			else if(limit > 5)
 			{
 				clearInterval(si);
 				AddPostFlipListener();
