@@ -61,16 +61,17 @@
 	function FlipEvent(e)
 	{
 		var limit = 0;
-		var si = setInterval(okcheck, 800);
+		var oldp = $(".bubble")[0];
+		var si = setInterval(okcheck, 500);
 
 		function okcheck(){
-			if($(".bubble").length>0 && !$(e.target.parentNode).attr("class"))
+			if($(".bubble").length>0 && !$(".bubble")[0].isEqualNode(oldp))
 			{
 				clearInterval(si);
 				changeCommentStyle();
 				AddPostFlipListener();
 			}
-			else if(limit > 5)
+			else if(limit > 18)
 			{
 				clearInterval(si);
 				AddPostFlipListener();
