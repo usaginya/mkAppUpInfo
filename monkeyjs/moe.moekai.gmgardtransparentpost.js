@@ -37,7 +37,6 @@
 	$("#main .content-wrapper").bind("DOMSubtreeModified",function(e){
 		var bcss = $(".bubble").css("background");
 		if(bcss && bcss.indexOf("0.565")<1){
-			console.log(9);
 			$(".bubble").css("background","#ffffff90");
 		}
 	});
