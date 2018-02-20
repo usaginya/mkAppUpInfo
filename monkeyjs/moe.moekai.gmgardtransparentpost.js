@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      1.1
+// @version      1.2
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -11,7 +11,6 @@
 // ==/UserScript==
 
 (function() {
-	//---------- Modify the style ----------//
 	$("hr").css("border-top-color","#eee8");
 	$("hr").css("border-bottom-color","#eee8");
 	$("#body").css("background-color","#ffffffaa");
@@ -35,59 +34,12 @@
 
 	$("footer").css("background-color","#e2e2e2e0");
 
-	function changeCommentStyle()
-	{
-		$(".bubble").css("background","#ffffff90");
-	}
-	//--------------------------------------------------//
-
-	$(window).scroll(function(){
-		if(!window.bubbleok)
-		{
-			if(getScrollPercent()>60 && $(".bubble").length>0 || $(".bubble").length>0)
-			{
-				changeCommentStyle();
-				AddPostFlipListener();
-				window.bubbleok = true;
-			}
+	$("#main .content-wrapper").bind("DOMSubtreeModified",function(e){
+		var bcss = $(".bubble").css("background");
+		if(bcss && bcss.indexOf("0.565")<1){
+			console.log(9);
+			$(".bubble").css("background","#ffffff90");
 		}
 	});
 
-	function AddPostFlipListener(){
-		$(".post-nav li a").each(function(){
-			this.addEventListener('click',FlipEvent);
-		});
-	}
-
-	function FlipEvent(e)
-	{
-		var limit = 0;
-		var oldp = $(".bubble")[0];
-		var si = setInterval(okcheck, 500);
-
-		function okcheck(){
-			if($(".bubble").length>0 && !$(".bubble")[0].isEqualNode(oldp))
-			{
-				clearInterval(si);
-				changeCommentStyle();
-				AddPostFlipListener();
-			}
-			else if(limit > 18)
-			{
-				clearInterval(si);
-				AddPostFlipListener();
-			}
-			limit++;
-		}
-	}
-
-	function getScrollPercent()
-	{
-		var scrollTo = $(window).scrollTop(),
-			docHeight = $(document).height(),
-			windowHeight = $(window).height();
-		scrollPercent = (scrollTo / (docHeight-windowHeight)) * 100;
-		scrollPercent = scrollPercent.toFixed(1);
-		return scrollPercent;
-	}
 })();
