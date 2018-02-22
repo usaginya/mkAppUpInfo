@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      1.2
+// @version      1.3
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -11,6 +11,7 @@
 // ==/UserScript==
 
 (function() {
+	var $ = unsafeWindow.jQuery;
 	$("hr").css("border-top-color","#eee8");
 	$("hr").css("border-bottom-color","#eee8");
 	$("#body").css("background-color","#ffffffaa");
@@ -26,7 +27,7 @@
 	$(".author-sign").css("background","#ffffff80");
 	$(".spoiler-content").css("background","none repeat scroll 0 0 #f5f5f590");
 	$(".spoiler-content span[style*='background-color']").css("background-color","#000000cc");
-	$("#main[style]").css("background","linear-gradient(135deg,#cebe29a6 0,#9b1f50a8 33%,#2989d8a8 71%,#89b4ffa8 91%)");
+	$("#main:contains('DailyRankings')").css("background","linear-gradient(135deg,#cebe29a6 0,#9b1f50a8 33%,#2989d8a8 71%,#89b4ffa8 91%)");
 	$(".navbar-inner").css({"background-color":"#fff0","background-image":"linear-gradient(to bottom,#ffffffa0,#f2f2f280)"});
 
 	$("#rankContent").append("<style>.rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}</style>");
