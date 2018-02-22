@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      1.3
+// @version      1.3.1
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
 // @icon         http://gmgard.com/favicon.ico
 // @run-at       document-end
-// @grant        none
+// @grant        unsafeWindow
 // ==/UserScript==
 
 (function() {
