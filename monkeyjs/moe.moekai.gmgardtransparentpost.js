@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      1.6
+// @version      1.7
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -20,7 +20,6 @@
 	$(".well").css("background-color","#f5f5f5b8");
 	$("input.tagsearch").css("background-color","#f5f5f599");
 	$("hr").css({"border-top-color":"#eee8","border-bottom-color":"#eee8"});
-	$(".btn-toolbar .btn,.searchbtn,.favbtn,#blog a[onclick*='rptBlog'],#newtag .btn,.author-info .btn:not(.disabled)").css({"background":"#f5f5f5b0","background-image":"none"});
 
 	$(".reply-section").css("background","#efeeef90");
 	$(".home-list").css("background-color","#f7f7de50");
@@ -41,24 +40,35 @@
 	//--- footer ---
 	$("footer").css("background-color","#e2e2e2e0");
 
+	//--- btn style ---
+	var st_btn = function(){
+		$(".btn-toolbar .btn,.searchbtn,.favbtn,#blog a[onclick*='rptBlog'],#newtag .btn,.author-info .btn:not(.disabled)").css({"background":"#f5f5f5b0","background-image":"none"});
+	};
+	st_btn();
+
 	//--- pager style ---
 	var st_pager = function(){
 		$("#jumppage,#postjumppage").css("background-color","#fffc");
-		$(".pager .btn:not(.disabled)").css({"background":"#fffc","background-image":"none"});
+		$(".pager .btn,.ajax-pager .btn").css({"background":"#fffc","background-image":"none"});
 	};
 	st_pager();
 
-	//---- comments ----
+	//---- main change ----
 	$("#main .content-wrapper").bind("DOMSubtreeModified",function(e){
-		var bg_bubble = $(".bubble").css("background");
-		if(bg_bubble && bg_bubble.indexOf('0.')<1){
+		var bg_set = $(".bubble").css("background");
+		if(bg_set && bg_set.indexOf('0.')<1){
 			$(".bubble").css("background","#ffffff90");
 			$(e.target).append("<style>.bubble::after{border-right-width:15px;border-color:transparent #fffffff0}</style>");
 		}
-
+		//-- btn-toolbar --
+		bg_set = $(".HGworks .btn-toolbar .btn").css("background");
+		if(bg_set && bg_set.indexOf('0.')<1) st_btn();
 		//-- pager --
-		var bg_pager = $(".pager .btn:not(.disabled)").css("background");
-		if(bg_pager && bg_pager.indexOf('0.')<1) st_pager();
+		bg_set = $(".pager .btn,.ajax-pager .btn").not(".disabled").css("background");
+		if(bg_set && bg_set.indexOf('0.')<1) st_pager();
+		//-- HG --
+		bg_set = $(".well").css("background-color");
+		if(bg_set && bg_set.indexOf("0.")<1) {$(".well").css("background-color","#f5f5f5b8"); st_btn();}
 	});
 
 	//----- edit tag ----
@@ -71,7 +81,7 @@
 		$(".tm-tag-info").css("background-color","#c5eefaa0");
 	});
 
-	// ---- comment edit box ----
+	//---- comment edit box ----
 	$("#AddReplyForm").bind("DOMSubtreeModified",function(){
 		var bg_cke_inner = $(".cke_inner").css("background");
 		if(bg_cke_inner && bg_cke_inner.indexOf("0.")<1){
