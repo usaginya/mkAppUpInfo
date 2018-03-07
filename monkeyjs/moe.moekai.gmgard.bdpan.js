@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士の庭度盘链接提取码补全
 // @namespace    moe.moekai.gmgard.bdpan
-// @version      1.4
+// @version      1.5
 // @description  将提取码补到度盘链接后面,配合网盘自动填写密码脚本使用
 // @author       YIU
 // @match        *://gmgard.com/gm*
@@ -10,6 +10,7 @@
 // ==/UserScript==
 
 (function() {
+	var $ = unsafeWindow.jQuery;
 	var codesv = 0;
 
 	//取提取码
@@ -26,28 +27,21 @@
 
 
 	var code = getcode();
-	if(code !== undefined && code.length > 0)
+	if(code !== undefined && codesv > 0)
 	{
-		var i = 0;
-		var o;
+		$('#dllist a').mouseenter();
 
+		var i = 0;
 		$('#dllist a').each(function(){
-			$(this).focus();
 			var panurl = $(this)[0].href.indexOf("n.baidu");
 			if(panurl > 0)
 			{
-				setTimeout(function(){},800);
 				i = i<codesv ? i : i-1;
 				$(this).attr("href",$(this)[0].href + '#' + code[i]);
 				i++;
 				o = this;
 			}
 		});
-
-		if(i===1 && code.length > i)
-			$(o).attr("href",$(o)[0].href + '#' + code[code.length-1]);
-
-		window.scrollTo(0,0);
 	}
 
 })();
