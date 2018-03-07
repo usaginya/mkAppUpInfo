@@ -23,6 +23,8 @@
     var url = getParam("url");
     if(url.length>0)
     window.location.href = url; 
+    else
+    window.history.go(-1);
 </script>
 </head>
 </body>
