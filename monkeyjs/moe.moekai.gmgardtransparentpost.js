@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      1.91
+// @version      1.92
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -19,7 +19,7 @@
 	$("#blog .uimg").css("background","#fff9");
 	$(".well").css("background-color","#f5f5f5b8");
 	$("input.tagsearch").css("background-color","#f5f5f599");
-	$("span[style='background-color:#000000']").css("background","#000b");
+	$("span[style='background-color:#000000']").css("background","#000000a5");
 	$("hr").css({"border-top-color":"#eee8","border-bottom-color":"#eee8"});
 
 	$(".reply-section").css("background","#efeeef90");
@@ -29,7 +29,7 @@
 	$(".author-info").css("background","#f3f3f380");
 	$(".author-sign").css("background","#ffffff80");
 	$(".spoiler-content").css("background","none repeat scroll 0 0 #f5f5f590");
-	$(".spoiler-content span[style*='background-color']").css("background-color","#000000cc");
+	$(".spoiler-content span[style*='background-color']").css("background-color","#000000a5");
 	$("#main:contains('DailyRankings')").css("background","linear-gradient(135deg,#cebe29a6 0,#9b1f50a8 33%,#2989d8a8 71%,#89b4ffa8 91%);");
 	$(".navbar-inner").css({"background-color":"#fff0","background-image":"linear-gradient(to bottom,#ffffffa0,#f2f2f280)"});
 	$(".btn-info").css({"background":"transparent linear-gradient(to bottom,#5bc0dea0,#2f96b480)"});
