@@ -1,6 +1,6 @@
 $(window).on("load",function(){
 	v = document.getElementById("musics");
-	v.oncanplay=eve();
+	v.oncanplay=new eve();
 });
 
 function eve(){
