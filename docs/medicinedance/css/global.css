@@ -1,0 +1,8 @@
+html{height:100%}
+body{background:transparent linear-gradient(rgb(167, 254, 254) 47%, rgb(126, 191, 254) 48%,rgb(126, 191, 254) 51%,rgb(125, 254, 191) 52%,rgb(125, 254, 191) 59%,rgb(125, 191, 158) 65%)}
+.whilebody{background:#fff;}
+.aimg{
+ margin:auto;
+ position:absolute;
+ top:0; left:0; bottom:0; right:0;
+}
