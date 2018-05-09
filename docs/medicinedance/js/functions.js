@@ -1,8 +1,9 @@
-$(window).on("load",function(){
+window.onload=function(){
 	v = document.getElementById("musics");
-	v.oncanplay=function(){
-		$("#himg").css('display','block');
-		$("body").removeClass("whilebody");
-	};
-});
+	v.oncanplay=eve();
+}
 
+function eve(){
+	$("#himg").css('display','block');
+	$("body").removeClass("whilebody");
+}
