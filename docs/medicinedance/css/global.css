@@ -7,10 +7,38 @@ a{text-decoration:none}
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;}
+    bottom: 0;
+    }
+.wall{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+div#cloud{background:url('cloud.png')repeat 20% 0%;height:47%;z-index:1}
 .whilebody{background:#fff;}
 .aimg{
  margin:auto;
  position:absolute;
  top:0; left:0; bottom:0; right:0;}
-#lrcbox,#lrcbox2{color:#fff;position:absolute;}
+#lrcbox,#lrcbox2{color:#fff;position:absolute;z-index:2}
+
+div#cloud {
+    background: url('cloud.png')repeat 20% 0%;
+    -webkit-animation: STAR-MOVE 13s ease-in-out 0s infinite;
+    -moz-animation: STAR-MOVE 13s ease-in-out 0s infinite;
+    -ms-animation: STAR-MOVE 13s ease-in-out 0s infinite;
+    animation: STAR-MOVE 13s ease-in-out 0s infinite;
+}
+
+@-webkit-keyframes STAR-MOVE {
+	 0% {background-position:0% 0%}
+	50% {background-position: 2% 0%}
+	100% {background-position:0% 0%}
+}
+@keyframes STAR-MOVE {
+	 0% {background-position:0% 0%}
+	50% {background-position: 2% 0%}
+	100% {background-position:0% 0%}
+}

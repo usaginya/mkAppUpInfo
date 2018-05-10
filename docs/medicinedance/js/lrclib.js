@@ -1,3 +1,7 @@
+/*
+ * by YIU
+ * last 20180510.18
+ */
 function randColor(){
 	var red = parseInt(Math.random()*156+80).toString();
 	var blue = parseInt(Math.random()*156+80).toString();
@@ -6,6 +10,16 @@ function randColor(){
 }
 function randFontsize(){
 	return parseInt(Math.random()*16+10).toString() + 'pt';
+}
+
+function randSort(maxval){
+	if(maxval<1) return 0;
+	var array = new Array(Math.floor(maxval))
+	.fill(0)
+	.map((v,i)=>i+1)
+	.sort(()=>0.5 - Math.random())
+	.filter((v,i)=>i<10);
+	return array[0];
 }
 
 var lrclib = {
@@ -34,25 +48,29 @@ var lrclib = {
 	moveLrc: function(id,fout) {
 		var lrcBox = $('#'+id);
 		if(fout)
-			$(lrcBox).fadeTo(280,0.1,function(){
+			$(lrcBox).fadeOut(280,function(){
 
 				var	fontSize = randFontsize();
 				var	fShadow = randColor();
 				fShadow = fShadow + ' 0px 0px 5px,' + fShadow + ' 0px 0px 10px,' + fShadow + ' 0px 0px 15px,' + fShadow + ' 0px 0px 20px, '+fShadow+' 0px 0px 5px';
-				$(lrcBox).css({'font-size':fontSize,'text-shadow':fShadow});
+				lrcBox.css({'display':'block','opacity':'0','font-size':fontSize,'text-shadow':fShadow});
 
+				var fixedLeft = window.innerWidth-640;
+				var fixedTop = window.innerHeight-100;
 				var	maxLeft = window.innerWidth - lrcBox.width();
+				maxLeft = maxLeft>fixedLeft ? fixedLeft : maxLeft;
 				var	maxTop = window.innerHeight - lrcBox.height();
-				var	leftPos = Math.floor(Math.random() * (maxLeft + 1));
-				var	topPos = Math.floor(Math.random() * (maxTop + 1));
-				$(lrcBox).css({ left:leftPos, top:topPos});
+				maxTop = maxTop>fixedTop ? fixedTop : maxTop;
+				var	leftPos = Math.floor(randSort(maxLeft));
+				var	topPos = Math.floor(randSort(maxTop));
+				lrcBox.css({ left:leftPos, top:topPos });
 			});
 		else{
-			$(lrcBox).fadeTo(300,1);
+			lrcBox.fadeTo(300,1);
 		}
 	},
 
-	showLrc: function(id,url) {
+	showLrc: function(id,url,extxt='',exurl='') {
 		var request = new XMLHttpRequest();
 		//'./content/songs/foo.lrc'
 		request.open('GET', url, true);
@@ -63,16 +81,27 @@ var lrclib = {
 
 			var audio = document.getElementsByTagName('audio')[0],
 				lrcBox = document.getElementById(id);
+			var lrcBoxlink = $('#lrcbox2').parent('a');
 			if(!lrcBox) return;
 
 			lrclib.moveLrc(id,1);
 			audio.addEventListener("timeupdate",function(){
 				for (var i = 0, l = lrc.length; i < l; i++) {
-					if (this.currentTime> lrc[i][0] && this.currentTime < lrc[i][0]+0.25) {
+					if (this.currentTime> lrc[i][0] && this.currentTime < lrc[i][0]+0.3) {
 						lrcBox.textContent = lrc[i][1];
+
+						if(lrcBox.textContent.indexOf(extxt)>-1 && exurl)
+						{
+							lrcBoxlink.attr('bakdata',lrcBoxlink.attr('href'));
+							lrcBoxlink.attr('href',exurl);
+						}else if(typeof(lrcBoxlink.attr("bakdata"))!="undefined")
+						{
+							lrcBoxlink.attr('href',lrcBoxlink.attr('bakdata'));
+							lrcBoxlink.removeAttr('bakdata');
+						}
 						lrclib.moveLrc(id,0);
 					}
-					else if( i<l-1 && this.currentTime> lrc[i+1][0]-0.5 && this.currentTime < lrc[i+1][0]-0.3)
+					else if( i<l-1 && this.currentTime> lrc[i+1][0]-1 && this.currentTime < lrc[i+1][0]-0.4)
 						lrclib.moveLrc(id,1);
 				}
 			});
