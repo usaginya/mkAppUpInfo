@@ -1,8 +1,16 @@
-html{height:100%}
+html{height:100%;overflow-x: hidden; overflow-y: hidden;}
 body{background:transparent linear-gradient(rgb(167, 254, 254) 47%, rgb(126, 191, 254) 48%,rgb(126, 191, 254) 51%,rgb(125, 254, 191) 52%,rgb(125, 254, 191) 59%,rgb(125, 191, 158) 65%)}
+a{text-decoration:none}
+.center{
+    text-align: center;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;}
 .whilebody{background:#fff;}
 .aimg{
  margin:auto;
  position:absolute;
- top:0; left:0; bottom:0; right:0;
-}
+ top:0; left:0; bottom:0; right:0;}
+#lrcbox,#lrcbox2{color:#fff;position:absolute;}
