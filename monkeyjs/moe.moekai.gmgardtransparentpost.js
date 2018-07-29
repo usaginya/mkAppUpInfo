@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      1.92
+// @version      2.0
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -33,15 +33,22 @@
 	$("#main:contains('DailyRankings')").css("background","linear-gradient(135deg,#cebe29a6 0,#9b1f50a8 33%,#2989d8a8 71%,#89b4ffa8 91%);");
 	$(".navbar-inner").css({"background-color":"#fff0","background-image":"linear-gradient(to bottom,#ffffffa0,#f2f2f280)"});
 	$(".btn-info").css({"background":"transparent linear-gradient(to bottom,#5bc0dea0,#2f96b480)"});
+	$("#multiview table").css({"background-color":"#fff6"});
 
 	var strs = "<style>";
 	strs += "pre{background-color:#f5f5f599}";
 	strs +=".user-bg h2,.user-bg .user-stats,.user-bg .user-numbers-div,.userinfo h3{background-color:transparent!important}";
 	strs += ".rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}";
 	strs += ".rankflag::before{background:linear-gradient(210deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}";
-	strs += ".nav-tabs .active a,.nav-tabs .active a:hover,.nav-tabs .active a:focus,.user-comment{background-color:#fffa}";
+	strs += ".nav-tabs .active a,.nav-tabs .active a:hover,.nav-tabs .active a:focus,.user-comment,#multiview input[type='text'],#multiview textarea{background-color:#fffa}";
 	strs += ".feed-item{background-color:#fff9}";
 	strs += ".feed-footer{background:#f7f6f980}";
+	strs += ".tabcontent{background-color:#fff4}";
+	strs += "#msgmenu .active a{background-color:transparent}";
+	strs += ".msglist-item:hover{background-color:#c0c0c090}";
+	strs += ".dropdown-menu{background-color:#fffe}";
+	strs += ".nav-pills .open .dropdown-toggle{background-color:#999a}";
+	strs += ".nav>li>a:hover,.nav>li>a:focus{background-color:#eeeb}";
 	strs += "</style>";
 	$("head").append(strs);
 
@@ -97,6 +104,14 @@
 			$(".cke_toolgroup").css("background","transparent");
 			$(".cke_top,.cke_bottom").css({"background":"transparent linear-gradient(rgba(229,245,250,.3), rgba(1,158,213,.3))"});
 			$(".cke_inner").css({"background":"transparent linear-gradient(to right, rgba(255,255,255,.5),rgba(255,255,255,.5),rgba(255,255,255,.5),rgba(255,255,255,1),rgba(255,255,255,1))"});
+		}
+	});
+
+	//---- Message center table ----
+	$(".tabcontent").bind("DOMSubtreeModified",function(){
+		var bg_table = $("#multiview table").css("background-color");
+		if(bg_table && bg_table.indexOf("0.")<1){
+			$("#multiview table").css("background-color","#fff6");
 		}
 	});
 
