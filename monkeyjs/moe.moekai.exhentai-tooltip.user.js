@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ExHentai列表标题悬浮提示
 // @namespace    moe.moekai.exhentai-tooltip
-// @version      0.1
+// @version      0.2
 // @description  给ExHentai缩略图列表标题添加悬浮提示来显示完整标题
 // @author       YIU
 // @icon         https://exhentai.org/favicon.ico
@@ -15,7 +15,7 @@
 
 (function() {
 
-	var headlabel = '<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">';
+	var headlabel = '<link rel="stylesheet" href="https://cdn.bootcss.com/jqueryui/1.11.0/jquery-ui.min.css">';
 	headlabel += '<script>$(function(){$(document).tooltip({position:{using:function(position){$(this).css(position);$("<div>").addClass("arrow").appendTo(this);}},track:true});});</script>';
 	headlabel += '<style>.ui-tooltip,.arrow:after{background:#001b;border:1px solid #446}.ui-tooltip{padding:8px 10px;color:white;font:14px"Microsoft yahei",Sans-Serif;box-shadow:0 0 7px #446}</style>';
 
