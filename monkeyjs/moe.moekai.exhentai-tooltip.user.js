@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ExHentai列表标题悬浮提示
 // @namespace    moe.moekai.exhentai-tooltip
-// @version      0.2
+// @version      0.3
 // @description  给ExHentai缩略图列表标题添加悬浮提示来显示完整标题
 // @author       YIU
 // @icon         https://exhentai.org/favicon.ico
