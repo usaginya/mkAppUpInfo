@@ -7,6 +7,8 @@
 // @icon         https://exhentai.org/favicon.ico
 // @match        *://exhentai.org/
 // @match        *://exhentai.org/?*
+// @match        *://e-hentai.org/
+// @match        *://e-hentai.org/?*
 // @require      https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js
 // @require      https://cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js
 // @run-at       document-end
