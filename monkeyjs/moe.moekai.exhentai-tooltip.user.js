@@ -8,7 +8,7 @@
 // @match        *://exhentai.org/
 // @match        *://exhentai.org/?*
 // @require      https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js
-// @require      http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js
+// @require      https://cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
