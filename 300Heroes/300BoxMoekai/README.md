@@ -7,4 +7,4 @@
 
 --------
 * 在此的 300BoxMoekaiLauncher 为旧版专用 不可实际使用
-** The 300BoxMoekaiLauncher for the old version is can't actually use
+* The 300BoxMoekaiLauncher for the old version is can't actually use
