@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      2.4
+// @version      2.5
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -170,11 +170,16 @@
 	});
 
 	//---- Change user top background ----
+	function setUserTopBG(){
+		var blockheight = $("#tm-userinfo").height();
+		$(".user-cover-bg").css({"opacity":".5","width":"755px","height":blockheight+"px","position":"absolute","z-index":"-1"});
+		$("#main").prepend('<div style="width:755px;height:"'+ blockheight +'px";background-color:#fff;position:absolute;z-index:-2"></div>');
+	}
+
 	if($(".user-cover-bg").css("background-image").length > 4){
 		$("#main .user-bg").after('<div id="tm-userinfo"></div>');
 		$("#tm-userinfo").append($("#main .user-bg").children());
-		$(".user-cover-bg").css({"opacity":".5","width":"755px","height":"255px","position":"absolute","z-index":"-1"});
-		$("#main").prepend('<div style="width:755px;height:255px;background-color:#fff;position:absolute;z-index:-2"></div>');
+		setTimeout(function(){setUserTopBG();},800);
 	}
 
 })();
