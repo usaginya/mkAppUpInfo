@@ -62,6 +62,8 @@
 	strs += ".scate-7 .sactive,.scate-7 .sinde,.scate-7.sactive,.scate-7.sinde{background:#630}";
 	strs += ".scate-8 .sactive,.scate-8 .sinde,.scate-8.sactive,.scate-8.sinde{background:#3cf}";
 	strs += ".scate-9 .sactive,.scate-9 .sinde,.scate-9.sactive,.scate-9.sinde{background:#d9e51e}";
+	strs += ".listview li div.badge.info{background-color:#2d6987b0}";
+	strs += ".alert-info{background-color:#d9edf7b0}";
 	strs += ".btn-primary{background-image:linear-gradient(to bottom,transparent,transparent)!important;background-color:#006dcc99!important}";
 	strs += ".btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]{background-color:#04c9!important}";
 	strs += ".nav-pills>.active>a,.nav-pills>.active>a:hover,.nav-pills>.active>a:focus{background-color:#08ca}";
