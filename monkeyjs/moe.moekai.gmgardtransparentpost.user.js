@@ -119,6 +119,9 @@
 		//-- HG --
 		bg_set = $(".well").css("background-color");
 		if(bg_set && bg_set.indexOf("0.")<1) {$(".well").css("background-color","#f5f5f5b8"); st_btn();}
+		//-- home-list --
+		bg_set = $(".home-list").css("background-color");
+		if(bg_set && bg_set.indexOf("0.")<1) {$(".home-list").css("background-color","#f7f7de50");}
 	});
 
 	//----- edit tag ----
