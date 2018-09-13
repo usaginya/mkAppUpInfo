@@ -170,7 +170,7 @@
 	});
 
 	//---- Change user top background ----
-	if($(".user-cover-bg").length > 0){
+	if($(".user-cover-bg").css("background-image").length > 4){
 		$("#main .user-bg").after('<div id="tm-userinfo"></div>');
 		$("#tm-userinfo").append($("#main .user-bg").children());
 		$(".user-cover-bg").css({"opacity":".5","width":"755px","height":"255px","position":"absolute","z-index":"-1"});
