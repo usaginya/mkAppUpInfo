@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      2.2
+// @version      2.3
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -37,18 +37,33 @@
 	$("#multiview table").css({"background-color":"#fff6"});
 
 	var strs = "<style>";
-	strs += ".label{background-color:#9999}";
 	strs += "pre{background-color:#f5f5f599}";
-	strs += ".btn-warning{background-image:linear-gradient(to bottom,#fbb45099,#f8940699)}";
+	strs += ".expbar{background-image:linear-gradient(to bottom,#f5f5f500,#f9f9f999)}";
+	strs += ".expbar .progress-success .bar{background-image:linear-gradient(to bottom,#00ff004a,#00ff008c)}";
+	strs += ".main-content .label,.main-content .badge{background-color:#9999}";
+	strs += ".btn{background-image:linear-gradient(to bottom,transparent,transparent);background-color:#f5f5f5b0}";
+	strs += ".btn-warning{background-image:linear-gradient(to bottom,#fbb45099,#f8940699)!important}";
+	strs += ".btn-danger{background-image:linear-gradient(to bottom,#ee5f5bc0,#bd362fc0)!important}";
 	strs += ".listview li div.badge,.hanintro .label{background-color:#2d89efbd}";
-	strs += ".label-info[href],.badge-info[href]{background-color:#2d6987b5}";
-	strs += ".label-important,.badge-important{background-color:#b94a48d6}";
-	strs += ".label-info,.badge-info{background-color:#3a87adcc}";
-	strs += ".label-warning,.badge-warning{background-color:#f89406b0}";
-	strs += ".label-success,.badge-success{background-color:#468847b0}";
-	strs += ".label-inverse,.badge-inverse{background-color:#0008}";
-	strs += ".btn-primary{background-image:linear-gradient(to bottom,transparent,transparent);background-color:#006dcc99}";
-	strs += ".btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]{background-color:#04c9}";
+	strs += ".label-info[href],.badge-info[href]{background-color:#2d6987b0!important}";
+	strs += ".label-important,.badge-important{background-color:#b94a48d6!important}";
+	strs += ".label-info,.badge-info,#createform .label-info{background-color:#3a87adb0!important}";
+	strs += ".label-warning,.badge-warning{background-color:#f89406b0!important}";
+	strs += ".label-success,.badge-success{background-color:#468847b0!important}";
+	strs += ".label-inverse,.badge-inverse{background-color:#0008!important}";
+	strs += ".lolly,.lvl{background-color:#f5ab36b0}";
+	strs += ".cbadge{background-color:#FF677D!important}";
+	strs += ".scate-1 .sactive,.scate-1 .sinde,.scate-1.sactive,.scate-1.sinde{background:#e63333}";
+	strs += ".scate-2 .sactive,.scate-2 .sinde,.scate-2.sactive,.scate-2.sinde{background:#2f75b5}";
+	strs += ".scate-3 .sactive,.scate-3 .sinde,.scate-3.sactive,.scate-3.sinde{background:#60f}";
+	strs += ".scate-4 .sactive,.scate-4 .sinde,.scate-4.sactive,.scate-4.sinde{background:#70ad47}";
+	strs += ".scate-5 .sactive,.scate-5 .sinde,.scate-5.sactive,.scate-5.sinde{background:#bf8f00}";
+	strs += ".scate-6 .sactive,.scate-6 .sinde,.scate-6.sactive,.scate-6.sinde{background:#ff92db}";
+	strs += ".scate-7 .sactive,.scate-7 .sinde,.scate-7.sactive,.scate-7.sinde{background:#630}";
+	strs += ".scate-8 .sactive,.scate-8 .sinde,.scate-8.sactive,.scate-8.sinde{background:#3cf}";
+	strs += ".scate-9 .sactive,.scate-9 .sinde,.scate-9.sactive,.scate-9.sinde{background:#d9e51e}";
+	strs += ".btn-primary{background-image:linear-gradient(to bottom,transparent,transparent)!important;background-color:#006dcc99!important}";
+	strs += ".btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]{background-color:#04c9!important}";
 	strs += ".nav-pills>.active>a,.nav-pills>.active>a:hover,.nav-pills>.active>a:focus{background-color:#08ca}";
 	strs +=".user-bg h2,.user-bg .user-stats,.user-bg .user-numbers-div,.userinfo h3{background-color:transparent!important}";
 	strs += ".rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}";
@@ -61,11 +76,12 @@
 	strs += ".tabcontent{background-color:#fff4}";
 	strs += ".tooltip-inner{background-color:#000b}";
 	strs += "#flinkdiv img{opacity:.5}";
-	strs += "#msgmenu .active a,.btn-warning{background-color:transparent}";
+	strs += "#donatediv #msgmenu .active a,#donatediv .btn-warning,.expbar,.expbar .progress-success .bar{background-color:transparent}";
 	strs += ".msglist-item:hover{background-color:#c0c0c090}";
 	strs += ".dropdown-menu{background-color:#fffe}";
 	strs += ".nav-pills .open .dropdown-toggle{background-color:#999a}";
 	strs += ".nav>li>a:hover,.nav>li>a:focus{background-color:#eeeb}";
+	strs += ".post .post-title a:hover{background-color:#e6e6e6cc}";
 	strs += "</style>";
 	$("head").append(strs);
 
@@ -148,7 +164,7 @@
 	});
 
 	//---- Change user top background ----
-	if($("#main")){
+	if($(".user-cover-bg").length > 0){
 		$("#main .user-bg").after('<div id="tm-userinfo"></div>');
 		$("#tm-userinfo").append($("#main .user-bg").children());
 		$(".user-cover-bg").css({"opacity":".5","width":"755px","height":"255px","position":"absolute","z-index":"-1"});
