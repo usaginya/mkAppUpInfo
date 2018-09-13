@@ -39,7 +39,7 @@
 	var strs = "<style>";
 	strs += "pre{background-color:#f5f5f599}";
 	strs += ".expbar{background-image:linear-gradient(to bottom,#f5f5f500,#f9f9f999)}";
-	strs += ".expbar .progress-success .bar{background-image:linear-gradient(to bottom,#00ff004a,#00ff008c)}";
+	strs += ".progress-success .bar{background-image:linear-gradient(to bottom,#00ff004a,#00ff008c)}";
 	strs += ".main-content .label,.main-content .badge{background-color:#9999}";
 	strs += ".btn{background-image:linear-gradient(to bottom,transparent,transparent);background-color:#f5f5f5b0}";
 	strs += ".btn-warning{background-image:linear-gradient(to bottom,#fbb45099,#f8940699)!important}";
@@ -78,7 +78,7 @@
 	strs += ".tabcontent{background-color:#fff4}";
 	strs += ".tooltip-inner{background-color:#000b}";
 	strs += "#flinkdiv img{opacity:.5}";
-	strs += "#donatediv #msgmenu .active a,#donatediv .btn-warning,.expbar,.expbar .progress-success .bar{background-color:transparent}";
+	strs += "#donatediv #msgmenu .active a,#donatediv .btn-warning,.expbar,.progress-success .bar{background-color:transparent}";
 	strs += ".msglist-item:hover{background-color:#c0c0c090}";
 	strs += ".dropdown-menu{background-color:#fffe}";
 	strs += ".nav-pills .open .dropdown-toggle{background-color:#999a}";
