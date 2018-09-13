@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      2.3
+// @version      2.4
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -44,6 +44,7 @@
 	strs += ".btn{background-image:linear-gradient(to bottom,transparent,transparent);background-color:#f5f5f5b0}";
 	strs += ".btn-warning{background-image:linear-gradient(to bottom,#fbb45099,#f8940699)!important}";
 	strs += ".btn-danger{background-image:linear-gradient(to bottom,#ee5f5bc0,#bd362fc0)!important}";
+	strs += ".btn-inverse{background-image:linear-gradient(to bottom,#4449,#222c)}";
 	strs += ".listview li div.badge,.hanintro .label{background-color:#2d89efbd}";
 	strs += ".label-info[href],.badge-info[href]{background-color:#2d6987b0!important}";
 	strs += ".label-important,.badge-important{background-color:#b94a48d6!important}";
