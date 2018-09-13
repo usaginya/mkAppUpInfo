@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      2.1
+// @version      2.2
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -39,11 +39,14 @@
 	var strs = "<style>";
 	strs += ".label{background-color:#9999}";
 	strs += "pre{background-color:#f5f5f599}";
-	strs += ".btn-warning{background-image: linear-gradient(to bottom,#fbb45099,#f8940699)}";
+	strs += ".btn-warning{background-image:linear-gradient(to bottom,#fbb45099,#f8940699)}";
+	strs += ".listview li div.badge,.hanintro .label{background-color:#2d89efbd}";
 	strs += ".label-info[href],.badge-info[href]{background-color:#2d6987b5}";
 	strs += ".label-important,.badge-important{background-color:#b94a48d6}";
 	strs += ".label-info,.badge-info{background-color:#3a87adcc}";
-	strs += ".label-inverse, .badge-inverse{background-color:#0008}";
+	strs += ".label-warning,.badge-warning{background-color:#f89406b0}";
+	strs += ".label-success,.badge-success{background-color:#468847b0}";
+	strs += ".label-inverse,.badge-inverse{background-color:#0008}";
 	strs += ".btn-primary{background-image:linear-gradient(to bottom,transparent,transparent);background-color:#006dcc99}";
 	strs += ".btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]{background-color:#04c9}";
 	strs += ".nav-pills>.active>a,.nav-pills>.active>a:hover,.nav-pills>.active>a:focus{background-color:#08ca}";
@@ -51,7 +54,9 @@
 	strs += ".rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}";
 	strs += ".rankflag::before{background:linear-gradient(210deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}";
 	strs += ".nav-tabs .active a,.nav-tabs .active a:hover,.nav-tabs .active a:focus,.user-comment,#multiview input[type='text'],#multiview textarea{background-color:#fffa}";
-	strs += ".feed-item{background-color:#fff9}";
+	strs += ".feed-item,select{background-color:#fff9}";
+	strs += "textarea,input[type='text'],input[type='password'],input[type='datetime'],input[type='datetime-local'],input[type='date'],input[type='month'],input[type='time'],";
+	strs += "input[type='week'],input[type='number'],input[type='email'],input[type='url'],input[type='search'],input[type='tel'],input[type='color'],.uneditable-input{background-color:#fffa}";
 	strs += ".feed-footer{background:#f7f6f980}";
 	strs += ".tabcontent{background-color:#fff4}";
 	strs += ".tooltip-inner{background-color:#000b}";
@@ -126,5 +131,28 @@
 			$("#multiview table").css("background-color","#fff6");
 		}
 	});
+
+	//---- New post create edit box ----
+	$("#createform tbody").bind("DOMSubtreeModified",function(){
+		var bg_cke_wysiwyg = $(".cke_wysiwyg_frame").css("background");
+		if(bg_cke_wysiwyg && bg_cke_wysiwyg.indexOf("0)")<1){
+			$(".cke_wysiwyg_frame,.cke_wysiwyg_div").css("background","transparent");
+		}
+
+		var bg_cke_inner = $(".cke_inner").css("background");
+		if(bg_cke_inner && bg_cke_inner.indexOf("0.")<1){
+			$(".cke_toolgroup,.cke_combo_button").css("background","transparent linear-gradient(to bottom,#fff9,#e4e4e444)");
+			$(".cke_top,.cke_bottom").css({"background":"transparent linear-gradient(to bottom,#f5f5f555,#cfd1cf8c)"});
+			$(".cke_inner").css({"background":"#fffc"});
+		}
+	});
+
+	//---- Change user top background ----
+	if($("#main")){
+		$("#main .user-bg").after('<div id="tm-userinfo"></div>');
+		$("#tm-userinfo").append($("#main .user-bg").children());
+		$(".user-cover-bg").css({"opacity":".5","width":"755px","height":"255px","position":"absolute","z-index":"-1"});
+		$("#main").prepend('<div style="width:755px;height:255px;background-color:#fff;position:absolute;z-index:-2"></div>');
+	}
 
 })();
