@@ -52,7 +52,7 @@
 	strs += ".label-warning,.badge-warning{background-color:#f89406b0!important}";
 	strs += ".label-success,.badge-success{background-color:#468847b0!important}";
 	strs += ".label-inverse,.badge-inverse{background-color:#0008!important}";
-	strs += ".lolly,.lvl{background-color:#f5ab36b0}";
+	strs += ".lolly,.lvl{background-color:#f5ab36b0!important}";
 	strs += ".cbadge{background-color:#FF677D!important}";
 	strs += ".scate-1 .sactive,.scate-1 .sinde,.scate-1.sactive,.scate-1.sinde{background:#e63333}";
 	strs += ".scate-2 .sactive,.scate-2 .sinde,.scate-2.sactive,.scate-2.sinde{background:#2f75b5}";
