@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明文章
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      2.7
+// @version      2.8
 // @description  让绅士之庭的文章底色透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -85,6 +85,9 @@
 	strs += ".nav-pills .open .dropdown-toggle{background-color:#999a}";
 	strs += ".nav>li>a:hover,.nav>li>a:focus{background-color:#eeeb}";
 	strs += ".post .post-title a:hover{background-color:#e6e6e6cc}";
+	strs += "::-webkit-scrollbar{width:14px}";
+	strs += "::-webkit-scrollbar-thumb{border-radius:4px;-webkit-box-shadow:inset 0 0 20px #fffa;background-color:#9999}";
+	strs += "::-webkit-scrollbar-track{border-radius:4px;-webkit-box-shadow:inset 0 0 4px rgba(0,0,0,.3);background-color:#fff5}";
 	strs += "</style>";
 	$("head").append(strs);
 
