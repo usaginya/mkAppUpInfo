@@ -6,4 +6,5 @@
 123.207.56.160 www.pixiv.net
 123.207.56.160 touch.pixiv.net
 123.207.56.160 oauth.secure.pixiv.net
+123.207.56.160 accounts.pixiv.net
 #### Pixiv Hosts End #####
