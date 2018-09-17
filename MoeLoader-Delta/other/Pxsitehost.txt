@@ -1,29 +1,9 @@
 ####### Pixiv Hosts #######
-210.140.92.140    img-novel.pximg.net
-210.140.92.140    public-img-comic.pximg.net
-210.140.92.140    pixiv.pximg.net
-210.140.92.140    i.pximg.net
-210.140.131.157   d.pixiv.org
-210.140.170.179   sketch.pixiv.net
-210.140.131.144   source.pixiv.net
-210.140.131.144   novel.pixiv.net
-210.140.131.144   imgaz.pixiv.net
-210.140.131.144   comic.pixiv.net
-210.129.120.44    www.pixivision.net
-210.129.120.44    www.pixiv.me
-210.129.120.44    www.pixiv.net
-210.129.120.44    www.pixiv.co.jp
-210.129.120.44    touch.pixiv.net
-210.129.120.44    sensei.pixiv.net
-210.129.120.44    recruit.pixiv.net
-210.129.120.44    pixivision.net
-210.129.120.44    m.pixiv.net
-210.129.120.44    factory.pixiv.net
-210.129.120.44    embed.pixiv.net
-210.129.120.44    dic.pixiv.net
-210.129.120.44    chat.pixiv.net
-210.129.120.44    accounts.pixiv.net
-210.129.120.44    pixiv.net
-210.129.120.44    app-api.pixiv.net
-210.129.120.41    oauth.secure.pixiv.net
+123.207.56.160 www.pixiv.net
+123.207.56.160 source.pixiv.net
+123.207.56.160 account.pixiv.net
+123.207.56.160 pixiv.net
+123.207.56.160 www.pixiv.net
+123.207.56.160 touch.pixiv.net
+123.207.56.160 oauth.secure.pixiv.net
 #### Pixiv Hosts End #####
