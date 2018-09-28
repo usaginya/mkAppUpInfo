@@ -1,0 +1,11 @@
+####### Pixiv Hosts #######
+123.207.13.111 www.pixiv.net
+123.207.13.111 source.pixiv.net
+123.207.13.111 account.pixiv.net
+123.207.13.111 pixiv.net
+123.207.13.111 www.pixiv.net
+123.207.13.111 touch.pixiv.net
+123.207.13.111 oauth.secure.pixiv.net
+123.207.13.111 accounts.pixiv.net
+123.207.13.111 www.google.com
+#### Pixiv Hosts End #####
