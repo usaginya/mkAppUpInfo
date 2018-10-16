@@ -1,5 +1,8 @@
 
 ############ 更新记录从新到旧 ############
+[2018-10-17]  Δ ver 7.0.6.1(01)
+1.修正 Pixiv站点解析中的BUG - by YIU fixed MaxMadcc
+
 [2018-10-16]  Δ ver 7.0.6.1
 1.修正 Pixiv站点解析 - by MaxMadcc
 2.更改 SitePacks站点包加载方式
