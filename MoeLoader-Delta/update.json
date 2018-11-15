@@ -1,12 +1,12 @@
 {
-    "info": "[b]MoeLoader \u0394 Ver 7.0.6.1(01)[/b][br]\u7531[a href=https://jq.qq.com/?_wv=1027&k=5jdrfzk]\u840c\u754c[/a] YIU \u7f16\u8bd1[br]\u7ef4\u62a4\u8005\uff1aYIU, MaxMadcc[br]\u611f\u8c22\u63d0\u4f9b\u652f\u6301\u4e0e\u5e2e\u52a9\u7684\u5404\u4f4d[br]Github:[a href=https://github.com/usaginya/MoeLoader-Delta]https://github.com/usaginya/MoeLoader-Delta[/a][br]\u5982\u679c\u4f60\u60f3\u6350\u8d60: \u4f7f\u7528\u652f\u4ed8\u5b9d(Alipay)\u6350\u8d60\u5230[a href=]degdod@qq.com[/a]\u5e76\u9644\u4e0a\u5907\u6ce8(\u4f60\u7684\u6635\u79f0, \u4f60\u7684\u4e3b\u9875[\u53ef\u9009])[br]\u6350\u8d60\u540d\u5355:[a href=https://usaginya.github.io/mkAppUpInfo/moeloaderdelta/donate]\u70b9\u8fd9\u91cc\u770b[/a][br][br]--------------------------------------------------------------------[br]2018-10-17 \u5347\u7ea7\u81f3  7.0.6.1(01) \u7248\u672c[br]1.\u4fee\u6b63 Pixiv\u7ad9\u70b9\u89e3\u6790\u4e2d\u7684BUG - by YIU fixed MaxMadcc[br][br]2018-10-16 \u5347\u7ea7\u81f3  7.0.6.1 \u7248\u672c[br]1.\u4fee\u6b63 Pixiv\u7ad9\u70b9\u89e3\u6790 - by MaxMadcc[br]2.\u66f4\u6539 SitePacks\u7ad9\u70b9\u5305\u52a0\u8f7d\u65b9\u5f0f[br][br][a href=https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/UpdateLog/update_history.txt]\u67e5\u770b\u5168\u90e8\u66f4\u65b0\u5386\u53f2[/a]",
+    "info": "[b]MoeLoader \u0394 Ver 7.0.6.2[/b][br]\u7531[a href=https://jq.qq.com/?_wv=1027&k=5jdrfzk]\u840c\u754c[/a] YIU \u7f16\u8bd1[br]\u7ef4\u62a4\u8005\uff1aYIU, MaxMadcc[br]\u611f\u8c22\u63d0\u4f9b\u652f\u6301\u4e0e\u5e2e\u52a9\u7684\u5404\u4f4d[br]Github: [a href=https://github.com/usaginya/MoeLoader-Delta]https://github.com/usaginya/MoeLoader-Delta[/a][br]\u5982\u679c\u4f60\u60f3\u6350\u8d60: \u4f7f\u7528\u652f\u4ed8\u5b9d(Alipay)\u6350\u8d60\u5230[a href=]degdod@qq.com[/a]\u5e76\u9644\u4e0a\u5907\u6ce8(\u4f60\u7684\u6635\u79f0, \u4f60\u7684\u4e3b\u9875[\u53ef\u9009])[br]\u6350\u8d60\u540d\u5355: [a href=https://usaginya.github.io/mkAppUpInfo/moeloaderdelta/donate]\u70b9\u8fd9\u91cc\u770b[/a][br][br]--------------------------------------------------------------------[br]2018-11-15 \u5347\u7ea7\u81f3  7.0.6.2 \u7248\u672c[br]1.\u4fee\u6b63 \u81ea\u52a8\u767b\u5f55\u7ad9\u70b9\u5931\u8d25\u65f6\u4e0d\u63d0\u793a\u7684BUG[br]2.\u66f4\u6539 \u4e0b\u8f7d\u5217\u8868\u5931\u8d25\u9879\u91cd\u8bd5\u4e3a9\u79d2\u540e\u91cd\u8bd51\u6b21\u30019\u79d2\u5185\u65b0\u52a0\u4e0b\u8f7d\u5ef6\u540e9\u79d2\u91cd\u8bd5[br]3.\u589e\u52a0 Pixiv\u7ad9\u70b9 \u65e5\u3001\u5468\u3001\u6708\u6392\u884c\u6307\u5b9a\u65e5\u671f\u641c\u7d22\u3001\u65e5\u671f\u683c\u5f0f\u4e3a \u5e74\u6708\u65e5 \u4f8b\u5b50: 20181109[br][br][a href=https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/UpdateLog/update_history.txt]\u67e5\u770b\u5168\u90e8\u66f4\u65b0\u5386\u53f2[/a]",
     "files": [
         {
           "name": "MoeLoaderDelta.exe",
-          "ver": "7.0.6.1",
+          "ver": "7.0.6.2",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeLoaderDelta.exe",
-          "md5": "2395244773489FD8C75CEE80F63313F9"
+          "md5": "452F397A99B0FB638D0ACF7392F55229"
         },
         {
           "name": "MoeSite.dll",
@@ -25,10 +25,10 @@
         {
           "path": "SitePacks",
           "name": "SitePack.dll",
-          "ver": "1.0.6.8",
+          "ver": "1.0.6.9",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/SitePacks/SitePack.dll",
-          "md5": "DA45450E94B7BE36657A45B392220638"
+          "md5": "4B86A0FA8F1E99A676A04BEEB60B3694"
         },
         {
           "path": "lib",
