@@ -2,17 +2,18 @@
 -------------------------------------------------------------*/
 html, body				{ height:100%; }
 body					{ background:url(../images/bg.jpg);font:normal bold 12px/1.5 'Helvetica Neue','Microsoft Yahei', 'Arial', sans-serif; } 
-h1{ text-align:center; font-size:xx-large; color:#007dd8; text-shadow:0 1px .1px #5257a0b0; padding-top:100px; -webkit-animation-name:fadeIn;
--webkit-animation-duration:2s; -webkit-animation-iteration-count:1; -webkit-animation-delay:0;}
+h1{ text-align:center; font-size:xx-large; color:#007dd8; text-shadow:0 1px .1px #5257a0b0; padding-top:100px; -webkit-animation-name:fadeIn;-webkit-animation-duration:2s; -webkit-animation-iteration-count:1; -webkit-animation-delay:0;}
 
 /* CONTENT
 -------------------------------------------------------------*/
-.tag 					{ background:url(../images/tag.png) no-repeat 0 0; color:#3f3f3f; display:none; float:left; height:25px; line-height:1; margin:5px; padding:0 5px 0 8px; position:relative; text-decoration:none; }
+.tips					{ text-align:center; font-size:large; color:#4adcff; text-shadow:2px 1px 1px #ffffff, 2px 2px 2px #33eafd;
+-webkit-animation-name:fadeIn;-webkit-animation-duration:4s; -webkit-animation-iteration-count:1; -webkit-animation-delay:0s; }
+.tag 					{ background:url(../images/tag.png) no-repeat 0 0; color:#3f3f3f; display:none; float:left; height:25px; line-height:1; margin:5px; padding:0 42px 0 8px; position:relative; text-decoration:none; }
 .tag:hover 				{ cursor:pointer; }
 .tag:active 			{ top:1px; }
 .tag span 				{ display:block; float:left; }
 .tag_name 				{ background:url(../images/tag.png) no-repeat 100% -25px; height:19px; padding:6px 10px 0 0; position:relative; text-shadow:0 1px 1px #fff; z-index:10; }
-.tag_count 				{ background:url(../images/tag.png) no-repeat 100% -50px; color:#fff; height:19px; padding:5px 10px 0; position:absolute; right:0; text-shadow:0 -1px 0 #004bbb; top:1px; z-index:5; }
+.tag_count 				{ background:url(../images/tag.png) no-repeat 100% -50px; color:#fff; height:19px; padding:5px 10px 0 20px; position:absolute; right:0; text-shadow:0 -1px 0 #004bbb; top:1px; z-index:5; }
 
 /* CSS3 */
 @-webkit-keyframes fadeIn{ 0% {opacity:0;} 100% {opacity:1;}}
