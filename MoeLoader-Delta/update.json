@@ -1,19 +1,19 @@
 {
-    "info": "[b]MoeLoader \u0394 Ver 7.0.6.3[/b][br]\u7531[a href=https://jq.qq.com/?_wv=1027&k=5jdrfzk]\u840c\u754c[/a] YIU \u7f16\u8bd1[br]\u7ef4\u62a4\u8005\uff1aYIU, MaxMadcc[br]\u611f\u8c22\u63d0\u4f9b\u652f\u6301\u4e0e\u5e2e\u52a9\u7684\u5404\u4f4d[br]Github: [a href=https://github.com/usaginya/MoeLoader-Delta]https://github.com/usaginya/MoeLoader-Delta[/a][br]\u5982\u679c\u4f60\u60f3\u6350\u8d60: \u4f7f\u7528\u652f\u4ed8\u5b9d(Alipay)\u6350\u8d60\u5230[a href=]degdod@qq.com[/a]\u5e76\u9644\u4e0a\u5907\u6ce8(\u4f60\u7684\u6635\u79f0, \u4f60\u7684\u4e3b\u9875[\u53ef\u9009])[br]\u6350\u8d60\u540d\u5355: [a href=https://usaginya.github.io/mkAppUpInfo/moeloaderdelta/donate]\u70b9\u8fd9\u91cc\u770b[/a][br][br]--------------------------------------------------------------------[br]2018-11-29 \u5347\u7ea7\u81f3  7.0.6.3 \u7248\u672c[br]1.\u4fee\u6b63 \u4e0b\u8f7d\u5931\u8d25\u9879\u65e0\u9650\u81ea\u52a8\u91cd\u8bd5\u7684bug\uff08\u8bbe\u5b9a\u4e3a\u5931\u8d25\u540e9\u79d2\u5185\u91cd\u8bd51\u6b21\u540e\u505c\u6b62\u3001\u76f4\u5230\u624b\u52a8\u91cd\u8bd5\u6216\u6dfb\u52a0\u65b0\u4e0b\u8f7d\u9879\uff09[br]2.\u4fee\u6b63 \u4e0b\u8f7d\u5217\u8868\u53f3\u952e\u83dc\u5355>\u6e05\u9664\u6240\u6709\u5931\u8d25\u4efb\u52a1\u65f6\u5931\u8d25\u603b\u6570\u7edf\u8ba1\u9519\u8bef\u5bfc\u81f4\u9000\u51fa\u7a0b\u5e8f\u65f6\u63d0\u793a\u6709\u672a\u5b8c\u6210\u9879[br][br][a href=https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/UpdateLog/update_history.txt]\u67e5\u770b\u5168\u90e8\u66f4\u65b0\u5386\u53f2[/a][br]\u2605 \u6350\u8d60\u540d\u5355\u66f4\u65b0: \u6350\u8d60\u6570\u989d\u6700\u9ad8\u8005\u5c06\u6392\u5728\u6700\u524d\u9762\u3001\u5f80\u540e\u8d8a\u5c11\u3001\u4ee5\u6b64\u7c7b\u63a8...",
+    "info": "[b]MoeLoader \u0394 Ver 7.0.6.35[/b][br]\u7531[a href=https://jq.qq.com/?_wv=1027&k=5jdrfzk]\u840c\u754c[/a] YIU \u7f16\u8bd1[br]\u7ef4\u62a4\u8005\uff1aYIU, MaxMadcc[br]\u611f\u8c22\u63d0\u4f9b\u652f\u6301\u4e0e\u5e2e\u52a9\u7684\u5404\u4f4d[br]Github: [a href=https://github.com/usaginya/MoeLoader-Delta]https://github.com/usaginya/MoeLoader-Delta[/a][br]\u5982\u679c\u4f60\u60f3\u6350\u8d60: \u4f7f\u7528\u652f\u4ed8\u5b9d(Alipay)\u6350\u8d60\u5230[a href=]degdod@qq.com[/a]\u5e76\u9644\u4e0a\u5907\u6ce8(\u4f60\u7684\u6635\u79f0, \u4f60\u7684\u4e3b\u9875[\u53ef\u9009])[br]\u6350\u8d60\u540d\u5355: [a href=https://usaginya.github.io/mkAppUpInfo/moeloaderdelta/donate]\u70b9\u8fd9\u91cc\u770b[/a][br][br]--------------------------------------------------------------------[br]2018-01-04 \u5347\u7ea7\u81f3  7.0.6.35 \u7248\u672c[br]1.\u4fee\u6b63 Pixiv\u7ad9\u70b9\u4f5c\u8005\u4fe1\u606f\u83b7\u53d6\u65e0\u6548\u7684bug[br]2.\u66f4\u6539 \u8fde\u63a5\u6570\u4e0a\u9650\u81f3512[br]3.\u589e\u52a0 Pixiv\u7ad9\u70b9\u767b\u5f55\u529f\u80fd\uff08\u901a\u8fc7IE\u6d4f\u89c8\u5668\u767b\u5f55\u3001\u767b\u5f55\u540e\u5173\u95ed\u6d4f\u89c8\u5668\u518d\u6b21\u641c\u7d22\u5c31\u662f\u4f60\u81ea\u5df1\u7684\u8d26\u53f7\uff09[br][br][a href=https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/UpdateLog/update_history.txt]\u67e5\u770b\u5168\u90e8\u66f4\u65b0\u5386\u53f2[/a]",
     "files": [
         {
           "name": "MoeLoaderDelta.exe",
-          "ver": "7.0.6.3",
+          "ver": "7.0.6.35",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeLoaderDelta.exe",
-          "md5": "B50C9509B9533738E384622B33176C5B"
+          "md5": "059F9E3880FDD795FBF1FC4A28CB0509"
         },
         {
           "name": "MoeSite.dll",
-          "ver": "1.3.3.2",
+          "ver": "1.3.3.3",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeSite.dll",
-          "md5": "75D4326721C74E5860C541E2821679E5"
+          "md5": "90D2AFB6A078F3B645C8E83ED8CE3E7E"
         },
         {
           "name": "MoeToNew.exe",
@@ -25,10 +25,10 @@
         {
           "path": "SitePacks",
           "name": "SitePack.dll",
-          "ver": "1.0.6.9",
+          "ver": "1.0.7.0",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/SitePacks/SitePack.dll",
-          "md5": "4B86A0FA8F1E99A676A04BEEB60B3694"
+          "md5": "0B9726BDB579DFE0E2A30893AE0DF65A"
         },
         {
           "path": "lib",
