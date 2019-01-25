@@ -48,7 +48,7 @@ pre{background-color:#f5f5f599}
 .btn-danger{background-image:linear-gradient(to bottom,#ee5f5bc0,#bd362fc0)!important}
 .btn-inverse{background-image:linear-gradient(to bottom,#4449,#222c)}
 .listview li div.badge,.hanintro .label{background-color:#2d89efbd}
-.label-info[href],.badge-info[href]{background-color:#2d6987b0!important}
+.label-info[href],.badge-info[href]{background-color:#007ebda0!important}
 .label-important,.badge-important{background-color:#b94a48d6!important}
 .label-info,.badge-info,#createform .label-info{background-color:#3a87adb0!important}
 .label-warning,.badge-warning{background-color:#f89406b0!important}
@@ -65,7 +65,7 @@ pre{background-color:#f5f5f599}
 .scate-7 .sactive,.scate-7 .sinde,.scate-7.sactive,.scate-7.sinde{background:#630}
 .scate-8 .sactive,.scate-8 .sinde,.scate-8.sactive,.scate-8.sinde{background:#3cf}
 .scate-9 .sactive,.scate-9 .sinde,.scate-9.sactive,.scate-9.sinde{background:#d9e51e}
-.listview li div.badge.info{background-color:#2d6987b0}
+.listview li div.badge.info{background-color:#007ebda0}
 .alert-info{background-color:#d9edf7b0}
 .btn-primary{background-image:linear-gradient(to bottom,transparent,transparent)!important;background-color:#006dcc99!important}
 .btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]{background-color:#04c9!important}
