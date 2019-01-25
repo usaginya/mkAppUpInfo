@@ -6,7 +6,7 @@
 // @author       YIU
 // @match        http*://gmgard.com/*
 // @match        http*://hggard.com/*
-// @icon         http://gmgard.com/favicon.ico
+// @icon         https://gmgard.com/favicon.ico
 // @run-at       document-end
 // @grant        unsafeWindow
 // ==/UserScript==
