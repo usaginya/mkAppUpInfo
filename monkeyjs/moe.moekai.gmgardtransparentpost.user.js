@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.2.1
+// @version      3.3
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -37,6 +37,7 @@
 	$(".btn-info").css({"background":"transparent linear-gradient(to bottom,#5bc0dea0,#2f96b480)"});
 	$("#multiview table").css({"background-color":"#fff6"});
 
+	//============ < STYLE > =============================
 	var strs = `<style>
 pre{background-color:#f5f5f599}
 .expbar{background-image:linear-gradient(to bottom,#f5f5f500,#f9f9f999)}
@@ -87,9 +88,23 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 .nav-pills .open .dropdown-toggle{background-color:#999a}
 .nav>li>a:hover,.nav>li>a:focus{background-color:#eeeb}
 .post .post-title a:hover{background-color:#e6e6e6cc}
-::-webkit-scrollbar{width:14px}
-::-webkit-scrollbar-thumb{border-radius:4px;-webkit-box-shadow:inset 0 0 3px 1px #fffa;background-color:#9999}
-::-webkit-scrollbar-track{border-radius:4px;-webkit-box-shadow:inset 0 0 4px rgba(0,0,0,.3);background-color:#fff5}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{border-radius:8px;-webkit-box-shadow:inset 0 0 3px 1px #fffa;background-color:rgba(153,153,153,.5)}
+::-webkit-scrollbar-thumb:hover{background-color:rgba(100,100,100,.5)}
+::-webkit-scrollbar-thumb:active{background-color:rgba(50,50,50,.5)}
+::-webkit-scrollbar-track{border-radius:8px;-webkit-box-shadow:inset 0 0 4px rgba(0,0,0,.3);background-color:#fff5}
+::-webkit-scrollbar-track:hover{background-color:#fff7}
+::-webkit-scrollbar-track:active{background-color:#fff9}
+::-webkit-scrollbar-corner{display:block}
+::-webkit-scrollbar-button{border-radius:8px;background-color:#fff6}
+::-webkit-scrollbar-button:start:increment,::-webkit-scrollbar-button:end:decrement{visibility:hidden}
+::-webkit-scrollbar-button:start,::-webkit-scrollbar-button:end{width:10px;height:10px;border-width:5px;border-style:solid}
+::-webkit-scrollbar-button:start{border-color:transparent transparent rgba(0,0,0,.3) transparent}
+::-webkit-scrollbar-button:start:hover{border-color:transparent transparent rgba(0,0,0,.5) transparent;background-color:#fff7}
+::-webkit-scrollbar-button:start:active{border-color:transparent transparent rgba(0,0,0,.8) transparent;background-color:#fff9}
+::-webkit-scrollbar-button:end{border-color:rgba(0,0,0,.3) transparent transparent transparent}
+::-webkit-scrollbar-button:end:hover{border-color:rgba(0,0,0,.5) transparent transparent transparent;background-color:#fff7}
+::-webkit-scrollbar-button:end:active{border-color:rgba(0,0,0,.8) transparent transparent transparent;background-color:#fff9}
 </style>`;
 	$("head").append(strs);
 
@@ -110,7 +125,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 	st_pager();
 
 	//---- main change ----
-	$("#main .content-wrapper").bind("DOMSubtreeModified",function(e){
+	$("#main .content-wrapper").on("DOMSubtreeModified",function(e){
 		var bg_set = $(".bubble").css("background");
 		if(bg_set && bg_set.indexOf('0.')<1){
 			$(".bubble").css("background","#ffffff90");
@@ -134,7 +149,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 	});
 
 	//----- edit tag ----
-	$("#edit-tag").bind("DOMSubtreeModified",function(){
+	$("#edit-tag").on("DOMSubtreeModified",function(){
 		var bg_taginfo = $(".tag-info").css("background");
 		if(bg_taginfo && bg_taginfo.indexOf('0.')<1){
 			$("#tag-input").css("background-color","#fffc");
@@ -145,7 +160,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 	});
 
 	//---- comment edit box ----
-	$("#AddReplyForm").bind("DOMSubtreeModified",function(){
+	$("#AddReplyForm").on("DOMSubtreeModified",function(){
 		var bg_cke_inner = $(".cke_inner").css("background");
 		if(bg_cke_inner && bg_cke_inner.indexOf("0.")<1){
 			$(".cke_toolgroup").css("background","transparent");
@@ -155,7 +170,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 	});
 
 	//---- Message center table ----
-	$(".tabcontent").bind("DOMSubtreeModified",function(){
+	$(".tabcontent").on("DOMSubtreeModified",function(){
 		var bg_table = $("#multiview table").css("background-color");
 		if(bg_table && bg_table.indexOf("0.")<1){
 			$("#multiview table").css("background-color","#fff6");
@@ -163,7 +178,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 	});
 
 	//---- New post create edit box ----
-	$("#createform tbody").bind("DOMSubtreeModified",function(){
+	$("#createform tbody").on("DOMSubtreeModified",function(){
 		var bg_cke_wysiwyg = $(".cke_wysiwyg_frame").css("background");
 		if(bg_cke_wysiwyg && bg_cke_wysiwyg.indexOf("0)")<1){
 			$(".cke_wysiwyg_frame,.cke_wysiwyg_div").css("background","transparent");
