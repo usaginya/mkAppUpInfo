@@ -81,7 +81,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 .feed-footer{background:#f7f6f980}
 .tabcontent{background-color:#fff4}
 .tooltip-inner{background-color:#000b}
-#flinkdiv img{opacity:.5}
+#flinkdiv img{opacity:.5;transition: opacity ease-in-out .5s}
 #flinkdiv img:hover{opacity:.9}
 #donatediv #msgmenu .active a,#donatediv .btn-warning,.expbar,.progress-success .bar{background-color:transparent}
 .msglist-item:hover{background-color:#c0c0c090}
