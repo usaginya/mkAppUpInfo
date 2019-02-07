@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.3
+// @version      3.3.4
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -95,19 +95,19 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 ::-webkit-scrollbar-thumb{border-radius:8px;box-shadow:inset 0 0 3px 2px #fffa,0 0 10px 2px #0009;background-color:rgba(153,153,153,.5)}
 ::-webkit-scrollbar-thumb:hover{background-color:rgba(100,100,100,.5)}
 ::-webkit-scrollbar-thumb:active{background-color:rgba(50,50,50,.5)}
-::-webkit-scrollbar-track{border-radius:8px;-webkit-box-shadow:inset 0 0 4px rgba(0,0,0,.3);background-color:#fff5}
-::-webkit-scrollbar-track:hover{background-color:#fff7}
-::-webkit-scrollbar-track:active{background-color:#fff9}
+::-webkit-scrollbar-track{border-radius:8px;-webkit-box-shadow:inset 0 0 4px rgba(0,0,0,.3);background-color:#fff8}
+::-webkit-scrollbar-track:hover{background-color:#fffa}
+::-webkit-scrollbar-track:active{background-color:#fffd}
 ::-webkit-scrollbar-corner{display:block}
-::-webkit-scrollbar-button{border-radius:8px;background-color:#fff6}
+::-webkit-scrollbar-button{border-radius:8px;background-color:#fff8}
 ::-webkit-scrollbar-button:start:increment,::-webkit-scrollbar-button:end:decrement{visibility:hidden}
 ::-webkit-scrollbar-button:start,::-webkit-scrollbar-button:end{width:10px;height:10px;border-width:5px;border-style:solid}
 ::-webkit-scrollbar-button:start{border-color:transparent transparent rgba(0,0,0,.3) transparent}
-::-webkit-scrollbar-button:start:hover{border-color:transparent transparent rgba(0,0,0,.5) transparent;background-color:#fff7}
-::-webkit-scrollbar-button:start:active{border-color:transparent transparent rgba(0,0,0,.8) transparent;background-color:#fff9}
+::-webkit-scrollbar-button:start:hover{border-color:transparent transparent rgba(0,0,0,.5) transparent;background-color:#fffa}
+::-webkit-scrollbar-button:start:active{border-color:transparent transparent rgba(0,0,0,.8) transparent;background-color:#fffd}
 ::-webkit-scrollbar-button:end{border-color:rgba(0,0,0,.3) transparent transparent transparent}
-::-webkit-scrollbar-button:end:hover{border-color:rgba(0,0,0,.5) transparent transparent transparent;background-color:#fff7}
-::-webkit-scrollbar-button:end:active{border-color:rgba(0,0,0,.8) transparent transparent transparent;background-color:#fff9}
+::-webkit-scrollbar-button:end:hover{border-color:rgba(0,0,0,.5) transparent transparent transparent;background-color:#fffa}
+::-webkit-scrollbar-button:end:active{border-color:rgba(0,0,0,.8) transparent transparent transparent;background-color:#fffd}
 </style>`;
 	$("head").append(strs);
 
