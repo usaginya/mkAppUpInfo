@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.4
+// @version      3.3.5
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -89,7 +89,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 .nav-pills .open .dropdown-toggle{background-color:#999a}
 .nav>li>a:hover,.nav>li>a:focus{background-color:#eeeb}
 .post .post-title a:hover{background-color:#e6e6e6cc}
-.totop{margin-left:1000px;background-repeat:no-repeat;background-position-x:0px;-webkit-transition:background-position-x .5s;transition:background-position-x 1s}
+.totop{margin-left:1000px;background-repeat:no-repeat;background-position-x:0px;-webkit-transition:background-position-x ease-out .6s;transition:background-position-x ease-out .6s}
 .totop-wrapper.hidden>.totop{background-position-x:-250px}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{border-radius:8px;box-shadow:inset 0 0 3px 2px #fffa,0 0 10px 2px #0009;background-color:rgba(153,153,153,.5)}
