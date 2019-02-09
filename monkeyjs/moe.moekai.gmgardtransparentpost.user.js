@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.5
+// @version      3.3.51
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -71,7 +71,7 @@ pre{background-color:#f5f5f599}
 .btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]{background-color:#04c9!important}
 .btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.btn-warning.disabled,.btn-warning[disabled]{background:#f89406a0!important}
 .nav-pills>.active>a,.nav-pills>.active>a:hover,.nav-pills>.active>a:focus{background-color:#08ca}
-.user-bg h2,.user-bg .user-stats,.user-bg .user-numbers-div,.userinfo h3{background-color:transparent!important}
+.navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus{background-color:#e5e5e555}
 .rankflag::before{background:linear-gradient(210deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}
 .rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}
 .nav-tabs .active a,.nav-tabs .active a:hover,.nav-tabs .active a:focus,.user-comment,#multiview input[type='text'],#multiview textarea{background-color:#fffa}
