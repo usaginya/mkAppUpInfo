@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.51
+// @version      3.3.6
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -74,7 +74,7 @@ pre{background-color:#f5f5f599}
 .navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus{background-color:#e5e5e595}
 .rankflag::before{background:linear-gradient(210deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}
 .rankflag::after{background:linear-gradient(150deg,rgba(218,235,244,.4) 0,rgba(218,235,244,.4) 50%,transparent 51%,transparent 100%)}
-.nav-tabs .active a,.nav-tabs .active a:hover,.nav-tabs .active a:focus,.user-comment,#multiview input[type='text'],#multiview textarea{background-color:#fffa}
+.nav-tabs .active a,.nav-tabs .active a:hover,.nav-tabs .active a:focus,.user-comment,#multiview input[type='text'],#multiview textarea{background-color:#fffb}
 .feed-item,select{background-color:#fff9}
 textarea,input[type='text'],input[type='password'],input[type='datetime'],input[type='datetime-local'],input[type='date'],input[type='month'],input[type='time'],
 input[type='week'],input[type='number'],input[type='email'],input[type='url'],input[type='search'],input[type='tel'],input[type='color'],.uneditable-input{background-color:#fffa}
@@ -91,6 +91,8 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 .post .post-title a:hover{background-color:#e6e6e6cc}
 .totop{margin-left:1000px;background-repeat:no-repeat;background-position-x:0px;-webkit-transition:background-position-x ease-out .6s;transition:background-position-x ease-out .6s}
 .totop-wrapper.hidden>.totop{background-position-x:-250px}
+.user-bg>h2,.user-bg>.user-stats{padding:2px 10px}
+.user-bg>h2,.user-bg>.user-stats,.user-bg>.user-numbers-div,.userinfo h3{background-color:#fffa;border-radius:5px}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{border-radius:8px;box-shadow:inset 0 0 3px 2px #fffa,0 0 10px 2px #0009;background-color:rgba(153,153,153,.5)}
 ::-webkit-scrollbar-thumb:hover{background-color:rgba(100,100,100,.5)}
@@ -205,19 +207,5 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 			});
 		}
 	});
-
-	//---- Change user top background ----
-	function setUserTopBG(){
-		var blockheight = $("#tm-userinfo").height();
-		$(".user-cover-bg").css({"opacity":".5","width":"755px","height":blockheight+"px","position":"absolute","z-index":"-1"});
-		$("#main").prepend('<div style="width:755px;height:'+ blockheight +'px;background-color:#fff;position:absolute;z-index:-2"></div>');
-	}
-
-	var userbgimg = $(".user-bg").css("background-image");
-	if(userbgimg && userbgimg.length > 4){
-		$("#main .user-bg").after('<div id="tm-userinfo"></div>');
-		$("#tm-userinfo").append($("#main .user-bg").children());
-		setTimeout(function(){setUserTopBG();},800);
-	}
 
 })();
