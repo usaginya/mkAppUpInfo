@@ -1,5 +1,6 @@
 // ==UserScript==
-// @name         拒绝二维码登录（淘宝、京东等网站默认出现账号密码登录界面）
+// @name         Refuse QR login
+// @name:zh-CN   拒绝二维码登录（淘宝、京东等网站默认出现账号密码登录界面）
 // @namespace    undefined
 // @version      0.3.100
 // @description  淘宝、京东、阿里云等网站默认使用账号密码登录，不出现二维码登录界面
