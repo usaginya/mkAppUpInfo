@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         拒绝二维码登录（淘宝、京东等网站默认出现账号密码登录界面）
 // @namespace    undefined
-// @version      0.3.99
+// @version      0.3.100
 // @description  淘宝、京东、阿里云等网站默认使用账号密码登录，不出现二维码登录界面
 // @author       Vizards
 // @match        *://login.taobao.com/*
@@ -128,7 +128,9 @@ if (location.hostname === 'xui.ptlogin2.qq.com' || location.hostname === 'ssl.xu
 }
 if (location.hostname === 'graph.qq.com') {
 	window.onload = function () {
-		document.getElementById('select_all').click();
+		if (document.getElementById('select_all').checked) {
+			document.getElementById('select_all').click();
+		}
 	};
 }
 
