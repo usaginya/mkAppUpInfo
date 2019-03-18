@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.6
+// @version      3.3.61
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -94,9 +94,9 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 .user-bg>h2,.user-bg>.user-stats{padding:2px 10px}
 .user-bg>h2,.user-bg>.user-stats,.user-bg>.user-numbers-div,.userinfo h3{background-color:#fffa;border-radius:5px}
 ::-webkit-scrollbar{width:10px;height:10px}
-::-webkit-scrollbar-thumb{border-radius:8px;box-shadow:inset 0 0 3px 2px #fffa,0 0 10px 2px #0009;background-color:rgba(153,153,153,.5)}
-::-webkit-scrollbar-thumb:hover{background-color:rgba(100,100,100,.5)}
-::-webkit-scrollbar-thumb:active{background-color:rgba(50,50,50,.5)}
+::-webkit-scrollbar-thumb{border:solid 1px #0001;border-radius:8px;box-shadow:0 0 6px 2px #fff8;background-color:rgba(153,153,153,.5)}
+::-webkit-scrollbar-thumb:hover{background-color:rgba(100,100,100,.5);border-color:#0004}
+::-webkit-scrollbar-thumb:active{background-color:rgba(50,50,50,.5);border-color:#0006}
 ::-webkit-scrollbar-track{border-radius:8px;-webkit-box-shadow:inset 0 0 4px rgba(0,0,0,.3);background-color:#fff8}
 ::-webkit-scrollbar-track:hover{background-color:#fffa}
 ::-webkit-scrollbar-track:active{background-color:#fffd}
