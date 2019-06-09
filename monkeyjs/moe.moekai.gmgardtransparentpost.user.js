@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.61
+// @version      3.3.62
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -134,6 +134,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 		var bg_set = $(".bubble").css("background");
 		if(bg_set && bg_set.indexOf('0.')<1){
 			$(".bubble").css("background","#ffffff90");
+			$(".btn-info").css({"background":"transparent linear-gradient(to bottom,#5bc0dea0,#2f96b480)"});
 			$(e.target).append("<style>.bubble::after{border-right-width:15px;border-color:transparent #fffffff0}</style>");
 		}
 		//-- btn-toolbar --
