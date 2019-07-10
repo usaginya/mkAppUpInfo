@@ -3,10 +3,10 @@
     "files": [
 	    {
           "name": "0",
-          "ver": "公告信息",
+          "ver": "20190710",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/0",
-          "md5": "20190710"
+          "md5": "D41D8CD98F00B204E9800998ECF8427E"
         },
         {
           "name": "MoeLoaderDelta.exe",
