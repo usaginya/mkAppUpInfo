@@ -13,7 +13,8 @@ $(window).load(function() {
     var aV = parseFloat($(a).find('.tag_count').attr('title'));
     var bV = parseFloat($(b).find('.tag_count').attr('title'));
 
-    if(aV < bV)			return 1;
+    if($(a).find('.tag_name').text()=="[匿名]" || $(a).find('.tag_name').text()=="[匿名]") return 0;
+    else if(aV < bV)			return 1;
     else if(aV > bV)	return -1;
     else				return 0;
   });
