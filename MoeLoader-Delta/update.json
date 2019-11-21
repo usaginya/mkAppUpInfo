@@ -3,10 +3,10 @@
     "files": [
         {
           "name": "MoeLoaderDelta.exe",
-          "ver": "7.0.7.1",
+          "ver": "7.0.7.2",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeLoaderDelta.exe",
-          "md5": "275C29BB57E7B61FD6D00957091D3D00"
+          "md5": "BF3D8A9EFF8719FED4902E0485E457EF"
         },
         {
           "name": "MoeSite.dll",
@@ -28,7 +28,7 @@
           "ver": "1.0.8.3",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/SitePacks/SitePack.dll",
-          "md5": "A106C3BF5C7950E254CE559E425A5ABD"
+          "md5": "E12B1B4177F037A9199C68383FFB2821"
         },
         {
           "path": "lib",
