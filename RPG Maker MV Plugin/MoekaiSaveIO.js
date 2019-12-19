@@ -1,5 +1,5 @@
 //=============================================================
-// MoekaiSaveIO.js    version 0.0.9
+// MoekaiSaveIO.js    version 0.0.10
 //=============================================================
 /*
  * MIT License
@@ -56,7 +56,15 @@
  * @type number
  * @default 2
  * @min 1
- 
+ *
+ * @param menuTitleImport
+ * @text 导入存档菜单选项标题
+ * @desc 可以自定义菜单中导入存档的标题
+ * 
+ * @param menuTitleExport
+ * @text 导出存档菜单选项标题
+ * @desc 可以自定义菜单中导出存档的标题
+ *
  * @help
  * 提供 PC 端和移动端之间游戏存档的 json 格式文本导入导出功能
  * 导入或导出窗口可以点击文本框以外的黑色遮罩区域关闭
@@ -82,14 +90,14 @@ MoekaiSaveIO.Param.titleMenuY = Number(MoekaiSaveIO.Parameters['titleMenuY']) ||
 MoekaiSaveIO.Param.ioWindowW = Number(MoekaiSaveIO.Parameters['ioWindowW']) || 600;
 MoekaiSaveIO.Param.ioWindowH = Number(MoekaiSaveIO.Parameters['ioWindowH']) || 300;
 MoekaiSaveIO.Param.ioWindowPadding = Number(MoekaiSaveIO.Parameters['ioWindowPadding']) || 2;
+MoekaiSaveIO.Param.menuTitleImport = MoekaiSaveIO.Parameters['menuTitleImport'] || '导入存档';
+MoekaiSaveIO.Param.menuTitleExport = MoekaiSaveIO.Parameters['menuTitleExport'] || '导出存档';
 
 MoekaiSaveIO.SaveManage = MoekaiSaveIO.SaveManage || {};
 MoekaiSaveIO.JavaScript = MoekaiSaveIO.JavaScript || {};
 MoekaiSaveIO.Strings = MoekaiSaveIO.Strings || {};
 
 MoekaiSaveIO.Strings.saveMaxCount = DataManager.maxSavefiles();
-MoekaiSaveIO.Strings.Import = '导入存档';
-MoekaiSaveIO.Strings.Export = '导出存档';
 
 //=============================================================
 // 重写JS方法
@@ -196,22 +204,6 @@ MoekaiSaveIO.JavaScript.stringHelper = {
         if (!this.isEmpty(tips))
             this.toast(tips, tipsduration);
     }
-};
-
-//=============================================================
-// 标题页面菜单创建
-//=============================================================
-MoekaiSaveIO.TitleCommandList = Window_TitleCommand.prototype.makeCommandList;
-Window_TitleCommand.prototype.makeCommandList = function() {
-    MoekaiSaveIO.TitleCommandList.call(this);
-    this.addCommand(MoekaiSaveIO.Strings.Import, 'saveIOMenuImport');
-    this.addCommand(MoekaiSaveIO.Strings.Export, 'saveIOMenuExport');
-};
-
-MoekaiSaveIO.TitleUpdatePlacement = Window_TitleCommand.prototype.updatePlacement;
-Window_TitleCommand.prototype.updatePlacement = function() {
-    MoekaiSaveIO.TitleUpdatePlacement.call(this);
-    this.y += MoekaiSaveIO.Param.titleMenuY;
 };
 
 //=============================================================
@@ -357,6 +349,22 @@ MoekaiSaveIO.SaveManage = {
         saveJson = JsonEx.stringify(saveObj);
         MoekaiSaveIO.JavaScript.stringHelper.copyStr(saveJson, "复制全部存档文本，然后可以通过导入存档进行导入，点击文本框边缘可以关闭窗口", 3800);
     }
+};
+
+//=============================================================
+// 标题页面菜单创建
+//=============================================================
+MoekaiSaveIO.TitleCommandList = Window_TitleCommand.prototype.makeCommandList;
+Window_TitleCommand.prototype.makeCommandList = function() {
+    MoekaiSaveIO.TitleCommandList.call(this);
+    this.addCommand(MoekaiSaveIO.Param.menuTitleImport, 'saveIOMenuImport');
+    this.addCommand(MoekaiSaveIO.Param.menuTitleExport, 'saveIOMenuExport');
+};
+
+MoekaiSaveIO.TitleUpdatePlacement = Window_TitleCommand.prototype.updatePlacement;
+Window_TitleCommand.prototype.updatePlacement = function() {
+    MoekaiSaveIO.TitleUpdatePlacement.call(this);
+    this.y += MoekaiSaveIO.Param.titleMenuY;
 };
 
 //=============================================================
