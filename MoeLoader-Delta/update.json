@@ -13,7 +13,7 @@
           "ver": "1.3.4.2",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeSite.dll",
-          "md5": "CB092CA229B0008F37CD5971E9744683"
+          "md5": "7E557CB41A8114D355B9333EA6D49DFF"
         },
         {
           "name": "MoeToNew.exe",
@@ -28,7 +28,7 @@
           "ver": "1.0.8.4",
           "state": "up",
           "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/SitePacks/SitePack.dll",
-          "md5": "2F288F77171E66354A229B9852DA2FB7"
+          "md5": "CB092CA229B0008F37CD5971E9744683"
         },
         {
           "path": "lib",
