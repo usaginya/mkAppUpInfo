@@ -45,8 +45,8 @@
 					return;
 				}
 				var avatarUri = $('#clip_src_img')[0].src;
-				if(avatarUri.indexOf('png;')<0 && avatarUri.indexOf('jpeg;')<0){
-					alert("bilibili动态头像：头像只支持APNG、PNG、JPG格式");
+				if(avatarUri.indexOf('png;')<0){
+					alert("bilibili动态头像：头像只支持APNG、PNG格式");
 					return;
 				}
 				var avatarDat = this.dataURLtoBlob(avatarUri);
