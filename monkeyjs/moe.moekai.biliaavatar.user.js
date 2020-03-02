@@ -5,6 +5,7 @@
 // @description  可以上传APNG动画图片作为bilibili的个人头像
 // @author       YIU
 // @match        *://account.bilibili.com/account/face/upload
+// @icon         https://www.bilibili.com/favicon.ico
 // @grant        unsafeWindow
 // @run-at       document-end
 // ==/UserScript==
