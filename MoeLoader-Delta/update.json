@@ -5,21 +5,21 @@
           "name": "MoeLoaderDelta.exe",
           "ver": "7.0.7.4",
           "state": "up",
-          "url": "http://cdn.moest.top/MoeLoader-Delta/Apps/MoeLoaderDelta.exe",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeLoaderDelta.exe",
           "md5": "CABB58CCB784A0AFD10F436608E22A23"
         },
         {
           "name": "MoeSite.dll",
           "ver": "1.3.4.3",
           "state": "up",
-          "url": "http://cdn.moest.top/MoeLoader-Delta/Apps/MoeSite.dll",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeSite.dll",
           "md5": "B6F23A4DEE476BEB1FF6529C2385B0B7"
         },
         {
           "name": "MoeToNew.exe",
           "ver": "1.1.6.5",
           "state": "up",
-          "url": "http://cdn.moest.top/MoeLoader-Delta/Apps/MoeToNew.exe",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeToNew.exe",
           "md5": "AE09E4EC25B031F9618AE77E99630DF2"
         },
         {
@@ -27,7 +27,7 @@
           "name": "SitePack.dll",
           "ver": "1.0.8.7",
           "state": "up",
-          "url": "http://cdn.moest.top/MoeLoader-Delta/Apps/SitePacks/SitePack.dll",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/SitePacks/SitePack.dll",
           "md5": "3334225D2AE6A24C730430BD6E70BFEE"
         },
         {
@@ -35,7 +35,7 @@
           "name": "HtmlAgilityPack.dll",
           "ver": "1.4.0.0",
           "state": "up",
-          "url": "http://cdn.moest.top/MoeLoader-Delta/Apps/lib/HtmlAgilityPack.dll",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/lib/HtmlAgilityPack.dll",
           "md5": "33BB06B97F8F188735F4AAE5B413EEF8"
         },
         {
@@ -43,7 +43,7 @@
           "name": "System.Utility.dll",
           "ver": "3.0.0.1",
           "state": "up",
-          "url": "http://cdn.moest.top/MoeLoader-Delta/Apps/lib/System.Utility.dll",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/lib/System.Utility.dll",
           "md5": "D95D1204DB1219BD5A985BB7323207E0"
         },
         {
@@ -51,7 +51,7 @@
           "name": "Microsoft.Expression.Drawing.dll",
           "ver": "2.0.20621.0",
           "state": "up",
-          "url": "http://cdn.moest.top/MoeLoader-Delta/Apps/lib/Microsoft.Expression.Drawing.dll",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/lib/Microsoft.Expression.Drawing.dll",
           "md5": "1AFCBEC2626988A2F359BF06B9637639"
         },
         {
@@ -59,7 +59,7 @@
           "name": "Newtonsoft.Json.dll",
           "ver": "4.5.11.15520",
           "state": "up",
-          "url": "http://cdn.moest.top/MoeLoader-Delta/Apps/lib/Newtonsoft.Json.dll",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/lib/Newtonsoft.Json.dll",
           "md5": "498C072BA304F45FA0D24C107ECBC6D9"
         }
     ]
