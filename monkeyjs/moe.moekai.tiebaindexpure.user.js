@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度贴吧首页精简修改
 // @namespace    moe.moekai.tiebaindexpure
-// @version      0.5
+// @version      0.6
 // @description  样式 精简
 // @author       YIU
 // @match        *://tieba.baidu.com/index.html*
@@ -18,7 +18,7 @@
 	$('#moreforum a').mouseenter();
 	$('#moreforum a').mouseout();
 
-	$(".left-cont-wraper").css({"bottom":"300px","position":"fixed"});
+	$(".left-cont-wraper").css({"top":"300px","bottom":"300px","position":"fixed"});
 	$(".pop-up-frame").css({"position":"fixed"});
 	$(".page-container .r-left-sec").css({"width":"100%"});
 	$(".n_right").removeClass("n_right");
