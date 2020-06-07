@@ -4,8 +4,9 @@
 // @version      0.5
 // @description  样式 精简
 // @author       YIU
-// @match        http*://tieba.baidu.com/index.html*
-// @match        http*://tieba.baidu.com/
+// @match        *://tieba.baidu.com/index.html*
+// @match        *://tieba.baidu.com/
+// @icon         https://tieba.baidu.com/favicon.ico
 // @grant        unsafeWindow
 // @run-at       document-end
 // ==/UserScript==
