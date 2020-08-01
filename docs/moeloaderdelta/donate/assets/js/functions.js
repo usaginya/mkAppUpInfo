@@ -62,7 +62,9 @@ $(window).load(function() {
 });
 
 function DonateBtnBind() {
+    var isBtnChecked = false;
     var animateButton = function(e) {
+        isBtnChecked = true;
         e.preventDefault;
         e.target.classList.add('animate');
     };
@@ -71,6 +73,7 @@ function DonateBtnBind() {
     for (var i = 0; i < classname.length; i++) {
         classname[i].addEventListener('click', animateButton, false);
         classname[i].addEventListener("webkitAnimationEnd", function() {
+			if(!isBtnChecked){return;}
             this.classList.remove('animate');
 			window.open('https://share.weiyun.com/5IM6kEa');
         }, false);
