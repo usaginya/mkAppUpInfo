@@ -2,7 +2,7 @@
 -------------------------------------------------------------*/
 html, body				{ height:100%; }
 body					{ background:url(../images/bg.jpg);font:normal bold 12px/1.5 'Helvetica Neue','Microsoft Yahei', 'Arial', sans-serif; } 
-h1{ text-align:center; font-size:xx-large; color:#007dd8; text-shadow:0 1px .1px #5257a0b0; padding-top:100px; -webkit-animation-name:fadeIn;-webkit-animation-duration:2s; -webkit-animation-iteration-count:1; -webkit-animation-delay:0;}
+h1{ text-align:center; font-size:xx-large; color:#3585E4; text-shadow:0 1px .1px #5257a0b0; padding-top:100px; -webkit-animation-name:fadeIn;-webkit-animation-duration:2s; -webkit-animation-iteration-count:1; -webkit-animation-delay:0;}
 
 /* CONTENT
 -------------------------------------------------------------*/
