@@ -5,7 +5,7 @@
           "name": "MoeLoaderDelta.exe",
           "ver": "7.0.7.51",
           "state": "up",
-          "url": "http://github.com/usaginya/mkAppUpInfo/raw/master/MoeLoader-Delta/Apps/MoeLoaderDelta.exe",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeLoaderDelta.exe",
           "md5": "7A10E5FBB5979E5480E47A3B9023A3CE"
         },
         {
@@ -19,7 +19,7 @@
           "name": "MoeToNew.exe",
           "ver": "1.1.6.6",
           "state": "up",
-          "url": "http://github.com/usaginya/mkAppUpInfo/raw/master/MoeLoader-Delta/Apps/MoeToNew.exe",
+          "url": "https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/MoeLoader-Delta/Apps/MoeToNew.exe",
           "md5": "9CABFCAE55A596937E986A282C86B243"
         },
         {
