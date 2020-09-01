@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.62
+// @version      3.3.7
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -11,10 +11,21 @@
 // @grant        unsafeWindow
 // ==/UserScript==
 
+// ====== 可以修改以下参数等号后的值(保留最后的;） ======
+
+//主背景透明度, 可改范围0.00~1.00 , 值越小越透明
+var gmtp_background_opacity = 0.68;
+
+//主背景模糊度, 默认是0 , 推荐0~8, 值越大越模糊
+var gmtp_background_blur = 0;
+
+// ============= 可以修改的部分到此为止 =================
+
 (function() {
 	var $ = unsafeWindow.jQuery;
 
-	$("#body").css("background-color","#ffffffaa");
+	$("#body").css("background-color",`rgba(255,255,255,${gmtp_background_opacity})`);
+	if(gmtp_background_blur>0){$("#body").css("backdrop-filter",`blur(${gmtp_background_blur}px)`);}
 	$(".categories").css("background","#ffffff99");
 	$("#blog").css("background-color","#fff0");
 	$("#blog .uimg").css("background","#fff9");
@@ -85,7 +96,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 #flinkdiv img:hover{opacity:.9}
 #donatediv #msgmenu .active a,#donatediv .btn-warning,.expbar,.progress-success .bar{background-color:transparent}
 .msglist-item:hover{background-color:#c0c0c090}
-.dropdown-menu{background-color:#fffe}
+.dropdown-menu{background-color:#fffd;backdrop-filter:blur(3px)}
 .nav-pills .open .dropdown-toggle{background-color:#999a}
 .nav>li>a:hover,.nav>li>a:focus{background-color:#eeeb}
 .post .post-title a:hover{background-color:#e6e6e6cc}
