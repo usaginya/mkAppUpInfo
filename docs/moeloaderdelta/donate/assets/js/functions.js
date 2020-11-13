@@ -75,7 +75,7 @@ function DonateBtnBind() {
         classname[i].addEventListener("webkitAnimationEnd", function() {
 			if(!isBtnChecked){return;}
             this.classList.remove('animate');
-			window.open('https://share.weiyun.com/5IM6kEa');
+			window.open('https://share.weiyun.com/D5zIdV39');
         }, false);
     }
 }
