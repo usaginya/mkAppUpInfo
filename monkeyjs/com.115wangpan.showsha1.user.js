@@ -51,7 +51,6 @@ function bindEvents(){
 //* 解除绑定事件
 function unbindEvents(){
 	$('#js_data_list').off("DOMSubtreeModified");
-	$('.list-contents li[file_type="0"]').off("click");
 }
 
 //* 执行开始
