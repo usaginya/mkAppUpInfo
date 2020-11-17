@@ -18,16 +18,21 @@ function displaySha1(dom, listType){
 	if(dom.hasAttribute('sha1'))
 	{
 		var sha1 = $(dom).attr('sha1');
-		if(listType && $(dom).find('em[gmflagsha1]').length > 0){
+		if(listType){
 			//图标型、无法直接显示、只能在提示中显示
-			$(dom).find('em[gmflagsha1]').remove();
-			$(dom).find('em').css('padding-top','');
-			$(dom).find('.file-name').css('height','');
-			$(dom).find('.file-name').css('position','');
-			$(dom).find('.file-name .name')[0].title += `\r\n${sha1}`;
-			dom.title += `\r\n${sha1}`;
+			if($(dom).find('em[gmflagsha1]').length > 0){
+				$(dom).find('em[gmflagsha1]').remove();
+				$(dom).find('em').css('padding-top','');
+				$(dom).find('.file-name').css('height','');
+				$(dom).find('.file-name').css('position','');
+			}
+			if(dom.title.indexOf('\r')<1){
+				var title = `\r\n${sha1}`;
+				dom.title += title;
+				$(dom).find('.file-name .name')[0].title += title;
+			}
 		}
-		else if($(dom).find('em[gmflagsha1]').length < 1){
+		else if(listType < 1 && $(dom).find('em[gmflagsha1]').length < 1){
 			//列表型
 			$(dom).find('.file-name').css('position','initial');
 			$(dom).find('.file-name').css('height','50px');
