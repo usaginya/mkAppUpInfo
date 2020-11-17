@@ -1,70 +1,61 @@
 // ==UserScript==
 // @name         115网盘显示文件SHA1
 // @namespace    com.115wangpan.showsha1
-// @version      0.2
+// @version      0.6
 // @description  标题意思
 // @author       YIU
 // @match        http*://115.com/*ct=file*
 // @grant        unsafeWindow
+// @run-at       document-end
 // ==/UserScript==
 
 var $ = unsafeWindow.$;
 
-//允许重新显示标识
-var canDisplay = 0;
 
-function displaySha1(){
-
-	if(canDisplay > 0)
+//* 显示SHA1(要显示的元素)
+function displaySha1(dom){
+	//由事件传入的dom元素可能是任何标签,只对含有sha1的文件元素显示sha1
+	if(dom.hasAttribute('sha1') && $(dom).find('em[gmflagsha1]').length < 1)
 	{
-
-		//在文件列表iframe内，只取非文件夹类型，并且含有sha1属性的DOM
-		$('.list-contents li[file_type!="0"][sha1]',$('iframe[rel="wangpan"]')[0]).each(function(){
-			var vsha1 = $(this).attr('sha1');
-			$(this).children('.file-detail').append('<span gmflag>SHA1: ' + vsha1 + '</span>');
-		});
-
-		//禁止重新显示
-		canDisplay = 0;
-
+		$(dom).find('.file-name').css('position','initial');
+		$(dom).find('.file-name').css('height','50px');
+		$(dom).find('em').css('padding-top','6px');
+		$(dom).find('.file-name').append(
+			`<em gmflagsha1 style="position:absolute;padding-top:25px;color:#1a273466;font-size: x-small">${$(dom).attr('sha1')}</em>`
+		);
 	}
-
 }
 
-//绑定函数处理方法
-function bindfun(e){
+//* 绑定事件处理过程
+function EventProcess(e){
+	//处理前解除绑定事件防止处理过程事件死循环
+	unbindEvents();
 
-	//等待重新显示
-	if(canDisplay < 1)
-	{
-		canDisplay++;
+	displaySha1(e.target);
 
-		setTimeout(function(){
-
-			if($('.list-contents li[file_type!="0"][sha1] span:not([gmflag])',e.target).parents('li').length > 0)
-			{
-				displaySha1();
-			}
-
-			canDisplay = 0;
-
-		},800);
-	}
-
+	//重新绑定事件
+	bindEvents();
 }
 
+//* 绑定事件
+function bindEvents(){
+	//先解除之前绑定的事件
+	unbindEvents();
 
+	//文件列表变化
+	$('#js_data_list').on("DOMSubtreeModified",function(e){
+		EventProcess(e);
+	});
+}
+
+//* 解除绑定事件
+function unbindEvents(){
+	$('#js_data_list').off("DOMSubtreeModified");
+	$('.list-contents li[file_type="0"]').off("click");
+}
+
+//* 执行开始
 (function(){
-
-	//绑定文件列表变化事件
-	var bind_list = $('#js_data_list',$('iframe[rel="wangpan"]')[0]).on("DOMSubtreeModified",function(e){
-		bindfun(e);
-	});
-
-	//绑定文件夹点击事件
-	$('.list-contents li[file_type="0"]',$('iframe[rel="wangpan"]')[0]).on("click",function(e){
-		canDisplay = 0;
-		bindfun($(e.target).parents('#js_data_list')[0]);
-	});
-
+	//绑定事件
+	bindEvents();
 })();
