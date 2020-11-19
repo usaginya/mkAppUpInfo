@@ -4,6 +4,7 @@
 // @version      0.8
 // @description  显示网盘文件SHA1哈希值、批量复制文件SHA1值
 // @author       YIU
+// @icon         http://115.com/favicon.ico
 // @match        http*://115.com/*ct=file*
 // @grant        unsafeWindow
 // @run-at       document-end
