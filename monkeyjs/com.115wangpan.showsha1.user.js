@@ -53,7 +53,7 @@ let UI_CopySHA1 = {
 			contentTitle = $(this).parents('.list-thumb').length > 0 ? $(this).attr('title').split('\n')[0] : $(this).attr('title');
 			switch(type){
 				case 1:
-					content += `${contentTitle}\n${$(this).attr('sha1')}{(i != checkedItemsLast ? '\n' : '')}`;break;
+					content += `${contentTitle}\n${$(this).attr('sha1')}${(i != checkedItemsLast ? '\n' : '')}`;break;
 				case 2:
 					content += `${$(this).attr('sha1')}#${contentTitle}`;break;
 				default:
