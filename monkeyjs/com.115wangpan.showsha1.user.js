@@ -23,8 +23,7 @@ function displaySha1(dom, listType){
 		if($(dom).find('em[gmflagsha1]').length > 0){
 			$(dom).find('em[gmflagsha1]').remove();
 			$(dom).find('em').css('padding-top','');
-			$(dom).find('.file-name').css('height','');
-			$(dom).find('.file-name').css('position','');
+			$(dom).find('.file-name').css({'position':'', 'height':''});
 		}
 		if(dom.title.indexOf('\r')<1){
 			var title = `\r\n${sha1}`;
@@ -34,9 +33,8 @@ function displaySha1(dom, listType){
 	}
 	else if(listType < 1 && $(dom).find('em[gmflagsha1]').length < 1){
 		//列表型
-		$(dom).find('.file-name').css('position','initial');
-		$(dom).find('.file-name').css('height','50px');
 		$(dom).find('em').css('padding-top','6px');
+		$(dom).find('.file-name').css({'position':'initial', 'height':'50px'});
 		$(dom).find('.file-name').append(`<em gmflagsha1 style="position:absolute;padding-top:25px;color:#1a273466;font-size: x-small">${sha1}</em>`);
 	}
 }
@@ -49,17 +47,19 @@ let UI_CopySHA1 = {
 		let content = '';
 		let contentTitle = '';
 		let checkedItems = $('#js_data_list input[checked="checked"]').parent();
-		checkedItems.each(function(){
+		let checkedItemsLast = checkedItems.length - 1;
+		checkedItems.each(function(i){
 			if(!this.hasAttribute('sha1')){return;}
 			contentTitle = $(this).parents('.list-thumb').length > 0 ? $(this).attr('title').split('\n')[0] : $(this).attr('title');
 			switch(type){
 				case 1:
-					content += `${contentTitle}\n${$(this).attr('sha1')}\n\n`;break;
+					content += `${contentTitle}\n${$(this).attr('sha1')}{(i != checkedItemsLast ? '\n' : '')}`;break;
 				case 2:
-					content += `${$(this).attr('sha1')}#${contentTitle}\n`;break;
+					content += `${$(this).attr('sha1')}#${contentTitle}`;break;
 				default:
-					content += `${$(this).attr('sha1')}\n`;
+					content += `${$(this).attr('sha1')}`;
 			}
+			content += i < checkedItemsLast ? '\n' : '';
 		});
 		return content;
 	},
