@@ -16,15 +16,14 @@ function audioAutoPlay() {
 	if (audio.paused) { //判读是否播放  
 		audio.paused = false;
 		audio.play(); //没有就播放
-		audio.muted = false;
 	}
 	document.addEventListener("WeixinJSBridgeReady", function () {
 		if (audio.paused) {
 			audio.paused = false;
 			audio.play();
-			audio.muted = false;
 		}
 	}, false);
+	if (!audio.paused) { audio.muted = false; }
 }
 
 window.onload = function () {
