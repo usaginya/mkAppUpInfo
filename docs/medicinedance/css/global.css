@@ -1,31 +1,124 @@
-html{height:100%;overflow-x: hidden; overflow-y: hidden;}
-body{background:transparent linear-gradient(rgb(167, 254, 254) 47%, rgb(126, 191, 254) 48%,rgb(126, 191, 254) 51%,rgb(125, 254, 191) 52%,rgb(125, 254, 191) 59%,rgb(125, 191, 158) 65%)}
-a{text-decoration:none}
-.center{
+html {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+body {
+    background: transparent
+        linear-gradient(
+            rgb(167, 254, 254) 47%,
+            rgb(126, 191, 254) 48%,
+            rgb(126, 191, 254) 51%,
+            rgb(125, 254, 191) 52%,
+            rgb(125, 254, 191) 59%,
+            rgb(125, 191, 158) 65%
+        );
+}
+a {
+    text-decoration: none;
+}
+button {
+    background: none;
+    border: 2px solid;
+    border-bottom-width: 4px;
+    cursor: pointer;
+    font: inherit;
+    letter-spacing: inherit;
+    margin: 1em;
+    padding: 1em 2em;
+    text-decoration: inherit;
+    text-transform: inherit;
+    -webkit-transition: color 1s;
+    transition: color 1s;
+    outline: none;
+}
+.btn-play {
+    color: #0ed29b;
+    position: relative;
+    overflow: hidden;
+}
+.btn-play:after {
+    content: "";
+    background: rgb(158, 255, 30);
+    position: absolute;
+    width: 99px;
+    height: 99px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+    margin: auto;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.75s ease-in-out;
+}
+.btn-play:active:after {
+    transform: scale(0);
+    opacity: 1;
+    transition: 0s;
+}
+.btn-play:hover {
+    -webkit-animation: sawtooth 0.35s infinite linear;
+    animation: sawtooth 0.35s infinite linear;
+    animation: sawtooth 0.35s infinite linear;
+    background: -webkit-linear-gradient(45deg, #bdf169 0.5em, transparent 0.5em) 0 0/1em 1em repeat-x,
+        -webkit-linear-gradient(135deg, #bdf169 0.5em, transparent 0.5em) 0 0/1em 1em repeat-x;
+    background: linear-gradient(45deg, #bdf169 0.5em, transparent 0.5em) 0 0/1em 1em repeat-x,
+        linear-gradient(-45deg, #bdf169 0.5em, transparent 0.5em) 0 0/1em 1em repeat-x;
+    background-position: bottom;
+    color: #7c4ee6;
+}
+@-webkit-keyframes sawtooth {
+    100% {
+        background-position: 1em bottom;
+    }
+}
+@keyframes sawtooth {
+    100% {
+        background-position: 1em bottom;
+    }
+}
+.center {
     text-align: center;
     margin: auto;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    }
-.wall{
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
 }
-div#cloud{background:url('cloud.png')repeat 20% 0%;height:47%;z-index:1}
-.whilebody{background:#fff;}
-.aimg{
- margin:auto;
- position:absolute;
- top:0; left:0; bottom:0; right:0;}
-#lrcbox,#lrcbox2{color:#fff;position:absolute;z-index:2}
+.wall {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+div#cloud {
+    background: url("cloud.png") repeat 20% 0%;
+    height: 47%;
+    z-index: 1;
+}
+.whilebody {
+    background: #fff;
+}
+.aimg {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+#lrcbox,
+#lrcbox2 {
+    color: #fff;
+    position: absolute;
+    z-index: 2;
+}
 
 div#cloud {
-    background: url('cloud.png')repeat 20% 0%;
+    background: url("cloud.png") repeat 20% 0%;
     -webkit-animation: STAR-MOVE 13s ease-in-out 0s infinite;
     -moz-animation: STAR-MOVE 13s ease-in-out 0s infinite;
     -ms-animation: STAR-MOVE 13s ease-in-out 0s infinite;
@@ -33,12 +126,24 @@ div#cloud {
 }
 
 @-webkit-keyframes STAR-MOVE {
-	 0% {background-position:0% 0%}
-	50% {background-position: 2% 0%}
-	100% {background-position:0% 0%}
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 2% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 @keyframes STAR-MOVE {
-	 0% {background-position:0% 0%}
-	50% {background-position: 2% 0%}
-	100% {background-position:0% 0%}
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 2% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }

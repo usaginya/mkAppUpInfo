@@ -12,16 +12,17 @@ var ev = {
 function audioAutoPlay() {
 	var audio = document.getElementById('musics');
 	if (audio == null || state == 1) { return; }
-	setTimeout(function () {
-		audio.muted = false; state = 0;
-		lrclib.showLrc('lrcbox', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc', 'YIU', 'https://github.com/usaginya');
-		lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
-	}, 500);
+	state = 0;
+	audio.play();
+	lrclib.showLrc('lrcbox', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc', 'YIU', 'https://github.com/usaginya');
+	lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
 }
 
 window.onload = function () {
-	var v = document.getElementById("musics");
-	v.oncanplay = ev.a();
+	document.getElementById("play").onclick = function () {
+		document.getElementById("play-mask").remove();
+		document.getElementById("musics").oncanplay = ev.a();
+	}
 }
 
 //--兼容手机--
