@@ -23,7 +23,7 @@ function audioAutoPlay() {
 			audio.play();
 		}
 	}, false);
-	if (!audio.paused) { audio.muted = false; }
+	if (!audio.paused) { setTimeout(function(){ audio.muted = false;},200); }
 }
 
 window.onload = function () {
