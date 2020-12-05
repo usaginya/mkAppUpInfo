@@ -1,3 +1,5 @@
+var state = 0;
+
 var ev = {
 	a: function () {
 		$("#himg").removeAttr("style");
@@ -9,10 +11,12 @@ var ev = {
 
 function audioAutoPlay() {
 	var audio = document.getElementById('musics');
-	if (audio == null) { return; }
-	if (!audio.paused) { setTimeout(function () { audio.muted = false; }, 200); }
-	lrclib.showLrc('lrcbox', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc', 'YIU', 'https://github.com/usaginya');
-	lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
+	if (audio == null || state == 1) { return; }
+	setTimeout(function () {
+		audio.muted = false; state = 0;
+		lrclib.showLrc('lrcbox', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc', 'YIU', 'https://github.com/usaginya');
+		lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
+	}, 500);
 }
 
 window.onload = function () {
@@ -21,10 +25,10 @@ window.onload = function () {
 }
 
 //--兼容手机--
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("WeixinJSBridgeReady", function () {
 	audioAutoPlay();
-});
+}, false);
 //--监听触摸 进行播放
 document.addEventListener('touchstart', function () {
 	audioAutoPlay();
-});
+}, false);
