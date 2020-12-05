@@ -4,6 +4,8 @@ var ev = {
 		$("#cloud").removeAttr("style");
 		$("body").removeAttr("class");
 		audioAutoPlay();
+		lrclib.showLrc('lrcbox', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc', 'YIU', 'https://github.com/usaginya');
+		lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
 	}
 }
 
@@ -24,12 +26,10 @@ function audioAutoPlay() {
 	}, false);
 }
 
-window.onload = function () {
+window.addEventListener("musics", function () {
 	var v = document.getElementById("musics");
 	v.oncanplay = ev.a();
-	lrclib.showLrc('lrcbox', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc', 'YIU', 'https://github.com/usaginya');
-	lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
-}
+})
 
 //--兼容手机--
 document.addEventListener('DOMContentLoaded', function () {
