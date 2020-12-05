@@ -29,6 +29,11 @@ window.onload = function () {
 	lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
 }
 
+//兼容谷歌浏览器
+document.getElementById("musics").addEventListener("progress", function () {
+	audioAutoPlay();
+});
+
 //--兼容手机--
 document.addEventListener('DOMContentLoaded', function () {
 	audioAutoPlay();
