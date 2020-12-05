@@ -1,23 +1,29 @@
 var ev = {
-	a:function(){
-		$("#himg").css('display','block');
+	a: function () {
+		$("#himg").css('display', 'block');
 		$("body").removeAttr("class");
 	}
 }
 
 function audioAutoPlay() {
 	var audio = document.getElementById('musics');
-	audio.play();
+	if (audio.paused) { //判读是否播放  
+		audio.paused = false;
+		audio.play(); //没有就播放 
+	}
 	document.addEventListener("WeixinJSBridgeReady", function () {
-		audio.play();
+		if (audio.paused) {
+			audio.paused = false;
+			audio.play();
+		}
 	}, false);
 }
 
-window.onload=function(){
+window.onload = function () {
 	var v = document.getElementById("musics");
-	v.oncanplay=ev.a();
-	lrclib.showLrc('lrcbox','lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc','YIU','https://github.com/usaginya');
-	lrclib.showLrc('lrcbox2','lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc','YIU','https://github.com/usaginya');
+	v.oncanplay = audioAutoPlay();
+	lrclib.showLrc('lrcbox', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc', 'YIU', 'https://github.com/usaginya');
+	lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
 }
 
 //--兼容手机--
