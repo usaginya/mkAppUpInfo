@@ -12,6 +12,7 @@ var ev = {
 function audioAutoPlay() {
 	var audio = document.getElementById('musics');
 	if (audio == null) { return; }
+	audio.parentElement.click();
 	if (audio.paused) { //判读是否播放  
 		audio.paused = false;
 		audio.play(); //没有就播放
@@ -26,10 +27,10 @@ function audioAutoPlay() {
 	}, false);
 }
 
-window.addEventListener("musics", function () {
+window.onload = function () {
 	var v = document.getElementById("musics");
 	v.oncanplay = ev.a();
-})
+}
 
 //--兼容手机--
 document.addEventListener('DOMContentLoaded', function () {
