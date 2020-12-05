@@ -9,6 +9,7 @@ var ev = {
 
 function audioAutoPlay() {
 	var audio = document.getElementById('musics');
+	if (audio) { audio.click(); } else { return; }
 	if (audio.paused) { //判读是否播放  
 		audio.paused = false;
 		audio.play(); //没有就播放 
