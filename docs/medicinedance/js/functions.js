@@ -9,15 +9,17 @@ var ev = {
 
 function audioAutoPlay() {
 	var audio = document.getElementById('musics');
-	if (audio) { audio.click(); } else { return; }
+	if (audio == null) { return; }
 	if (audio.paused) { //判读是否播放  
 		audio.paused = false;
-		audio.play(); //没有就播放 
+		audio.play(); //没有就播放
+		audio.muted = false;
 	}
 	document.addEventListener("WeixinJSBridgeReady", function () {
 		if (audio.paused) {
 			audio.paused = false;
 			audio.play();
+			audio.muted = false;
 		}
 	}, false);
 }
@@ -28,11 +30,6 @@ window.onload = function () {
 	lrclib.showLrc('lrcbox', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこ.lrc', 'YIU', 'https://github.com/usaginya');
 	lrclib.showLrc('lrcbox2', 'lrc/ジェニーはご机嫌ななめ-やくしまるえつこCN.lrc', 'YIU', 'https://github.com/usaginya');
 }
-
-//兼容谷歌浏览器
-document.getElementById("musics").addEventListener("progress", function () {
-	audioAutoPlay();
-});
 
 //--兼容手机--
 document.addEventListener('DOMContentLoaded', function () {
