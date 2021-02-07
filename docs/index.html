@@ -1,45 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <meta charset="UTF-8">
-  <title>Page Wizard</title>
-<script>
-    var getParam = function (name) {
-        var search = document.location.search;
-        var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
-        var matcher = pattern.exec(search);
-        var items = null;
-        if (null != matcher) {
-            try {
-                items = decodeURIComponent(decodeURIComponent(matcher[1]));
-            } catch (e) {
+
+<head>
+    <meta charset="UTF-8">
+    <title>萌则导航</title>
+    <link rel=dns-prefetch href=//any.moest.top>
+    <script>
+        var getParam = function (name) {
+            var search = document.location.search;
+            var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+            var matcher = pattern.exec(search);
+            var items = null;
+            if (null != matcher) {
                 try {
-                    items = decodeURIComponent(matcher[1]);
+                    items = decodeURIComponent(decodeURIComponent(matcher[1]));
                 } catch (e) {
-                    items = matcher[1];
+                    try {
+                        items = decodeURIComponent(matcher[1]);
+                    } catch (e) {
+                        items = matcher[1];
+                    }
                 }
             }
+            return items;
+        };
+        var url = getParam("url");
+        if (url && url.length > 0) { window.location.href = url; }
+        else {
+            let targetProtocol = "https:"
+            if (window.location.protocol != targetProtocol) {
+                window.location.href = targetProtocol + window.location.href.substring(window.location.protocol.length);
+            }
         }
-        return items;
-    };
-    var url = getParam("url");
-    if(url && url.length>0)
-    window.location.href = url; 
-    //else
-    //window.history.go(-1);
-</script>
-<style>
-a{text-decoration:none}
-.center{margin:auto;position:absolute;top:10%;left:0;bottom:0;right:0;text-align:center}
-.defont{font-family:'Micorsoft yahei';font-size:16pt;line-height:2}
-</style>
-</head>
-<body>
-<div class="center defont">
-<a href="moeloaderdelta/donate">MoeLoader Delta捐赠名单</a>
-<br>
-<a href="medicinedance">踊るメディスン</a>
-</div>
-</body>
-</html>
+    </script>
+    <style>
+        a {
+            text-decoration: none
+        }
 
+        .center {
+            margin: auto;
+            position: absolute;
+            top: 10%;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center
+        }
+
+        .defont {
+            font-family: 'Micorsoft yahei';
+            font-size: 16pt;
+            line-height: 2
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center defont">
+        <a href="moeloaderdelta/donate">MoeLoader Delta捐赠名单</a>
+        <br>
+        <a href="medicinedance">踊るメディスン</a>
+        <br>
+        <a href="duorou">多肉解析2</a>
+    </div>
+</body>
+
+</html>
