@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度样式美化
 // @namespace    https://github.com/usaginya/mkAppUpInfo/blob/master/monkeyjs/%E7%99%BE%E5%BA%A6%E6%A0%B7%E5%BC%8F%E7%BE%8E%E5%8C%96.user.js
-// @version      0.3
+// @version      0.4
 // @description  美化百度
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
