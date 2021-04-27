@@ -69,6 +69,19 @@
 
 	if(window.location.href.indexOf('.com/s')>0) {
 		$("body").append(ru);
+
+		let interval_count = 0;
+		let interval_clearad = setInterval(()=>{
+			if(interval_count>25){
+				clearInterval(interval_clearad);
+				return;
+			}
+			if($('.result-op[tpl="right_game_recommend"]').length>0){
+				$('.result-op[tpl="right_game_recommend"]').remove();
+				clearInterval(interval_clearad);
+			}
+		},200);
+
 		return;
 	}
 
