@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度样式美化
 // @namespace    https://github.com/usaginya/mkAppUpInfo/blob/master/monkeyjs/%E7%99%BE%E5%BA%A6%E6%A0%B7%E5%BC%8F%E7%BE%8E%E5%8C%96.user.js
-// @version      0.6
+// @version      0.7
 // @description  美化百度
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -46,7 +46,7 @@
 	#container.sam_newgrid .c-container .t a:hover{text-decoration:underline!important}
 	#container.sam_newgrid .c-container .c-title a:hover{text-decoration:underline!important}
 	#container.sam_newgrid #content_left .result-op,#container.sam_newgrid #content_left .result,
-	#rs,.video_list{margin-bottom:8px!important;background:#fff5!important;border-radius:8px!important;padding:10px!important;transition-duration:.5s}
+	#rs,.video_list{margin-bottom:8px!important;background:#fff8!important;border-radius:8px!important;padding:10px!important;transition-duration:.5s}
 	#container.sam_newgrid #content_left .result-op:hover,#container.sam_newgrid #content_left .result:hover,
 	.video_list:hover{background:#fffb!important;box-shadow:#0003 0 2px 9px;transition-duration:.5s}
 	.new-pmd .c-border,.c-group-wrapper{background:#fff5!important;transition-duration:.5s}
