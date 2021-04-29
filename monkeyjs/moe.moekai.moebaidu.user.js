@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         百度样式萌化
-// @namespace    https://github.com/usaginya/mkAppUpInfo/blob/master/monkeyjs/%E7%99%BE%E5%BA%A6%E6%A0%B7%E5%BC%8F%E8%90%8C%E5%8C%96.user.js
+// @namespace    https://github.com/usaginya/mkAppUpInfo/raw/master/monkeyjs/moe.moekai.moebaidu.user.js
 // @version      0.8
 // @description  萌化度娘搜索
 // @author       YIU
