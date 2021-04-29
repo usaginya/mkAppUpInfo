@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度样式萌化
 // @namespace    https://github.com/usaginya/mkAppUpInfo/raw/master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      0.8
+// @version      0.9
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -36,8 +36,10 @@
 	#result_logo{opacity:.6}
 	body{background:linear-gradient(#fffc,#fffc),url(https://random.52ecy.cn/randbg.php) center center / cover no-repeat fixed!important;
 	background-attachment:fixed!important;background-repeat:no-repeat;background-position:center center}
-	#head{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}#head:hover{background:#fff6!important;transition-duration:.3s}
+	#head,#wrapper #s_tab{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}
+	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
 	#su{background-color:#4ea6f2aa!important;transition-duration:.2s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
+	.wrapper_new .iptfocus.s_ipt_wr{border-color: #4e71f2bb!important;transition-duration:.2s}
 	.wrapper_new .sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
 	.selected-search-box,.bdpfmenu,.usermenu{background:#fff8!important;backdrop-filter:blur(3px)}
 	.wrapper_new #u .bdpfmenu a:hover,.wrapper_new #u .usermenu a:hover{background-color:#fffe!important;transition-duration:.3s}
@@ -65,7 +67,7 @@
 	.wrapper_new .sam_newgrid~#page strong,.wrapper_new .sam_newgrid~#page a:hover,
 	.wrapper_new .sam_newgrid~#page a:hover .pc,.wrapper_new .sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
 	.new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.new-pmd .c-tabs-content,.op_express_delivery_more{background-color:#fff6!important}
-	#wrapper #s_tab,.op_new_cal_screen{background-color:#fff2!important}
+	.op_new_cal_screen{background-color:#fff2!important}
 	.c-tabs-item .c-btn:hover{background:#ccc6!important}
 	</style>`;
 
