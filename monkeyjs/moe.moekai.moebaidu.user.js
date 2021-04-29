@@ -86,8 +86,8 @@
 		//set mouse acrylic move
 		let acrylic = document.querySelector('.gm-mouse-acrylic');
 		document.addEventListener("mousemove",function(e){
-			let x = e.pageX;
-			let y = e.pageY;
+			let x = e.x;
+			let y = e.y;
 			acrylic.style.left = x-25+'px';
 			acrylic.style.top = y-25+'px';
 		});
