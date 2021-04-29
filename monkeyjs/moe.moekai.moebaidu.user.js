@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度样式萌化
 // @namespace    https://github.com/usaginya/mkAppUpInfo/raw/master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      0.9
+// @version      1.0
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -39,14 +39,13 @@
 	#head,#wrapper #s_tab{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}
 	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
 	#su{background-color:#4ea6f2aa!important;transition-duration:.2s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
-	.wrapper_new .iptfocus.s_ipt_wr{border-color: #4e71f2bb!important;transition-duration:.2s}
+	.wrapper_new .iptfocus.s_ipt_wr,.wrapper_new #form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
 	.wrapper_new .sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
 	.selected-search-box,.bdpfmenu,.usermenu{background:#fff8!important;backdrop-filter:blur(3px)}
-	.wrapper_new #u .bdpfmenu a:hover,.wrapper_new #u .usermenu a:hover{background-color:#fffe!important;transition-duration:.3s}
+	.wrapper_new #u .bdpfmenu a:hover,.wrapper_new #u .usermenu a:hover,.bdsug{background-color:#fffe!important;transition-duration:.3s}
 	.wrapper_new #s_tab{padding-top:72px!important}
 	.wrapper_new .s_ipt_wr{background:#fff7!important;transition-duration:.3s}
 	.wrapper_new .s_ipt_wr:hover{background:#fffa!important;transition-duration:.3s}
-	.bdsug{background:#fffc!important;backdrop-filter:blur(3px)}
 	#container.sam_newgrid .c-container .t a,#container.sam_newgrid .c-container .c-title a{text-decoration:none!important}
 	#container.sam_newgrid .c-container .t a:hover{text-decoration:underline!important}
 	#container.sam_newgrid .c-container .c-title a:hover{text-decoration:underline!important}
@@ -92,6 +91,46 @@
 			let y = e.y;
 			acrylic.style.left = x-25+'px';
 			acrylic.style.top = y-25+'px';
+		});
+
+		//show background
+		let logodom = $('#result_logo');
+		if(logodom.length<1){return;}
+		let bgtime,bgalpha = 0.8;
+
+		logodom.hover(()=>{
+			$('#wrapper').fadeTo(2000,0);
+
+			bgtime = setInterval(()=>{
+				bgalpha -= 0.01
+				if(bgalpha<0.01){
+					clearInterval(bgtime);
+					bgtime = null;
+					bgalpha = 0;
+				}
+				let newcss = $('body').css('background').replace(/255, 255, 255, (\d+\.\d+|\d)/ig, `255, 255, 255, ${bgalpha}`);
+				$('body').css('cssText',`background:${newcss}!important`);
+			},20);
+
+		},()=>{
+			$('#wrapper').stop(true);
+			$('#wrapper').fadeTo("slow",1);
+
+			if(bgtime){
+				clearInterval(bgtime);
+				bgtime = null;
+			}
+
+			bgtime = setInterval(()=>{
+				bgalpha += 0.01
+				if(bgalpha>0.79){
+					clearInterval(bgtime);
+					bgtime = null;
+					bgalpha=0.8;
+				}
+				let newcss = $('body').css('background').replace(/255, 255, 255, (\d+\.\d+|\d)/ig, `255, 255, 255, ${bgalpha}`);
+				$('body').css('cssText',`background:${newcss}!important`);
+			},20);
 		});
 
 		//remove garbage
