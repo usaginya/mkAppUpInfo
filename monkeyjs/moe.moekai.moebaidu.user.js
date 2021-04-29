@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         百度样式美化
-// @namespace    https://github.com/usaginya/mkAppUpInfo/blob/master/monkeyjs/%E7%99%BE%E5%BA%A6%E6%A0%B7%E5%BC%8F%E7%BE%8E%E5%8C%96.user.js
-// @version      0.7
-// @description  美化百度
+// @name         百度样式萌化
+// @namespace    https://github.com/usaginya/mkAppUpInfo/blob/master/monkeyjs/%E7%99%BE%E5%BA%A6%E6%A0%B7%E5%BC%8F%E8%90%8C%E5%8C%96.user.js
+// @version      0.8
+// @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
 // @match        *://www.baidu.com/*
@@ -33,10 +33,13 @@
 </style>`;
 
 	let ru = `<style>
+	#result_logo{opacity:.6}
 	body{background:linear-gradient(#fffc,#fffc),url(https://random.52ecy.cn/randbg.php) center center / cover no-repeat fixed!important;
 	background-attachment:fixed!important;background-repeat:no-repeat;background-position:center center}
-	.wrapper_new .sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item{background:#fff8!important}
-	#head,.selected-search-box,.bdpfmenu,.usermenu{background:#fff8!important;backdrop-filter:blur(3px)}
+	#head{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}#head:hover{background:#fff6!important;transition-duration:.3s}
+	#su{background-color:#4ea6f2aa!important;transition-duration:.2s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
+	.wrapper_new .sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
+	.selected-search-box,.bdpfmenu,.usermenu{background:#fff8!important;backdrop-filter:blur(3px)}
 	.wrapper_new #u .bdpfmenu a:hover,.wrapper_new #u .usermenu a:hover{background-color:#fffe!important;transition-duration:.3s}
 	.wrapper_new #s_tab{padding-top:72px!important}
 	.wrapper_new .s_ipt_wr{background:#fff7!important;transition-duration:.3s}
@@ -66,6 +69,11 @@
 	.c-tabs-item .c-btn:hover{background:#ccc6!important}
 	</style>`;
 
+	let mouseAcrylic = `<style>
+	.gm-mouse-acrylic{z-index:-1;width:50px;height:50px;position: fixed;
+	background-color:#fff0;backdrop-filter:blur(5px);pointer-events:none;border-radius:100%;
+	</style>`;
+
 	if(window.location.href.indexOf('.com/s')<0)
 	{
 		$("body").append(st);
@@ -73,8 +81,18 @@
 	}
 
 	if(window.location.href.indexOf('.com/s')>0) {
-		$("body").append(ru);
+		$("body").append(ru).append(mouseAcrylic).append($('<div class="gm-mouse-acrylic"></div>'));
 
+		//set mouse acrylic move
+		let acrylic = document.querySelector('.gm-mouse-acrylic');
+		document.addEventListener("mousemove",function(e){
+			let x = e.pageX;
+			let y = e.pageY;
+			acrylic.style.left = x-25+'px';
+			acrylic.style.top = y-25+'px';
+		});
+
+		//remove garbage
 		let interval_count = 0;
 		let interval_clearad = setInterval(()=>{
 			if(interval_count>15){
