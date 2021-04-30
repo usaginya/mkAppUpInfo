@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度样式萌化
 // @namespace    https://github.com/usaginya/mkAppUpInfo/raw/master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      1.0
+// @version      1.1
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -66,8 +66,9 @@
 	.wrapper_new .sam_newgrid~#page strong,.wrapper_new .sam_newgrid~#page a:hover,
 	.wrapper_new .sam_newgrid~#page a:hover .pc,.wrapper_new .sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
 	.new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.new-pmd .c-tabs-content,.op_express_delivery_more{background-color:#fff6!important}
-	.op_new_cal_screen{background-color:#fff2!important}
+	.op_new_cal_screen,[data-pmd] .c-container,.col-header .col-overview{background-color:#fff2!important}
 	.c-tabs-item .c-btn:hover{background:#ccc6!important}
+	.col-header-wrap::before{background:-webkit-linear-gradient(150deg,#00d3ea6b,#00cfa3b0)!important;background:linear-gradient(-60deg,#00d3ea6b,#00cfa3b0)!important}
 	</style>`;
 
 	let mouseAcrylic = `<style>
@@ -96,41 +97,45 @@
 		//show background
 		let logodom = $('#result_logo');
 		if(logodom.length<1){return;}
-		let bgtime,bgalpha = 0.8;
+		let bgtimein,bgtimeout,bgalpha = 0.8;
 
 		logodom.hover(()=>{
-			$('#wrapper').fadeTo(2000,0);
+			$('#wrapper').fadeTo(1200,0);
 
-			bgtime = setInterval(()=>{
+			bgtimein = setInterval(()=>{
 				bgalpha -= 0.01
 				if(bgalpha<0.01){
-					clearInterval(bgtime);
-					bgtime = null;
+					clearInterval(bgtimein);
+					bgtimein = null;
 					bgalpha = 0;
 				}
 				let newcss = $('body').css('background').replace(/255, 255, 255, (\d+\.\d+|\d)/ig, `255, 255, 255, ${bgalpha}`);
 				$('body').css('cssText',`background:${newcss}!important`);
-			},20);
+			},15);
 
 		},()=>{
 			$('#wrapper').stop(true);
 			$('#wrapper').fadeTo("slow",1);
 
-			if(bgtime){
-				clearInterval(bgtime);
-				bgtime = null;
+			if(bgtimein){
+				clearInterval(bgtimein);
+				bgtimein=null;
 			}
 
-			bgtime = setInterval(()=>{
+			if(bgtimeout){
+				clearInterval(bgtimeout);
+			}
+
+			bgtimeout = setInterval(()=>{
 				bgalpha += 0.01
 				if(bgalpha>0.79){
-					clearInterval(bgtime);
-					bgtime = null;
+					clearInterval(bgtimeout);
+					bgtimeout = null;
 					bgalpha=0.8;
 				}
 				let newcss = $('body').css('background').replace(/255, 255, 255, (\d+\.\d+|\d)/ig, `255, 255, 255, ${bgalpha}`);
 				$('body').css('cssText',`background:${newcss}!important`);
-			},20);
+			},15);
 		});
 
 		//remove garbage
