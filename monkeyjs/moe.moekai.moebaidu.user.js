@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度样式萌化
 // @namespace    https://github.com/usaginya/mkAppUpInfo/raw/master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      1.2
+// @version      1.3
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -87,7 +87,8 @@
 
 	let rippleCss = `<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/matthias-vogt/legitRipple.js@gh-pages/css/ripple.css">
 	<style>
-	.legitRipple-ripple{background:#ffebea22;backdrop-filter:blur(5px)}
+	.legitRipple{user-select:auto!important}
+	.legitRipple-ripple{background:#ffebea22;backdrop-filter:blur(5px);z-index:-2!important}
 	</style>`;
 
 	//------------------------------------ JS Run -------------------------------------------
@@ -177,7 +178,36 @@
 		},200);
 
 		//Add ripples
-		$('.result,.result-op').ripple({ allowDragging:true });
+		function getRandom(min,max){
+			return Math.floor(Math.random()*(max+1-min)+min)
+		}
+		function ReAddRipples(){
+			$.ripple.destroy();
+			$('.result,.result-op').ripple({ dragging:0, allowDragging:1,callback:($container,$ripple)=>{
+				$ripple.css('background',`rgba(${getRandom(200,255)},${getRandom(200,255)},${getRandom(200,255)},.2)`);
+			}});
+		};
+
+		//Add ripples
+		setTimeout(()=>{
+			ReAddRipples();
+		},500);
+
+		let interval_addrip;
+		$('#content_left').on('DOMNodeInserted',(e)=>{
+			if(interval_addrip){
+				return;
+			}
+
+			interval_addrip = setTimeout(()=>{
+				if(e.target.className.indexOf('ripple') > -1){
+					interval_addrip = null;
+					return;
+				}
+				ReAddRipples();
+				interval_addrip = null;
+			},500);
+		});
 
 		return;
 	}
