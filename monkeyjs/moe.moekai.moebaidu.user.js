@@ -1,15 +1,16 @@
 // ==UserScript==
 // @name         百度样式萌化
 // @namespace    https://github.com/usaginya/mkAppUpInfo/raw/master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      1.1
+// @version      1.2
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
 // @match        *://www.baidu.com/*
 // @grant        none
+// @require      https://cdn.jsdelivr.net/gh/matthias-vogt/legitRipple.js@gh-pages/js/ripple.js
 // ==/UserScript==
 
-(function() {
+(function($){
 	//--------------- STYLE -----------------------------------------
 	let st = `<style>
 #s_lg_img{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
@@ -69,6 +70,14 @@
 	.op_new_cal_screen,[data-pmd] .c-container,.col-header .col-overview{background-color:#fff2!important}
 	.c-tabs-item .c-btn:hover{background:#ccc6!important}
 	.col-header-wrap::before{background:-webkit-linear-gradient(150deg,#00d3ea6b,#00cfa3b0)!important;background:linear-gradient(-60deg,#00d3ea6b,#00cfa3b0)!important}
+	.sp-separator{width:100%;background-color:#fffa!important;backdrop-filter:blur(6px);transition-duration:.3s}
+	.sp-separator:hover{transition-duration:.3s}
+	::-webkit-scrollbar{width:.16rem;height:.17rem}
+	::-webkit-scrollbar-track-piece:vertical{background:#fff;box-shadow:inset 8px 0 8px #d3dbe0, inset -2px 0 8px #f5f5f5}
+	::-webkit-scrollbar-track-piece:horizontal{background:#fff;box-shadow:inset 0 8px 8px #d3dbe0, inset 0 -2px 8px #f5f5f5}
+	::-webkit-scrollbar-thumb{border-radius:.1rem}
+	::-webkit-scrollbar-thumb:vertical{background:linear-gradient(92deg,#fcffff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, 5px -7px 10px #c8d0da}
+    ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#fcfdff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, -5px 7px 10px #959ca5}
 	</style>`;
 
 	let mouseAcrylic = `<style>
@@ -76,6 +85,12 @@
 	background-color:#fff0;backdrop-filter:blur(5px);pointer-events:none;border-radius:100%;
 	</style>`;
 
+	let rippleCss = `<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/matthias-vogt/legitRipple.js@gh-pages/css/ripple.css">
+	<style>
+	.legitRipple-ripple{background:#ffebea22;backdrop-filter:blur(5px)}
+	</style>`;
+
+	//------------------------------------ JS Run -------------------------------------------
 	if(window.location.href.indexOf('.com/s')<0)
 	{
 		$("body").append(st);
@@ -83,7 +98,11 @@
 	}
 
 	if(window.location.href.indexOf('.com/s')>0) {
-		$("body").append(ru).append(mouseAcrylic).append($('<div class="gm-mouse-acrylic"></div>'));
+
+		$("body").append(ru)
+			.append(rippleCss)
+			.append(mouseAcrylic)
+			.append($('<div class="gm-mouse-acrylic"></div>'));
 
 		//set mouse acrylic move
 		let acrylic = document.querySelector('.gm-mouse-acrylic');
@@ -100,6 +119,9 @@
 		let bgtimein,bgtimeout,bgalpha = 0.8;
 
 		logodom.hover(()=>{
+			if($('#kw').is(":focus")){
+				return;
+			}
 			$('#wrapper').fadeTo(1200,0);
 
 			bgtimein = setInterval(()=>{
@@ -114,6 +136,9 @@
 			},15);
 
 		},()=>{
+			if($('#kw').is(":focus")){
+				return;
+			}
 			$('#wrapper').stop(true);
 			$('#wrapper').fadeTo("slow",1);
 
@@ -151,7 +176,10 @@
 			}
 		},200);
 
+		//Add ripples
+		$('.result,.result-op').ripple({ allowDragging:true });
+
 		return;
 	}
 
-})();
+})(window.jQuery);
