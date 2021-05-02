@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         百度样式萌化
+// @name         百度搜索萌化
 // @namespace    https://github.com/usaginya/mkAppUpInfo/raw/master/monkeyjs/moe.moekai.moebaidu.user.js
 // @version      1.4
 // @description  萌化度娘搜索
@@ -35,18 +35,29 @@
 
 	let ru = `<style>
 	#result_logo{opacity:.6}
+	#result_logo .index-logo-src{display:block!important}
+	#result_logo .index-logo-srcnew,#result_logo .index-logo-peak{display:none!important}
 	body{background:linear-gradient(#fffc,#fffc),url(https://random.52ecy.cn/randbg.php) center center / cover no-repeat fixed!important;
 	background-attachment:fixed!important;background-repeat:no-repeat;background-position:center center}
 	#head,#wrapper #s_tab{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}
 	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
+	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#222!important}
+	#s_tab .cur-tab::before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover::before{color:#626675!important}
+	#s_tab a,#s_tab b{text-align:center!important}
+	#s_tab .cur-tab::after{background:#0095ff!important}#u>a:hover{color:#0095ff!important}
+	.s-tab-item{position:relative;transition:.2s all ease-in-out}
+	.s-tab-item::after{content: '';position:absolute;left:100%;width:0;height:100%;border-bottom:2px solid #5cf;transition:.2s all ease-in-out}
+	.s-tab-item:hover::after{width:100%;left:0;transition-delay:.1s}
+	.s-tab-item:hover~.s-tab-item::after{left:0}
+	#s_tab .s-tab-item::before{color:#c0c2c8!important}
 	#su{background-color:#4ea6f2aa!important;transition-duration:.2s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
-	.wrapper_new .iptfocus.s_ipt_wr,.wrapper_new #form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
-	.wrapper_new .sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
+	.iptfocus.s_ipt_wr,#form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
+	.sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
 	.selected-search-box,.bdpfmenu,.usermenu{background:#fff8!important;backdrop-filter:blur(3px)}
-	.wrapper_new #u .bdpfmenu a:hover,.wrapper_new #u .usermenu a:hover,.bdsug{background-color:#fffe!important;transition-duration:.3s}
-	.wrapper_new #s_tab{padding-top:72px!important}
-	.wrapper_new .s_ipt_wr{background:#fff7!important;transition-duration:.3s}
-	.wrapper_new .s_ipt_wr:hover{background:#fffa!important;transition-duration:.3s}
+	#u .bdpfmenu a:hover,#u .usermenu a:hover,.bdsug{background-color:#fffe!important;transition-duration:.3s}
+	#s_tab{padding-top:72px!important}
+	.s_ipt_wr{background:#fff7!important;transition-duration:.3s}
+	.s_ipt_wr:hover{background:#fffa!important;transition-duration:.3s}
 	#container.sam_newgrid .c-container .t a,#container.sam_newgrid .c-container .c-title a{text-decoration:none!important}
 	#container.sam_newgrid .c-container .t a:hover{text-decoration:underline!important}
 	#container.sam_newgrid .c-container .c-title a:hover{text-decoration:underline!important}
@@ -57,15 +68,15 @@
 	.new-pmd .c-border,.c-group-wrapper{background:#fff5!important;transition-duration:.5s}
 	.new-pmd .c-border:hover{background:#fffb!important;transition-duration:.5s}
 	#content_right{opacity:.5;transition-duration:1s}#content_right:hover{opacity:1;transition-duration:.5s}
-	#foot,.wrapper_new .sam_newgrid~#page{background-color:#f5f5f666!important}
+	#foot,.sam_newgrid~#page{background-color:#f5f5f666!important}
 	#foot #help,.c-tip-con .c-tip-menu li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
 	#wrapper #content_left .result[tpl='soft'] .op-soft-title,#wrapper #content_left .result h3,#wrapper #content_left .c-container h3,
 	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container{background-color:#fff0!important}
 	.c-tip-con .c-tip-menu li a:hover{background-color:#ccc6!important;transition-duration:.3s}
 	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal{background:#fffb!important;backdrop-filter:blur(3px)}
 	.soutu-hover-tip,.soutu-env-new .soutu-layer .soutu-state-normal,.soutu-env-new .soutu-layer .soutu-error,.soutu-env-new .soutu-layer .soutu-waiting{background:#fffd}
-	.wrapper_new .sam_newgrid~#page strong,.wrapper_new .sam_newgrid~#page a:hover,
-	.wrapper_new .sam_newgrid~#page a:hover .pc,.wrapper_new .sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
+	.sam_newgrid~#page strong,.sam_newgrid~#page a:hover,
+	.sam_newgrid~#page a:hover .pc,.sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
 	.new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.new-pmd .c-tabs-content,.op_express_delivery_more{background-color:#fff6!important}
 	.op_new_cal_screen,[data-pmd] .c-container,.col-header .col-overview{background-color:#fff2!important}
 	.c-tabs-item .c-btn:hover{background:#ccc6!important}
