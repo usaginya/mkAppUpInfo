@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度搜索萌化
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      1.4
+// @version      1.5
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -42,14 +42,16 @@
 	#head,#wrapper #s_tab{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}
 	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#222!important}
-	#s_tab .cur-tab::before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover::before{color:#626675!important}
+	#s_tab .cur-tab:before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover:before{color:#626675!important}
 	#s_tab a,#s_tab b{text-align:center!important}
-	#s_tab .cur-tab::after{background:#0095ff!important}#u>a:hover{color:#0095ff!important}
+	#s_tab .cur-tab:after{background:#0095ff!important}#u>a:hover{color:#0095ff!important}#s_tab b{border-bottom:#0095ff!important}
 	.s-tab-item{position:relative;transition:.2s all ease-in-out}
-	.s-tab-item::after{content: '';position:absolute;left:100%;width:0;height:100%;border-bottom:2px solid #5cf;transition:.2s all ease-in-out}
-	.s-tab-item:hover::after{width:100%;left:0;transition-delay:.1s}
-	.s-tab-item:hover~.s-tab-item::after{left:0}
-	#s_tab .s-tab-item::before{color:#c0c2c8!important}
+	.s-tab-item:after,#wrapper #content_left .op-soft-title a:after,#wrapper #content_left .result h3 a:after,
+	#wrapper #content_left .result-op h3 a:after{content: '';position:absolute;left:100%;width:0;height:100%;border-bottom:2px solid #5cf;transition:.2s all ease-in-out}
+	.s-tab-item:hover:after,#wrapper #content_left .op-soft-title a:hover:after,#wrapper #content_left .result h3 a:hover:after,
+	#wrapper #content_left .result-op h3 a:hover:after{width:100%;left:0;transition-delay:.1s}
+	.s-tab-item:hover~.s-tab-item:after{left:0}
+	#s_tab .s-tab-item:before{color:#c0c2c8!important}
 	#su{background-color:#4ea6f2aa!important;transition-duration:.2s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
 	.iptfocus.s_ipt_wr,#form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
 	.sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
@@ -58,9 +60,8 @@
 	#s_tab{padding-top:72px!important}
 	.s_ipt_wr{background:#fff7!important;transition-duration:.3s}
 	.s_ipt_wr:hover{background:#fffa!important;transition-duration:.3s}
+	#wrapper #content_left .op-soft-title a,#wrapper #content_left .result h3 a,#wrapper #content_left .result-op h3 a{position:relative}
 	#container.sam_newgrid .c-container .t a,#container.sam_newgrid .c-container .c-title a{text-decoration:none!important}
-	#container.sam_newgrid .c-container .t a:hover{text-decoration:underline!important}
-	#container.sam_newgrid .c-container .c-title a:hover{text-decoration:underline!important}
 	#container.sam_newgrid #content_left .result-op,#container.sam_newgrid #content_left .result,
 	#rs,.video_list{margin-bottom:8px!important;background:#fff8!important;border-radius:8px!important;padding:10px!important;transition-duration:.5s}
 	#container.sam_newgrid #content_left .result-op:hover,#container.sam_newgrid #content_left .result:hover,
