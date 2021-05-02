@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度搜索萌化
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      1.5
+// @version      1.4
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -194,8 +194,17 @@
 			return Math.floor(Math.random()*(max+1-min)+min)
 		}
 		function ReAddRipples(){
+			let oldTitle, newTitle, timeoutColor;
 			$.ripple.destroy();
 			$('.result,.result-op').ripple({ dragging:0, allowDragging:1,callback:($container,$ripple)=>{
+				newTitle = $container.find('a:first').text();
+				if(newTitle == oldTitle){
+					clearTimeout(timeoutColor);
+					timeoutColor = setTimeout(()=>{ oldTitle = null; },500);
+					return;
+				}
+				oldTitle = newTitle;
+				clearTimeout(timeoutColor);
 				$ripple.css('background',`rgba(${getRandom(200,255)},${getRandom(200,255)},${getRandom(200,255)},.2)`);
 			}});
 		};
