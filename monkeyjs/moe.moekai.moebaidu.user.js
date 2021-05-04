@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度搜索萌化
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      1.6
+// @version      1.7
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
