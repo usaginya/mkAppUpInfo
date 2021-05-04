@@ -41,6 +41,11 @@
 	background-attachment:fixed!important;background-repeat:no-repeat;background-position:center center}
 	#head,#wrapper #s_tab{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}
 	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
+	#con-at .result-op{width:80%!important;border-radius:16px!important}
+	[class*="bac-box_"]{background:#fff0!important}
+	[class*="bac-img_"]{opacity:.7!important}
+	[class^="view-right_"]{right:6%!important}
+	.view-bac_PurEx{padding-right:12px!important}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#222!important}
 	#s_tab .cur-tab:before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover:before{color:#626675!important}
 	#s_tab a,#s_tab b{text-align:center!important}
@@ -103,19 +108,22 @@
 	.legitRipple-ripple{background:#ffebea22;backdrop-filter:blur(5px);z-index:-2!important}
 	</style>`;
 
+	let acCenterPatch = `<style>#con-at .result-op{margin:0 auto;left:-2%}</style>`;
+
 	//------------------------------------ JS Run -------------------------------------------
 	if(window.location.href.indexOf('.com/s')<0)
 	{
-		$("body").append(st);
+		$("head").append(st);
 		return;
 	}
 
 	if(window.location.href.indexOf('.com/s')>0) {
 
-		$("body").append(ru)
+		$("head").append(ru)
 			.append(rippleCss)
-			.append(mouseAcrylic)
-			.append($('<div class="gm-mouse-acrylic"></div>'));
+			.append(mouseAcrylic);
+
+		$("body").append($('<div class="gm-mouse-acrylic"></div>'));
 
 		//set mouse acrylic move
 		let acrylic = document.querySelector('.gm-mouse-acrylic');
@@ -229,6 +237,14 @@
 				interval_addrip = null;
 			},500);
 		});
+
+		//patch ac style
+		if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
+			$('head').append(acCenterPatch);
+		}
+
+		//disable video auto play
+		$('video').removeAttr('autoplay');
 
 		return;
 	}
