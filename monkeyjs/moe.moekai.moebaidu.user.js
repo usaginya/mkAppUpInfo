@@ -13,25 +13,25 @@
 (function($){
 	//--------------- STYLE -----------------------------------------
 	let st = `<style>
-#s_lg_img{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
-#su{background:#0072ffa8!important}
-#su:hover{background:#0072ffcc!important}
-#kw{border-color:#0072ffa8!important;background:#fffa!important}
-#kw:focus{border-color:#0072ffdd!important}
-#kw:focus,.bdsug{background:#fffc!important}
-.soutu-btn{background-color:#fff0!important}
-.s-bottom-space{height:20px!important}
-.s-top-wrap{height:30px}
-.s-skin-hasbg .s-top-wrap{background:rgba(0,0,0,.15)}
-.s-top-left .mnav,.s-top-right .s-top-right-text,.s-weather-wrapper{margin-top:5px}
-.s-top-right .s-top-username{margin-top:2px}
-.s-top-right .s-top-username .s-top-img-wrapper{width:20px;height:20px;top:2px}
-.s-top-right .s-top-username img{padding:0;width:20px;height:20px}
-.s-top-userset-menu,.s-mod-setweather{top:30px}
-.s-skin-hasbg #s_main{background:rgba(255,255,255,.3)}
-.s-code-blocks{box-shadow:none}
-#bottom_layer{display:none}
-</style>`;
+	#s_lg_img{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
+	#su{background:#0072ffa8!important}
+	#su:hover{background:#0072ffcc!important}
+	#kw{border-color:#0072ffa8!important;background:#fffa!important}
+	#kw:focus{border-color:#0072ffdd!important}
+	#kw:focus,.bdsug{background:#fffc!important}
+	.soutu-btn{background-color:#fff0!important}
+	.s-bottom-space{height:20px!important}
+	.s-top-wrap{height:30px}
+	.s-skin-hasbg .s-top-wrap{background:rgba(0,0,0,.15)}
+	.s-top-left .mnav,.s-top-right .s-top-right-text,.s-weather-wrapper{margin-top:5px}
+	.s-top-right .s-top-username{margin-top:2px}
+	.s-top-right .s-top-username .s-top-img-wrapper{width:20px;height:20px;top:2px}
+	.s-top-right .s-top-username img{padding:0;width:20px;height:20px}
+	.s-top-userset-menu,.s-mod-setweather{top:30px}
+	.s-skin-hasbg #s_main{background:rgba(255,255,255,.3)}
+	.s-code-blocks{box-shadow:none}
+	#bottom_layer{display:none}
+	</style>`;
 
 	let ru = `<style>
 	#result_logo{opacity:.6}
@@ -95,6 +95,7 @@
 	::-webkit-scrollbar-thumb{border-radius:.1rem}
 	::-webkit-scrollbar-thumb:vertical{background:linear-gradient(92deg,#fcffff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, 5px -7px 10px #c8d0da}
     ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#fcfdff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, -5px 7px 10px #959ca5}
+	[tpl^=right_game_recommend]{display:none}
 	</style>`;
 
 	let mouseAcrylic = `<style>
@@ -184,19 +185,6 @@
 			},15);
 		});
 
-		//remove garbage
-		let interval_count = 0;
-		let interval_clearad = setInterval(()=>{
-			if(interval_count>15){
-				clearInterval(interval_clearad);
-				return;
-			}
-			if($('.result-op[tpl="right_game_recommend"]').length>0){
-				$('.result-op[tpl="right_game_recommend"]').remove();
-				clearInterval(interval_clearad);
-			}
-		},200);
-
 		//Add ripples
 		function getRandom(min,max){
 			return Math.floor(Math.random()*(max+1-min)+min)
@@ -217,7 +205,7 @@
 			}});
 		};
 
-		//Add ripples
+		//Add ripples on start
 		setTimeout(()=>{
 			ReAddRipples();
 		},500);
