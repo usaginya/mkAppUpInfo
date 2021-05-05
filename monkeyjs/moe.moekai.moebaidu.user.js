@@ -187,7 +187,7 @@
 				clearTimeout(timeoutColor);
 				$ripple.css('background',`rgba(${getRandom(200,255)},${getRandom(200,255)},${getRandom(200,255)},.2)`);
 			}});
-			$('#wrapper').ripple({ dragging:0, maxDiameter:'30%', callback:($container,$ripple)=>{
+			$('#wrapper').ripple({ dragging:0, allowDragging:1, maxDiameter:'30%', callback:($container,$ripple)=>{
 				$ripple.css({'background':'#fff0', 'backdrop-filter':'blur(9px)'});
 			}});
 
