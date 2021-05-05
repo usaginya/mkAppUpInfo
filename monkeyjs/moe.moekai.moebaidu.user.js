@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度搜索萌化
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.user.js
-// @version      1.7
+// @version      1.8
 // @description  萌化度娘搜索
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -98,11 +98,6 @@
 	[tpl^=right_game_recommend]{display:none}
 	</style>`;
 
-	let mouseAcrylic = `<style>
-	.gm-mouse-acrylic{z-index:-1;width:50px;height:50px;position: fixed;
-	background-color:#fff0;backdrop-filter:blur(5px);pointer-events:none;border-radius:100%;
-	</style>`;
-
 	let rippleCss = `<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/matthias-vogt/legitRipple.js@gh-pages/css/ripple.css">
 	<style>
 	.legitRipple{user-select:auto!important}
@@ -120,20 +115,9 @@
 
 	if(window.location.href.indexOf('.com/s')>0) {
 
-		$("head").append(ru)
-			.append(rippleCss)
-			.append(mouseAcrylic);
-
-		$("body").append($('<div class="gm-mouse-acrylic"></div>'));
-
-		//set mouse acrylic move
-		let acrylic = document.querySelector('.gm-mouse-acrylic');
-		document.addEventListener("mousemove",function(e){
-			let x = e.x;
-			let y = e.y;
-			acrylic.style.left = x-25+'px';
-			acrylic.style.top = y-25+'px';
-		});
+		$("head")
+			.append(ru)
+			.append(rippleCss);
 
 		//show background
 		let logodom = $('#result_logo');
@@ -192,7 +176,7 @@
 		function ReAddRipples(){
 			let oldTitle, newTitle, timeoutColor;
 			$.ripple.destroy();
-			$('.result,.result-op').ripple({ dragging:0, allowDragging:1,callback:($container,$ripple)=>{
+			$('.result,.result-op').ripple({ dragging:0, allowDragging:1, callback:($container,$ripple)=>{
 				newTitle = $container.find('a:first').text();
 				if(newTitle == oldTitle){
 					clearTimeout(timeoutColor);
@@ -203,6 +187,10 @@
 				clearTimeout(timeoutColor);
 				$ripple.css('background',`rgba(${getRandom(200,255)},${getRandom(200,255)},${getRandom(200,255)},.2)`);
 			}});
+			$('#wrapper').ripple({ dragging:0, maxDiameter:'30%', callback:($container,$ripple)=>{
+				$ripple.css({'background':'#fff0', 'backdrop-filter':'blur(9px)'});
+			}});
+
 		};
 
 		//Add ripples on start
