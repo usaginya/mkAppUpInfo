@@ -8,5 +8,5 @@
 | moe.moekai.gmgardtransparentpost.user.js  | 绅士之庭半透明界面  |
 | plus.yasuotu.com.user.js  | 压缩图-功能提升  |
 | moe.moekai.tiebaindexpure.user.js  | 百度贴吧首页精简修改  |
-| moe.moekai.moebaidu.user.js | 百度搜索样式萌化 |
-| moe.moekai.moebaidu.ecchi.user.js | 百度搜索样式萌化（18+限制版） |
+| moe.moekai.moebaidu.user.js | 百度娘搜索萌化 |
+| moe.moekai.moebaidu.ecchi.user.js | 百度娘搜索萌化（18+限制级） |
