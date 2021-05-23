@@ -1,0 +1,200 @@
+{
+  "code": 0,
+  "message": "0",
+  "ttl": 1,
+  "data": {
+    "show": [
+      {
+        "id": 15,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 900,
+        "mode": "half",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 17,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 700,
+        "mode": "half",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 12,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 700,
+        "mode": "half",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 13,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 700,
+        "mode": "half",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 10,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 700,
+        "mode": "half",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 14,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 900,
+        "mode": "half",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 36,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 700,
+        "mode": "half",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 37,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 700,
+        "mode": "half",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 41,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 1000,
+        "mode": "full",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": true,
+        "categories": null
+      },
+      {
+        "id": 35,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 1000,
+        "mode": "full",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 34,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 1000,
+        "mode": "full",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 33,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 1000,
+        "mode": "full",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 32,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 1000,
+        "mode": "full",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 38,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 1000,
+        "mode": "full",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      },
+      {
+        "id": 31,
+        "begin_time": 1620280586,
+        "end_time": 1653334315,
+        "probability": 0,
+        "duration": 1000,
+        "mode": "full",
+        "show_logo": true,
+        "logo_position": "center",
+        "new_splash": false,
+        "categories": null
+      }
+    ],
+    "config": [
+      {
+        "title": "随机展示",
+        "type": "default"
+      },
+      {
+        "title": "自选(色图)",
+        "type": "probability"
+      }
+    ],
+    "desc": "选择你想要的开屏启动画面"
+  }
+}
