@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      1.1
+// @version      1.2
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -132,7 +132,8 @@
 
 		$('head')
 			.append(ru)
-			.append(rippleCss);
+			.append(rippleCss)
+			.append(`<meta name="referrer" content="no-referrer"/>`);;
 
 		//get random background url
 		let isBgMaskCssOk;
