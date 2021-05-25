@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      1.0
+// @version      1.1
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -48,6 +48,7 @@
 	[class^="view-right_"]{right:6%!important}
 	.view-bac_PurEx{padding-right:12px!important}
 	.c-container{width:100%!important}
+	.dropdown-menu{position: fixed!important;left:auto!important;top:auto!important;width:auto!important;}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#222!important}
 	#s_tab .cur-tab:before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover:before{color:#626675!important}
 	#s_tab a,#s_tab b{text-align:center!important}
@@ -79,7 +80,8 @@
 	#foot,.sam_newgrid~#page{background-color:#f5f5f666!important}
 	#foot #help,.c-tip-con .c-tip-menu li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
 	#wrapper #content_left .result[tpl='soft'] .op-soft-title,#wrapper #content_left .result h3,#wrapper #content_left .c-container h3,
-	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container{background-color:#fff0!important}
+	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container
+	.ms-measures-content .op-unit-tabs-nav-container,.ms-measures-content .tabs-nav{background-color:#fff0!important}
 	.c-tip-con .c-tip-menu li a:hover{background-color:#ccc6!important;transition-duration:.3s}
 	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal{background:#fffb!important;backdrop-filter:blur(3px)}
 	.soutu-hover-tip,.soutu-env-new .soutu-layer .soutu-state-normal,.soutu-env-new .soutu-layer .soutu-error,.soutu-env-new .soutu-layer .soutu-waiting{background:#fffd}
@@ -101,9 +103,9 @@
 	</style>`;
 
 	let rippleCss = `<style>
-	.legitRipple{position:relative;overflow:hidden;user-select:auto;z-index:0}
-	.legitRipple-ripple{position:absolute;z-index:-1;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);
-	pointer-events:none;border-radius:50%;background:#fff4;will-change:transform,width,opacity;backdrop-filter:blur(2px);
+	.legitRipple{position:relative;overflow:hidden;user-select:auto}
+	.legitRipple-ripple{position:absolute;z-index:0;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);
+	pointer-events:none;border-radius:50%;background:#fff4;will-change:transform,width,opacity;
 	-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);width:0;opacity:1;
 	-webkit-transition:width .5s linear,opacity 2s ease-out;transition:width .5s linear, opacity 2s ease-out}
 	.legitRipple-ripple:before{content:"";padding-top:100%;display: block}
@@ -115,7 +117,7 @@
 	let bgImageCss = `body{background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat!important;
 	background-attachment:fixed!important;background-repeat:no-repeat;background-position:center}`;
 
-	let bgCircleMaskSurface,bgCircleMaskInside = `{left:0;top:0;width:100%;height:100%;position:fixed;z-index:-2;
+	let bgCircleMaskSurface,bgCircleMaskInside = `{left:0;top:0;width:100%;height:100%;position:fixed;z-index:-3;
 	background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat;background-attachment:fixed;background-repeat:no-repeat;background-position:center}`;
 
 	//------------------------------------ JS Run -------------------------------------------
@@ -149,6 +151,10 @@
 				bgCircleMaskSurface = '.bgCircleMaskSurface' + bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
 				bgCircleMaskInside = bgCircleMaskSurface.replace('Surface','Inside').replace(/#ffffffc6/ig, '#fff0');
 				$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}</style>`);
+
+				//perload
+				let imgPerfect = new Image();
+				imgPerfect.src = arrbgurl[1];
 
 				isBgMaskCssOk = 1;
 			}
@@ -213,13 +219,13 @@
 		function ReAddRipples(){
 			$.ripple.destroy();
 			$.ripple({
-				".result,.result-op":{
+				'.result,.result-op':{
 					dragging: 0,
 					allowDragging: 1,
 					callback: ($container,$ripple)=>{
 						if($ripple.hasSetColor) return;
 						$ripple.hasSetColor = 1;
-						$ripple.css('background',`rgba(${getRandom(180,255)},${getRandom(180,255)},${getRandom(180,255)},.2)`);
+						$ripple.css('background',`rgba(${getRandom(180,255)},${getRandom(180,255)},${getRandom(180,255)},.26)`);
 					}}
 			});
 		};
