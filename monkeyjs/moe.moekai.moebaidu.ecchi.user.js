@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      1.2
+// @version      1.3
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -178,7 +178,7 @@
 			bgAlpha = bgAlpha < 0 ? 0 : (bgAlpha > .8 ? .8 : bgAlpha);
 
 			let newcss = $('body').css('background').replace(/255, 255, 255, (\d+\.\d+|\d)/ig, `255, 255, 255, ${bgAlpha}`);
-			$('body').css('cssText',`background:${newcss}!important`);
+			$('body').attr('style',`background:${newcss}!important`);
 
 			if( bgAlpha <= 0 || bgAlpha >= .8){
 				stopBgAni();
