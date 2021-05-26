@@ -177,8 +177,8 @@
 			bgAlpha += show ? -.02 : .02;
 			bgAlpha = bgAlpha < 0 ? 0 : (bgAlpha > .8 ? .8 : bgAlpha);
 
-			let newcss = $('body').css('background').replace(/255, 255, 255, (\d+\.\d+|\d)/ig, `255, 255, 255, ${bgAlpha}`);
-			$('body').attr('style',`background:${newcss}!important`);
+			let newcss = $('body').css('background-image').replace(/255, 255, 255, (\d+\.\d+|\d)/ig, `255, 255, 255, ${bgAlpha}`);
+			$('body').attr('style',`background-image:${newcss}!important`);
 
 			if( bgAlpha <= 0 || bgAlpha >= .8){
 				stopBgAni();
