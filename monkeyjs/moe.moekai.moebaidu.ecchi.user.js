@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      1.3
+// @version      1.4
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -132,8 +132,9 @@
 
 		$('head')
 			.append(ru)
-			.append(rippleCss)
-			.append(`<meta name="referrer" content="no-referrer"/>`);;
+			.append(rippleCss);
+
+		$('meta[name="referrer"]').attr('content','no-referrer');
 
 		//get random background url
 		let isBgMaskCssOk;
@@ -153,7 +154,7 @@
 				bgCircleMaskInside = bgCircleMaskSurface.replace('Surface','Inside').replace(/#ffffffc6/ig, '#fff0');
 				$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}</style>`);
 
-				//perload
+				//imgload
 				let imgPerfect = new Image();
 				imgPerfect.src = arrbgurl[1];
 
