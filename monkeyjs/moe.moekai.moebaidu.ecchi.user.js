@@ -256,7 +256,7 @@
 		//Create mask bg
 		let bcmaskdom, ellipseOp, ellipseED, ellipseED2,
 			ellipseSize = ()=> passBgLogo ? 150 : 80,
-			edDelay = ()=> bcmaskdom.data('passBgLogo') ? 3.6 : 1.6;
+			edDelay = ()=> bcmaskdom.data('passBgLogo') ? 4.8 : 1.6;
 
 		$('body').mousedown((e)=>{
 			if(!isBgMaskCssOk) return;
