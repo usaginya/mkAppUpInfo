@@ -160,6 +160,9 @@
 				imgPerfect.src = arrbgurl[1];
 
 				isBgMaskCssOk = 1;
+			},
+			onerror: function(err){
+				console.log('baiduEcchi',err);
 			}
 		});
 
