@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      1.5
+// @version      1.4
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -256,7 +256,7 @@
 		//Create mask bg
 		let bcmaskdom, ellipseOp, ellipseED, ellipseED2,
 			ellipseSize = ()=> passBgLogo ? 150 : 80,
-			edDelay = ()=> bcmaskdom.data('passBgLogo') ? 4.8 : 1.6;
+			edDelay = ()=> bcmaskdom.data('passBgLogo') ? 5.6 : 1.6;
 
 		$('body').mousedown((e)=>{
 			if(!isBgMaskCssOk) return;
