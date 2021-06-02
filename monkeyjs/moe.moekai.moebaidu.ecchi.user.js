@@ -143,7 +143,6 @@
 			method: 'GET',
 			url: 'https://rimg.moest.top',
 			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
 				'token': '0191f2696816cf0b4cf88c6ab4e1e6103f71d938'
 			},
 			onload: function(response){
