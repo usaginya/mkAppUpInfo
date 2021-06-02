@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      1.4
+// @version      1.6
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -239,9 +239,10 @@
 		//Add ripples on start
 		setTimeout(()=>ReAddRipples(),500);
 
+		//On preloader
 		let interval_addrip;
 		$('#content_left').on('DOMNodeInserted',(e)=>{
-			if(interval_addrip) return;
+			if(interval_addrip || !e.target.className) return;
 
 			interval_addrip = setTimeout(()=>{
 				if(e.target.className.indexOf('ripple') > -1){
@@ -250,7 +251,7 @@
 				}
 				ReAddRipples();
 				interval_addrip = null;
-			},500);
+			},800);
 		});
 
 		//Create mask bg
