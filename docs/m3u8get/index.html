@@ -227,6 +227,16 @@
 Chrome浏览器需要点地址栏前面小锁进入 网站设置 把 不安全内容 设置为 允许<br>  测试链接：http://1257120875.vod2.myqcloud.com/0ef121cdvodtransgzp1257120875/3055695e5285890780828799271/v.f230.m3u8</div>
   <section class="m-p-input-container">
     <input type="text" v-model="url" :disable="downloading" placeholder="请输入 m3u8 链接">
+    
+    <!--范围查询-->
+    <template v-if="!downloading || rangeDownload.isShowRange">
+      <div v-if="!rangeDownload.isShowRange" @click="getM3U8(true)">特定范围下载</div>
+      <template v-else>
+        <input class="range-input" type="number" v-model="rangeDownload.startSegment" :disabled="downloading" placeholder="起始片段">
+        <input class="range-input" type="number" v-model="rangeDownload.endSegment" :disabled="downloading" placeholder="截止片段">
+      </template>
+    </template>
+    
     <template v-if="!downloading">
       <div @click="getM3U8">原格式下载</div>
       <div @click="getMP4">转码为MP4下载</div>
