@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      1.7
+// @version      1.8
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -88,6 +88,7 @@
 	.sam_newgrid~#page strong,.sam_newgrid~#page a:hover,
 	.sam_newgrid~#page a:hover .pc,.sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
 	.new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.new-pmd .c-tabs-content,.op_express_delivery_more{background-color:#fff6!important}
+	.op_express_delivery_input{background:#fafafa77!important}
 	.op_new_cal_screen,[data-pmd] .c-container,.col-header .col-overview{background-color:#fff2!important}
 	.c-tabs-item .c-btn:hover{background:#ccc6!important}
 	.col-header-wrap::before{background:-webkit-linear-gradient(150deg,#00d3ea6b,#00cfa3b0)!important;background:linear-gradient(-60deg,#00d3ea6b,#00cfa3b0)!important}
@@ -104,7 +105,7 @@
 	</style>`;
 
 	let rippleCss = `<style>
-	.legitRipple{position:relative;overflow:hidden;user-select:auto}
+	.legitRipple{position:relative;overflow:hidden}
 	.legitRipple-ripple{position:absolute;z-index:0;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);
 	pointer-events:none;border-radius:50%;background:#fff4;will-change:transform,width,opacity;
 	-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);width:0;opacity:1;
