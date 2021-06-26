@@ -402,6 +402,15 @@ new Vue({
       this.beginTime = new Date()
       this.ajax({
         url: this.url,
+        headers: {
+			"Cookie": "name=value;domain=."+this.getTopHost(this.url),
+			"Origin": this.getHost(this.url),
+			"Referer": this.getHost(this.url)
+        },
+        xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true,
         success: (m3u8Str) => {
           this.tsUrlList = []
           this.finishList = []
@@ -479,6 +488,15 @@ new Vue({
       this.ajax({
         type: 'file',
         url: this.aesConf.uri,
+        headers: {
+			"Cookie": "name=value;domain=."+this.getTopHost(this.aesConf.uri),
+			"Origin": this.getHost(this.aesConf.uri),
+			"Referer": this.getHost(this.aesConf.uri)
+        },
+        xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true,
         success: (key) => {
           // console.log('getAES', key)
           // this.aesConf.key = this.aesConf.stringToBuffer(key)
@@ -732,6 +750,17 @@ new Vue({
       $input = null
 
       return result
+    },
+    
+    // 获取域名
+    getHost(url) {
+		let domain = url.split("/");
+		return domain[2] ? domain[2] : '';
+    },
+    
+    // 获取顶级域名
+    getTopHost(url) {
+     return url.replace(/http:\/\/.*?([^\.]+\.(com\.cn|org\.cn|net\.cn|[^\.]+))\/.+/, "$1");
     },
 
   }
