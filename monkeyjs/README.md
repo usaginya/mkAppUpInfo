@@ -10,3 +10,8 @@
 | moe.moekai.tiebaindexpure.user.js  | 百度贴吧首页精简修改  |
 | moe.moekai.moebaidu.user.js | 百度娘搜索萌化 |
 | moe.moekai.moebaidu.ecchi.user.js | 百度娘搜索萌化（18+限制级） |
+
+# 自改各种油猴脚本
+| 原名  | 简介  |
+| ------------ | ------------ |
+| eHunter.user.js | e漫画阅读器（修复nhentai错误 见 [eHunter #88](https://github.com/hanFengSan/eHunter/pull/88)）|
