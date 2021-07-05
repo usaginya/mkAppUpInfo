@@ -24,15 +24,16 @@ set /a n=0
 set inp=
 set /a n+=1
 set /p inp=  请拖入第 %n% 个mp4文件（输入9回车开始合并）：
-if "%inp%"=="9" goto ed
-call :getext "%inp%"
+if not defined inp goto ed
+if %inp%=="9" goto ed
+call :getext %inp%
 if /i not "%te%"==".mp4" (
 	echo 拖入的文件必须是mp4格式！
 	set /a n-=1
 	echo.
 	goto sp
 )
-if "%inp%"=="" (
+if %inp%=="" (
 	echo 没有输入！
 	set /a n-=1
 	echo.
@@ -50,7 +51,7 @@ set /a n=0
 :work
 for /f "tokens=1* delims=*" %%a in ("%files%") do (
 	echo 正在转换 %%a ...
-	start /high /wait "" %ffmpeg% -i "%%a" -vcodec copy -acodec copy -vbsf h264_mp4toannexb m4m%n%.ts
+	start /high /wait "" %ffmpeg% -i "%%a" -vcodec copy -acodec copy -vbsf h264_mp4toannexb m4m%n%.ts /y
 	set "tss=%tss%%n%.ts|"
 	set "files=%%b"
 	echo 转换完成！
@@ -63,7 +64,7 @@ echo ...........................................................
 echo.
 echo 正在合并mp4...
 set "tss=%tss:~0,-1%"
-start /high /wait "" %ffmpeg% -i "concat:%tss%" -acodec copy -vcodec copy -absf aac_adtstoasc %~dp0output.mp4
+start /high /wait "" %ffmpeg% -i "concat:%tss%" -acodec copy -vcodec copy -absf aac_adtstoasc %~dp0output.mp4 /y
 :clear
 for /f "tokens=1* delims=^|" %%a in ("%tss%") do (
 	del /f /s /q %%a
