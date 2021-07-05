@@ -1,11 +1,11 @@
 @echo off
 title  mp4合并批处理 by YIU
-:: 2021-7-5
+:: 2021-7-5 v9
 :: 将下面一行的 = 后面改为你的ffmpeg路径
 set "ffmpeg=ffmpeg.exe"
 :: 改ffmpeg路径在上一行
 :init
-call :getname "%ffmpeg%"
+call :getName "%ffmpeg%"
 if exist "%ffmpeg%" (if /i "%tn%"=="ffmpeg.exe" goto op)
 cls
 color 4e
@@ -15,18 +15,17 @@ goto init
 :op
 cls
 color 0b
-Echo.
-Echo.
-Set files=
+echo. && echo.
+set ofn=
+set files=
 set tss=
 set /a n=0
 :sp
 set inp=
 set /a n+=1
-set /p inp=  请拖入第 %n% 个mp4文件（输入9回车开始合并）：
+set /p inp=  请拖入第 %n% 个mp4文件（直接回车开始合并）：
 if not defined inp goto ed
-if %inp%=="9" goto ed
-call :getext %inp%
+call :getExt %inp%
 if /i not "%te%"==".mp4" (
 	echo 拖入的文件必须是mp4格式！
 	set /a n-=1
@@ -39,8 +38,12 @@ if %inp%=="" (
 	echo.
 	goto sp
 )
+if %n% equ 1 (
+	call :getPureName %inp%
+	set "ofn=%tpn%"
+)
 echo 输入完成！
-Set "files=%files%%inp%*"
+set "files=%files%%inp%*"
 echo.
 goto sp
 :ed
@@ -51,8 +54,8 @@ set /a n=0
 :work
 for /f "tokens=1* delims=*" %%a in ("%files%") do (
 	echo 正在转换 %%a ...
-	start /high /wait "" %ffmpeg% -i "%%a" -vcodec copy -acodec copy -vbsf h264_mp4toannexb m4m%n%.ts /y
-	set "tss=%tss%%n%.ts|"
+	start /high /wait "" %ffmpeg% -y -i %%a -vcodec copy -acodec copy -vbsf h264_mp4toannexb m4m%n%.ts
+	set "tss=%tss%m4m%n%.ts|"
 	set "files=%%b"
 	echo 转换完成！
 	echo.
@@ -64,7 +67,8 @@ echo ...........................................................
 echo.
 echo 正在合并mp4...
 set "tss=%tss:~0,-1%"
-start /high /wait "" %ffmpeg% -i "concat:%tss%" -acodec copy -vcodec copy -absf aac_adtstoasc %~dp0output.mp4 /y
+echo "concat:%tss%"
+start /high /wait "" %ffmpeg% -y -i "concat:%tss%" -c copy %ofn%_merge.mp4
 :clear
 for /f "tokens=1* delims=^|" %%a in ("%tss%") do (
 	del /f /s /q %%a
@@ -76,11 +80,12 @@ color 2e
 echo.
 echo.
 echo.
-echo 已将mp4合并到 %~dp0output.mp4
+echo 已将mp4合并到 %~dp0%ofn%_merge.mp4
 echo.
 echo.
-echo 按任意键结束合并...
+echo 按任意键定位mp4并结束合并...
 pause>nul
+start "" explorer /e,/select,%~dp0%ofn%_merge.mp4
 goto :EOF
 :pass
 cls
@@ -96,7 +101,9 @@ echo.
 echo  按任意键返回重新合并...
 pause>nul
 goto op
-:getname
+:getName
 set tn=%~nx1
-:getext
+:getExt
 set te=%~x1
+:getPureName
+set tpn=%~n1
