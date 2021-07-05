@@ -2,7 +2,7 @@
 title  mp4合并批处理 by YIU
 :: 2021-7-5
 :: 将下面一行的 = 后面改为你的ffmpeg路径
-set "ffmpeg=E:\Tools\XiaoWan\tools\ffmpeg.exe"
+set "ffmpeg=ffmpeg.exe"
 :: 改ffmpeg路径在上一行
 :init
 call :getname %ffmpeg%
