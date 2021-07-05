@@ -6,7 +6,7 @@ set "ffmpeg=ffmpeg.exe"
 :: 改ffmpeg路径在上一行
 :init
 call :getname "%ffmpeg%"
-if exist %ffmpeg% (if /i "%tn%"=="ffmpeg.exe" goto op)
+if exist "%ffmpeg%" (if /i "%tn%"=="ffmpeg.exe" goto op)
 cls
 color 4e
 echo. && echo. && echo.
