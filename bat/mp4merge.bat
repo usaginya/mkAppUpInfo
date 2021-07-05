@@ -5,7 +5,7 @@ title  mp4合并批处理 by YIU
 set "ffmpeg=ffmpeg.exe"
 :: 改ffmpeg路径在上一行
 :init
-call :getname %ffmpeg%
+call :getname "%ffmpeg%"
 if exist %ffmpeg% (if /i "%tn%"=="ffmpeg.exe" goto op)
 cls
 color 4e
@@ -25,7 +25,7 @@ set inp=
 set /a n+=1
 set /p inp=  请拖入第 %n% 个mp4文件（输入9回车开始合并）：
 if "%inp%"=="9" goto ed
-call :getext %inp%
+call :getext "%inp%"
 if /i not "%te%"==".mp4" (
 	echo 拖入的文件必须是mp4格式！
 	set /a n-=1
