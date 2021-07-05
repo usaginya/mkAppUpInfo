@@ -43,7 +43,7 @@ set /a n=0
 :work
 for /f "tokens=1* delims=*" %%a in ("%files%") do (
 	echo 正在转换 %%a ...
-	start /high /wait "" %ffmpeg% -i "%%a" -vcodec copy -acodec copy -vbsf h264_mp4toannexb %n%.ts
+	start /high /wait "" %ffmpeg% -i "%%a" -vcodec copy -acodec copy -vbsf h264_mp4toannexb m4m%n%.ts
 	set "tss=%tss%%n%.ts|"
 	set "files=%%b"
 	echo 转换完成！
