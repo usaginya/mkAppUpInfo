@@ -5,6 +5,7 @@ title  mp4合并批处理 by YIU
 set "ffmpeg=ffmpeg.exe"
 :: 改ffmpeg路径在上一行
 :init
+set "ffmpeg=%ffmpeg:"=%"
 call :getName "%ffmpeg%"
 if exist "%ffmpeg%" (if /i "%tn%"=="ffmpeg.exe" goto op)
 cls
@@ -54,7 +55,7 @@ set /a n=0
 :work
 for /f "tokens=1* delims=*" %%a in ("%files%") do (
 	echo 正在转换 %%a ...
-	start /high /wait "" %ffmpeg% -y -i %%a -vcodec copy -acodec copy -vbsf h264_mp4toannexb m4m%n%.ts
+	start /high /wait "" "%ffmpeg%" -y -i %%a -vcodec copy -acodec copy -vbsf h264_mp4toannexb m4m%n%.ts
 	set "tss=%tss%m4m%n%.ts|"
 	set "files=%%b"
 	echo 转换完成！
@@ -68,7 +69,7 @@ echo.
 echo 正在合并mp4...
 set "tss=%tss:~0,-1%"
 echo "concat:%tss%"
-start /high /wait "" %ffmpeg% -y -i "concat:%tss%" -c copy %ofn%_merge.mp4
+start /high /wait "" "%ffmpeg%" -y -i "concat:%tss%" -c copy %ofn%_merge.mp4
 :clear
 for /f "tokens=1* delims=^|" %%a in ("%tss%") do (
 	del /f /s /q %%a
