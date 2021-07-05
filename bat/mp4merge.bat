@@ -25,6 +25,13 @@ set inp=
 set /a n+=1
 set /p inp=  请拖入第 %n% 个mp4文件（输入9回车开始合并）：
 if "%inp%"=="9" goto ed
+call :getext %inp%
+if /i not "%te%"==".mp4" (
+	echo 拖入的文件必须是mp4格式！
+	set /a n-=1
+	echo.
+	goto sp
+)
 if "%inp%"=="" (
 	echo 没有输入！
 	set /a n-=1
@@ -90,3 +97,5 @@ pause>nul
 goto op
 :getname
 set tn=%~nx1
+:getext
+set te=%~x1
