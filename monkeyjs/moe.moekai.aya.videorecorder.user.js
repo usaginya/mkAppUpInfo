@@ -37,16 +37,15 @@
 		}
 
 		if(btnObj){
-			let recTimeCalc;
 			btnObj[0].recS = 0;
 			btnChangeState(btnObj, 1);
-			recTimeCalc = setInterval(
+			btnObj[0].recTimeCalc = setInterval(
 				()=> btnObj[0].recS++ && btnObj.children(':first').text(`停止 ${btnObj[0].recS}s`),
 				1000
 			);
 			btnObj[0].recStop = () => {
 				if (recTimeEnd) { clearTimeout(recTimeEnd); }
-				clearInterval(recTimeCalc);
+				clearInterval(btnObj[0].recTimeCalc);
 				stopRecord();
 			}
 		}
