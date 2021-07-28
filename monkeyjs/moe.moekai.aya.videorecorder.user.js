@@ -3,7 +3,7 @@
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
 // @version      1.0
 // @description  支持各种html5网页视频录像、保存格式固定为webm、可使用ffmpeg转换格式
-// @author       YIU, xosg
+// @author       YIU
 // @include      *
 // @icon         https://moest.top/favicon.ico
 // @grant        unsafeWindow
@@ -36,22 +36,25 @@
 			recTimeEnd = setTimeout(() => stopRecord(), duration_seconds * 1000);
 		}
 
-		let formatTime = (second) => {
-			let tmpTime = second * 1000;
-			tmpTime = new Date(tmpTime);
-			return `${tmpTime.getHours()}:${tmpTime.getMinutes()}:${tmpTime.getSeconds()}`;
+		let prefixInteger = (num, n) => {
+			return (Array(n).join(0) + num).slice(-n);
+		}
+
+		let formatSeconds = (second) => {
+			let h = Math.floor(second / 3600) < 10 ? prefixInteger(Math.floor(second / 3600), 2) : Math.floor(second / 3600);
+			let m = Math.floor(second / 60 % 60) < 10 ? prefixInteger(Math.floor(second / 60 % 60), 2) : Math.floor(second / 60 % 60);
+			let s = Math.floor(second % 60) < 10 ? prefixInteger(Math.floor(second % 60), 2) : Math.floor(second % 60);
+			return `${h}:${m}:${s}`;
 		}
 
 		if(btnObj){
 			btnObj[0].recS = 0;
 			btnChangeState(btnObj, 1);
 			btnObj[0].recTimeCalc = setInterval(
-				()=> btnObj[0].recS++ && btnObj.children(':first').text(`停止 ${formatTime(btnObj[0].recS)}`),
+				()=> btnObj[0].recS++ && btnObj.children(':first').text(`停止 ${formatSeconds(btnObj[0].recS)}`),
 				1000
 			);
 			btnObj[0].recStop = () => {
-				if (recTimeEnd) { clearTimeout(recTimeEnd); }
-				clearInterval(btnObj[0].recTimeCalc);
 				stopRecord();
 			}
 		}
@@ -68,9 +71,12 @@
 
 		// recorder.stream.getTracks().forEach((track) => track.stop());
 
+		if (recTimeEnd) { clearTimeout(recTimeEnd); }
+
 		if(btnObj) {
 			btnObj[0].vblob = new Blob(blobs, { type: "video/webm" });
 			btnObj[0].dlurl = URL.createObjectURL(btnObj[0].vblob);
+			clearInterval(btnObj[0].recTimeCalc);
 			btnChangeState(btnObj);
 			return;
 		}
@@ -252,7 +258,7 @@ text-align:center;font-size:12pt;padding:5px 10px;cursor:pointer;margin:5px;font
 		//录像状态
 		if (isRecording){
 			btnDom[0].isRec = 1;
-			btnDom.children(':first').text('录像已开始 1s');
+			btnDom.children(':first').text('录像已开始');
 			btnDom.children(':first').attr('data-content-after', '●');
 			btnDom.children(':first').addClass('rec');
 			return;
