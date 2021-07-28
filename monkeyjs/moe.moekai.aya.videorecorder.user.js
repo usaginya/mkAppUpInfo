@@ -36,11 +36,17 @@
 			recTimeEnd = setTimeout(() => stopRecord(), duration_seconds * 1000);
 		}
 
+		let formatTime = (second) => {
+			let tmpTime = second * 1000;
+			tmpTime = new Date(tmpTime);
+			return `${tmpTime.getHours()}:${tmpTime.getMinutes()}:${tmpTime.getSeconds()}`;
+		}
+
 		if(btnObj){
 			btnObj[0].recS = 0;
 			btnChangeState(btnObj, 1);
 			btnObj[0].recTimeCalc = setInterval(
-				()=> btnObj[0].recS++ && btnObj.children(':first').text(`停止 ${btnObj[0].recS}s`),
+				()=> btnObj[0].recS++ && btnObj.children(':first').text(`停止 ${formatTime(btnObj[0].recS)}`),
 				1000
 			);
 			btnObj[0].recStop = () => {
