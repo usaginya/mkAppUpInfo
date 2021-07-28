@@ -10,7 +10,6 @@
 | moe.moekai.tiebaindexpure.user.js  | 百度贴吧首页精简修改  |
 | moe.moekai.moebaidu.user.js | 百度娘搜索萌化 |
 | moe.moekai.moebaidu.ecchi.user.js | 百度娘搜索萌化（18+限制级） |
-| eHunter.user.jshentai | hentai阅读器bug修复版 |
 | moe.moekai.aya.videorecorder.user.js | 文文录像机-网页视频录像 |
 # 自改各种油猴脚本
 | 原名  | 简介  |
