@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      1.8
+// @version      1.9
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -77,13 +77,13 @@
 	.new-pmd .c-border,.c-group-wrapper{background:#fff5!important;transition-duration:.5s}
 	.new-pmd .c-border:hover{background:#fffb!important;transition-duration:.5s}
 	#content_right{opacity:.5;transition-duration:1s}#content_right:hover{opacity:1;transition-duration:.5s}
-	#foot,.sam_newgrid~#page{background-color:#f5f5f666!important}
+	#foot,.sam_newgrid~#page,.x-interact-publish-cont,#container.sam_newgrid div[class*=has-content_] textarea{background-color:#f5f5f666!important}
 	#foot #help,.c-tip-con .c-tip-menu li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
 	#wrapper #content_left .result[tpl='soft'] .op-soft-title,#wrapper #content_left .result h3,#wrapper #content_left .c-container h3,
 	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container
 	.ms-measures-content .op-unit-tabs-nav-container,.ms-measures-content .tabs-nav{background-color:#fff0!important}
 	.c-tip-con .c-tip-menu li a:hover{background-color:#ccc6!important;transition-duration:.3s}
-	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal{background:#fffb!important;backdrop-filter:blur(3px)}
+	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal,#container.sam_newgrid div[class*=has-content_]{background:#fffb!important;backdrop-filter:blur(3px)}
 	.soutu-hover-tip,.soutu-env-new .soutu-layer .soutu-state-normal,.soutu-env-new .soutu-layer .soutu-error,.soutu-env-new .soutu-layer .soutu-waiting{background:#fffd}
 	.sam_newgrid~#page strong,.sam_newgrid~#page a:hover,
 	.sam_newgrid~#page a:hover .pc,.sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
