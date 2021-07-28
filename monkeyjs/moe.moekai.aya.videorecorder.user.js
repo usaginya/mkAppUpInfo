@@ -2,7 +2,7 @@
 // @name         文文录影机
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
 // @version      1.0
-// @description  支持各种html5网页视频录像、保存格式固定为webm、可使用ffmpeg转换格式
+// @description  支持各种html5网页视频录像、保存格式固定为webm、可使用ffmpeg转换格式、录像时不能静音
 // @author       YIU
 // @include      *
 // @icon         https://moest.top/favicon.ico
@@ -85,7 +85,7 @@
 		// const webm = new Blob(blobs, { type: "video/webm\;codecs=vp9" });
 		// createDownload(URL.createObjectURL(webm), 1);
 
-		blobs = undefined;
+		blobs = stream = recorder = undefined;
 		//return webm;
 	});
 
