@@ -59,7 +59,7 @@
 		if (!supportedMimeTypes[selectedMimeTypeId]) {
 			return selectedMimeType;
 		}
-		return `${selectedMimeType}\;codecs:${supportedMimeTypes[selectedMimeTypeId]}`;
+		return `${selectedMimeType}\;codecs=${supportedMimeTypes[selectedMimeTypeId]}`;
 	}
 
 	//## 创建支持的编码类型 --
@@ -73,7 +73,7 @@
 		];
 		supportedMimeTypes = {};
 		types.forEach(function(v){
-			let type = v.id < 1 ? '/webm' : `/webm\;codecs:${v.type}`;
+			let type = v.id < 1 ? '/webm' : `/webm\;codecs=${v.type}`;
 			if (MediaRecorder.isTypeSupported(`video${type}`) && MediaRecorder.isTypeSupported(`audio${type}`)) {
 				supportedMimeTypes[v.id] = v.type;
 			}
