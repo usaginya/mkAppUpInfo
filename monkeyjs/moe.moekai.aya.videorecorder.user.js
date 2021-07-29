@@ -59,7 +59,7 @@
 		if (!supportedMimeTypes[selectedMimeTypeId]) {
 			return selectedMimeType;
 		}
-		return `${selectedMimeType}\;codecs=${supportedMimeTypes[selectedMimeTypeId]}`;
+		return `${selectedMimeType}\;codecs：${supportedMimeTypes[selectedMimeTypeId]}`;
 	}
 
 	//## 创建支持的编码类型 --
@@ -68,12 +68,13 @@
 			{ id: 1, type: 'vp9' },{ id: 2, type: 'vp8' },
 			{ id: 3, type: 'h265' },{ id: 4, type: 'h264' },
 			{ id: 5, type: 'avc1' },{ id: 6, type: 'av1' },
-			{ id: 7, type: 'opus' },{ id: 8, type: 'daala' }
+			{ id: 7, type: 'opus' },{ id: 8, type: 'daala' },
+			{ id: 0, type: 'Default' }
 		];
 		supportedMimeTypes = {};
 		types.forEach(function(v){
-			let type = `video/webm\;codecs=${v.type}`;
-			if (MediaRecorder.isTypeSupported(type)) {
+			let type = v.id < 1 ? '/webm' : `/webm\;codecs:${v.type}`;
+			if (MediaRecorder.isTypeSupported(`video${type}`) && MediaRecorder.isTypeSupported(`audio${type}`)) {
 				supportedMimeTypes[v.id] = v.type;
 			}
 		});
@@ -84,7 +85,7 @@
 		if ($('#gmayavrmimetypeui').length > 0) { return; }
 		let uiDom = $(`<div id="gmayavrmimetypeui">
 		<style>
-        #gmayavrmimetypeui{position:fixed;box-shadow:0 0 5px 3px #707C74;height:20em;width:28em;background-color:#fffc;display:none;
+        #gmayavrmimetypeui{position:fixed;box-shadow:0 0 5px 3px #707C74;height:23em;width:28em;background-color:#fffc;display:none;
 		border-radius:5px;top:0;left:0;right:0;bottom:0;margin:auto;z-index:998;backdrop-filter:blur(2px);padding:12px 5px 0 5px}
 		#gmayavrmimetypeui .flex{height:85%;width:100%;display:flex;flex-wrap:wrap;flex-direction:row}
 		#gmayavrmimetypeui .wrap{position:relative;margin:5px;flex:1 0 40%}
