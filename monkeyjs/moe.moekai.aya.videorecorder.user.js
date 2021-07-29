@@ -2,7 +2,7 @@
 // @name         文文录影机
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
 // @version      1.1
-// @description  支持各种网页视频/直播录像、录像时不能静音、保存格式都是webm、可以使用ffmpeg转换格式、录制高分辨率需要高性能设备、否则可能有卡顿。
+// @description  支持各种网页视频/直播录像、录像时不能静音、保存格式都是webm、可以使用ffmpeg转换格式、录制高分辨率需要更高性能。
 // @author       YIU
 // @include      *
 // @icon         https://moest.top/favicon.ico
@@ -50,7 +50,7 @@
 	//## 获取当前的编码类型
 	function getSelectedMimeType() {
 		let selectedMimeType = 'video/webm';
-		if (!selectedMimeTypeId) {
+		if (!selectedMimeTypeId || selectedMimeTypeId < 1) {
 			return selectedMimeType;
 		}
 		if (!supportedMimeTypes) {
@@ -85,7 +85,7 @@
 		if ($('#gmayavrmimetypeui').length > 0) { return; }
 		let uiDom = $(`<div id="gmayavrmimetypeui">
 		<style>
-        #gmayavrmimetypeui{position:fixed;box-shadow:0 0 5px 3px #707C74;height:23em;width:28em;background-color:#fffc;display:none;
+        #gmayavrmimetypeui{position:fixed;box-shadow:0 0 5px 3px #707C74;height:280px;width:30%;background-color:#fffc;display:none;
 		border-radius:5px;top:0;left:0;right:0;bottom:0;margin:auto;z-index:998;backdrop-filter:blur(2px);padding:12px 5px 0 5px}
 		#gmayavrmimetypeui .flex{height:85%;width:100%;display:flex;flex-wrap:wrap;flex-direction:row}
 		#gmayavrmimetypeui .wrap{position:relative;margin:5px;flex:1 0 40%}
@@ -106,10 +106,11 @@
 		<div class="flex"></div>
 		</div>`);
 		uiDom.find('.close').click(() => removeMimeTypeUI());
-		let mimeTypeListDom;
 		if (!supportedMimeTypes) {
 			createSupportedMimeType();
 		}
+		let mimeTypeListDom;
+		let defaultMimeTypeDom;
 		for (let key in supportedMimeTypes) {
 			mimeTypeListDom = $(`<div class="wrap"></div>`);
 			let listBtn = $(`<input type="radio" name="gmayavrmtr" id="gmayavrmt${key}" />`);
@@ -120,8 +121,13 @@
 			let listBtnContent = $(`<label for="gmayavrmt${key}"><div class="item content">${supportedMimeTypes[key]}</div></label>`);
 			if (selectedMimeTypeId && selectedMimeTypeId == key) { listBtn.attr('checked', 1); }
 			mimeTypeListDom.append(listBtn).append(listBtnContent);
+			if (key < 1) {
+				defaultMimeTypeDom = mimeTypeListDom;
+				continue;
+			}
 			uiDom.find('.flex').append(mimeTypeListDom);
 		}
+		uiDom.find('.flex').append(defaultMimeTypeDom);
 		$('body').append(uiDom);
 		uiDom.fadeIn('fast');
 	}
