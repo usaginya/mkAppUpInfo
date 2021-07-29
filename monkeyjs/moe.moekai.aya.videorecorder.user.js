@@ -74,7 +74,7 @@
 		supportedMimeTypes = {};
 		types.forEach(function(v){
 			let type = v.id < 1 ? '/webm' : `/webm\;codecs=${v.type}`;
-			if (MediaRecorder.isTypeSupported(`video${type}`) && MediaRecorder.isTypeSupported(`audio${type}`)) {
+			if (MediaRecorder.isTypeSupported(`video${type}`)) {
 				supportedMimeTypes[v.id] = v.type;
 			}
 		});
@@ -111,7 +111,6 @@
 		}
 		let mimeTypeListDom;
 		let defaultMimeTypeDom;
-		let lastKey = 0;
 		for (let key in supportedMimeTypes) {
 			mimeTypeListDom = $(`<div class="wrap"></div>`);
 			let listBtn = $(`<input type="radio" name="gmayavrmtr" id="gmayavrmt${key}" />`);
@@ -127,11 +126,11 @@
 				continue;
 			}
 			uiDom.find('.flex').append(mimeTypeListDom);
-			lastKey = key;
 		}
-		if (!selectedMimeTypeId || selectedMimeTypeId > lastKey) {
+		if (!selectedMimeTypeId || uiDom.find('input:checked').length < 1) {
 			defaultMimeTypeDom.find('input').attr('checked', 1);
 		}
+
 		uiDom.find('.flex').append(defaultMimeTypeDom);
 		$('body').append(uiDom);
 		uiDom.fadeIn('fast');
