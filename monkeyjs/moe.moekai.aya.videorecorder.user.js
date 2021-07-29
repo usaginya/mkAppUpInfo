@@ -146,15 +146,15 @@
 	//## Video recording extension method
 	function ExtensionVideoRecorder() {
 		unsafeWindow.HTMLVideoElement.prototype.record = async function (duration_seconds = 60, btnObj = null) {
-			const video = this instanceof unsafeWindow.HTMLVideoElement ? this : document.querySelector('video');
+			let video = this instanceof unsafeWindow.HTMLVideoElement ? this : document.querySelector('video');
 			video.captureStream = video.captureStream || video.mozCaptureStream;
-			const stream = video.captureStream();
+			let stream = video.captureStream();
 
-			const mimeType = getSelectedMimeType();
+			let mimeType = getSelectedMimeType();
 			const recOption = {
 				mimeType: mimeType
 			};
-			const recorder = new MediaRecorder(stream, recOption);
+			let recorder = new MediaRecorder(stream, recOption);
 
 			let stopRecord = () => {
 				recorder.state === "recording";
@@ -185,12 +185,23 @@
 				}
 			}
 
-			const blobs = [];
+			let blobs = [];
 			await new Promise((resolve, reject) => {
 				recorder.onstop = resolve;
 				recorder.onerror = reject;
 				recorder.ondataavailable = (event) => blobs.push(event.data);
-				recorder.start();
+				try {
+					recorder.start();
+				} catch(err) {
+					console.error('Aya Video Recorder', err);
+					if (btnObj) {
+						clearInterval(btnObj[0].recTimeCalc);
+						buttonAddOrDel(btnObj, btnObj[0].video, 1);
+					}
+					if (recTimerEnd) { clearInterval(recTimerEnd); }
+					recTimerEnd = blobs = stream = recorder = undefined;
+					alert(`文文录影机\n请在脚本设置中更改编码类型\n${err}`);
+				}
 			});
 
 			if (btnObj) {
@@ -279,133 +290,135 @@ text-align:center;font-size:12pt;padding:5px 10px;cursor:pointer;margin:5px;font
 		bindVideoEvent();
 	}
 
-//## 绑定video事件
-function bindVideoEvent() {
-	if ($('video').length < 1) {
-		return;
-	}
-	$('video').unbind().hover(function () {
-		let gmbtn = $(this).next();
-		if (gmbtn.hasClass('gmAyaRecBtn')) {
+	//## 绑定video事件
+	function bindVideoEvent() {
+		if ($('video').length < 1) {
 			return;
 		}
-		buttonAddOrDel(0, $(this));
+		$('video').unbind().hover(function () {
+			let gmbtn = $(this).next();
+			if (gmbtn.hasClass('gmAyaRecBtn')) {
+				return;
+			}
+			buttonAddOrDel(0, $(this));
 
-	}, function () {
-		let gmbtn = $(this).next();
-		if (!gmbtn.hasClass('gmAyaRecBtn')) {
-			return;
-		}
-		setTimeout(() => buttonAddOrDel(gmbtn), 100);
-	});
-}
-
-//## 添加或删除按钮
-function buttonAddOrDel(btnDom, videoDom, toDelete) {
-	//删除
-	if (!videoDom || toDelete) {
-		if ((!btnDom || btnDom[0].hovered || btnDom[0].isRec || btnDom[0].dlurl) && !toDelete) {
-			return false;
-		}
-		btnDom.remove();
-		btnDom = undefined;
-		if (toDelete) {
-			buttonAddOrDel(0, videoDom)
-		}
-		return false;
+		}, function () {
+			let gmbtn = $(this).next();
+			if (!gmbtn.hasClass('gmAyaRecBtn')) {
+				return;
+			}
+			setTimeout(() => buttonAddOrDel(gmbtn), 100);
+		});
 	}
 
-	//添加
-	if (videoDom.siblings().length > 0 && videoDom.next().hasClass('gmAyaRecBtn')) {
-		return false;
-	}
-
-	let newBtn = $(`<a class="gmAyaRecBtn" href="javascript:;"><span>录像</span></a>`);
-
-	newBtn.hover(function () {
-		this.hovered = 1;
-	}, function () {
-		this.hovered = 0;
-	});
-
-	newBtn.click(function () {
-		//---- 下载
-		if (this.dlurl) {
-			if (confirm('要下载录像吗？')) {
-				createDownload(this.dlurl);
+	//## 添加或删除按钮
+	function buttonAddOrDel(btnDom, videoDom, toDelete) {
+		//删除
+		if (!videoDom || toDelete) {
+			if ((!btnDom || btnDom[0].hovered || btnDom[0].isRec || btnDom[0].dlurl) && !toDelete) {
 				return false;
 			}
-			if (!confirm('要重新开始录像吗？')) {
-				return false;
+			btnDom.remove();
+			btnDom = undefined;
+			if (toDelete) {
+				buttonAddOrDel(0, videoDom)
 			}
-			window.URL.revokeObjectURL(this.dlurl);
-			buttonAddOrDel($(this), videoDom, 1);
 			return false;
 		}
-		//---- 录像
-		let videoObj = videoDom[0];
-		if (this.isRec) {
-			//停止录像
+
+		//添加
+		if (videoDom.siblings().length > 0 && videoDom.next().hasClass('gmAyaRecBtn')) {
+			return false;
+		}
+
+		let newBtn = $(`<a class="gmAyaRecBtn" href="javascript:;"><span>录像</span></a>`);
+
+		newBtn[0].video = videoDom;
+
+		newBtn.hover(function () {
+			this.hovered = 1;
+		}, function () {
+			this.hovered = 0;
+		});
+
+		newBtn.click(function () {
+			//---- 下载
+			if (this.dlurl) {
+				if (confirm('要下载录像吗？')) {
+					createDownload(this.dlurl);
+					return false;
+				}
+				if (!confirm('要重新开始录像吗？')) {
+					return false;
+				}
+				window.URL.revokeObjectURL(this.dlurl);
+				buttonAddOrDel($(this), videoDom, 1);
+				return false;
+			}
+			//---- 录像
+			let videoObj = videoDom[0];
+			if (this.isRec) {
+				//停止录像
+				videoObj.pause();
+				this.recStop();
+				return false;
+			}
+			//开始录像
+			let durs = videoObj.duration;
+			if (!durs) {
+				alert('无法取得视频长度');
+				return false;
+			}
+			let videoIsPaused = videoObj.paused;
 			videoObj.pause();
-			this.recStop();
-			return false;
-		}
-		//开始录像
-		let durs = videoObj.duration;
-		if (!durs) {
-			alert('无法取得视频长度');
-			return false;
-		}
-		let videoIsPaused = videoObj.paused;
-		videoObj.pause();
-		if (!confirm('要开始录像吗？')) {
-			if (!videoIsPaused) {
+			if (!confirm('要开始录像吗？')) {
+				if (!videoIsPaused) {
+					videoObj.play();
+				}
+				return false;
+			}
+			if (videoObj.duration != Infinity) {
+				if (videoObj.currentTime >= videoObj.duration || confirm('要从头开始录像吗？')) {
+					videoObj.currentTime = 0;
+				} else {
+					durs -= videoObj.currentTime;
+				}
+			}
+			setTimeout(() => {
+				videoObj.record(durs, newBtn);
+				videoObj.volume = videoObj.volume > 0 ? videoObj.volume : 0.0001;
+				videoObj.muted = false;
 				videoObj.play();
-			}
+			}, 300);
+
 			return false;
-		}
-		if (videoObj.duration != Infinity) {
-			if (videoObj.currentTime >= videoObj.duration || confirm('要从头开始录像吗？')) {
-				videoObj.currentTime = 0;
-			} else {
-				durs -= videoObj.currentTime;
-			}
-		}
-		setTimeout(() => {
-			videoObj.record(durs, newBtn);
-			videoObj.volume = videoObj.volume > 0 ? videoObj.volume : 0.0001;
-			videoObj.muted = false;
-			videoObj.play();
-		}, 300);
-
+		});
+		videoDom.after(newBtn);
 		return false;
-	});
-	videoDom.after(newBtn);
-	return false;
-}
+	}
 
-//## 改变按钮状态(showDownload: >1显示)
-function btnChangeState(btnDom, isRecording) {
-	if (!btnDom) {
-		return;
+	//## 改变按钮状态(showDownload: >1显示)
+	function btnChangeState(btnDom, isRecording) {
+		if (!btnDom) {
+			return;
+		}
+		//录像状态
+		if (isRecording) {
+			btnDom[0].isRec = 1;
+			btnDom.children(':first').text('录像已开始');
+			btnDom.children(':first').attr('data-content-after', '●');
+			btnDom.children(':first').addClass('rec');
+			return;
+		}
+		//停止录像状态
+		btnDom[0].isRec = 0;
+		btnDom.children(':first').removeClass('rec');
+		if (btnDom[0].dlurl) {
+			btnDom.children(':first').text('下载录像');
+			btnDom.children(':first').attr('data-content-after', '▼');
+			btnDom.addClass('dl').children(':first').addClass('dl');
+			return;
+		}
 	}
-	//录像状态
-	if (isRecording) {
-		btnDom[0].isRec = 1;
-		btnDom.children(':first').text('录像已开始');
-		btnDom.children(':first').attr('data-content-after', '●');
-		btnDom.children(':first').addClass('rec');
-		return;
-	}
-	//停止录像状态
-	btnDom[0].isRec = 0;
-	btnDom.children(':first').removeClass('rec');
-	if (btnDom[0].dlurl) {
-		btnDom.children(':first').text('下载录像');
-		btnDom.children(':first').attr('data-content-after', '▼');
-		btnDom.addClass('dl').children(':first').addClass('dl');
-		return;
-	}
-}
 
 })();
