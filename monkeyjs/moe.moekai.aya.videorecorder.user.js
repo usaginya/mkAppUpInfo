@@ -184,7 +184,7 @@
 
 			if (btnObj) {
 				btnObj[0].vblob = new Blob(blobs, {
-					type: mimeType
+					type: 'video/webm'
 				});
 				btnObj[0].dlurl = URL.createObjectURL(btnObj[0].vblob);
 				clearInterval(btnObj[0].recTimeCalc);
@@ -193,7 +193,7 @@
 			}
 
 			// The URL lifetime is tied to the document in the window on which it was created
-			// const webm = new Blob(blobs, { type: mimeType });
+			// const webm = new Blob(blobs, { type: 'video/webm' });
 			// createDownload(URL.createObjectURL(webm), 1);
 
 			recTimerEnd = blobs = stream = recorder = undefined;
