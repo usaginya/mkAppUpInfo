@@ -59,7 +59,7 @@
 		if (!supportedMimeTypes[selectedMimeTypeId]) {
 			return selectedMimeType;
 		}
-		return `${selectedMimeType}\;codecs：${supportedMimeTypes[selectedMimeTypeId]}`;
+		return `${selectedMimeType}\;codecs:${supportedMimeTypes[selectedMimeTypeId]}`;
 	}
 
 	//## 创建支持的编码类型 --
