@@ -14,6 +14,8 @@
 // @grant        GM_setValue
 // @require      http://libs.baidu.com/jquery/2.0.0/jquery.min.js
 // @license      GPL-3.0 License
+// @compatible   chrome OK
+// @compatible   firefox OK
 // @supportURL   https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
 // @homepageURL  https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
 // ==/UserScript==
