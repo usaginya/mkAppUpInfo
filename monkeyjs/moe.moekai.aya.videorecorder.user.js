@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文录影机
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
-// @version      1.1
+// @version      1.2
 // @description  支持各种网页视频/直播录像、录像时不能静音、保存格式都是webm、可以使用ffmpeg转换格式、录制高分辨率需要更高性能。
 // @author       YIU
 // @include      *
@@ -333,7 +333,7 @@ text-align:center;font-size:12pt;padding:5px 10px;cursor:pointer;margin:5px;font
 			return false;
 		}
 
-		let newBtn = $(`<a class="gmAyaRecBtn" href="javascript:;"><span>录像</span></a>`);
+		let newBtn = $(`<a class="gmAyaRecBtn" href="javascript:;"><span>録像</span></a>`);
 
 		newBtn[0].video = videoDom;
 
