@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
-// @version      1.3
+// @version      1.4
 // @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄高分辨率需要更高性能。
 // @author       YIU
 // @include      *
@@ -202,7 +202,7 @@
 		#gmayavruiradio label{display:unset;margin:unset;padding:unset;}
 		#gmayavruiradio input[type="radio"]{display:none}
 		#gmayavruiradio input:checked+label .item{box-shadow:0 0 3px 1px #88ceff;background-color:#08a5ef}
-		#gmayavruiradio .content{font-size:14pt}
+		#gmayavruiradio .content{font-size:14pt!important;line-height:normal!important}
 		</style>
 		<div class="head"><sapn class="title">文文錄影机 - ${menu.title}</span><span class="close"></span></div>
 		<div class="body"></div>
