@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
-// @version      1.5
+// @version      1.6
 // @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄高分辨率需要更高性能。
 // @author       YIU
 // @include      *
@@ -379,14 +379,14 @@
 	}
 
 	//-- 初始化 -------------------------------
-	$(function () {
-		// 5s内尝试初始化
+	window.onload = function () {
+		// 5s尝试初始化
 		let tryCount = 0;
 		let timerInit = setInterval(() => {
 			initialization();
 
 			let testInit = $('style:contains(gmAyaRecBtn)').length > 0;
-			if (tryCount > 5 || testInit) {
+			if (tryCount > 4 || testInit) {
 				clearInterval(timerInit);
 				tryCount = timerInit = undefined;
 				if (testInit) {
@@ -400,7 +400,7 @@
 
 		// 载入设置
 		selectedMimeTypeId = parseInt(GM_getValue('MimeTypeId'));
-	});
+	};
 
 	//## 退出全屏时重新绑定 --------------
 	$(window).resize(function () {
