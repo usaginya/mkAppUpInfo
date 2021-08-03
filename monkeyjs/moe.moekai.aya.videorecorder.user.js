@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
-// @version      1.4
+// @version      1.5
 // @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄高分辨率需要更高性能。
 // @author       YIU
 // @include      *
@@ -383,6 +383,8 @@
 		// 5s内尝试初始化
 		let tryCount = 0;
 		let timerInit = setInterval(() => {
+			initialization();
+
 			let testInit = $('style:contains(gmAyaRecBtn)').length > 0;
 			if (tryCount > 5 || testInit) {
 				clearInterval(timerInit);
@@ -392,7 +394,7 @@
 				}
 				return;
 			}
-			initialization();
+
 			tryCount++;
 		}, 1000);
 
@@ -410,9 +412,7 @@
 
 	//## 初始化过程 --------------
 	function initialization() {
-		if ($('video').length < 1) { return; }
-
-		if ($('style:contains(gmAyaRecBtn)').length < 1) {
+		if ($('video').length > 0 && $('style:contains(gmAyaRecBtn)').length < 1) {
 			$('head').append($(`<style>
 			.gmAyaRecBtn{position:absolute;left:0;top:0;display:inline-block;border-radius:4px;background-color:#ff7728bb;border:none;
 			color:#fff;text-align:center;font-size:12pt;padding:5px 10px;cursor:pointer;margin:5px;font-family:'Microsoft Yahei';
@@ -431,7 +431,6 @@
 			@keyframes twinkle{0%{opacity:.5}100%{opacity:1}}
 			</style>`));
 		}
-
 
 		loadSiteButtonShowMode();
 		if (buttonShowMode.mode > 0) {
@@ -484,6 +483,15 @@
 
 		let iframe = page.find('iframe');
 		iframe.each(function(){
+			// cross-domain
+			if (!this.contentDocument) {
+				let iframeHost = /^.*?:\/\/(.*?)\//.exec(this.src);
+				if (!iframeHost) { return; }
+				buttonShowMode.host = iframeHost[1];
+				iframeHost = undefined;
+				saveSiteButtonShowMode();
+				return;
+			}
 			let subPage = $(this).contents().find('body');
 			if (subPage.length > 0) { bindVideoEvent(subPage, callback); }
 		});
