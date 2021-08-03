@@ -497,11 +497,30 @@
 		});
 	}
 
+	//## 定位视频按钮所在DOM
+	function positionButtonContainer(videoDom) {
+		let beforeDom = videoDom[0],
+			inDom = beforeDom.parentNode,
+			videoWidth = videoDom[0].clientWidth,
+			videoHeight = videoDom[0].clientHeight;
+		if (!videoWidth || !videoHeight) { return false; }
+
+		while (!/body/i.test(inDom.tagName)){
+			if (inDom.clientWidth > videoWidth || inDom.clientHeight > videoHeight) {
+				break;
+			}
+			beforeDom = inDom;
+			inDom = beforeDom.parentNode;
+		}
+		return $(beforeDom);
+	}
+
 	//## 显示或隐藏按钮
 	function switchButton(videoDom, hide) {
 		if (!videoDom) { return; }
-		let gmbtn = videoDom.next();
-		if (hide && !gmbtn.hasClass('gmAyaRecBtn')) {
+		let inDom = positionButtonContainer(videoDom);
+		let gmbtn = inDom.find('.gmAyaRecBtn');
+		if (hide && gmbtn.length < 1) {
 			return;
 		}
 		if (hide) {
@@ -553,8 +572,12 @@
 			return false;
 		}
 
-		// 添加
-		if (videoDom.siblings().length > 0 && videoDom.next().hasClass('gmAyaRecBtn') || buttonShowMode.mode > 1) {
+		//== 添加
+
+		//- 定位按钮容器jq dom
+		let inDom = positionButtonContainer(videoDom);
+
+		if (inDom.find('.gmAyaRecBtn').length > 0 || buttonShowMode.mode > 1) {
 			return false;
 		}
 
@@ -621,7 +644,7 @@
 
 			return false;
 		});
-		videoDom.after(newBtn);
+		inDom.append(newBtn);
 		return false;
 	}
 
