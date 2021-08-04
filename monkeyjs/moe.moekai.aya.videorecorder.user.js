@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
-// @version      1.6
+// @version      1.7
 // @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄高分辨率需要更高性能。
 // @author       YIU
 // @include      *
@@ -55,7 +55,6 @@
 		}
 		let menu = {
 			title: '切换编码类型',
-			height: 260,
 			cfgName: 'MimeTypeId'
 		};
 		let items = [];
@@ -65,7 +64,7 @@
 				title: supportedMimeTypes[id],
 				selected: (selectedMimeTypeId && selectedMimeTypeId == id || !selectedMimeTypeId && id < 1),
 				isLast: id < 1,
-				callSelect: () => { selectedMimeTypeId = id; }
+				backCallSelected: () => { selectedMimeTypeId = id; }
 			};
 			items.push(item);
 		}
@@ -75,29 +74,49 @@
 	//## 脚本菜单事件 - 錄影按钮显示方式
 	function menuEventButtonShowMode() {
 		let menu = {
-			title: '当前网站錄影显示方式',
-			height: 86,
+			title: '当前网站按钮显示方式',
 			itemWidth: 30
 		};
 		let modes = [
-			{id: 0 , title: '悬停显示'},
+			{id: 0 , title: '悬停显示', tips: '鼠标指针在视频上时显示'},
 			{id: 1 , title: '总是显示'},
-			{id: 2 , title: '不显示'}
+			{id: 2 , title: '不显示'},
+			{group: 'gmayavrbsmlayer', id: 10 , title: '中层', tips: '按钮在视频相同的区域'},
+			{group: 'gmayavrbsmlayer', id: 11 , title: '内层', tips: '按钮在视频同一层'},
+			{group: 'gmayavrbsmlayer', id: 12 , title: '外层', tips: '按钮在视频区域外、如果被什么遮挡的话可以尝试选择'}
 		];
 		let items = [];
 		loadSiteButtonShowMode();
 		modes.forEach((mode) => {
 			let item = {
+				group: mode.group,
 				id: mode.id,
 				title: mode.title,
-				selected: (buttonShowMode.mode && buttonShowMode.mode == mode.id || !buttonShowMode.mode && mode.id < 1),
-				callSelect: () => {
-					buttonShowMode = {
-						host: location.host,
-						mode: mode.id
-					};
-					saveSiteButtonShowMode();
-					bindVideoEvent(0, changeButtonShowMode);
+				tips: mode.tips,
+				selected: () => {
+					if (mode.group != 'gmayavrbsmlayer') {
+						return buttonShowMode.mode && buttonShowMode.mode == mode.id || !buttonShowMode.mode && mode.id < 1;
+					}
+					return buttonShowMode.layer && buttonShowMode.layer == mode.id || !buttonShowMode.layer && mode.id < 11;
+				},
+				backCallSelected: () => {
+					let btnSM = { mode: buttonShowMode.mode, layer: buttonShowMode.layer };
+					// 改变层之前先移除按钮
+					if (mode.group == 'gmayavrbsmlayer') {
+						buttonShowMode.mode = 2;
+						saveSiteButtonShowMode();
+						bindVideoEvent(0, changeButtonShowMode);
+					}
+					// 等待删除后再绑定按钮
+					setTimeout(() => {
+						buttonShowMode = {
+							host: location.host,
+							mode: mode.group != 'gmayavrbsmlayer' ? mode.id : btnSM.mode,
+							layer: mode.group == 'gmayavrbsmlayer' ? mode.id : btnSM.layer
+						};
+						saveSiteButtonShowMode();
+						bindVideoEvent(0, changeButtonShowMode)
+					}, 200);
 				}
 			};
 			items.push(item);
@@ -107,7 +126,7 @@
 
 	//## 载入当前网站錄影按钮显示方式
 	function loadSiteButtonShowMode() {
-		if (!buttonShowMode) { buttonShowMode = { host: location.host, mode: 0 }; }
+		if (!buttonShowMode) { buttonShowMode = { host: location.host, mode: 0, layer: 10 }; }
 		let siteButtonShowMode = GM_getValue('siteButtonShowMode');
 		siteButtonShowMode = !siteButtonShowMode ? [] : siteButtonShowMode;
 		siteButtonShowMode = siteButtonShowMode.filter((btnsm) => btnsm.host == buttonShowMode.host);
@@ -125,7 +144,7 @@
 			return;
 		}
 		siteButtonShowMode = siteButtonShowMode.filter((btnsm) => btnsm.host != buttonShowMode.host);
-		if (buttonShowMode.mode > 0){
+		if (buttonShowMode.mode > 0 || buttonShowMode.layer > 10){
 			siteButtonShowMode.push(buttonShowMode);
 		}
 		GM_setValue('siteButtonShowMode', siteButtonShowMode);
@@ -165,15 +184,17 @@
 
 	/** 创建菜单界面单选窗口
 	* @param {string} menu.title 窗口标题
-	* @param {int} menu.height 窗口高度px
 	* @param {string} menu.cfgName 选项对应存储设置名
 	* @param {int} menu.itemWidth 选项列宽度(10,20,30,40,50)越小列数越多
+	* @param {function} menu.backCallCloseing 窗口被关闭时执行的回调方法(可选)
 	* ---------------------------------
 	* @param {int} items[i].id 选项索引
+	* @param {string} items[i].group 选项组名(可选)
 	* @param {string} items[i].title 选项标题
-	* @param {bool} items[i].selected 选项是否被选中
-	* @param {bool} items[i].isLast 选项是否为最后一个(只能有一个)
-	* @param {function} items[i].callSelect 选项被选中时执行的方法
+	* @param {string} items[i].tips 选项提示(可选)
+	* @param {bool|int|function} items[i].selected 选项是否被选中(可选)
+	* @param {bool} items[i].isLast 选项是否为最后一个(只能有一个)(可选)
+	* @param {function} items[i].backCallSelected 选项被选中时执行的回调方法(可选)
 	*/
 	function createMenuUIRadio(menu, items) {
 		if ($('#gmayavruiradio').length > 0) {
@@ -181,45 +202,64 @@
 			return;
 		}
 		if(!menu || !items || items.length < 1) { return; }
-		let uiDom = $(`<div id="gmayavruiradio"><style>
-        #gmayavruiradio{position:fixed;box-shadow:0 0 5px 3px #707C74;height:${menu.height}px;width:30%;background-color:#fffc;display:none;
-		border-radius:5px;top:0;left:0;right:0;bottom:0;margin:auto;z-index:666666;backdrop-filter:blur(2px);padding:12px 5px 0 5px;
-		user-select:none;-webkit-user-select:none;-moz-user-select:none;overflow:hidden;font-family:'Microsoft Yahei';text-align:center;
-		box-sizing:unset;-moz-box-sizing:unset}
+		let uiDom = $(`<div class="gmayavruiradioflex"><div id="gmayavruiradio"><style>
+		.gmayavruiradioflex{position:fixed;display:flex;width:100%;height:100%;top:0;left:0;right:0;bottom:0;
+		 align-content:center;justify-content:center;flex-wrap:wrap;background-color:#fff1;z-index:666666}
+        #gmayavruiradio{box-shadow:0 0 5px 3px #707C74;background-color:#fffc;display:none;border-radius:5px;
+		 backdrop-filter:blur(2px);padding:12px;user-select:none;-webkit-user-select:none;box-sizing:unset;
+		 -moz-user-select:none;-moz-box-sizing:unset;z-index:6}
+		#gmayavruiradio div,#gmayavruiradio span,#gmayavruiradio label{text-align:center;font-weight:normal!important;
+		 font-family:'Microsoft Yahei',Helvetica,'宋体',Tahoma,Arial,sans-serif!important;}
 		#gmayavruiradio .head{position:relative;display:inline-block;width:100%;height:20px}
-		#gmayavruiradio .title {color:#666;margin-left:6px;font-size:12pt}
+		#gmayavruiradio .title{color:#666!important;margin-left:6px;font-size:12pt}
 		#gmayavruiradio .close{position:absolute;display:inline-block;width:18px;height:18px;right:10px;overflow:hidden}
 		#gmayavruiradio .close::before{-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);transform:rotate(45deg)}
 		#gmayavruiradio .close::after{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg)}
 		#gmayavruiradio .close::before,.close::after{content:'';position:absolute;height:6px;width:100%;top:50%;left:0;
-		margin-top:-3px;background:#91989FCC;border-radius:4px 0;transition:background .5s}
+		 margin-top:-3px;background:#91989FCC;border-radius:4px 0;transition:background .5s}
 		#gmayavruiradio .close:hover::before,.close:hover::after{background:#08a5ef;transition:background .5s}
 		#gmayavruiradio .body{margin-top:10px;display:flex;flex-wrap:wrap;flex-direction:row}
 		#gmayavruiradio .wrap{position:relative;margin:5px;flex:1 0 ${!menu.itemWidth ? 40 : menu.itemWidth}%}
-		#gmayavruiradio .item{color:#fff;background-color:#91989F77;position:relative;box-shadow:0 0 0 5px #0000;padding:5px 8px;
-		border-radius:5px;transition:.5s;cursor:pointer}
+		#gmayavruiradio .item{color:#fff!important;background-color:#91989F77;position:relative;
+		 box-shadow:0 0 0 5px #0000;padding:5px 8px;border-radius:5px;transition:.5s;cursor:pointer}
 		#gmayavruiradio .item:hover{background-color:#30547777}
-		#gmayavruiradio label{display:unset;margin:unset;padding:unset;}
+		#gmayavruiradio label{display:unset;margin:unset;padding:unset}
 		#gmayavruiradio input[type="radio"]{display:none}
 		#gmayavruiradio input:checked+label .item{box-shadow:0 0 3px 1px #88ceff;background-color:#08a5ef}
-		#gmayavruiradio .content{font-size:14pt!important;line-height:normal!important}
+		#gmayavruiradio .content,#gmayavruiradio .contenttips{font-size:14pt!important;line-height:normal!important}
+		#gmayavruiradio .contenttips::after{content:attr(tooltip);top:0;left:50%;width:100%;background-color:#fffd;
+		 border-radius:8px;color:#e07a22!important;display:none;padding:10px 15px;position:absolute;text-align:center;z-index:66;
+		 backdrop-filter:blur(2px);font-size:10pt!important;white-space:pre-wrap;
+		 -webkit-transform:translate(-50%,calc(-100% - 10px));transform:translate(-50%,calc(-100% - 10px))}
+		#gmayavruiradio .contenttips::before{content:'';position:absolute;display:none;top:0;left:50%;background-color:#0000;
+		 width:0;height:0;z-index:66;backdrop-filter:blur(2px);border-left:solid 10px #0000;border-bottom:solid 10px #fffd;
+		 -webkit-transform:translate(-50%,calc(-100% - 5px)) rotate(45deg);transform: translate(-50%,calc(-100% - 5px)) rotate(45deg)}
+		#gmayavruiradio .contenttips:hover::after,#gmayavruiradio .contenttips:hover::before{display:block}
+		#gmayavruibgclose{position:absolute;width:100%;height:100%}
 		</style>
 		<div class="head"><sapn class="title">文文錄影机 - ${menu.title}</span><span class="close"></span></div>
 		<div class="body"></div>
-		</div>`);
-		uiDom.find('.close').click(() => removeMenuUIRadio());
+		</div><div id="gmayavruibgclose"></div></div>`);
 		let itemDom;
 		let itemLastDom;
 		for (let i in items) {
 			let item = items[i];
+			let itemGroup = items[i].group ? items[i].group : 'gmayavrmtr';
 			itemDom = $(`<div class="wrap"></div>`);
-			let itemBtn = $(`<input type="radio" name="gmayavrmtr" id="gmayavrmt${i}" />`);
+			let itemBtn = $(`<input type="radio" name="${itemGroup}" id="${itemGroup}${i}" />`);
 			itemBtn.click(function () {
-				if (item.callSelect) { item.callSelect(); }
+				if (item.backCallSelected) { item.backCallSelected(); }
 				if (menu.cfgName) { GM_setValue(menu.cfgName, item.id); }
 			});
-			let itemBtnContent = $(`<label for="gmayavrmt${i}"><div class="item content">${item.title}</div></label>`);
-			if (item.selected) { itemBtn.prop('checked', 1); }
+			let itemBtnContent = $(`<label for="${itemGroup}${i}"><div class="item ${item.tips ? 'contenttips' : 'content'}"
+			${item.tips ? `tooltip="${item.tips}"` : ''}>${item.title}</div></label>`);
+			if (item.selected) {
+				if (/boolean|number/i.test(typeof(item.selected))) {
+					itemBtn.prop('checked', item.selected);
+				} else if (/function/i.test(typeof(item.selected))) {
+					itemBtn.prop('checked', item.selected());
+				}
+			}
 			itemDom.append(itemBtn).append(itemBtnContent);
 			if (item.isLast) {
 				itemLastDom = itemDom;
@@ -228,8 +268,14 @@
 			uiDom.find('.body').append(itemDom);
 		}
 		uiDom.find('.body').append(itemLastDom);
+		$([uiDom.find('#gmayavruibgclose'), uiDom.find('.close')]).each(function() {
+			this.click(() => {
+				removeMenuUIRadio();
+				if (menu.backCallCloseing) { menu.backCallCloseing(); }
+			});
+		});
 		$('body').append(uiDom);
-		uiDom.fadeIn('fast');
+		uiDom.children(':first').fadeIn('fast');
 	}
 
 	/** 关闭菜单界面单选窗口
@@ -237,7 +283,7 @@
 	*/
 	function removeMenuUIRadio(callback) {
 		$('#gmayavruiradio').fadeOut('fast', function(){
-			$(this).remove();
+			$(this).parent().remove();
 			if (callback) { callback(); }
 		});
 	}
@@ -497,22 +543,23 @@
 		});
 	}
 
-	//## 定位视频按钮所在DOM
+	//## 定位按钮容器返回 jq dom
 	function positionButtonContainer(videoDom) {
-		let beforeDom = videoDom[0],
-			inDom = beforeDom.parentNode,
-			videoWidth = videoDom[0].clientWidth,
+		let inDom = videoDom[0].parentNode;
+		if (buttonShowMode.layer == 11) { return $(inDom); }
+
+		let	videoWidth = videoDom[0].clientWidth,
 			videoHeight = videoDom[0].clientHeight;
 		if (!videoWidth || !videoHeight) { return false; }
 
-		while (!/body/i.test(inDom.tagName)){
+		while (inDom && !/body|html/i.test(inDom.tagName)){
 			if (inDom.clientWidth > videoWidth || inDom.clientHeight > videoHeight) {
 				break;
 			}
-			beforeDom = inDom;
-			inDom = beforeDom.parentNode;
+			inDom = inDom.parentNode;
 		}
-		return $(beforeDom);
+		inDom = buttonShowMode.layer > 10 ? inDom.parentNode ? inDom.parentNode : inDom : inDom;
+		return $(inDom);
 	}
 
 	//## 显示或隐藏按钮
@@ -524,7 +571,7 @@
 			return;
 		}
 		if (hide) {
-			setTimeout(() => buttonAddOrDel(gmbtn), 100);
+			setTimeout(() => buttonAddOrDel(gmbtn, undefined, buttonShowMode.mode > 1), 100);
 			return;
 		}
 		buttonAddOrDel(0, videoDom);
