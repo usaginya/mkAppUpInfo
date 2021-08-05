@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         文文錄影机
-// @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.aya.videorecorder.user.js
+// @namespace    moe.moekai.aya.videorecorder
 // @version      1.7
 // @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄高分辨率需要更高性能。
 // @author       YIU
