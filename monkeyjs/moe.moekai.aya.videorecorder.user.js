@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    moe.moekai.aya.videorecorder
-// @version      1.7
+// @version      1.8
 // @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄高分辨率需要更高性能。
 // @author       YIU
 // @include      *
@@ -550,7 +550,7 @@
 
 		let	videoWidth = videoDom[0].clientWidth,
 			videoHeight = videoDom[0].clientHeight;
-		if (!videoWidth || !videoHeight) { return false; }
+		if (!videoWidth || !videoHeight) { return; }
 
 		while (inDom && !/body|html/i.test(inDom.tagName)){
 			if (inDom.clientWidth > videoWidth || inDom.clientHeight > videoHeight) {
@@ -566,6 +566,7 @@
 	function switchButton(videoDom, hide) {
 		if (!videoDom) { return; }
 		let inDom = positionButtonContainer(videoDom);
+		if (!inDom) { return; }
 		let gmbtn = inDom.find('.gmAyaRecBtn');
 		if (hide && gmbtn.length < 1) {
 			return;
@@ -624,7 +625,7 @@
 		//- 定位按钮容器jq dom
 		let inDom = positionButtonContainer(videoDom);
 
-		if (inDom.find('.gmAyaRecBtn').length > 0 || buttonShowMode.mode > 1) {
+		if (!inDom || inDom.find('.gmAyaRecBtn').length > 0 || buttonShowMode.mode > 1) {
 			return false;
 		}
 
