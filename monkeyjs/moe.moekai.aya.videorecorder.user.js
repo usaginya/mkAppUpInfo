@@ -30,6 +30,7 @@
 	'use strict';
 
 	//VV 全局变量定义 ---
+	let initialIsDone;
 	let gmMenuMimeTypeId;
 	let gmMenuButtonShowMode;
 	let selectedMimeTypeId;
@@ -53,6 +54,9 @@
 		if (!supportedMimeTypes) {
 			createSupportedMimeType();
 		}
+		if (!initialIsDone) {
+			selectedMimeTypeId = parseInt(GM_getValue('MimeTypeId'));
+		}
 		let menu = {
 			title: '切换编码类型',
 			cfgName: 'MimeTypeId'
@@ -64,7 +68,10 @@
 				title: supportedMimeTypes[id],
 				selected: (selectedMimeTypeId && selectedMimeTypeId == id || !selectedMimeTypeId && id < 1),
 				isLast: id < 1,
-				backCallSelected: () => { selectedMimeTypeId = id; }
+				backCallSelected: () => {
+					selectedMimeTypeId = id;
+					forwardCommandToIframe('changemimetypeid', selectedMimeTypeId);
+				}
 			};
 			items.push(item);
 		}
@@ -86,7 +93,7 @@
 			{group: 'gmayavrbsmlayer', id: 12 , title: '外层', tips: '按钮在视频区域外、如果被什么遮挡的话可以尝试选择'}
 		];
 		let items = [];
-		loadSiteButtonShowMode();
+		if (!initialIsDone) { loadSiteButtonShowMode(); }
 		modes.forEach((mode) => {
 			let item = {
 				group: mode.group,
@@ -101,22 +108,24 @@
 				},
 				backCallSelected: () => {
 					let btnSM = { mode: buttonShowMode.mode, layer: buttonShowMode.layer };
+					let newBtnSM = {
+						mode: mode.group != 'gmayavrbsmlayer' ? mode.id : btnSM.mode,
+						layer: mode.group == 'gmayavrbsmlayer' ? mode.id : btnSM.layer
+					};
 					// 改变层之前先移除按钮
 					if (mode.group == 'gmayavrbsmlayer') {
 						buttonShowMode.mode = 2;
-						saveSiteButtonShowMode();
-						bindVideoEvent(0, changeButtonShowMode);
+						initialization();
 					}
 					// 等待删除后再绑定按钮
 					setTimeout(() => {
-						buttonShowMode = {
-							host: location.host,
-							mode: mode.group != 'gmayavrbsmlayer' ? mode.id : btnSM.mode,
-							layer: mode.group == 'gmayavrbsmlayer' ? mode.id : btnSM.layer
-						};
+						buttonShowMode.mode = newBtnSM.mode;
+						buttonShowMode.layer = newBtnSM.layer;
+						initialization();
 						saveSiteButtonShowMode();
-						bindVideoEvent(0, changeButtonShowMode)
-					}, 200);
+					}, 300);
+					// 向子窗口页面发送重新绑定指令
+					forwardCommandToIframe('rebind', newBtnSM);
 				}
 			};
 			items.push(item);
@@ -150,21 +159,6 @@
 		GM_setValue('siteButtonShowMode', siteButtonShowMode);
 	}
 
-	//## 获取当前的编码类型
-	function getSelectedMimeType() {
-		let selectedMimeType = 'video/webm';
-		if (!selectedMimeTypeId || selectedMimeTypeId < 1) {
-			return selectedMimeType;
-		}
-		if (!supportedMimeTypes) {
-			createSupportedMimeType();
-		}
-		if (!supportedMimeTypes[selectedMimeTypeId]) {
-			return selectedMimeType;
-		}
-		return `${selectedMimeType}\;codecs=${supportedMimeTypes[selectedMimeTypeId]},opus`;
-	}
-
 	//## 创建支持的编码类型 --
 	function createSupportedMimeType() {
 		let types = [
@@ -180,6 +174,21 @@
 				supportedMimeTypes[v.id] = v.type;
 			}
 		});
+	}
+
+	//## 获取当前的编码类型
+	function getSelectedMimeType() {
+		let selectedMimeType = 'video/webm';
+		if (!selectedMimeTypeId || selectedMimeTypeId < 1) {
+			return selectedMimeType;
+		}
+		if (!supportedMimeTypes) {
+			createSupportedMimeType();
+		}
+		if (!supportedMimeTypes[selectedMimeTypeId]) {
+			return selectedMimeType;
+		}
+		return `${selectedMimeType}\;codecs=${supportedMimeTypes[selectedMimeTypeId]},opus`;
 	}
 
 	/** 创建菜单界面单选窗口
@@ -205,7 +214,7 @@
 		let uiDom = $(`<div class="gmayavruiradioflex"><div id="gmayavruiradio"><style>
 		.gmayavruiradioflex{position:fixed;display:flex;width:100%;height:100%;top:0;left:0;right:0;bottom:0;
 		 align-content:center;justify-content:center;flex-wrap:wrap;background-color:#fff1;z-index:666666}
-        #gmayavruiradio{box-shadow:0 0 5px 3px #707C74;background-color:#fffc;display:none;border-radius:5px;
+        #gmayavruiradio{box-shadow:0 0 16px #2bf6;background-color:#fffc;display:none;border-radius:5px;
 		 backdrop-filter:blur(2px);padding:12px;user-select:none;-webkit-user-select:none;box-sizing:unset;
 		 -moz-user-select:none;-moz-box-sizing:unset;z-index:6}
 		#gmayavruiradio div,#gmayavruiradio span,#gmayavruiradio label{text-align:center;font-weight:normal!important;
@@ -228,16 +237,16 @@
 		#gmayavruiradio input:checked+label .item{box-shadow:0 0 3px 1px #88ceff;background-color:#08a5ef}
 		#gmayavruiradio .content,#gmayavruiradio .contenttips{font-size:14pt!important;line-height:normal!important}
 		#gmayavruiradio .contenttips::after{content:attr(tooltip);top:0;left:50%;width:100%;background-color:#fffd;
-		 border-radius:8px;color:#e07a22!important;display:none;padding:10px 15px;position:absolute;text-align:center;z-index:66;
-		 backdrop-filter:blur(2px);font-size:10pt!important;white-space:pre-wrap;
-		 -webkit-transform:translate(-50%,calc(-100% - 10px));transform:translate(-50%,calc(-100% - 10px))}
+		 border-radius:8px;color:#e07a22!important;padding:10px 15px;position:absolute;text-align:center;z-index:66;
+		 backdrop-filter:blur(2px);font-size:10pt!important;white-space:pre-wrap;box-shadow:0 0 8px #e827;opacity:0;transition:.5s;
+		 -webkit-transform:translate(-50%,calc(-100% - 10px));transform:translate(-50%,calc(-100% - 10px));pointer-events:none}
 		#gmayavruiradio .contenttips::before{content:'';position:absolute;display:none;top:0;left:50%;background-color:#0000;
 		 width:0;height:0;z-index:66;backdrop-filter:blur(2px);border-left:solid 10px #0000;border-bottom:solid 10px #fffd;
 		 -webkit-transform:translate(-50%,calc(-100% - 5px)) rotate(45deg);transform: translate(-50%,calc(-100% - 5px)) rotate(45deg)}
-		#gmayavruiradio .contenttips:hover::after,#gmayavruiradio .contenttips:hover::before{display:block}
+		#gmayavruiradio .contenttips:hover::after,#gmayavruiradio .contenttips:hover::before{opacity:1;transition:.5s}
 		#gmayavruibgclose{position:absolute;width:100%;height:100%}
 		</style>
-		<div class="head"><sapn class="title">文文錄影机 - ${menu.title}</span><span class="close"></span></div>
+		<div class="head"><sapn class="title">${GM_info.script.name} - ${menu.title}</span><span class="close"></span></div>
 		<div class="body"></div>
 		</div><div id="gmayavruibgclose"></div></div>`);
 		let itemDom;
@@ -291,11 +300,11 @@
 	//## Catch error event
 	function catchErrorEvent(err, videoObj){
 		if (/NotSupportedError/gi.test(err.toString())) {
-			alert('文文錄影机 - 錄影格式不支持\n请在脚本菜单下「切换编码类型」');
+			alert(`${GM_info.script.name} - 錄影格式不支持\n请在脚本菜单下「切换编码类型」`);
 			return;
 		}
 		if (/SecurityError/gi.test(err.toString())) {
-			alert('文文錄影机 - 錄影权限不足\n无法对跨域的视频进行錄影');
+			alert(`${GM_info.script.name} - 錄影权限不足\n无法对跨域的视频进行錄影`);
 
 			if (!videoObj) { return; }
 
@@ -307,7 +316,7 @@
 			}
 			if (!testVideoUri || /^blob:/gi.test(testVideoUri)) { return; }
 
-			if (confirm('文文錄影机\n发现视频源地址\n要尝试在新页面打开吗？')) {
+			if (confirm(`${GM_info.script.name}\n发现视频源地址\n要尝试在新页面打开吗？`)) {
 				let openUri = /\.m3u8$/gi.test(testVideoUri) ? `https://any.moest.top/m3u8get/?source=${testVideoUri}` : testVideoUri;
 				openUrl(openUri);
 			}
@@ -317,7 +326,7 @@
 		}
 
 		console.error('Aya Video Recorder', err);
-		alert(`文文錄影机 - 发生意外错误\n${err}`);
+		alert(`${GM_info.script.name} - 发生意外错误\n${err}`);
 	}
 
 	//## Video recording extension method
@@ -331,39 +340,83 @@
 				let stream = video.captureStream();
 
 				let mimeType = getSelectedMimeType();
-				const recOption = {
-					mimeType: mimeType
-				};
+				const recOption = { mimeType: mimeType };
 				let recorder = new MediaRecorder(stream, recOption);
 
 				let stopRecord = () => {
-					recorder.state === "recording";
-					recorder.stop();
+					if (recorder.state === 'recording' || recorder.state === 'paused') {
+						recorder.stop();
+					}
 				};
 
-				let recTimerEnd;
-				if (duration_seconds != Infinity) {
-					recTimerEnd = setTimeout(() => stopRecord(), duration_seconds * 1000);
-				}
+				let pauseRecord = (setResume) => {
+					if(!setResume && recorder.state === 'recording') {
+						recorder.pause();
+						return;
+					}
+					if(setResume && recorder.state === 'paused') {
+						recorder.resume();
+					}
+				};
 
 				let formatSeconds = (second) => {
 					let h = Math.floor(second / 3600)
 					let m = Math.floor(second / 60 % 60);
 					let s = Math.floor(second % 60);
 					return `${h < 10 ? `0${h}` : h}:${m < 10 ? `0${m}` : m}:${s < 10 ? `0${s}` : s}`;
-				}
+				};
 
 				if (btnObj) {
 					btnObj[0].recS = 0;
 					btnChangeState(btnObj, 1);
-					btnObj[0].recTimeCalc = setInterval(
-						() => btnObj[0].recS++ && btnObj.children(':first').text(`停止 ${formatSeconds(btnObj[0].recS)}`),
-						1000
-					);
+					btnObj[0].recTimeCalc = setInterval(() => {
+						if (recorder.state === 'paused') {
+							btnObj.children(':first').text(
+								video.recordIsMuted ? '由于静音錄影被迫暂停' : `已暂停 ${formatSeconds(btnObj[0].recS)}`
+							);
+							return;
+						}
+						btnObj[0].recS++;
+						btnObj.children(':first').text(`停止 ${formatSeconds(btnObj[0].recS)}`);
+					}, 1000);
+
+					//-- listen video ended
+					btnObj[0].videoEnded = () => {
+						stopRecord();
+						video.removeEventListener('ended', btnObj[0].videoEnded);
+						btnObj[0].videoEnded = 6;
+					};
+					video.addEventListener('ended', btnObj[0].videoEnded);
+
 					btnObj[0].recStop = () => {
 						stopRecord();
+						video.removeEventListener('ended', btnObj[0].videoEnded);
+						btnObj[0].videoEnded = undefined;
+					};
+				}
+
+				//-- listen video events
+				video.recordPause = () => pauseRecord();
+				video.recordResume = () => pauseRecord(1);
+				video.videoVolumeChange = () => {
+					if (video.muted || video.volume <=0) {
+						pauseRecord();
+						video.recordIsMuted = 1;
+						return;
+					}
+					if (video.recordIsMuted) {
+						pauseRecord(1);
+						video.recordIsMuted = undefined;
 					}
 				}
+				//- pause
+				video.addEventListener('pause', video.recordPause);
+				//- waiting
+				video.addEventListener('waiting', video.recordPause);
+				//- playing
+				video.addEventListener('playing', video.recordResume);
+				//- volumechange
+				video.addEventListener('volumechange', video.videoVolumeChange);
 
 				let blobs = [];
 				await new Promise((resolve, reject) => {
@@ -378,11 +431,17 @@
 							clearInterval(btnObj[0].recTimeCalc);
 							buttonAddOrDel(btnObj, btnObj[0].video, 1);
 						}
-						if (recTimerEnd) { clearInterval(recTimerEnd); }
-						recTimerEnd = blobs = stream = recorder = undefined;
+						blobs = stream = recorder = undefined;
 						catchErrorEvent(err, video);
 					}
 				});
+
+				// Recording stopped
+				video.removeEventListener('pause', video.recordPause);
+				video.removeEventListener('waiting', video.recordPause);
+				video.removeEventListener('playing', video.recordResume);
+				video.removeEventListener('volumechange', video.videoVolumeChange);
+				video.recordPause = video.recordResume = video.videoVolumeChange = undefined;
 
 				if (btnObj) {
 					btnObj[0].vblob = new Blob(blobs, {
@@ -391,15 +450,15 @@
 					btnObj[0].dlurl = URL.createObjectURL(btnObj[0].vblob);
 					clearInterval(btnObj[0].recTimeCalc);
 					btnChangeState(btnObj);
-					return;
+					if (btnObj[0].autoDL && btnObj[0].videoEnded > 5) {
+						btnObj[0].videoEnded = undefined;
+						createDownload(btnObj[0].dlurl);
+					}
 				}
 
-				// The URL lifetime is tied to the document in the window on which it was created
-				// const webm = new Blob(blobs, { type: 'video/webm' });
-				// createDownload(URL.createObjectURL(webm), 1);
-
-				recTimerEnd = blobs = stream = recorder = undefined;
+				blobs = stream = recorder = undefined;
 				//return webm;
+
 			} catch(err) {
 				catchErrorEvent(err, video);
 				return;
@@ -414,7 +473,8 @@
 
 	//## 创建下载(blob链接, 下载后是否释放)
 	function createDownload(dlurl, revoke) {
-		let filename = ($('title').length > 0 ? $('title').text() : `WebVideo${new Date().toLocaleDateString().replace(/\//ig, '')}`) + '.webm';
+		let defaultFileName = `WebVideo${new Date().toLocaleString().replace(/\\|\/|:|\*|\?|\"|<|>|\|/ig, '')}`;
+		let filename = ($('title').length > 0 ? $('title').text() : defaultFileName) + '.webm';
 		let a = document.createElement('a');
 		a.href = dlurl;
 		a.download = filename;
@@ -424,28 +484,65 @@
 		}
 	}
 
+	//## 向子窗口发送指令
+	function sendCommandToWindow(winDom, command, parameter) {
+		if (!winDom || !command) { return; }
+		winDom.postMessage({
+			gm : GM_info.script.namespace,
+			action : command,
+			value : parameter
+		}, '*');
+	}
+
+	//## 转发指令 ---------------
+	function forwardCommandToIframe(command, parameter) {
+		$('iframe').each(function () {
+			sendCommandToWindow(this.contentWindow, command, parameter);
+		});
+	}
+
+	//-- 监听接收指令 --------------
+	window.addEventListener('message', function(e) {
+		if (!e.data || !e.data.gm || e.data.gm != GM_info.script.namespace || !e.data.action) {
+			return;
+		}
+		switch (e.data.action) {
+			case 'rebind' :
+				if (!e.data.value) { break; }
+				e.data.value.host = location.host;
+				reBindVideoEvent(e.data.value, 1);
+				break;
+
+			case 'changemimetypeid' :
+				if (!e.data.value) { break; }
+				selectedMimeTypeId = e.data.value;
+				GM_setValue('MimeTypeId', selectedMimeTypeId);
+				break;
+		}
+		forwardCommandToIframe(e.data.action, e.data.value)
+	});
+
 	//-- 初始化 -------------------------------
 	window.onload = function () {
+		// 载入设置
+		selectedMimeTypeId = parseInt(GM_getValue('MimeTypeId'));
+		loadSiteButtonShowMode();
+
 		// 5s尝试初始化
 		let tryCount = 0;
 		let timerInit = setInterval(() => {
 			initialization();
 
-			let testInit = $('style:contains(gmAyaRecBtn)').length > 0;
-			if (tryCount > 4 || testInit) {
+			if (tryCount > 4 || $('style:contains(gmAyaRecBtn)').length > 0) {
 				clearInterval(timerInit);
 				tryCount = timerInit = undefined;
-				if (testInit) {
-					ExtensionVideoRecorder();
-				}
 				return;
 			}
 
 			tryCount++;
 		}, 1000);
 
-		// 载入设置
-		selectedMimeTypeId = parseInt(GM_getValue('MimeTypeId'));
+		initialIsDone = !0;
 	};
 
 	//## 退出全屏时重新绑定 --------------
@@ -458,11 +555,12 @@
 
 	//## 初始化过程 --------------
 	function initialization() {
-		if ($('video').length > 0 && $('style:contains(gmAyaRecBtn)').length < 1) {
+		if ($('video').length < 1) { return; }
+		if ($('style:contains(gmAyaRecBtn)').length < 1) {
 			$('head').append($(`<style>
-			.gmAyaRecBtn{position:absolute;left:0;top:0;display:inline-block;border-radius:4px;background-color:#ff7728bb;border:none;
-			color:#fff;text-align:center;font-size:12pt;padding:5px 10px;cursor:pointer;margin:5px;font-family:'Microsoft Yahei';
-			 z-index:66666!important;transition:.5s}
+			.gmAyaRecBtn{position:absolute;left:0;top:0;display:inline-block;border-radius:4px;
+			 background-color:#ff7728bb;border:none;color:#fff;text-align:center;font-size:12pt;padding:5px 10px;
+			 cursor:pointer;margin:5px;font-family:'Microsoft Yahei';z-index:66666!important;transition:.5s}
 			.gmAyaRecBtn:hover{background-color:#ff5520;transition:.5s}
 			.gmAyaRecBtn.dl.hide{display:none;transition:.5s}
 			.gmAyaRecBtn.dl{background-color:#56bb2cbb;padding-right:18px;transition:.5s}
@@ -478,69 +576,74 @@
 			</style>`));
 		}
 
-		loadSiteButtonShowMode();
+		if (!unsafeWindow.HTMLVideoElement.prototype.record) {
+			ExtensionVideoRecorder();
+		}
+
 		if (buttonShowMode.mode > 0) {
-			bindVideoEvent(0, changeButtonShowMode);
+			bindVideoEvent(changeButtonShowMode);
 			return;
 		}
 		bindVideoEvent();
 	}
 
-	//## 解除绑定video hover事件
-	function unBindVideoEventHover(videoDom) {
-		videoDom.each(function () {
-			if (this.gmayavrhover) {
-				this.removeEventListener('mouseenter', this.gmayavrhover);
-				this.gmayavrhover = undefined;
-			}
-			if (this.gmayavrunhover) {
-				this.removeEventListener('mouseleave', this.gmayavrunhover);
-				this.gmayavrunhover = undefined;
-			}
-		});
+	//## 绑定video hover事件
+	function bindVideoEventHover(videoDom) {
+		videoDom.gmayavrhover = function () {
+			switchButton($(videoDom));
+		}
+		videoDom.gmayavrunhover = function () {
+			switchButton($(videoDom), 1);
+		}
+		videoDom.addEventListener('mouseenter', videoDom.gmayavrhover)
+		videoDom.addEventListener('mouseleave', videoDom.gmayavrunhover);
+		switchButton($(videoDom), 1);
 	}
 
-	//## 绑定video事件(每绑定一个video都会传递video jQuery dom)
-	function bindVideoEvent(page, callback) {
-		if (!page) { page = $('body'); }
-		let video = page.find('video');
+	//## 解除绑定video hover事件
+	function unBindVideoEventHover(videoDom) {
+		if (videoDom.gmayavrhover) {
+			videoDom.removeEventListener('mouseenter', videoDom.gmayavrhover);
+			videoDom.gmayavrhover = undefined;
+		}
+		if (videoDom.gmayavrunhover) {
+			videoDom.removeEventListener('mouseleave', videoDom.gmayavrunhover);
+			videoDom.gmayavrunhover = undefined;
+		}
+	}
+
+	//## 绑定video事件(每绑定一个video都会回调传入video jQuery dom)
+	function bindVideoEvent(callback) {
+		let video = $('video');
 
 		if (video.length > 0) {
-
-			loadSiteButtonShowMode();
-			unBindVideoEventHover($(video));
-
 			if (buttonShowMode.mode < 1) {
 				video.each(function () {
-					this.gmayavrhover = function () {
-						switchButton($(this));
-					}
-					this.gmayavrunhover = function () {
-						switchButton($(this), 1);
-					}
-					this.addEventListener('mouseenter', this.gmayavrhover)
-					this.addEventListener('mouseleave', this.gmayavrunhover);
-					switchButton($(this), 1);
+					unBindVideoEventHover(this);
+					bindVideoEventHover(this);
 				});
 			}
 
 			if (buttonShowMode.mode > 0 && callback) { callback(video); }
 		}
+	}
 
-		let iframe = page.find('iframe');
-		iframe.each(function(){
-			// cross-domain
-			if (!this.contentDocument) {
-				let iframeHost = /^.*?:\/\/(.*?)\//.exec(this.src);
-				if (!iframeHost) { return; }
-				buttonShowMode.host = iframeHost[1];
-				iframeHost = undefined;
-				saveSiteButtonShowMode();
-				return;
-			}
-			let subPage = $(this).contents().find('body');
-			if (subPage.length > 0) { bindVideoEvent(subPage, callback); }
-		});
+	/*## 重新绑定video事件
+	* @param {object} newButtonShowMode 新绑定的按钮模式对象
+	* @param {bool} needToSave 保存按钮模式到配置
+	*/
+	function reBindVideoEvent(newButtonShowMode, needToSave) {
+		if (!newButtonShowMode) { return; }
+		// 移除旧按钮
+		buttonShowMode.mode = 2;
+		initialization();
+
+		// 等待删除后重新绑定
+		setTimeout(() => {
+			buttonShowMode = newButtonShowMode;
+			initialization();
+			if (needToSave) { saveSiteButtonShowMode(); }
+		}, 300);
 	}
 
 	//## 定位按钮容器返回 jq dom
@@ -568,10 +671,10 @@
 		let inDom = positionButtonContainer(videoDom);
 		if (!inDom) { return; }
 		let gmbtn = inDom.find('.gmAyaRecBtn');
-		if (hide && gmbtn.length < 1) {
-			return;
-		}
 		if (hide) {
+			if (gmbtn.length < 1 || gmbtn[0].isRec || gmbtn[0].dlurl){
+				return;
+			}
 			setTimeout(() => buttonAddOrDel(gmbtn, undefined, buttonShowMode.mode > 1), 100);
 			return;
 		}
@@ -601,20 +704,17 @@
 		}
 	}
 
-	//## 添加或删除按钮(添加:无btnDom 有videoDom, 删除:有btnDom 无videoDom, 强制删除)
-	function buttonAddOrDel(btnDom, videoDom, toDelete) {
-		if (!toDelete) {
-			loadSiteButtonShowMode();
-		}
+	//## 添加或删除按钮(添加:无btnDom 有videoDom, 删除:有btnDom 无videoDom, 重新添加)
+	function buttonAddOrDel(btnDom, videoDom, reAdd) {
 		// 删除
-		if (!videoDom || toDelete) {
-			if ((!btnDom || btnDom[0].hovered || btnDom[0].isRec || btnDom[0].dlurl || buttonShowMode.mode == 1) && !toDelete) {
+		if (!videoDom || reAdd) {
+			if (!reAdd && (!btnDom || btnDom[0].hovered || btnDom[0].isRec || btnDom[0].dlurl || buttonShowMode.mode == 1)) {
 				return false;
 			}
 			btnDom.remove();
 			btnDom = undefined;
 			// 删除后再添加
-			if (toDelete) {
+			if (reAdd) {
 				buttonAddOrDel(0, videoDom)
 			}
 			return false;
@@ -682,11 +782,12 @@
 				} else {
 					durs -= videoObj.currentTime;
 				}
+				newBtn[0].autoDL = confirm('当錄影结束时弹出下载？');
 			}
 			setTimeout(() => {
 				videoObj.record(durs, newBtn);
-				videoObj.volume = videoObj.volume > 0 ? videoObj.volume : 0.0001;
 				videoObj.muted = false;
+				videoObj.volume = videoObj.volume > 0 ? videoObj.volume : 0.0001;
 				videoObj.play();
 			}, 300);
 
