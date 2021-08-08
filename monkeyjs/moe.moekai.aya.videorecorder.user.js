@@ -638,8 +638,10 @@
 	function reBindVideoEvent(newButtonShowMode, needToSave) {
 		if (!newButtonShowMode) { return; }
 		// 移除旧按钮
-		buttonShowMode.mode = 2;
-		initialization();
+		if (buttonShowMode) {
+			buttonShowMode.mode = 2;
+			initialization();
+		}
 
 		// 等待删除后重新绑定
 		setTimeout(() => {
