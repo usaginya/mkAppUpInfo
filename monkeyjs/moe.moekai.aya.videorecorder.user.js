@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    moe.moekai.aya.videorecorder
-// @version      1.8
-// @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄高分辨率需要更高性能。
+// @version      1.9
+// @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄影需要留有足够的可用内存。
 // @author       YIU
 // @include      *
-// @icon         https://moest.top/favicon.ico
+// @icon         https://any.moest.top/monkeydoc/res/ayavrec.ico
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_registerMenuCommand
@@ -20,11 +20,12 @@
 // @homepageURL  https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
 // ==/UserScript==
 
+//-- 以下格式转换方式仅供参考、推荐使用小丸工具箱等其它转换工具
 //- 可以使用下面的ffmpeg命令直接转换格式为mp4（非标准mp4）
-//ffmpeg -i downloadedVideo.webm -strict -2 -c copy output.mp4
+//ffmpeg -i WebVideo.webm -strict -2 -c copy output.mp4
 
-//- 转为一般恒定mp4（二次转换，crf数值越小，视频体积越大质量越好，一般为21左右）
-//ffmpeg -i downloadedVideo.webm -crf 16 output.mp4
+//- 转为一般恒定mp4（二次转换，-r限制帧率避免爆帧，-crf数值越小，视频体积越大质量越好，建议为21左右）
+//ffmpeg -i WebVideo.webm -r 60 -crf 21 output.mp4
 
 (function () {
 	'use strict';
@@ -81,16 +82,16 @@
 	//## 脚本菜单事件 - 錄影按钮显示方式
 	function menuEventButtonShowMode() {
 		let menu = {
-			title: '当前网站按钮显示方式',
+			title: '当前站点錄影显示方式',
 			itemWidth: 30
 		};
 		let modes = [
 			{id: 0 , title: '悬停显示', tips: '鼠标指针在视频上时显示'},
 			{id: 1 , title: '总是显示'},
 			{id: 2 , title: '不显示'},
-			{group: 'gmayavrbsmlayer', id: 10 , title: '中层', tips: '按钮在视频相同的区域'},
-			{group: 'gmayavrbsmlayer', id: 11 , title: '内层', tips: '按钮在视频同一层'},
-			{group: 'gmayavrbsmlayer', id: 12 , title: '外层', tips: '按钮在视频区域外、如果被什么遮挡的话可以尝试选择'}
+			{group: 'gmayavrbsmlayer', id: 10 , title: '内层', tips: '按钮在影视同一层'},
+			{group: 'gmayavrbsmlayer', id: 11 , title: '中层', tips: '按钮在影视相同的区域'},
+			{group: 'gmayavrbsmlayer', id: 12 , title: '外层', tips: '按钮在影视区域外层、被什么遮挡的话可以尝试选择'}
 		];
 		let items = [];
 		if (!initialIsDone) { loadSiteButtonShowMode(); }
@@ -212,12 +213,12 @@
 		}
 		if(!menu || !items || items.length < 1) { return; }
 		let uiDom = $(`<div class="gmayavruiradioflex"><div id="gmayavruiradio"><style>
-		.gmayavruiradioflex{position:fixed;display:flex;width:100%;height:100%;top:0;left:0;right:0;bottom:0;
+		.gmayavruiradioflex{position:fixed;display:flex!important;width:100%;height:100%;top:0;left:0;right:0;bottom:0;
 		 align-content:center;justify-content:center;flex-wrap:wrap;background-color:#fff1;z-index:666666}
         #gmayavruiradio{box-shadow:0 0 16px #2bf6;background-color:#fffc;display:none;border-radius:5px;
 		 backdrop-filter:blur(2px);padding:12px;user-select:none;-webkit-user-select:none;box-sizing:unset;
 		 -moz-user-select:none;-moz-box-sizing:unset;z-index:6}
-		#gmayavruiradio div,#gmayavruiradio span,#gmayavruiradio label{text-align:center;font-weight:normal!important;
+		#gmayavruiradio div,#gmayavruiradio span,#gmayavruiradio label{text-align:center!important;font-weight:normal!important;
 		 font-family:'Microsoft Yahei',Helvetica,'宋体',Tahoma,Arial,sans-serif!important;}
 		#gmayavruiradio .head{position:relative;display:inline-block;width:100%;height:20px}
 		#gmayavruiradio .title{color:#666!important;margin-left:6px;font-size:12pt}
@@ -227,13 +228,14 @@
 		#gmayavruiradio .close::before,.close::after{content:'';position:absolute;height:6px;width:100%;top:50%;left:0;
 		 margin-top:-3px;background:#91989FCC;border-radius:4px 0;transition:background .5s}
 		#gmayavruiradio .close:hover::before,.close:hover::after{background:#08a5ef;transition:background .5s}
-		#gmayavruiradio .body{margin-top:10px;display:flex;flex-wrap:wrap;flex-direction:row}
-		#gmayavruiradio .wrap{position:relative;margin:5px;flex:1 0 ${!menu.itemWidth ? 40 : menu.itemWidth}%}
+		#gmayavruiradio .body{margin-top:10px;display:flex!important;flex-wrap:wrap;flex-direction:row}
+		#gmayavruiradio .wrap{position:relative;width:auto!important;height:auto!important;margin:5px;
+		 flex:1 0 ${!menu.itemWidth ? 40 : menu.itemWidth}%}
 		#gmayavruiradio .item{color:#fff!important;background-color:#91989F77;position:relative;
 		 box-shadow:0 0 0 5px #0000;padding:5px 8px;border-radius:5px;transition:.5s;cursor:pointer}
 		#gmayavruiradio .item:hover{background-color:#30547777}
 		#gmayavruiradio label{display:unset;margin:unset;padding:unset}
-		#gmayavruiradio input[type="radio"]{display:none}
+		#gmayavruiradio input[type="radio"]{display:none!important}
 		#gmayavruiradio input:checked+label .item{box-shadow:0 0 3px 1px #88ceff;background-color:#08a5ef}
 		#gmayavruiradio .content,#gmayavruiradio .contenttips{font-size:14pt!important;line-height:normal!important}
 		#gmayavruiradio .contenttips::after{content:attr(tooltip);top:0;left:50%;width:100%;background-color:#fffd;
@@ -337,7 +339,7 @@
 				video = this instanceof unsafeWindow.HTMLVideoElement ? this : document.querySelector('video');
 				video.captureStream = video.captureStream || video.mozCaptureStream;
 
-				let stream = video.captureStream();
+				let stream = video.captureStream(60);
 
 				let mimeType = getSelectedMimeType();
 				const recOption = { mimeType: mimeType };
@@ -424,14 +426,14 @@
 					recorder.onerror = reject;
 					recorder.ondataavailable = (event) => blobs.push(event.data);
 					try {
-						recorder.start();
+						// Save the stream into memory every second to reduce the jam
+						recorder.start(1000);
 					} catch(err) {
 						// In FireFox
 						if (btnObj) {
 							clearInterval(btnObj[0].recTimeCalc);
 							buttonAddOrDel(btnObj, btnObj[0].video, 1);
 						}
-						blobs = stream = recorder = undefined;
 						catchErrorEvent(err, video);
 					}
 				});
@@ -622,6 +624,7 @@
 					unBindVideoEventHover(this);
 					bindVideoEventHover(this);
 				});
+				return;
 			}
 
 			if (buttonShowMode.mode > 0 && callback) { callback(video); }
@@ -649,7 +652,7 @@
 	//## 定位按钮容器返回 jq dom
 	function positionButtonContainer(videoDom) {
 		let inDom = videoDom[0].parentNode;
-		if (buttonShowMode.layer == 11) { return $(inDom); }
+		if (buttonShowMode.layer < 11) { return $(inDom); }
 
 		let	videoWidth = videoDom[0].clientWidth,
 			videoHeight = videoDom[0].clientHeight;
@@ -661,7 +664,7 @@
 			}
 			inDom = inDom.parentNode;
 		}
-		inDom = buttonShowMode.layer > 10 ? inDom.parentNode ? inDom.parentNode : inDom : inDom;
+		inDom = buttonShowMode.layer > 11 ? (inDom.parentNode ? inDom.parentNode : inDom) : inDom;
 		return $(inDom);
 	}
 
