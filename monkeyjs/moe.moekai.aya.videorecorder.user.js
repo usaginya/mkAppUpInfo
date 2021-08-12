@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    moe.moekai.aya.videorecorder
-// @version      1.9
+// @version      2.0
 // @description  支持各种网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄影需要留有足够的可用内存。
 // @author       YIU
 // @include      *
@@ -24,97 +24,80 @@
 //- 可以使用下面的ffmpeg命令直接转换格式为mp4（非标准mp4）
 //ffmpeg -i WebVideo.webm -strict -2 -c copy output.mp4
 
-//- 转为一般恒定mp4（二次转换，-r限制帧率避免爆帧，-crf数值越小，视频体积越大质量越好，建议为21左右）
+//- 转为一般恒定mp4（二次转换，-r限制帧率避免爆帧，-crf数值越小体积越大质量越好，建议为21左右）
 //ffmpeg -i WebVideo.webm -r 60 -crf 21 output.mp4
 
-(function () {
+(function ($) {
 	'use strict';
 
 	//VV 全局变量定义 ---
 	let initialIsDone;
-	let gmMenuMimeTypeId;
-	let gmMenuButtonShowMode;
+	let gmMenuUiId;
 	let selectedMimeTypeId;
 	let supportedMimeTypes;
 	let buttonShowMode;
 
 	//## 注册脚本菜单 --
-	function registerMenuCommand() {
-		if (!gmMenuMimeTypeId) {
-			gmMenuMimeTypeId = GM_registerMenuCommand('切换编码类型', menuEventMimeType);
-		}
-		// 重新注册菜单錄影按钮显示方式
-		if (!gmMenuButtonShowMode){
-			gmMenuButtonShowMode = GM_registerMenuCommand('錄影显示方式', menuEventButtonShowMode);
-		}
+	if (!gmMenuUiId) {
+		gmMenuUiId = GM_registerMenuCommand('设置 · Settings', gmMenuUiEvent);
 	}
-	registerMenuCommand();
 
-	//## 脚本菜单事件 - 切换编码类型
-	function menuEventMimeType() {
-		if (!supportedMimeTypes) {
-			createSupportedMimeType();
-		}
+	//## 脚本菜单事件 - 创建菜单界面
+	function gmMenuUiEvent() {
+		// 初始化设置参数
+		if (!supportedMimeTypes) { createSupportedMimeType(); }
+		if (!initialIsDone) { loadSiteButtonShowMode(); }
 		if (!initialIsDone) {
 			selectedMimeTypeId = parseInt(GM_getValue('MimeTypeId'));
 		}
-		let menu = {
-			title: '切换编码类型',
-			cfgName: 'MimeTypeId'
-		};
-		let items = [];
+
+		// 切换编码类型菜单项
+		let menuMimeTypeItems = [];
 		for (let id in supportedMimeTypes) {
 			let item = {
 				id: id,
+				group: 'gmayavrradiobtn-mimetype',
 				title: supportedMimeTypes[id],
 				selected: (selectedMimeTypeId && selectedMimeTypeId == id || !selectedMimeTypeId && id < 1),
 				isLast: id < 1,
-				backCallSelected: () => {
+				onSelected: () => {
 					selectedMimeTypeId = id;
 					forwardCommandToIframe('changemimetypeid', selectedMimeTypeId);
 				}
 			};
-			items.push(item);
+			menuMimeTypeItems.push(item);
 		}
-		createMenuUIRadio(menu, items);
-	}
 
-	//## 脚本菜单事件 - 錄影按钮显示方式
-	function menuEventButtonShowMode() {
-		let menu = {
-			title: '当前站点錄影显示方式',
-			itemWidth: 30
-		};
-		let modes = [
+		// 切换錄影按钮菜单项
+		let btnModes = [
 			{id: 0 , title: '悬停显示', tips: '鼠标指针在视频上时显示'},
 			{id: 1 , title: '总是显示'},
 			{id: 2 , title: '不显示'},
-			{group: 'gmayavrbsmlayer', id: 10 , title: '内层', tips: '按钮在影视同一层'},
-			{group: 'gmayavrbsmlayer', id: 11 , title: '中层', tips: '按钮在影视相同的区域'},
-			{group: 'gmayavrbsmlayer', id: 12 , title: '外层', tips: '按钮在影视区域外层、被什么遮挡的话可以尝试选择'}
+			{group: 'gmayavrradiobtn-bsmlayer', id: 10 , title: '内层', tips: '按钮在影视同一层'},
+			{group: 'gmayavrradiobtn-bsmlayer', id: 11 , title: '中层', tips: '按钮在影视相同的区域'},
+			{group: 'gmayavrradiobtn-bsmlayer', id: 12 , title: '外层', tips: '按钮在影视区域外层、被什么遮挡的话可以尝试选择'}
 		];
-		let items = [];
-		if (!initialIsDone) { loadSiteButtonShowMode(); }
-		modes.forEach((mode) => {
+		let menuBottomShowModeItems = [];
+		btnModes.forEach((mode) => {
 			let item = {
 				group: mode.group,
 				id: mode.id,
 				title: mode.title,
 				tips: mode.tips,
 				selected: () => {
-					if (mode.group != 'gmayavrbsmlayer') {
+					if (mode.group != 'gmayavrradiobtn-bsmlayer') {
 						return buttonShowMode.mode && buttonShowMode.mode == mode.id || !buttonShowMode.mode && mode.id < 1;
 					}
 					return buttonShowMode.layer && buttonShowMode.layer == mode.id || !buttonShowMode.layer && mode.id < 11;
 				},
-				backCallSelected: () => {
+				onSelected: () => {
 					let btnSM = { mode: buttonShowMode.mode, layer: buttonShowMode.layer };
 					let newBtnSM = {
-						mode: mode.group != 'gmayavrbsmlayer' ? mode.id : btnSM.mode,
-						layer: mode.group == 'gmayavrbsmlayer' ? mode.id : btnSM.layer
+						mode: mode.group != 'gmayavrradiobtn-bsmlayer' ? mode.id : btnSM.mode,
+						layer: mode.group === 'gmayavrradiobtn-bsmlayer' ? mode.id : btnSM.layer
 					};
 					// 改变层之前先移除按钮
-					if (mode.group == 'gmayavrbsmlayer') {
+					if (mode.group === 'gmayavrradiobtn-bsmlayer') {
 						buttonShowMode.mode = 2;
 						initialization();
 					}
@@ -124,14 +107,44 @@
 						buttonShowMode.layer = newBtnSM.layer;
 						initialization();
 						saveSiteButtonShowMode();
+						// 向子窗口页面发送重新绑定指令,必须延迟发送,否则保存设置有冲突
+						forwardCommandToIframe('rebind', newBtnSM);
 					}, 300);
-					// 向子窗口页面发送重新绑定指令
-					forwardCommandToIframe('rebind', newBtnSM);
 				}
 			};
-			items.push(item);
+			menuBottomShowModeItems.push(item);
 		});
-		createMenuUIRadio(menu, items);
+
+		// 构建菜单参数
+		let menu = {
+			title: {
+				href: 'https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs'
+			},
+			tabs: {
+				'MimeType': {
+					title: '编码类型',
+					content: {
+						radioButton: {
+							configName: 'MimeTypeId',
+							column: 2,
+							items: menuMimeTypeItems
+						}
+					}
+				},
+
+				'ButtonShowMode': {
+					title: '錄影按钮显示',
+					content: {
+						radioButton: {
+							column: 3,
+							items: menuBottomShowModeItems
+						}
+					}
+				}
+				//- tabs end -
+			},
+		};
+		gmAyaUiCreate(menu);
 	}
 
 	//## 载入当前网站錄影按钮显示方式
@@ -192,112 +205,206 @@
 		return `${selectedMimeType}\;codecs=${supportedMimeTypes[selectedMimeTypeId]},opus`;
 	}
 
-	/** 创建菜单界面单选窗口
-	* @param {string} menu.title 窗口标题
-	* @param {string} menu.cfgName 选项对应存储设置名
-	* @param {int} menu.itemWidth 选项列宽度(10,20,30,40,50)越小列数越多
-	* @param {function} menu.backCallCloseing 窗口被关闭时执行的回调方法(可选)
-	* ---------------------------------
-	* @param {int} items[i].id 选项索引
-	* @param {string} items[i].group 选项组名(可选)
-	* @param {string} items[i].title 选项标题
-	* @param {string} items[i].tips 选项提示(可选)
-	* @param {bool|int|function} items[i].selected 选项是否被选中(可选)
-	* @param {bool} items[i].isLast 选项是否为最后一个(只能有一个)(可选)
-	* @param {function} items[i].backCallSelected 选项被选中时执行的回调方法(可选)
+	/** ====== 文文GM设置界面窗口 ======
+	* @param {object} menu.title { <string>text: 窗口标题(可选), <string>href: 链接(可选) }
+	* @param {function} menu.onCloseing 窗口被关闭时执行的回调方法(可选)
+	* @param {object} menu.tabs 选项卡页面组
+	* @param {objectName} menu.tabs.tabId 选项卡页面索引(only)
+	* @param {string} menu.tabs.tabId.title 选项卡标题文字
+	* @param {string} menu.tabs.tabId.content 选项卡内容
+	* -- 选项卡内容对象 ----------------------------
+	* -- 单选按钮组 --------------------------
+	* radioButton: {
+	*   <Array> items: [{
+	*     <int> id: 选项索引,
+	*     <string> group: 选项分组(可选),
+	*     <string> title: 选项标题,
+	*     <string> tips: 选项提示(可选),
+	*     <bool|int|function> selected: 选项是否选中(only/可选),
+	*     <bool> isLast: 选项是否排在最后(only/可选),
+	*     <function> onSelected: 选项被选中时执行的回调方法(可选)
+	*   }],
+    *   <int> column: 每行选项显示个数(1~5)(可选),
+	*   <string> configName: 存储设置名 \ 将会根据 items[i].id 索引保存(可选)
+	* }
 	*/
-	function createMenuUIRadio(menu, items) {
-		if ($('#gmayavruiradio').length > 0) {
-			removeMenuUIRadio(() => createMenuUIRadio(menu, items));
+	function gmAyaUiCreate(menu) {
+		if (!menu || !menu.tabs) { return; }
+		if ($('#gmayaui').length > 0) {
+			gmAyaUiRemove(() => gmAyaUiCreate(menu));
 			return;
 		}
-		if(!menu || !items || items.length < 1) { return; }
-		let uiDom = $(`<div class="gmayavruiradioflex"><div id="gmayavruiradio"><style>
-		.gmayavruiradioflex{position:fixed;display:flex!important;width:100%;height:100%;top:0;left:0;right:0;bottom:0;
-		 align-content:center;justify-content:center;flex-wrap:wrap;background-color:#fff1;z-index:666666}
-        #gmayavruiradio{box-shadow:0 0 16px #2bf6;background-color:#fffc;display:none;border-radius:5px;
-		 backdrop-filter:blur(2px);padding:12px;user-select:none;-webkit-user-select:none;box-sizing:unset;
-		 -moz-user-select:none;-moz-box-sizing:unset;z-index:6}
-		#gmayavruiradio div,#gmayavruiradio span,#gmayavruiradio label{text-align:center!important;font-weight:normal!important;
-		 font-family:'Microsoft Yahei',Helvetica,'宋体',Tahoma,Arial,sans-serif!important;}
-		#gmayavruiradio .head{position:relative;display:inline-block;width:100%;height:20px}
-		#gmayavruiradio .title{color:#666!important;margin-left:6px;font-size:12pt}
-		#gmayavruiradio .close{position:absolute;display:inline-block;width:18px;height:18px;right:10px;overflow:hidden}
-		#gmayavruiradio .close::before{-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);transform:rotate(45deg)}
-		#gmayavruiradio .close::after{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg)}
-		#gmayavruiradio .close::before,.close::after{content:'';position:absolute;height:6px;width:100%;top:50%;left:0;
+		let uiDom = $(`<div class="gmayauibg"><div id="gmayaui"><style>
+		.gmayauibg{position:fixed;display:flex!important;width:100%;height:100%;top:0;left:0;right:0;bottom:0;
+		 align-content:center;justify-content:center;flex-wrap:wrap;background-color:#fff1;z-index:666666!important}
+		#gmayaui{margin:0 2vh;min-width:300px;min-height:300px;box-shadow:0 0 16px #2bf6;background-color:#fffc;display:none;
+		 border-radius:5px;backdrop-filter:blur(6px);padding:12px;user-select:none;-webkit-user-select:none;
+		 box-sizing:unset;-moz-user-select:none;-moz-box-sizing:unset;z-index:6}
+		#gmayaui,#gmayaui div,#gmayaui label,#gmayaui li,#gmayaui span{outline:0!important;text-align:center!important;
+		 font-weight:400!important;font-family:'Microsoft YaHei',Helvetica,'宋体',Tahoma,Arial,sans-serif!important;
+		 font-size:12pt!important}
+		#gmayaui a{color:unset!important;text-decoration:none!important;transition:color .3s}
+		#gmayaui a:hover{color:#08a5ef!important}
+		#gmayaui .head{position:relative;display:inline-block;width:100%}
+		#gmayaui .head .title{margin:0 4vh;color:#666!important;font-size:14pt!important}
+		#gmayaui .close{position:absolute;display:inline-block;width:18px;height:18px;right:2px;overflow:hidden}
+		#gmayaui .close::before{-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);transform:rotate(45deg)}
+		#gmayaui .close::after{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg)}
+		#gmayaui .close::after,#gmayaui .close::before{content:'';position:absolute;height:6px;width:100%;top:50%;left:0;
 		 margin-top:-3px;background:#91989FCC;border-radius:4px 0;transition:background .5s}
-		#gmayavruiradio .close:hover::before,.close:hover::after{background:#08a5ef;transition:background .5s}
-		#gmayavruiradio .body{margin-top:10px;display:flex!important;flex-wrap:wrap;flex-direction:row}
-		#gmayavruiradio .wrap{position:relative;width:auto!important;height:auto!important;margin:5px;
-		 flex:1 0 ${!menu.itemWidth ? 40 : menu.itemWidth}%}
-		#gmayavruiradio .item{color:#fff!important;background-color:#91989F77;position:relative;
-		 box-shadow:0 0 0 5px #0000;padding:5px 8px;border-radius:5px;transition:.5s;cursor:pointer}
-		#gmayavruiradio .item:hover{background-color:#30547777}
-		#gmayavruiradio label{display:unset;margin:unset;padding:unset}
-		#gmayavruiradio input[type="radio"]{display:none!important}
-		#gmayavruiradio input:checked+label .item{box-shadow:0 0 3px 1px #88ceff;background-color:#08a5ef}
-		#gmayavruiradio .content,#gmayavruiradio .contenttips{font-size:14pt!important;line-height:normal!important}
-		#gmayavruiradio .contenttips::after{content:attr(tooltip);top:0;left:50%;width:100%;background-color:#fffd;
-		 border-radius:8px;color:#e07a22!important;padding:10px 15px;position:absolute;text-align:center;z-index:66;
-		 backdrop-filter:blur(2px);font-size:10pt!important;white-space:pre-wrap;box-shadow:0 0 8px #e827;opacity:0;transition:.5s;
-		 -webkit-transform:translate(-50%,calc(-100% - 10px));transform:translate(-50%,calc(-100% - 10px));pointer-events:none}
-		#gmayavruiradio .contenttips::before{content:'';position:absolute;display:none;top:0;left:50%;background-color:#0000;
+		#gmayaui .close:focus::after,#gmayaui .close:focus::before,#gmayaui .close:hover::after,
+		 #gmayaui .close:hover::before{background:#08a5ef;transition:background .5s}
+		#gmayaui .body{margin-top:2vh}
+		#gmayaui .wrap{position:relative;width:auto!important;height:auto!important;margin:5px;flex:1 0 50%}
+		#gmayaui .wrap.w2{flex:1 0 40%}#gmayaui .wrap.w3{flex:1 0 30%}
+		#gmayaui .wrap.w4{flex:1 0 20%}#gmayaui .wrap.w5{flex:1 0 10%}
+		#gmayaui .item{color:#fff!important;background-color:#91989F77;position:relative;box-shadow:0 0 0 5px #0000;
+		 padding:5px 8px;border-radius:5px;transition:.5s;cursor:pointer}
+		#gmayaui .item:focus,#gmayaui .item:hover{background-color:#30547777}
+		#gmayaui label{display:unset;margin:unset;padding:unset}
+		#gmayaui input[type=radio]{display:none!important}
+		#gmayaui input:checked+label .item{box-shadow:0 0 3px 1px #88ceff;background-color:#08a5ef}
+		#gmayaui .content,#gmayaui .contenttips{line-height:normal!important}
+		#gmayaui .contenttips::after{content:attr(tooltip);top:0;left:50%;width:100%;background-color:#ffffffe6;
+		 border-radius:8px;color:#e07a22!important;padding:10px;position:absolute;text-align:center;z-index:66;
+		 backdrop-filter:blur(2px);font-size:10pt!important;white-space:pre-wrap;box-shadow:0 0 8px #e827;opacity:0;
+		 transition:.5s;-webkit-transform:translate(-50%,calc(-100% - 10px));
+		 transform:translate(-50%,calc(-100% - 10px));pointer-events:none}
+		#gmayaui .contenttips::before{content:'';position:absolute;display:none;top:0;left:50%;background-color:#0000;
 		 width:0;height:0;z-index:66;backdrop-filter:blur(2px);border-left:solid 10px #0000;border-bottom:solid 10px #fffd;
-		 -webkit-transform:translate(-50%,calc(-100% - 5px)) rotate(45deg);transform: translate(-50%,calc(-100% - 5px)) rotate(45deg)}
-		#gmayavruiradio .contenttips:hover::after,#gmayavruiradio .contenttips:hover::before{opacity:1;transition:.5s}
+		 -webkit-transform:translate(-50%,calc(-100% - 5px)) rotate(45deg);
+		 transform:translate(-50%,calc(-100% - 5px)) rotate(45deg)}
+		#gmayaui .contenttips:focus::after,#gmayaui .contenttips:focus::before,#gmayaui .contenttips:hover::after,
+		 #gmayaui .contenttips:hover::before{opacity:1;transition:.5s}
 		#gmayavruibgclose{position:absolute;width:100%;height:100%}
+		#gmayaui .tabs{position:relative;margin:0 auto;width:100%}
+		#gmayaui .tabs nav ul{position:relative;display:flex;margin:0 auto;padding:0;list-style:none;
+		 flex-flow:row wrap;justify-content:center}
+		#gmayaui .tabs nav ul li{position:relative;display:block;color:#999;margin:0 .5em;flex:1;line-height:2.5;
+		 -webkit-transition:color .3s;transition:color .3s}
+		#gmayaui .tabs nav ul li:focus,#gmayaui .tabs nav ul li:hover{color:#779}
+		#gmayaui .tabs nav ul li::before{content:'';position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;
+		 background:#fff6;clip-path:inset(92% 0 0 0);-webkit-transition:background-color .3s;
+		 transition:background-color .3s}
+		#gmayaui .tabs nav ul li:focus::before,#gmayaui .tabs nav ul li:hover::before{background:#aab}
+		#gmayaui .tabs nav ul li::after{content:'';position:absolute;left:48%;bottom:-2px;width:0;height:0;
+		 margin-bottom:5px;z-index:-1;background:linear-gradient(135deg,#08a5ef 0,#08a5ef 50%,transparent 50%,transparent 100%);
+		 transform:rotate(225deg);-webkit-transition:bottom .3s,width .3s,height .3s;transition:bottom .3s,width .3s,height .3s}
+		#gmayaui .tabs nav ul li.tab-current,#gmayaui .tabs nav ul li.tab-current:focus,
+		 #gmayaui .tabs nav ul li.tab-current:hover{color:#08a5ef}
+		#gmayaui .tabs nav ul li.tab-current::before{background:#08a5ef}
+		#gmayaui .tabs nav ul li.tab-current::after{bottom:-8px;width:10px;height:10px}
+		#gmayaui .content-wrap section{display:none;margin:0 auto;padding-top:1em;text-align:center}
+		#gmayaui .content-wrap section.content-current{display:block;animation:gmayauiani-show-tab-content ease .5s}
+		#gmayaui .content-wrap{position:relative}
+		#gmayaui .tab-content{display:flex!important;flex-wrap:wrap;flex-direction:row}
+		@keyframes gmayauiani-show-tab-content{0%{opacity:0;clip-path:inset(0 0 60% 0)}100%{opacity:1;clip-path:inset(0)}}
 		</style>
-		<div class="head"><sapn class="title">${GM_info.script.name} - ${menu.title}</span><span class="close"></span></div>
-		<div class="body"></div>
+		<div class="head"><div class="title">
+		<a href="${menu.title && menu.title.href ? menu.title.href : 'javascript:;'}" target="_blank">
+		${menu.title && menu.title.text ? menu.title.text : GM_info.script.name}
+		</a><span class="close" tabindex="0"></span></div></div>
+		<div class="body"><div class="tabs"><nav><ul></ul></nav><div class="content-wrap"></div></div></div>
 		</div><div id="gmayavruibgclose"></div></div>`);
-		let itemDom;
-		let itemLastDom;
-		for (let i in items) {
-			let item = items[i];
-			let itemGroup = items[i].group ? items[i].group : 'gmayavrmtr';
-			itemDom = $(`<div class="wrap"></div>`);
-			let itemBtn = $(`<input type="radio" name="${itemGroup}" id="${itemGroup}${i}" />`);
-			itemBtn.click(function () {
-				if (item.backCallSelected) { item.backCallSelected(); }
-				if (menu.cfgName) { GM_setValue(menu.cfgName, item.id); }
-			});
-			let itemBtnContent = $(`<label for="${itemGroup}${i}"><div class="item ${item.tips ? 'contenttips' : 'content'}"
-			${item.tips ? `tooltip="${item.tips}"` : ''}>${item.title}</div></label>`);
-			if (item.selected) {
-				if (/boolean|number/i.test(typeof(item.selected))) {
-					itemBtn.prop('checked', item.selected);
-				} else if (/function/i.test(typeof(item.selected))) {
-					itemBtn.prop('checked', item.selected());
-				}
-			}
-			itemDom.append(itemBtn).append(itemBtnContent);
-			if (item.isLast) {
-				itemLastDom = itemDom;
-				continue;
-			}
-			uiDom.find('.body').append(itemDom);
-		}
-		uiDom.find('.body').append(itemLastDom);
+
+		// 绑定窗口事件
 		$([uiDom.find('#gmayavruibgclose'), uiDom.find('.close')]).each(function() {
 			this.click(() => {
-				removeMenuUIRadio();
-				if (menu.backCallCloseing) { menu.backCallCloseing(); }
+				gmAyaUiRemove();
+				if (menu.onCloseing) { menu.onCloseing(); }
 			});
 		});
+
+		// 构建选项卡页内容
+		let fastTabId = Object.keys(menu.tabs)[0];
+		for (let tabId in menu.tabs) {
+			if (!menu.tabs.hasOwnProperty(tabId)){ continue; }
+
+			// 选项卡栏
+			let tabli = `<li${ fastTabId && tabId === fastTabId ? ' class="tab-current"' : '' }>
+			             ${menu.tabs[tabId].title}</li>`;
+			tabli = $(tabli);
+			tabli.click(function () {
+				uiDom.find('.tabs li.tab-current').removeClass('tab-current');
+				$(this).addClass('tab-current');
+				uiDom.find('section.content-current').removeClass('content-current');
+				uiDom.find(`section#gmayaui-${tabId}`).addClass('content-current');
+			});
+			uiDom.find('.tabs>nav>ul').append(tabli);
+
+			// 选项卡内容框架
+			let tabSection = `<section id="gmayaui-${tabId}"`;
+			if (fastTabId && tabId === fastTabId) {
+				tabSection += ` class="content-current"`;
+				fastTabId = undefined;
+			}
+			tabSection += `><div class="tab-content"></div></section>`
+			tabSection = $(tabSection);
+
+			// 生成选项卡内容
+			for (let contentKey in menu.tabs[tabId].content) {
+				let content = menu.tabs[tabId].content;
+				if (!content.hasOwnProperty(contentKey)){ continue; }
+				content = content[contentKey];
+
+				// 单选按钮组
+				if (/^radioButton$/i.test(contentKey)){
+					let column = content.column;
+					let configName = content.configName;
+					let itemDom = undefined;
+					let itemLastDom = undefined;
+					let items = content.items;
+					for (let i in items) {
+						let item = items[i];
+						let itemGroup = items[i].group ? items[i].group : 'gmayaui-radiobutton';
+						let itemBtn = $(`<input type="radio" name="${itemGroup}" id="${itemGroup}${i}" />`);
+						itemBtn.click(function () {
+							if (item.onSelected) { item.onSelected(); }
+							if (configName) { GM_setValue(configName, item.id); }
+						});
+						let itemBtnContent = $(`<label for="${itemGroup}${i}">
+						    <div class="item ${item.tips ? 'contenttips' : 'content'}"
+							${item.tips ? `tooltip="${item.tips}"` : ''}>${item.title}</div></label>`);
+						if (item.selected) {
+							if (/boolean|number/i.test(typeof(item.selected))) {
+								itemBtn.prop('checked', item.selected);
+							} else if (/function/i.test(typeof(item.selected))) {
+								itemBtn.prop('checked', item.selected());
+							}
+						}
+						itemDom = $(`<div class="wrap${ column > 1 && column < 6 ? ` w${column}` : '' }"></div>`);
+						itemDom.append(itemBtn).append(itemBtnContent);
+						if (item.isLast) {
+							itemLastDom = itemDom;
+							continue;
+						}
+						tabSection.find('.tab-content').append(itemDom);
+					}
+					tabSection.find('.tab-content').append(itemLastDom);
+				}
+				//- radioButton end -
+			}
+			//- 生成选项卡内容 end -
+
+			// 装载选项卡内容
+			uiDom.find('.content-wrap').append(tabSection);
+		}
+
+		// 显示界面
 		$('body').append(uiDom);
 		uiDom.children(':first').fadeIn('fast');
 	}
 
-	/** 关闭菜单界面单选窗口
+	/** 移除设置界面窗口
 	* @param {function} callback 关闭窗口后执行的回调方法
 	*/
-	function removeMenuUIRadio(callback) {
-		$('#gmayavruiradio').fadeOut('fast', function(){
+	function gmAyaUiRemove(callback) {
+		$('#gmayaui').fadeOut('fast', function(){
 			$(this).parent().remove();
 			if (callback) { callback(); }
 		});
 	}
+	//====== 文文GM设置界面窗口 END ======
 
 	//## Catch error event
 	function catchErrorEvent(err, videoObj){
@@ -316,9 +423,9 @@
 			if (!testVideoUri && testVideoSourceDom) {
 				testVideoUri = testVideoSourceDom.src;
 			}
-			if (!testVideoUri || /^blob:/gi.test(testVideoUri)) { return; }
+			if (!testVideoUri || /^blob:/i.test(testVideoUri)) { return; }
 
-			if (confirm(`${GM_info.script.name}\n发现视频源地址\n要尝试在新页面打开吗？`)) {
+			if (confirm(`${GM_info.script.name}\n发现源地址\n要尝试在新页面打开吗？`)) {
 				let openUri = /\.m3u8$/gi.test(testVideoUri) ? `https://any.moest.top/m3u8get/?source=${testVideoUri}` : testVideoUri;
 				openUrl(openUri);
 			}
@@ -333,7 +440,7 @@
 
 	//## Video recording extension method
 	function ExtensionVideoRecorder() {
-		unsafeWindow.HTMLVideoElement.prototype.record = async function (duration_seconds = 60, btnObj = null) {
+		unsafeWindow.HTMLVideoElement.prototype.record = async function (duration_seconds = 60, btnDom = null) {
 			let video;
 			try {
 				video = this instanceof unsafeWindow.HTMLVideoElement ? this : document.querySelector('video');
@@ -368,32 +475,34 @@
 					return `${h < 10 ? `0${h}` : h}:${m < 10 ? `0${m}` : m}:${s < 10 ? `0${s}` : s}`;
 				};
 
-				if (btnObj) {
-					btnObj[0].recS = 0;
-					btnChangeState(btnObj, 1);
-					btnObj[0].recTimeCalc = setInterval(() => {
+				if (btnDom) {
+					btnDom[0].recS = 0;
+					btnChangeState(btnDom, 1);
+					btnDom[0].recTimeCalc = setInterval(() => {
 						if (recorder.state === 'paused') {
-							btnObj.children(':first').text(
-								video.recordIsMuted ? '由于静音錄影被迫暂停' : `已暂停 ${formatSeconds(btnObj[0].recS)}`
-							);
+							btnChangeState(btnDom, 1, 1,
+										   video.recordIsMuted
+										   ? '由于静音錄影被迫暂停'
+										   : `已暂停 ${formatSeconds(btnDom[0].recS)}`
+										  );
 							return;
 						}
-						btnObj[0].recS++;
-						btnObj.children(':first').text(`停止 ${formatSeconds(btnObj[0].recS)}`);
+						btnDom[0].recS++;
+						btnChangeState(btnDom, 1, 0,`停止 ${formatSeconds(btnDom[0].recS)}`);
 					}, 1000);
 
 					//-- listen video ended
-					btnObj[0].videoEnded = () => {
+					btnDom[0].videoEnded = () => {
 						stopRecord();
-						video.removeEventListener('ended', btnObj[0].videoEnded);
-						btnObj[0].videoEnded = 6;
+						video.removeEventListener('ended', btnDom[0].videoEnded);
+						btnDom[0].videoEnded = 6;
 					};
-					video.addEventListener('ended', btnObj[0].videoEnded);
+					video.addEventListener('ended', btnDom[0].videoEnded);
 
-					btnObj[0].recStop = () => {
+					btnDom[0].recStop = () => {
 						stopRecord();
-						video.removeEventListener('ended', btnObj[0].videoEnded);
-						btnObj[0].videoEnded = undefined;
+						video.removeEventListener('ended', btnDom[0].videoEnded);
+						btnDom[0].videoEnded = undefined;
 					};
 				}
 
@@ -430,9 +539,9 @@
 						recorder.start(1000);
 					} catch(err) {
 						// In FireFox
-						if (btnObj) {
-							clearInterval(btnObj[0].recTimeCalc);
-							buttonAddOrDel(btnObj, btnObj[0].video, 1);
+						if (btnDom) {
+							clearInterval(btnDom[0].recTimeCalc);
+							buttonAddOrDel(btnDom, btnDom[0].video, 1);
 						}
 						catchErrorEvent(err, video);
 					}
@@ -445,16 +554,16 @@
 				video.removeEventListener('volumechange', video.videoVolumeChange);
 				video.recordPause = video.recordResume = video.videoVolumeChange = undefined;
 
-				if (btnObj) {
-					btnObj[0].vblob = new Blob(blobs, {
+				if (btnDom) {
+					btnDom[0].vblob = new Blob(blobs, {
 						type: 'video/webm'
 					});
-					btnObj[0].dlurl = URL.createObjectURL(btnObj[0].vblob);
-					clearInterval(btnObj[0].recTimeCalc);
-					btnChangeState(btnObj);
-					if (btnObj[0].autoDL && btnObj[0].videoEnded > 5) {
-						btnObj[0].videoEnded = undefined;
-						createDownload(btnObj[0].dlurl);
+					btnDom[0].dlurl = URL.createObjectURL(btnDom[0].vblob);
+					clearInterval(btnDom[0].recTimeCalc);
+					btnChangeState(btnDom);
+					if (btnDom[0].autoDL && btnDom[0].videoEnded > 5) {
+						btnDom[0].videoEnded = undefined;
+						createDownload(btnDom[0].dlurl);
 					}
 				}
 
@@ -562,18 +671,20 @@
 			$('head').append($(`<style>
 			.gmAyaRecBtn{position:absolute;left:0;top:0;display:inline-block;border-radius:4px;
 			 background-color:#ff7728bb;border:none;color:#fff;text-align:center;font-size:12pt;padding:5px 10px;
-			 cursor:pointer;margin:5px;font-family:'Microsoft Yahei';z-index:66666!important;transition:.5s}
-			.gmAyaRecBtn:hover{background-color:#ff5520;transition:.5s}
-			.gmAyaRecBtn.dl.hide{display:none;transition:.5s}
+			 cursor:pointer;margin:5px;font-family:"Microsoft YaHei",Arial,sans-serif;z-index:998!important;
+			 transition:.5s!important}
+			.gmAyaRecBtn:hover{background-color:#ff5520}
 			.gmAyaRecBtn.dl{background-color:#56bb2cbb;padding-right:18px;transition:.5s}
 			.gmAyaRecBtn.dl:hover{background-color:#2cbb80;transition:.5s}
 			.gmAyaRecBtn span{display:inline-block;cursor:pointer;position:relative;color:#fff;transition:.5s}
-			.gmAyaRecBtn span.rec{padding-right:18px;transition:.5s}
-			.gmAyaRecBtn span.dl{padding-right:12px;transition:.5s}
-			.gmAyaRecBtn span:after{content:attr(data-content-after);font-size:18pt;position:absolute;opacity:0;
+			.gmAyaRecBtn span:after{content:attr(data-content-after);font-size:19pt;position:absolute;opacity:0;
 			 top:-6px;margin-left:5px;color:#fff;transition:.5s}
-			.gmAyaRecBtn span.rec:after{animation:twinkle .5s infinite alternate;transition:.5s}
-			.gmAyaRecBtn span.dl:after{opacity:1;font-size:12pt;top:0;animation:none;transition:.5s}
+			.gmAyaRecBtn span.rec{padding-right:18px;transition:.5s}
+			.gmAyaRecBtn span.rec:after{animation:twinkle .5s infinite alternate}
+			.gmAyaRecBtn span.dl,.gmAyaRecBtn span.pause{padding-right:12px;transition:.5s}
+			.gmAyaRecBtn span.dl:after{font-size:12pt}
+			.gmAyaRecBtn span.pause:after{font-size:10pt;font-weight:bold}
+			.gmAyaRecBtn span.dl:after,.gmAyaRecBtn span.pause:after{opacity:1;top:0;animation:none}
 			@keyframes twinkle{0%{opacity:.5}100%{opacity:1}}
 			</style>`));
 		}
@@ -713,13 +824,13 @@
 	function buttonAddOrDel(btnDom, videoDom, reAdd) {
 		// 删除
 		if (!videoDom || reAdd) {
-			if (!reAdd && (!btnDom || btnDom[0].hovered || btnDom[0].isRec || btnDom[0].dlurl || buttonShowMode.mode == 1)) {
+			if (!reAdd && (!btnDom || btnDom[0].hovered || btnDom[0].isRec || btnDom[0].dlurl || buttonShowMode.mode === 1)) {
 				return false;
 			}
 			btnDom.remove();
 			btnDom = undefined;
 			// 删除后再添加
-			if (reAdd) {
+			if (reAdd && buttonShowMode.mode === 1) {
 				buttonAddOrDel(0, videoDom)
 			}
 			return false;
@@ -782,16 +893,17 @@
 				return false;
 			}
 			if (videoObj.duration != Infinity) {
-				if (videoObj.currentTime >= videoObj.duration || confirm('要从头开始錄影吗？')) {
+				if (videoObj.currentTime >= videoObj.duration && confirm('要从头开始錄影吗？')) {
 					videoObj.currentTime = 0;
 				} else {
 					durs -= videoObj.currentTime;
 				}
 				newBtn[0].autoDL = confirm('当錄影结束时弹出下载？');
 			}
+			videoObj.volume = videoObj.volume > 0 ? videoObj.volume : 0.0001;
+			videoObj.muted = false;
 			setTimeout(() => {
 				videoObj.record(durs, newBtn);
-				videoObj.muted = false;
 				videoObj.volume = videoObj.volume > 0 ? videoObj.volume : 0.0001;
 				videoObj.play();
 			}, 300);
@@ -802,28 +914,39 @@
 		return false;
 	}
 
-	//## 改变按钮状态(showDownload: >1显示)
-	function btnChangeState(btnDom, isRecording) {
-		if (!btnDom) {
+	//## 改变按钮状态(按钮dom, 是否正在錄影, 錄影是否已暂停, 状态标题)
+	function btnChangeState(btnDom, isRecording, isPaused , title) {
+		if (!btnDom) { return; }
+		let btnSpan = btnDom.children(':first');
+		//錄影暂停
+		if (isPaused && btnDom[0].isRec > 0) {
+			if (btnSpan.hasClass('pause')) { return; }
+			btnSpan.text(title);
+			btnSpan.attr('data-content-after', '||');
+			btnDom.addClass('pause');
+			btnSpan.removeClass('rec').addClass('pause');
 			return;
 		}
 		//錄影状态
 		if (isRecording) {
 			btnDom[0].isRec = 1;
-			btnDom.children(':first').text('錄影已开始');
-			btnDom.children(':first').attr('data-content-after', '●');
-			btnDom.children(':first').addClass('rec');
+			btnSpan.text(title ? title : '錄影已开始');
+			if (btnSpan.hasClass('rec')) { return; }
+			btnSpan.attr('data-content-after', '●');
+			btnDom.removeClass('pause');
+			btnSpan.removeClass('pause').addClass('rec');
 			return;
 		}
 		//停止錄影状态
 		btnDom[0].isRec = 0;
-		btnDom.children(':first').removeClass('rec');
+		btnSpan.removeClass('rec').removeClass('pause');
 		if (btnDom[0].dlurl) {
-			btnDom.children(':first').text('下载錄影');
-			btnDom.children(':first').attr('data-content-after', '▼');
-			btnDom.addClass('dl').children(':first').addClass('dl');
+			btnSpan.text('下载錄影');
+			btnSpan.attr('data-content-after', '▼');
+			btnDom.addClass('dl');
+			btnSpan.addClass('dl');
 			return;
 		}
 	}
 
-})();
+})(jQuery);
