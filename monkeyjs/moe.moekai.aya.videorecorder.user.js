@@ -13,7 +13,7 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @require      https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js
-// @license      GPL-3.0 License
+// @license      GPL-3.0
 // @compatible   chrome 76+
 // @compatible   firefox 70+
 // @supportURL   https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
