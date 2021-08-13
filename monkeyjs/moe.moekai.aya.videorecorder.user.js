@@ -44,20 +44,25 @@
 
 	//## 脚本菜单事件 - 创建菜单界面
 	function gmMenuUiEvent() {
-		// 初始化设置参数
+		// 切换编码类型菜单
 		if (!supportedMimeTypes) { createSupportedMimeType(); }
-		if (!initialIsDone) { loadSiteButtonShowMode(); }
 		if (!initialIsDone) {
 			selectedMimeTypeId = parseInt(GM_getValue('MimeTypeId'));
 		}
-
-		// 切换编码类型菜单项
 		let menuMimeTypeItems = [];
 		for (let id in supportedMimeTypes) {
 			let item = {
 				id: id,
 				group: 'gmayavrradiobtn-mimetype',
-				title: supportedMimeTypes[id],
+
+				title: supportedMimeTypes[id].tips
+				? (id < 1 ? supportedMimeTypes[id].type : supportedMimeTypes[id].tips)
+				: supportedMimeTypes[id].type,
+
+				tips: supportedMimeTypes[id].tips
+				? (id < 1 ? supportedMimeTypes[id].tips : supportedMimeTypes[id].type)
+				: null,
+
 				selected: (selectedMimeTypeId && selectedMimeTypeId == id || !selectedMimeTypeId && id < 1),
 				isLast: id < 1,
 				onSelected: () => {
@@ -68,7 +73,8 @@
 			menuMimeTypeItems.push(item);
 		}
 
-		// 切换錄影按钮菜单项
+		// 切换錄影按钮菜单
+		if (!initialIsDone) { loadSiteButtonShowMode(); }
 		let btnModes = [
 			{id: 0 , title: '悬停显示', tips: '鼠标指针在视频上时显示'},
 			{id: 1 , title: '总是显示'},
@@ -122,11 +128,11 @@
 			},
 			tabs: {
 				'MimeType': {
-					title: '编码类型',
+					title: '视频编码类型',
 					content: {
 						radioButton: {
 							configName: 'MimeTypeId',
-							column: 2,
+							column: 4,
 							items: menuMimeTypeItems
 						}
 					}
@@ -173,36 +179,45 @@
 		GM_setValue('siteButtonShowMode', siteButtonShowMode);
 	}
 
+	/** 格式化编码类型
+	* @param {array} type 被格式化的编码类型(webm/vp9)[1:编码格式(webm..), 2:编码类型(vp9..)]
+	*/
+	function formatSupportedMimeType(type) {
+		return /^(.*?)\/(.*?)$/gi.exec(type);
+	}
+
 	//## 创建支持的编码类型 --
 	function createSupportedMimeType() {
 		let types = [
-			{ id: 0, type: 'Default' },
-			{ id: 1, type: 'vp9' },{ id: 2, type: 'vp8' },
-			{ id: 3, type: 'h265' },{ id: 4, type: 'h264' },
-			{ id: 5, type: 'av1' },{ id: 6, type: 'avc1' },
+			{ id: 0, type: 'Default', tips: 'webm'},
+			{ id: 1, type: 'webm/vp9' },{ id: 2, type: 'webm/vp8' },
+			{ id: 3, type: 'webm/h265' },{ id: 4, type: 'webm/h264' },
+			{ id: 5, type: 'webm/av1' },{ id: 6, type: 'webm/avc1' },
+			{ id: 7, type: 'x-matroska/vp9', tips: 'mkv/vp9' },{ id: 8, type: 'x-matroska/vp8', tips: 'mkv/vp8' },
+			{ id: 9, type: 'x-matroska/h265', tips: 'mkv/h265' },{ id: 10, type: 'x-matroska/h264', tips: 'mkv/h264' },
+			{ id: 11, type: 'x-matroska/av1', tips: 'mkv/av1' },{ id: 12, type: 'x-matroska/avc1', tips: 'mkv/avc1' },
 		];
 		supportedMimeTypes = {};
 		types.forEach(function(v){
-			let type = v.id < 1 ? '/webm' : `/webm\;codecs=${v.type},opus`;
+			let type = formatSupportedMimeType(v.type);
+			type = v.id < 1 ? '/webm' : `/${type[1]}\;codecs=${type[2]},opus`;
 			if (MediaRecorder.isTypeSupported(`video${type}`)) {
-				supportedMimeTypes[v.id] = v.type;
+				supportedMimeTypes[v.id] = v;
 			}
 		});
 	}
 
-	//## 获取当前的编码类型
-	function getSelectedMimeType() {
+	//## 获取当前的编码类型字符串
+	function getSelectedMimeTypeString() {
 		let selectedMimeType = 'video/webm';
-		if (!selectedMimeTypeId || selectedMimeTypeId < 1) {
-			return selectedMimeType;
-		}
 		if (!supportedMimeTypes) {
 			createSupportedMimeType();
 		}
-		if (!supportedMimeTypes[selectedMimeTypeId]) {
+		if (!selectedMimeTypeId || selectedMimeTypeId < 1 || !supportedMimeTypes[selectedMimeTypeId]) {
 			return selectedMimeType;
 		}
-		return `${selectedMimeType}\;codecs=${supportedMimeTypes[selectedMimeTypeId]},opus`;
+		selectedMimeType = formatSupportedMimeType(supportedMimeTypes[selectedMimeTypeId].type);
+		return `video/${selectedMimeType[1]}\;codecs=${selectedMimeType[2]},opus`;
 	}
 
 	/** ====== 文文GM设置界面窗口 ======
@@ -448,7 +463,7 @@
 
 				let stream = video.captureStream(60);
 
-				let mimeType = getSelectedMimeType();
+				let mimeType = getSelectedMimeTypeString();
 				const recOption = { mimeType: mimeType };
 				let recorder = new MediaRecorder(stream, recOption);
 
@@ -537,6 +552,7 @@
 					try {
 						// Save the stream into memory every second to reduce the jam
 						recorder.start(1000);
+						return true;
 					} catch(err) {
 						// In FireFox
 						if (btnDom) {
@@ -544,6 +560,7 @@
 							buttonAddOrDel(btnDom, btnDom[0].video, 1);
 						}
 						catchErrorEvent(err, video);
+						return false;
 					}
 				});
 
@@ -556,7 +573,7 @@
 
 				if (btnDom) {
 					btnDom[0].vblob = new Blob(blobs, {
-						type: 'video/webm'
+						type: mimeType
 					});
 					btnDom[0].dlurl = URL.createObjectURL(btnDom[0].vblob);
 					clearInterval(btnDom[0].recTimeCalc);
@@ -568,11 +585,11 @@
 				}
 
 				blobs = stream = recorder = undefined;
-				//return webm;
+				return true;
 
 			} catch(err) {
 				catchErrorEvent(err, video);
-				return;
+				return false;
 			}
 		}
 	}
@@ -893,20 +910,33 @@
 				return false;
 			}
 			if (videoObj.duration != Infinity) {
-				if (videoObj.currentTime >= videoObj.duration && confirm('要从头开始錄影吗？')) {
+				if (videoObj.currentTime > 0 && videoObj.currentTime <= videoObj.duration && confirm('要从头开始錄影吗？')) {
 					videoObj.currentTime = 0;
 				} else {
 					durs -= videoObj.currentTime;
 				}
 				newBtn[0].autoDL = confirm('当錄影结束时弹出下载？');
 			}
-			videoObj.volume = videoObj.volume > 0 ? videoObj.volume : 0.0001;
-			videoObj.muted = false;
+
+			if (videoObj.muted || videoObj.volume <= 0) {
+				videoObj.muted = false;
+				videoObj.volume = 0.0001;
+			}
+
+			let promise = videoObj.record(durs, newBtn);
+			let promiseReturn = true;
+			promise.then((result) => {
+				promiseReturn = result;
+			});
 			setTimeout(() => {
-				videoObj.record(durs, newBtn);
-				videoObj.volume = videoObj.volume > 0 ? videoObj.volume : 0.0001;
+				if (!promiseReturn) {
+					if (!videoIsPaused) {
+						setTimeout(() => videoObj.play(), 800);
+					}
+					return false;
+				}
 				videoObj.play();
-			}, 300);
+			}, 100);
 
 			return false;
 		});
