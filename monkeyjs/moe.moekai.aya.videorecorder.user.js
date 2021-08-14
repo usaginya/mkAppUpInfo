@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    moe.moekai.aya.videorecorder
-// @version      2.0
-// @description  支持大部分网页视频/直播錄影，跨域视频不能錄影，錄影时不能静音、保存格式仅有webm、錄影需要留有足够的可用内存。
+// @version      2.1
+// @description  支持大部分网页视频、直播錄影 / 视频录制 / 录制视频
 // @author       YIU
 // @include      *
 // @icon         https://any.moest.top/monkeydoc/res/ayavrec.ico
