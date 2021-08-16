@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    moe.moekai.aya.videorecorder
-// @version      2.1
+// @version      2.2
 // @description  支持大部分网页视频、直播錄影 / 视频录制 / 录制视频
 // @author       YIU
 // @include      *
@@ -127,6 +127,15 @@
 				href: 'https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs'
 			},
 			tabs: {
+				'ButtonShowMode': {
+					title: '錄影按钮显示',
+					content: {
+						radioButton: {
+							column: 3,
+							items: menuBottomShowModeItems
+						}
+					}
+				},
 				'MimeType': {
 					title: '视频编码类型',
 					content: {
@@ -134,16 +143,6 @@
 							configName: 'MimeTypeId',
 							column: 4,
 							items: menuMimeTypeItems
-						}
-					}
-				},
-
-				'ButtonShowMode': {
-					title: '錄影按钮显示',
-					content: {
-						radioButton: {
-							column: 3,
-							items: menuBottomShowModeItems
 						}
 					}
 				}
@@ -717,266 +716,266 @@
 		bindVideoEvent();
 	}
 
-	//## 绑定video hover事件
-	function bindVideoEventHover(videoDom) {
-		videoDom.gmayavrhover = function () {
-			switchButton($(videoDom));
-		}
-		videoDom.gmayavrunhover = function () {
-			switchButton($(videoDom), 1);
-		}
-		videoDom.addEventListener('mouseenter', videoDom.gmayavrhover)
-		videoDom.addEventListener('mouseleave', videoDom.gmayavrunhover);
+//## 绑定video hover事件
+function bindVideoEventHover(videoDom) {
+	videoDom.gmayavrhover = function () {
+		switchButton($(videoDom));
+	}
+	videoDom.gmayavrunhover = function () {
 		switchButton($(videoDom), 1);
 	}
+	videoDom.addEventListener('mouseenter', videoDom.gmayavrhover)
+	videoDom.addEventListener('mouseleave', videoDom.gmayavrunhover);
+	switchButton($(videoDom), 1);
+}
 
-	//## 解除绑定video hover事件
-	function unBindVideoEventHover(videoDom) {
-		if (videoDom.gmayavrhover) {
-			videoDom.removeEventListener('mouseenter', videoDom.gmayavrhover);
-			videoDom.gmayavrhover = undefined;
-		}
-		if (videoDom.gmayavrunhover) {
-			videoDom.removeEventListener('mouseleave', videoDom.gmayavrunhover);
-			videoDom.gmayavrunhover = undefined;
-		}
+//## 解除绑定video hover事件
+function unBindVideoEventHover(videoDom) {
+	if (videoDom.gmayavrhover) {
+		videoDom.removeEventListener('mouseenter', videoDom.gmayavrhover);
+		videoDom.gmayavrhover = undefined;
 	}
-
-	//## 绑定video事件(每绑定一个video都会回调传入video jQuery dom)
-	function bindVideoEvent(callback) {
-		let video = $('video');
-
-		if (video.length > 0) {
-			if (buttonShowMode.mode < 1) {
-				video.each(function () {
-					unBindVideoEventHover(this);
-					bindVideoEventHover(this);
-				});
-				return;
-			}
-
-			if (buttonShowMode.mode > 0 && callback) { callback(video); }
-		}
+	if (videoDom.gmayavrunhover) {
+		videoDom.removeEventListener('mouseleave', videoDom.gmayavrunhover);
+		videoDom.gmayavrunhover = undefined;
 	}
+}
 
-	/*## 重新绑定video事件
+//## 绑定video事件(每绑定一个video都会回调传入video jQuery dom)
+function bindVideoEvent(callback) {
+	let video = $('video');
+
+	if (video.length > 0) {
+		if (buttonShowMode.mode < 1) {
+			video.each(function () {
+				unBindVideoEventHover(this);
+				bindVideoEventHover(this);
+			});
+			return;
+		}
+
+		if (buttonShowMode.mode > 0 && callback) { callback(video); }
+	}
+}
+
+/*## 重新绑定video事件
 	* @param {object} newButtonShowMode 新绑定的按钮模式对象
 	* @param {bool} needToSave 保存按钮模式到配置
 	*/
-	function reBindVideoEvent(newButtonShowMode, needToSave) {
-		if (!newButtonShowMode) { return; }
-		// 移除旧按钮
-		if (buttonShowMode) {
-			buttonShowMode.mode = 2;
-			initialization();
-		}
-
-		// 等待删除后重新绑定
-		setTimeout(() => {
-			buttonShowMode = newButtonShowMode;
-			initialization();
-			if (needToSave) { saveSiteButtonShowMode(); }
-		}, 300);
+function reBindVideoEvent(newButtonShowMode, needToSave) {
+	if (!newButtonShowMode) { return; }
+	// 移除旧按钮
+	if (buttonShowMode) {
+		buttonShowMode.mode = 2;
+		initialization();
 	}
 
-	//## 定位按钮容器返回 jq dom
-	function positionButtonContainer(videoDom) {
-		let inDom = videoDom[0].parentNode;
-		if (buttonShowMode.layer < 11) { return $(inDom); }
+	// 等待删除后重新绑定
+	setTimeout(() => {
+		buttonShowMode = newButtonShowMode;
+		initialization();
+		if (needToSave) { saveSiteButtonShowMode(); }
+	}, 300);
+}
 
-		let	videoWidth = videoDom[0].clientWidth,
-			videoHeight = videoDom[0].clientHeight;
-		if (!videoWidth || !videoHeight) { return; }
+//## 定位按钮容器返回 jq dom
+function positionButtonContainer(videoDom) {
+	let inDom = videoDom[0].parentNode;
+	if (buttonShowMode.layer < 11) { return $(inDom); }
 
-		while (inDom && !/body|html/i.test(inDom.tagName)){
-			if (inDom.clientWidth > videoWidth || inDom.clientHeight > videoHeight) {
-				break;
-			}
-			inDom = inDom.parentNode;
+	let	videoWidth = videoDom[0].clientWidth,
+		videoHeight = videoDom[0].clientHeight;
+	if (!videoWidth || !videoHeight) { return; }
+
+	while (inDom && !/body|html/i.test(inDom.tagName)){
+		if (inDom.clientWidth > videoWidth || inDom.clientHeight > videoHeight) {
+			break;
 		}
-		inDom = buttonShowMode.layer > 11 ? (inDom.parentNode ? inDom.parentNode : inDom) : inDom;
-		return $(inDom);
+		inDom = inDom.parentNode;
 	}
+	inDom = buttonShowMode.layer > 11 ? (inDom.parentNode ? inDom.parentNode : inDom) : inDom;
+	return $(inDom);
+}
 
-	//## 显示或隐藏按钮
-	function switchButton(videoDom, hide) {
-		if (!videoDom) { return; }
-		let inDom = positionButtonContainer(videoDom);
-		if (!inDom) { return; }
-		let gmbtn = inDom.find('.gmAyaRecBtn');
-		if (hide) {
-			if (gmbtn.length < 1 || gmbtn[0].isRec || gmbtn[0].dlurl){
-				return;
-			}
-			setTimeout(() => buttonAddOrDel(gmbtn, undefined, buttonShowMode.mode > 1), 100);
+//## 显示或隐藏按钮
+function switchButton(videoDom, hide) {
+	if (!videoDom) { return; }
+	let inDom = positionButtonContainer(videoDom);
+	if (!inDom) { return; }
+	let gmbtn = inDom.find('.gmAyaRecBtn');
+	if (hide) {
+		if (gmbtn.length < 1 || gmbtn[0].isRec || gmbtn[0].dlurl){
 			return;
 		}
-		buttonAddOrDel(0, videoDom);
+		setTimeout(() => buttonAddOrDel(gmbtn, undefined, buttonShowMode.mode > 1), 100);
+		return;
 	}
+	buttonAddOrDel(0, videoDom);
+}
 
-	//## 改变按钮显示方式
-	function changeButtonShowMode(videoDom) {
-		switch(buttonShowMode.mode) {
-			case 1:
-				videoDom.each(function(){
-					switchButton($(this));
-				});
-				break;
+//## 改变按钮显示方式
+function changeButtonShowMode(videoDom) {
+	switch(buttonShowMode.mode) {
+		case 1:
+			videoDom.each(function(){
+				switchButton($(this));
+			});
+			break;
 
-			case 2:
-				videoDom.each(function(){
-					switchButton($(this), 1);
-				});
-				break;
+		case 2:
+			videoDom.each(function(){
+				switchButton($(this), 1);
+			});
+			break;
 
-			default:
-				initialization();
-				videoDom.each(function(){
-					switchButton($(this), 1);
-				});
-		}
+		default:
+			initialization();
+			videoDom.each(function(){
+				switchButton($(this), 1);
+			});
 	}
+}
 
-	//## 添加或删除按钮(添加:无btnDom 有videoDom, 删除:有btnDom 无videoDom, 重新添加)
-	function buttonAddOrDel(btnDom, videoDom, reAdd) {
-		// 删除
-		if (!videoDom || reAdd) {
-			if (!reAdd && (!btnDom || btnDom[0].hovered || btnDom[0].isRec || btnDom[0].dlurl || buttonShowMode.mode === 1)) {
-				return false;
-			}
-			btnDom.remove();
-			btnDom = undefined;
-			// 删除后再添加
-			if (reAdd && buttonShowMode.mode === 1) {
-				buttonAddOrDel(0, videoDom)
-			}
+//## 添加或删除按钮(添加:无btnDom 有videoDom, 删除:有btnDom 无videoDom, 重新添加)
+function buttonAddOrDel(btnDom, videoDom, reAdd) {
+	// 删除
+	if (!videoDom || reAdd) {
+		if (!reAdd && (!btnDom || btnDom[0].hovered || btnDom[0].isRec || btnDom[0].dlurl || buttonShowMode.mode === 1)) {
 			return false;
 		}
+		btnDom.remove();
+		btnDom = undefined;
+		// 删除后再添加
+		if (reAdd && buttonShowMode.mode === 1) {
+			buttonAddOrDel(0, videoDom)
+		}
+		return false;
+	}
 
-		//== 添加
+	//== 添加
 
-		//- 定位按钮容器jq dom
-		let inDom = positionButtonContainer(videoDom);
+	//- 定位按钮容器jq dom
+	let inDom = positionButtonContainer(videoDom);
 
-		if (!inDom || inDom.find('.gmAyaRecBtn').length > 0 || buttonShowMode.mode > 1) {
+	if (!inDom || inDom.find('.gmAyaRecBtn').length > 0 || buttonShowMode.mode > 1) {
+		return false;
+	}
+
+	let newBtn = $(`<a class="gmAyaRecBtn" href="javascript:;"><span>錄影</span></a>`);
+
+	newBtn[0].video = videoDom;
+
+	newBtn.hover(function () {
+		this.hovered = 1;
+	}, function () {
+		this.hovered = 0;
+	});
+
+	newBtn.click(function () {
+		//---- 下载
+		if (this.dlurl) {
+			if (confirm('要下载錄影吗？')) {
+				createDownload(this.dlurl);
+				return false;
+			}
+			if (!confirm('要重新开始錄影吗？')) {
+				return false;
+			}
+			window.URL.revokeObjectURL(this.dlurl);
+			buttonAddOrDel($(this), videoDom, 1);
 			return false;
 		}
-
-		let newBtn = $(`<a class="gmAyaRecBtn" href="javascript:;"><span>錄影</span></a>`);
-
-		newBtn[0].video = videoDom;
-
-		newBtn.hover(function () {
-			this.hovered = 1;
-		}, function () {
-			this.hovered = 0;
-		});
-
-		newBtn.click(function () {
-			//---- 下载
-			if (this.dlurl) {
-				if (confirm('要下载錄影吗？')) {
-					createDownload(this.dlurl);
-					return false;
-				}
-				if (!confirm('要重新开始錄影吗？')) {
-					return false;
-				}
-				window.URL.revokeObjectURL(this.dlurl);
-				buttonAddOrDel($(this), videoDom, 1);
-				return false;
-			}
-			//---- 錄影
-			let videoObj = videoDom[0];
-			if (this.isRec) {
-				//停止錄影
-				videoObj.pause();
-				this.recStop();
-				return false;
-			}
-			//开始錄影
-			let durs = videoObj.duration;
-			if (!durs) {
-				alert('无法取得视频长度');
-				return false;
-			}
-			let videoIsPaused = videoObj.paused;
+		//---- 錄影
+		let videoObj = videoDom[0];
+		if (this.isRec) {
+			//停止錄影
 			videoObj.pause();
-			if (!confirm('要开始錄影吗？')) {
+			this.recStop();
+			return false;
+		}
+		//开始錄影
+		let durs = videoObj.duration;
+		if (!durs) {
+			alert('无法取得视频长度');
+			return false;
+		}
+		let videoIsPaused = videoObj.paused;
+		videoObj.pause();
+		if (!confirm('要开始錄影吗？')) {
+			if (!videoIsPaused) {
+				//延迟播放避免某些网站播放器逻辑冲突
+				setTimeout(() => videoObj.play(), 800);
+			}
+			return false;
+		}
+		if (videoObj.duration != Infinity) {
+			if (videoObj.currentTime > 0 && videoObj.currentTime <= videoObj.duration && confirm('要从头开始錄影吗？')) {
+				videoObj.currentTime = 0;
+			} else {
+				durs -= videoObj.currentTime;
+			}
+			newBtn[0].autoDL = confirm('当錄影结束时弹出下载？');
+		}
+
+		if (videoObj.muted || videoObj.volume <= 0) {
+			videoObj.muted = false;
+			videoObj.volume = 0.0001;
+		}
+
+		let promise = videoObj.record(durs, newBtn);
+		let promiseReturn = true;
+		promise.then((result) => {
+			promiseReturn = result;
+		});
+		setTimeout(() => {
+			if (!promiseReturn) {
 				if (!videoIsPaused) {
-					//延迟播放避免某些网站播放器逻辑冲突
 					setTimeout(() => videoObj.play(), 800);
 				}
 				return false;
 			}
-			if (videoObj.duration != Infinity) {
-				if (videoObj.currentTime > 0 && videoObj.currentTime <= videoObj.duration && confirm('要从头开始錄影吗？')) {
-					videoObj.currentTime = 0;
-				} else {
-					durs -= videoObj.currentTime;
-				}
-				newBtn[0].autoDL = confirm('当錄影结束时弹出下载？');
-			}
+			videoObj.play();
+		}, 100);
 
-			if (videoObj.muted || videoObj.volume <= 0) {
-				videoObj.muted = false;
-				videoObj.volume = 0.0001;
-			}
-
-			let promise = videoObj.record(durs, newBtn);
-			let promiseReturn = true;
-			promise.then((result) => {
-				promiseReturn = result;
-			});
-			setTimeout(() => {
-				if (!promiseReturn) {
-					if (!videoIsPaused) {
-						setTimeout(() => videoObj.play(), 800);
-					}
-					return false;
-				}
-				videoObj.play();
-			}, 100);
-
-			return false;
-		});
-		inDom.append(newBtn);
 		return false;
-	}
+	});
+	inDom.append(newBtn);
+	return false;
+}
 
-	//## 改变按钮状态(按钮dom, 是否正在錄影, 錄影是否已暂停, 状态标题)
-	function btnChangeState(btnDom, isRecording, isPaused , title) {
-		if (!btnDom) { return; }
-		let btnSpan = btnDom.children(':first');
-		//錄影暂停
-		if (isPaused && btnDom[0].isRec > 0) {
-			if (btnSpan.hasClass('pause')) { return; }
-			btnSpan.text(title);
-			btnSpan.attr('data-content-after', '||');
-			btnDom.addClass('pause');
-			btnSpan.removeClass('rec').addClass('pause');
-			return;
-		}
-		//錄影状态
-		if (isRecording) {
-			btnDom[0].isRec = 1;
-			btnSpan.text(title ? title : '錄影已开始');
-			if (btnSpan.hasClass('rec')) { return; }
-			btnSpan.attr('data-content-after', '●');
-			btnDom.removeClass('pause');
-			btnSpan.removeClass('pause').addClass('rec');
-			return;
-		}
-		//停止錄影状态
-		btnDom[0].isRec = 0;
-		btnSpan.removeClass('rec').removeClass('pause');
-		if (btnDom[0].dlurl) {
-			btnSpan.text('下载錄影');
-			btnSpan.attr('data-content-after', '▼');
-			btnDom.addClass('dl');
-			btnSpan.addClass('dl');
-			return;
-		}
+//## 改变按钮状态(按钮dom, 是否正在錄影, 錄影是否已暂停, 状态标题)
+function btnChangeState(btnDom, isRecording, isPaused , title) {
+	if (!btnDom) { return; }
+	let btnSpan = btnDom.children(':first');
+	//錄影暂停
+	if (isPaused && btnDom[0].isRec > 0) {
+		if (btnSpan.hasClass('pause')) { return; }
+		btnSpan.text(title);
+		btnSpan.attr('data-content-after', '||');
+		btnDom.addClass('pause');
+		btnSpan.removeClass('rec').addClass('pause');
+		return;
 	}
+	//錄影状态
+	if (isRecording) {
+		btnDom[0].isRec = 1;
+		btnSpan.text(title ? title : '錄影已开始');
+		if (btnSpan.hasClass('rec')) { return; }
+		btnSpan.attr('data-content-after', '●');
+		btnDom.removeClass('pause');
+		btnSpan.removeClass('pause').addClass('rec');
+		return;
+	}
+	//停止錄影状态
+	btnDom[0].isRec = 0;
+	btnSpan.removeClass('rec').removeClass('pause');
+	if (btnDom[0].dlurl) {
+		btnSpan.text('下载錄影');
+		btnSpan.attr('data-content-after', '▼');
+		btnDom.addClass('dl');
+		btnSpan.addClass('dl');
+		return;
+	}
+}
 
 })(jQuery);
