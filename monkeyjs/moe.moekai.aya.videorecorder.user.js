@@ -124,7 +124,7 @@
 		// 构建菜单参数
 		let menu = {
 			title: {
-				href: 'https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs'
+				href: 'https://greasyfork.org/scripts/430752'
 			},
 			tabs: {
 				'ButtonShowMode': {
