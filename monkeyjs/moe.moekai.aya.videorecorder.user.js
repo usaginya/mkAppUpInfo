@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    moe.moekai.aya.videorecorder
-// @version      2.2
+// @version      2.3
 // @description  支持大部分网页视频、直播錄影 / 视频录制 / 录制视频
 // @author       YIU
 // @include      *
@@ -291,7 +291,8 @@
 		#gmayaui .contenttips:focus::after,#gmayaui .contenttips:focus::before,#gmayaui .contenttips:hover::after,
 		 #gmayaui .contenttips:hover::before{opacity:1;transition:.5s}
 		#gmayavruibgclose{position:absolute;width:100%;height:100%}
-		#gmayaui .tabs{position:relative;margin:0 auto;width:100%}
+		#gmayaui .tabs{position:relative;margin:0 auto;width:100%;left:0!important;top:0!important;right:0!important;
+		 bottom:0!important;padding:unset!important;display:block!important}
 		#gmayaui .tabs nav ul{position:relative;display:flex;margin:0 auto;padding:0;list-style:none;
 		 flex-flow:row wrap;justify-content:center}
 		#gmayaui .tabs nav ul li{position:relative;display:block;color:#999;margin:0 .5em;flex:1;line-height:2.5;
