@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.0
+// @version      2.1
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -80,7 +80,10 @@
 	.new-pmd .c-border,.c-group-wrapper{background:#fff5!important;transition-duration:.5s}
 	.new-pmd .c-border:hover{background:#fffb!important;transition-duration:.5s}
 	#content_right{opacity:.5;transition-duration:1s}#content_right:hover{opacity:1;transition-duration:.5s}
-	#foot,.sam_newgrid~#page,.x-interact-publish-cont,#container.sam_newgrid div[class*=has-content_] textarea{background-color:#f5f5f666!important}
+	#foot,.sam_newgrid~#page,.x-interact-publish-cont,#container.sam_newgrid div[class*=has-content_] textarea,
+	.result-molecule>#page{background-color:#f5f5f666!important}
+	.result-molecule>#page strong{background-color:#4e90f2d4!important}
+	.result-molecule>#page a:hover .pc,.result-molecule>#page .n:hover{background:#4e90f2c0!important}
 	#foot #help,.c-tip-con .c-tip-menu li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
 	#wrapper #content_left .result[tpl='soft'] .op-soft-title,#wrapper #content_left .result h3,#wrapper #content_left .c-container h3,
 	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container
@@ -90,7 +93,7 @@
 	.soutu-hover-tip,.soutu-env-new .soutu-layer .soutu-state-normal,.soutu-env-new .soutu-layer .soutu-error,.soutu-env-new .soutu-layer .soutu-waiting{background:#fffd}
 	.sam_newgrid~#page strong,.sam_newgrid~#page a:hover,
 	.sam_newgrid~#page a:hover .pc,.sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
-	.new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.new-pmd .c-tabs-content,.op_express_delivery_more{background-color:#fff6!important}
+	.new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.new-pmd .c-tabs-content,.op_express_delivery_more,.result-molecule>#page a{background-color:#fff6!important}
 	.op_express_delivery_input{background:#fafafa77!important}
 	.op_new_cal_screen,[data-pmd] .c-container,.col-header .col-overview{background-color:#fff2!important}
 	.c-tabs-item .c-btn:hover{background:#ccc6!important}
