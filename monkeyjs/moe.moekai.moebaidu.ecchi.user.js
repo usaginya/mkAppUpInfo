@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.1
+// @version      2.2
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -15,13 +15,19 @@
 (function($){
 	//--------------- STYLE -----------------------------------------
 	let st = `<style>
+	#lg img{opacity:.2;transition:opacity 1s}
+	#lg:hover img{opacity:.9}
 	#s_lg_img{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
 	#su{background:#0072ffa8!important}
 	#su:hover{background:#0072ffcc!important}
-	#kw{border-color:#0072ffa8!important;background:#fffa!important}
+	#kw,#soutu-url-kw{border-color:#0072ffa8!important;background:#fffa!important}
 	#kw:focus{border-color:#0072ffdd!important}
 	#kw:focus,.bdsug{background:#fffc!important}
+	.soutu-drop,.soutu-state-normal,.soutu-error,.soutu-waiting{background:#fffb!important}
 	.soutu-btn{background-color:#fff0!important}
+	.soutu-url-btn-new{color:#eee!important;background-color:#e4e4e533!important}
+	.soutu-url-btn-new:hover{background-color:#85d2ff80!important}
+	.upload-wrap{background: #4e71f2b0!important}
 	.s-bottom-space{height:20px!important}
 	.s-top-wrap{height:30px}
 	.s-skin-hasbg .s-top-wrap{background:rgba(0,0,0,.15)}
@@ -132,6 +138,9 @@
 	if(window.location.href.indexOf('.com/s')<0)
 	{
 		$('head').append(st);
+		$('#lg img').each(function(){
+			$(this).attr('src','https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white-d0c9fe2af5.png');
+		});
 		return;
 	}
 
