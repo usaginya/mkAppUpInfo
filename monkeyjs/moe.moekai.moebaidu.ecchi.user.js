@@ -30,7 +30,7 @@
 	.upload-wrap{background: #4e71f2b0!important}
 	.s-bottom-space{height:20px!important}
 	.s-top-wrap{height:30px}
-	.s-top-more,.soutu-hover-tip{background:#fffb!important;backdrop-filter:blur(5px)!important}
+	.s-top-more,.soutu-hover-tip,.s-mod-setweather,.c-floating-box{background:#fffb!important;backdrop-filter:blur(5px)!important}
 	.s-skin-hasbg .s-top-wrap{background:rgba(0,0,0,.15)}
 	.s-top-left .mnav,.s-top-right .s-top-right-text,.s-weather-wrapper{margin-top:5px}
 	.s-top-right .s-top-username{margin-top:2px}
