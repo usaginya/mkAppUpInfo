@@ -23,6 +23,7 @@
 	#kw,#soutu-url-kw{border-color:#0072ffa8!important;background:#fffa!important}
 	#kw:focus{border-color:#0072ffdd!important}
 	#kw:focus,.bdsug{background:#fffc!important}
+	#wrapper #form .bdsug-new .bdsug-s{background-color:#fff5!important;backdrop-filter:blur(8px);box-shadow:0 0 5px 0px #fff5}
 	.soutu-drop,.soutu-state-normal,.soutu-error,.soutu-waiting{background:#fffb!important}
 	.soutu-btn{background-color:#fff0!important}
 	.soutu-url-btn-new{color:#eee!important;background-color:#e4e4e533!important}
