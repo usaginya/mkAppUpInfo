@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.2
+// @version      2.3
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -116,6 +116,8 @@
     ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#fcfdff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, -5px 7px 10px #959ca5}
 	[tpl^=right_game_recommend]{display:none}
 	.op-qr{top:-100px!important;left:auto!important}
+	.result-molecule[tpl*="app/rs"] td a{background:#f5f5f699!important}
+	.result-molecule[tpl*="app/rs"] td a:hover{background:#f0f3fdbb!important}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -269,6 +271,9 @@
 				ReAddRipples();
 				interval_addrip = null;
 			},800);
+
+			//Fix style occlusion
+			$('.result-op[tpl*="bk_"] .c-img-border').remove()
 		});
 
 		//Create mask bg
