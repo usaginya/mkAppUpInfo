@@ -1,7 +1,7 @@
 #! python3
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Version      : 2021.10.13.3
+# @Version      : 2021.10.13.4
 # @Author       : YIU
 # @Github       : https://github.com/usaginya
 # @For website  : www.piaotianwenxue.com
@@ -513,6 +513,7 @@ def climb():
 
     bookTitle = novel['title']
     catalogs = novel['catalogs']
+    catalogsLength = len(catalogs)
     mergeCount = 0      # 合并章节计数
     getCount = 0        # 已获得章节计数
     groupCount = 0      # 章节分组计数
@@ -564,7 +565,7 @@ def climb():
             txtContent += ('\n'*5 if mergeCount > 1 else txtContent) + content
 
         # 保存文件
-        if mergeCount >= options.merge:
+        if mergeCount >= options.merge or getCount >= catalogsLength:
             # 章节分组+1
             groupCount += 1
 
