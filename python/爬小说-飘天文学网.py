@@ -11,16 +11,60 @@ import ctypes
 import os
 import re
 import random
-from typing import Coroutine
-import requests
 import sys
 import subprocess
-import urllib3
-from docx import Document
-from docx.oxml.ns import qn
-from docx.shared import Pt, RGBColor
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+
+def checkPackages(usePackages):
+    '''包检查
+
+    检查需要的包是否已安装
+
+    Args:
+        usePackages (string[]): 需要的第三方包名数组
+
+    Returns:
+        bool: 全部已安装返回 True 否则为 False
+    '''
+    if not usePackages or len(usePackages) < 1:
+        return False
+
+    print('\n' + '='*78)
+    print('\n\n\t正在检查需要的包、请稍等...\n\n')
+
+    reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
+    installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
+
+    demand = ''
+    for packName in usePackages:
+        if not packName in installed_packages:
+            demand = f'{demand}pip3 install {packName}\n'
+    if demand:
+        demand = f'pip3 install --upgrade pip --user\n{demand}'
+        print('\n请先在 cmd 粘贴以下命令安装需要的包、安装完成后再使用本脚本\n\n')
+        print(demand)
+        print('='*78 + '\n\n')
+        return False
+
+    print('\n\t\t√ 没有问题\n\n' + '='*78 + '\n\n')
+    return True
+
+
+# 检查需要的包
+if not checkPackages(['beautifulsoup4', 'python-docx', 'requests', 'urllib3']):
+    input('按任意键退出脚本...')
+    sys.exit()
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 from bs4 import BeautifulSoup
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Pt, RGBColor
+from docx.oxml.ns import qn
+from docx import Document
+import requests
+import urllib3
 
 USER_AGENT_LIST = [
     "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1",
@@ -139,41 +183,6 @@ def showScriptInfo():
     ║║║│  │├┤  ├┴┐├─┤│  ╠═╝└┬┘  │  ├─┤│  ││││
     ╩  ╩└─┘└─┘┴  ┴┴  ┴┴  ╩      ┴    ┴  ┴  ┴└─┘┘└┘
     ''')
-
-
-def checkPackages(usePackages):
-    '''包检查
-
-    检查需要的包是否已安装
-
-    Args:
-        usePackages (string[]): 需要的第三方包名数组
-
-    Returns:
-        bool: 全部已安装返回 True 否则为 False
-    '''
-    if not usePackages or len(usePackages) < 1:
-        return False
-
-    cprint.green('\n' + '='*78)
-    cprint.green('\n\n\t正在检查需要的包、请稍等...\n\n')
-
-    reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
-    installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
-
-    demand = ''
-    for packName in usePackages:
-        if not packName in installed_packages:
-            demand = f'{demand}pip3 install {packName}\n'
-    if demand:
-        demand = f'pip3 install --upgrade pip --user\n{demand}'
-        cprint.yellow('\n请先在 cmd 粘贴以下命令安装需要的包、安装完成后再使用本脚本\n\n')
-        cprint.yellow(demand)
-        cprint.green('='*78 + '\n\n')
-        return False
-
-    cprint.green('\n\t\t√ 没有问题\n\n' + '='*78 + '\n\n')
-    return True
 
 
 def inputUrl():
@@ -565,11 +574,6 @@ def climb():
 # 显示信息
 showScriptInfo()
 cprint.skyblue('\n\n' + '='*78 + '\n\n')
-
-# 检查需要的包
-if not checkPackages(['beautifulsoup4', 'python-docx', 'requests', 'urllib3']):
-    input('按任意键退出脚本...')
-    sys.exit()
 
 # 任务结束
 novelTitle = climb()
