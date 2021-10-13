@@ -1,10 +1,24 @@
 #! python3
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Version      : 2021.10.13.2
+# @Version      : 2021.10.13.3
 # @Author       : YIU
 # @Github       : https://github.com/usaginya
 # @For website  : www.piaotianwenxue.com
+
+
+'''
+    飘天文学网 小说爬取
+
+    粘贴一个小说目录页面链接即可开始爬取
+
+    比如：https://www.piaotianwenxue.com/book/37/37197/
+
+    所有小说保存到此脚本的相同文件夹内
+'''
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 import ctypes
@@ -58,13 +72,15 @@ if not checkPackages(['beautifulsoup4', 'python-docx', 'requests', 'urllib3']):
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+import requests
+import urllib3
 from bs4 import BeautifulSoup
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Pt, RGBColor
 from docx.oxml.ns import qn
 from docx import Document
-import requests
-import urllib3
+
 
 USER_AGENT_LIST = [
     "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1",
@@ -325,11 +341,19 @@ def writeTxt(folderName, fileName, content):
         content (str): 文本内容、小说内容
         skipBreak (bool): 跳过添加分页、用于最后一章、避免有空白页
     '''
+    # 如果文件夹不存在则创建
     if not os.path.exists(folderName):
         os.makedirs(folderName)
 
-    with open(f'{folderName}\\{fileName}.txt', 'w', encoding='utf-8') as f:
-        f.write(content)
+    # 如果文件存在则跳过
+    if os.path.isfile(os.path.join(os.getcwd(), f'{folderName}\\{fileName}')):
+        return
+
+    try:
+        with open(f'{folderName}\\{fileName}.txt', 'w', encoding='utf-8') as f:
+            f.write(content)
+    except:
+        cprint.pink(f'\n{folderName}\\{fileName}.txt 文件可能被占用、保存失败...')
 
 
 def writeDocx(document, title, content, skipBreak=False):
@@ -377,8 +401,14 @@ def saveDocx(document, folderName, fileName):
         folderName (str): 文件夹名称、小说名称
         fileName (str): 文件名、章节名
     '''
+    # 如果文件夹不存在则创建
     if not os.path.exists(folderName):
         os.makedirs(folderName)
+
+    # 如果文件存在则跳过
+    if os.path.isfile(os.path.join(os.getcwd(), f'{folderName}\\{fileName}')):
+        return
+
     try:
         document.save(f'{folderName}\\{fileName}.docx')
     except:
