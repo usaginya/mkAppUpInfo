@@ -155,7 +155,7 @@ def checkPackages(usePackages):
     if not usePackages or len(usePackages) < 1:
         return False
 
-    cprint.green('\n' + '='*64)
+    cprint.green('\n' + '='*78)
     cprint.green('\n\n\t正在检查需要的包、请稍等...\n\n')
 
     reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
@@ -169,10 +169,10 @@ def checkPackages(usePackages):
         demand = f'pip3 install --upgrade pip --user\n{demand}'
         cprint.yellow('\n请先在 cmd 粘贴以下命令安装需要的包、安装完成后再使用本脚本\n\n')
         cprint.yellow(demand)
-        cprint.green('='*64 + '\n\n')
+        cprint.green('='*78 + '\n\n')
         return False
 
-    cprint.green('\n\t\t√ 没有问题\n\n' + '='*64 + '\n\n')
+    cprint.green('\n\t\t√ 没有问题\n\n' + '='*78 + '\n\n')
     return True
 
 
@@ -258,7 +258,7 @@ def inputRequest():
     options.saveType = inputSaveType()
     # 显示输入信息结果
     showScriptInfo()
-    cprint.green('\n' + '='*64 + '\n\n')
+    cprint.green('\n' + '='*78 + '\n\n')
 
     cprint.yellow(f'\t小说目录链接： {options.bookUrl}\n')
 
@@ -274,7 +274,7 @@ def inputRequest():
     tmpTip = 'docx 文档' if options.saveType > 0 else 'txt 文本文件'
     cprint.yellow(f'\t保存小说格式： {tmpTip}\n')
 
-    cprint.green('\n' + '='*64 + '\n\n')
+    cprint.green('\n' + '='*78 + '\n\n')
 
 
 def getHtml(url):
@@ -464,7 +464,7 @@ def climb():
 
     # 开始爬取
     showScriptInfo()
-    cprint.skyblue('\n\n' + '='*64 + '\n\n')
+    cprint.skyblue('\n\n' + '='*78 + '\n\n')
     cprint.yellow('\t\t\t>ω0  爬取开始！')
 
     # 获取小说标题、章节列表信息
@@ -564,7 +564,7 @@ def climb():
 # --- 开始主线任务 ---
 # 显示信息
 showScriptInfo()
-cprint.skyblue('\n\n' + '='*64 + '\n\n')
+cprint.skyblue('\n\n' + '='*78 + '\n\n')
 
 # 检查需要的包
 if not checkPackages(['beautifulsoup4', 'python-docx', 'requests', 'urllib3']):
@@ -574,9 +574,9 @@ if not checkPackages(['beautifulsoup4', 'python-docx', 'requests', 'urllib3']):
 # 任务结束
 novelTitle = climb()
 showScriptInfo()
-cprint.green('\n' + '='*64 + '\n')
+cprint.green('\n' + '='*78 + '\n')
 cprint.skyblue(f'\n\t《{novelTitle}》 小说爬取完成！\n')
 cprint.skyblue(f'\n\t按任意键退出脚本...\n')
-cprint.green('\n' + '='*64 + '\n')
+cprint.green('\n' + '='*78 + '\n')
 input()
 sys.exit()
