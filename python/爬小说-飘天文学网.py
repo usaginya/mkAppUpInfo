@@ -1,7 +1,7 @@
 #! python3
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Version      : 2021.10.13.1
+# @Version      : 2021.10.13.2
 # @Author       : YIU
 # @Github       : https://github.com/usaginya
 # @For website  : www.piaotianwenxue.com
@@ -247,7 +247,6 @@ def inputSaveType():
     '''
     cprint.skyblue('\n选择要保存的格式、默认保存为 txt 格式、输入任何内容回车则保存为 docx 文档格式：')
     result = input()
-    result = re.search(r'^\d+$', result, re.M | re.I)
     if result:
         cprint.green(f'\n [ 保存为 docx 文档格式 ]\n')
         return 1
@@ -563,9 +562,6 @@ def climb():
             startChapter = getCount + 1    # 记录章节位置
             cprint.skyblue('\n\n\t√ 以上章节保存成功')
         # ------
-        # -debug
-        if getCount > 3:
-            break
     # --- for end
     return bookTitle
 
