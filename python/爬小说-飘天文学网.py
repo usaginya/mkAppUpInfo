@@ -1,7 +1,7 @@
 #! python3
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Version      : 2021.10.14.1
+# @Version      : 2021.10.13.1
 # @Author       : YIU
 # @Github       : https://github.com/usaginya
 # @For website  : www.piaotianwenxue.com
