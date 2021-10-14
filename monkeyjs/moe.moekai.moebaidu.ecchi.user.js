@@ -99,7 +99,8 @@
 	#s_tab a,#s_tab b{margin-right:auto!important;padding:0 13px 0 13px;text-align:center!important}
 	#s_tab .cur-tab:after{background:#0095ff!important}#u>a:hover{color:#0095ff!important}#s_tab b{border-bottom:#0095ff!important}
 	.s-tab-item{position:relative;transition:.2s all ease-in-out}
-	.s-tab-item:after,#wrapper #content_left .op-soft-title a:after{content: '';position:absolute;left:100%;width:0;height:100%;border-bottom:2px solid #5cf;transition:.2s all ease-in-out}
+	.s-tab-item:after,#wrapper #content_left .op-soft-title a:after{content: '';position:absolute;left:100%;width:0;height:100%;
+	 border-bottom:2px solid #5cf;transition:.2s all ease-in-out}
 	.s-tab-item:hover:after,#wrapper #content_left .op-soft-title a:hover:after{width:100%;left:0;transition-delay:.1s}
 	.s-tab-item:hover~.s-tab-item:after{left:0}
 	#s_tab .s-tab-item:before{color:#c0c2c8!important}
@@ -146,6 +147,7 @@
 	.col-header-wrap::before{background:-webkit-linear-gradient(150deg,#00d3ea6b,#00cfa3b0)!important;background:linear-gradient(-60deg,#00d3ea6b,#00cfa3b0)!important}
 	div .sp-separator{width:100%;background-color:#fffa!important;backdrop-filter:blur(6px);transition-duration:.3s}
 	div .sp-separator:hover{transition-duration:.3s}
+	.result-op [class*=card_]{background:#fffc;backdrop-filter:blur(8px)}
 	::-webkit-scrollbar{width:.16rem;height:.17rem}
 	::-webkit-scrollbar-track-piece:vertical{background:#fff;box-shadow:inset 8px 0 8px #d3dbe0, inset -2px 0 8px #f5f5f5}
 	::-webkit-scrollbar-track-piece:horizontal{background:#fff;box-shadow:inset 0 8px 8px #d3dbe0, inset 0 -2px 8px #f5f5f5}
@@ -247,6 +249,7 @@
 	.darkmode.dark .new-pmd .se_st_icon_book,.darkmode.dark .new-pmd .se_st_icon_download,
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input{color:#bbb}
+	.darkmode.dark .result-op [class*=card_]{background:#333b;backdrop-filter:blur(8px)}
 	</style>`;
 
 	let rippleCss = `<style>
