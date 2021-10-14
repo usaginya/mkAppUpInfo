@@ -71,6 +71,7 @@
 	.darkmode.dark .s-skin-hasbg #s_main:hover{background:#22222599}
 	.darkmode.dark .s-top-more,.darkmode.dark .soutu-hover-tip,.darkmode.dark .s-mod-setweather,
 	 .darkmode.dark .c-floating-box{background:#333b!important}
+	.darkmode.dark .soutu-hover-tip{color:#eee}
 	.darkmode #s-user-name-menu a,.darkmode #s-user-name-menu a:visited,.darkmode #s-user-setting-menu a,
 	 .darkmode #s-user-setting-menu a:visited{color:#ffd862}
 	.darkmode #s-user-name-menu a:hover,.darkmode #s-user-setting-menu a:hover{color:#fff762}
