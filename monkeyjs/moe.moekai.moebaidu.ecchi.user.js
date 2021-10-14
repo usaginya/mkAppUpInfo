@@ -87,7 +87,7 @@
 	#wrapper.hideWrapper,#aging-tools-wrapper.hideWrapper{transition-duration:1s}
 	#head,#wrapper #s_tab{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}
 	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
-	#con-at .result-op{width:80%!important;border-radius:16px!important}
+	#con-at .result-op{width:90%!important;border-radius:16px!important}
 	[class*="bac-box_"]{background:#fff0!important}
 	[class*="bac-img_"]{opacity:.7!important}
 	[class^="view-right_"]{right:6%!important}
