@@ -250,6 +250,11 @@
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input{color:#bbb}
 	.darkmode.dark .result-op [class*=card_]{background:#333b;backdrop-filter:blur(8px)}
+	.darkmode.dark .soutu-layer .soutu-url-wrap{background:#333}
+	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
+	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-error,
+	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-waiting{background:#222d}
+	.darkmode.dark .soutu-env-new .soutu-layer .soutu-drop{background:#2222}
 	</style>`;
 
 	let rippleCss = `<style>
