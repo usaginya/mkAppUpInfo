@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.5
+// @version      2.6
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -486,8 +486,53 @@
 			});
 		};
 
+		//Add dark mode menu to upper right menu
+		let menuDarkModeAdded;
+		function AddMenuDarkMode(){
+			let darkModeMenu;
+			let menuDarkModeId = 'gmbdecchi-menu-darkmode';
+			let styleDarkMode = 'darkmode dark';
+			//open dark
+			if(isDark && darkModeMenu && !$('body').hasClass(styleDarkMode)){
+				isDark = 0;
+				darkModeMenu.click();
+			}
+			if(menuDarkModeAdded > 0){
+				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
+				return;
+			}
+			if($('.bdpfmenu').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
+				darkModeMenu = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
+				darkModeMenu.data('cssDarkMode', 'darkmode dark');
+				darkModeMenu.click(function(){
+					if(isDark){
+						$('body').removeClass(darkModeMenu.data('cssDarkMode'));
+					}else{
+						$('body').addClass(darkModeMenu.data('cssDarkMode'));
+					}
+					isDark = !isDark;
+					$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
+					GM_setValue('openDark',isDark);
+				});
+				$('.bdpfmenu').append(darkModeMenu);
+				menuDarkModeAdded = 1;
+			}
+		}
+
 		//Add ripples on start
 		setTimeout(()=>ReAddRipples(),500);
+
+		//Add dark mode menu on start
+		let setTimeoutAddDarkModeMenu;
+		let intervalAddDarkModeMenu = setInterval(()=>{
+			AddMenuDarkMode();
+			if((!isDark && menuDarkModeAdded > 0) || (isDark && menuDarkModeAdded > 4)){
+				clearInterval(intervalAddDarkModeMenu);
+				clearTimeout(setTimeoutAddDarkModeMenu);
+			}
+		},500);
+		//Limit add dark mode menu time
+		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),9000);
 
 		//On preloader
 		let interval_addrip;
@@ -548,36 +593,6 @@
 		//patch ac style
 		if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
 			$('head').append(acCenterPatch);
-		}
-
-		//Add dark mode switch to upper right menu
-		let darkModeMenu;
-		let menuDarkModeId = 'gmbdecchi-menu-darkmode';
-		if($('.bdpfmenu').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
-			darkModeMenu = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
-			darkModeMenu.data('cssDarkMode', 'darkmode dark');
-			darkModeMenu.click(function(){
-				if(isDark){
-					$('body').removeClass(darkModeMenu.data('cssDarkMode'));
-				}else{
-					$('body').addClass(darkModeMenu.data('cssDarkMode'));
-				}
-				isDark = !isDark;
-				$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
-				GM_setValue('openDark',isDark);
-			});
-			$('.bdpfmenu').append(darkModeMenu);
-
-			//open dark
-			if(isDark){
-				let intervalSetCss = setInterval(()=>{
-					if($('body').hasClass(darkModeMenu.data('cssDarkMode')))
-					{ return; }
-					isDark = 0;
-					darkModeMenu.click();
-				},500);
-				setTimeout(()=>clearInterval(intervalSetCss),2000);
-			}
 		}
 
 		//disable video auto play
