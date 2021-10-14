@@ -111,7 +111,8 @@
 	#su{background-color:#4ea6f2aa!important;transition-duration:.2s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
 	.iptfocus.s_ipt_wr,#form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
 	.sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
-	.selected-search-box,.bdpfmenu,.usermenu{background:#fff8!important;backdrop-filter:blur(3px)}
+	.selected-search-box{background:#fff8!important;backdrop-filter:blur(3px)}
+	.bdpfmenu,.usermenu{background:#fffd!important;backdrop-filter:blur(3px)}
 	#u .bdpfmenu a:hover,#u .usermenu a:hover,.bdsug{background-color:#fffe!important;transition-duration:.3s}
 	#s_tab{padding-top:72px!important}
 	.s_ipt_wr{background:#fff7!important;transition-duration:.3s}
