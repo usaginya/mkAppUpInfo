@@ -130,7 +130,9 @@
 	#foot,.sam_newgrid~#page,.x-interact-publish-cont,#container.sam_newgrid div[class*=has-content_] textarea,
 	.result-molecule>#page,.recommend-line-one .recommend-item-a{background-color:#f5f5f666!important}
 	.result-molecule>#page strong{background-color:#4e90f2d4!important}
-	.result-molecule>#page a:hover .pc,.result-molecule>#page .n:hover{background:#4e90f2c0!important}
+	.result-molecule>#page a:hover .pc,.result-molecule>#page .n:hover,
+	.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]):hover{background:#4e90f2c0!important}
+	.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]):hover{color:#fff!important}
 	#foot #help,.c-tip-con .c-tip-menu li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
 	#wrapper #content_left .result[tpl='soft'] .op-soft-title,#wrapper #content_left .result h3,#wrapper #content_left .c-container h3,
 	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container
@@ -177,7 +179,8 @@
 	.darkmode.dark #aging-tools-pc>div div[class|=float]{background:#222b!important}
 	.darkmode.blue{background-color:#141e42cc!important}
 	.darkmode em{color:#f77!important}
-	.darkmode a{color:#9db2ff!important}
+	.darkmode a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
+	.darkmode.dark .a-se-st-single-video-zhanzhang-capsule{color:#9db2ff!important}
 	.darkmode .wrapper_new .s_ipt_wr{border:2px solid #556}
 	.darkmode .wrapper_new .s_ipt_wr:hover{border-color:#99a}
 	.darkmode .s_ipt_wr{background:#3337!important}.darkmode .s_ipt_wr input{color:#aaa}
@@ -187,7 +190,7 @@
 	.darkmode .new-pmd .c-color-link{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a,
 	.darkmode #content_left .result-op,.darkmode #content_left .result{color:#aaa!important}
-	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,{color:#888!important}
+	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode.dark .result-op [class*=source-name_]{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op,.darkmode.dark #container.sam_newgrid #content_left .result,
 	 .darkmode.dark #rs,.darkmode.dark .video_list{background:#3c3c3c88!important}
@@ -203,7 +206,8 @@
 	.darkmode.dark .new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.darkmode.dark .new-pmd .c-tabs-content,
 	 .darkmode.dark .op_express_delivery_more,.darkmode.dark .result-molecule>#page a,.darkmode.dark.new-pmd .c-border,
 	 .darkmode.dark .c-group-wrapper,.darkmode.dark #head:hover,.darkmode.dark #wrapper #s_tab:hover,
-	 .darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input{background:#3336!important}
+	 .darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input,
+	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]){background:#3336!important}
 	.darkmode.dark #head,.darkmode.dark #wrapper #s_tab{background:#3332!important}
 	.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,.darkmode.dark .usermenu{background:#0008!important}
 	.darkmode.dark .soutu-hover-tip{background:#222e!important}
@@ -255,6 +259,7 @@
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-error,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-waiting{background:#222d}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-drop{background:#2222}
+	{}
 	</style>`;
 
 	let rippleCss = `<style>
