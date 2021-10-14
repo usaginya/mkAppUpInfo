@@ -488,33 +488,33 @@
 
 		//Add dark mode menu to upper right menu
 		let menuDarkModeAdded;
+		let pMenuDarkMode;
 		function AddMenuDarkMode(){
-			let darkModeMenu;
 			let menuDarkModeId = 'gmbdecchi-menu-darkmode';
 			let styleDarkMode = 'darkmode dark';
 			//open dark
-			if(isDark && darkModeMenu && !$('body').hasClass(styleDarkMode)){
+			if(isDark && pMenuDarkMode && !$('body').hasClass(styleDarkMode)){
 				isDark = 0;
-				darkModeMenu.click();
+				pMenuDarkMode.click();
 			}
 			if(menuDarkModeAdded > 0){
 				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
 				return;
 			}
 			if($('.bdpfmenu').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
-				darkModeMenu = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
-				darkModeMenu.data('cssDarkMode', 'darkmode dark');
-				darkModeMenu.click(function(){
+				pMenuDarkMode = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
+				pMenuDarkMode.data('cssDarkMode', 'darkmode dark');
+				pMenuDarkMode.click(function(){
 					if(isDark){
-						$('body').removeClass(darkModeMenu.data('cssDarkMode'));
+						$('body').removeClass(pMenuDarkMode.data('cssDarkMode'));
 					}else{
-						$('body').addClass(darkModeMenu.data('cssDarkMode'));
+						$('body').addClass(pMenuDarkMode.data('cssDarkMode'));
 					}
 					isDark = !isDark;
 					$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
 					GM_setValue('openDark',isDark);
 				});
-				$('.bdpfmenu').append(darkModeMenu);
+				$('.bdpfmenu').append(pMenuDarkMode);
 				menuDarkModeAdded = 1;
 			}
 		}
@@ -530,7 +530,7 @@
 				clearInterval(intervalAddDarkModeMenu);
 				clearTimeout(setTimeoutAddDarkModeMenu);
 			}
-		},500);
+		},300);
 		//Limit add dark mode menu time
 		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),9000);
 
