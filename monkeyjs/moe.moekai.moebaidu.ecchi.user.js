@@ -126,7 +126,7 @@
 	.video_list:hover{background:#fffb!important;box-shadow:#0003 0 2px 9px;transition-duration:.5s}
 	.new-pmd .c-border,.c-group-wrapper{background:#fff5!important;transition-duration:.5s}
 	.new-pmd .c-border:hover{background:#fffb!important;transition-duration:.5s}
-	#content_right{opacity:.1;transition-duration:1s}#content_right:hover{opacity:1;transition-duration:.3s}
+	#content_right{opacity:.01;transition-duration:.38s}#content_right:hover{opacity:1;transition-duration:.38s}
 	#foot,.sam_newgrid~#page,.x-interact-publish-cont,#container.sam_newgrid div[class*=has-content_] textarea,
 	.result-molecule>#page,.recommend-line-one .recommend-item-a{background-color:#f5f5f666!important}
 	.result-molecule>#page strong{background-color:#4e90f2d4!important}
