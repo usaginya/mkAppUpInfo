@@ -55,8 +55,9 @@
 	 #aging-tools-pc>div div[class|=item][class*=checked]>div[class|=icon]{background-color:#6d87f2!important}
 	#aging-tools-pc>div div[class|=pop]{background:#fffc;backdrop-filter:blur(10px)}
 	.darkmode.dark{background-color:#1f1f25cc!important}
-	.darkmode.dark #bottom_layer,.darkmode.dark #head,.darkmode.dark #s_menu_gurd.s-down,.darkmode.dark #s_top_wrap,
-	 .darkmode.dark #s_top_wrap.s-down .s-center-box,.darkmode.dark #s_wrap{background-color:#0000}
+	.darkmode.dark #bottom_layer,.darkmode.dark #head,.darkmode.dark #s_menu_gurd.s-down,
+	 .darkmode.dark #s_wrap{background-color:#0000}
+	.darkmode.dark #s_top_wrap,.darkmode.dark #s_top_wrap.s-down .s-center-box{background-color:#3338}
 	.darkmode.dark #aging-tools-pc>div{background:#000b!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
 	.darkmode.dark #aging-tools-pc>div div[class*=item-text]{color:#aaa}
@@ -272,6 +273,37 @@
 		$('#lg img').each(function(){
 			$(this).attr('src','https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white-d0c9fe2af5.png');
 		});
+
+
+		//Add dark mode switch to upper right menu
+		let darkModeMenu, isDark = GM_getValue('openDark');
+		let menuDarkModeId = 'gmbdecchi-menu-darkmode';
+		if($('#s-user-setting-menu').length > 0 && $(`#s-user-setting-menu #${menuDarkModeId}`).length < 1){
+			darkModeMenu = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
+			darkModeMenu.data('cssDarkMode', 'darkmode dark');
+			darkModeMenu.click(function(){
+				if(isDark){
+					$('body').removeClass(darkModeMenu.data('cssDarkMode'));
+				}else{
+					$('body').addClass(darkModeMenu.data('cssDarkMode'));
+				}
+				isDark = !isDark;
+				$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
+				GM_setValue('openDark',isDark);
+			});
+			$('#s-user-setting-menu').append(darkModeMenu);
+
+			//open dark
+			if(isDark){
+				let intervalSetCss = setInterval(()=>{
+					if($('body').hasClass(darkModeMenu.data('cssDarkMode')))
+					{ return; }
+					isDark = 0;
+					darkModeMenu.click();
+				},500);
+				setTimeout(()=>clearInterval(intervalSetCss),1000);
+			}
+		}
 		return;
 	}
 
