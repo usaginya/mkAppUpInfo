@@ -167,7 +167,6 @@
 	 #aging-tools-pc>div div[class|=item][class*=checked]>div[class|=icon]{background-color:#6d87f2!important}
 	#aging-tools-pc>div div[class|=float]{background:#fffb!important}
 	#aging-tools-pc>div div[class|=pop]{background:#fffc;backdrop-filter:blur(10px)}
-	.darkmode.dark{background-color:#0000!important}
 	.darkmode.dark input:not(#kw){background-color:#2228}
 	.darkmode.dark #aging-tools-pc>div{background:#0004!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
@@ -366,13 +365,12 @@
 				if(isDark){
 					bgColor = '#1e1e28cc';
 					bgImageCss = bgImageCss.replace(/#ffffffc6/ig, bgColor);
-					//bgCircleMaskInside = bgCircleMaskInside.replace(/#ffffffc6/ig, bgColor);
 				}
 				bgCircleMaskInside = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
 				bgCircleMaskSurface = `.bgCircleMaskSurface${bgCircleMaskInside}`
 					+ `.darkmode.dark .bgCircleMaskSurface${bgCircleMaskInside.replace(/#ffffffc6/ig, '#1e1e28cc')}`;
 				bgCircleMaskInside = bgCircleMaskSurface.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
-				$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}</style>`);
+				$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}.darkmode.dark{background-color:#0000!important}</style>`);
 
 				//imgload
 				let imgPerfect = new Image();
