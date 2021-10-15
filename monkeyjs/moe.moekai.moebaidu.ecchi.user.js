@@ -180,7 +180,7 @@
 	.darkmode.blue{background-color:#141e42cc!important}
 	.darkmode em{color:#f77!important}
 	.darkmode a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
-	.darkmode.dark .a-se-st-single-video-zhanzhang-capsule{color:#9db2ff!important}
+	.darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent{color:#9db2ff!important}
 	.darkmode .wrapper_new .s_ipt_wr{border:2px solid #556}
 	.darkmode .wrapper_new .s_ipt_wr:hover{border-color:#99a}
 	.darkmode .s_ipt_wr{background:#3337!important}.darkmode .s_ipt_wr input{color:#aaa}
