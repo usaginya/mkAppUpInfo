@@ -180,17 +180,19 @@
 	.darkmode.blue{background-color:#141e42cc!important}
 	.darkmode em{color:#f77!important}
 	.darkmode a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
-	.darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent{color:#9db2ff!important}
+	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
+	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend{color:#9db2ff!important}
 	.darkmode .wrapper_new .s_ipt_wr{border:2px solid #556}
 	.darkmode .wrapper_new .s_ipt_wr:hover{border-color:#99a}
 	.darkmode .s_ipt_wr{background:#3337!important}.darkmode .s_ipt_wr input{color:#aaa}
-	.darkmode .s_ipt_wr:hover{background:#2228!important}.darkmode .s_ipt_wr:hover input{color:#eee}
+	.darkmode .s_ipt_wr:hover{background:#2228!important}.darkmode .s_ipt_wr:hover input,.darkmode.dark .c-input{color:#eee}
 	.darkmode .cr-content a,.darkmode.dark .search_tool,.darkmode.dark .securityplan .hint_right_content
 	.darkmode.dark .search_tool_conter span,.darkmode.dark .new-pmd .cr-title{color:#909cb3!important}
 	.darkmode .new-pmd .c-color-link{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a,
 	.darkmode #content_left .result-op,.darkmode #content_left .result{color:#aaa!important}
-	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode.dark .result-op [class*=source-name_]{color:#888!important}
+	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode.dark .result-op [class*=source-name_],
+	 .darkmode.dark .pfpanel-bd{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op,.darkmode.dark #container.sam_newgrid #content_left .result,
 	 .darkmode.dark #rs,.darkmode.dark .video_list{background:#3c3c3c88!important}
@@ -254,12 +256,13 @@
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input{color:#bbb}
 	.darkmode.dark .result-op [class*=card_]{background:#333b;backdrop-filter:blur(8px)}
-	.darkmode.dark .soutu-layer .soutu-url-wrap{background:#333}
+	.darkmode.dark .soutu-layer .soutu-url-wrap,.darkmode.dark .c-select-selection,.darkmode.dark .c-select-dropdown{background:#333}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-error,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-waiting{background:#222d}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-drop{background:#2222}
-	{}
+	.darkmode.dark .bdlayer,.darkmode.dark .advanced-setting .adv-input-prepend{background:#112b;backdrop-filter: blur(5px)}
+	.darkmode.dark .c-radio-inner,.darkmode.dark .c-checkbox-inner{background-color:#0000}
 	</style>`;
 
 	let rippleCss = `<style>
