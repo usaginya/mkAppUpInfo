@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.6
+// @version      2.7
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -131,7 +131,7 @@
 	#foot,.sam_newgrid~#page,.x-interact-publish-cont,#container.sam_newgrid div[class*=has-content_] textarea,
 	.result-molecule>#page,.recommend-line-one .recommend-item-a{background-color:#f5f5f666!important}
 	.result-molecule>#page strong{background-color:#4e90f2d4!important}
-	.result-molecule>#page a:hover .pc,.result-molecule>#page .n:hover,
+	.result-molecule>#page a:hover,.result-molecule>#page .n:hover,.darkmode.dark .result-molecule>#page a:hover,
 	.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]):hover{background:#4e90f2c0!important}
 	.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]):hover{color:#fff!important}
 	#foot #help,.c-tip-con .c-tip-menu li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
@@ -235,7 +235,7 @@
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]{background:#f5f5f6a0!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]:hover{background:#f0f0f1db!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=content-thead]{color:#aaa!important}
-	.darkmode.dark .cell-almanac{color:#ddd!important}
+	.darkmode.dark .cell-almanac,.darkmode.dark .result-molecule>#page a:hover{color:#ddd!important}
 	.darkmode.dark .cell-inner-box:not(.cell-work):not(.cell-rest):not(.cell-weekend):not(.cell-festival) .cell-daynumber{color:#eee}
 	.darkmode.dark .cell-rest{background:#fde3e47d}
 	.darkmode.dark .cell-work{background: #f5f5f680}
@@ -326,7 +326,6 @@
 
 	//------ Search Page ------
 	if(window.location.href.indexOf('.com/s')>0) {
-
 		$('head')
 			.append(ru)
 			.append(rippleCss);
