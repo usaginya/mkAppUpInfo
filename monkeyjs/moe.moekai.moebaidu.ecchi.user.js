@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.7
+// @version      2.8
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -19,7 +19,8 @@
 	let st = `<style>
 	#lg img{opacity:.2;transition:opacity 1s}
 	#lg:hover img{opacity:.9}
-	#s_lg_img{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
+	#head_wrapper.s-ps-islite #s_lg_img,#head_wrapper.s-ps-islite #s_lg_img_aging,
+	 #head_wrapper.s-ps-islite #s_lg_img_new{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
 	#su{background:#0072ffa8!important}
 	#su:hover{background:#0072ffcc!important}
 	#kw,#soutu-url-kw{border-color:#0072ffa8!important;background:#fffa!important}
@@ -290,7 +291,6 @@
 		$('#lg img').each(function(){
 			$(this).attr('src','https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white-d0c9fe2af5.png');
 		});
-
 
 		//Add dark mode switch to upper right menu
 		let darkModeMenu, isDark = GM_getValue('openDark');
