@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.8
+// @version      2.9
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -111,7 +111,7 @@
 	 #dd0 68.75%,#0d0 75%,#0dd 81.25%,#00d 87.5%,#d0d 93.75%,#dd0 100%);
 	 -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 100%;animation:masked-animation 3s infinite linear}
 	 @keyframes masked-animation{0%{background-position: 0 0}100%{background-position: -100%, 0}}
-	#su{background-color:#4ea6f2aa!important;transition-duration:.2s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
+	#su{background-color:#4ea6f2aa!important;transition-duration:.5s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
 	.iptfocus.s_ipt_wr,#form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
 	.sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
 	.selected-search-box{background:#fff8!important;backdrop-filter:blur(3px)}
@@ -180,6 +180,8 @@
 	.darkmode.dark #aging-tools-pc>div div[class|=float]{background:#222b!important}
 	.darkmode.blue{background-color:#141e42cc!important}
 	.darkmode em{color:#f77!important}
+	.darkmode.dark #su{background-color:#3f3dc780!important}
+	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
 	.darkmode a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend{color:#9db2ff!important}
@@ -189,7 +191,7 @@
 	.darkmode .s_ipt_wr:hover{background:#2228!important}.darkmode .s_ipt_wr:hover input,.darkmode.dark .c-input{color:#eee}
 	.darkmode .cr-content a,.darkmode.dark .search_tool,.darkmode.dark .securityplan .hint_right_content
 	.darkmode.dark .search_tool_conter span,.darkmode.dark .new-pmd .cr-title{color:#909cb3!important}
-	.darkmode .new-pmd .c-color-link{color:#6783f5!important}
+	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a,
 	.darkmode #content_left .result-op,.darkmode #content_left .result{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode.dark .result-op [class*=source-name_],
