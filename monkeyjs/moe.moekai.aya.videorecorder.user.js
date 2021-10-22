@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文文錄影机
 // @namespace    moe.moekai.aya.videorecorder
-// @version      2.4
+// @version      2.5
 // @description  支持大部分网页视频、直播錄影 / 视频录制 / 录制视频
 // @author       YIU
 // @include      *
@@ -256,7 +256,7 @@
 		 box-sizing:unset;-moz-user-select:none;-moz-box-sizing:unset;z-index:6}
 		#gmayaui,#gmayaui div,#gmayaui label,#gmayaui li,#gmayaui span{outline:0!important;text-align:center!important;
 		 font-weight:400!important;font-family:'Microsoft YaHei',Helvetica,'宋体',Tahoma,Arial,sans-serif!important;
-		 font-size:12pt!important;border:0!important}
+		 font-size:12pt!important;border:0!important;line-height:1!important}
 		#gmayaui a{color:unset!important;text-decoration:none!important;transition:color .3s}
 		#gmayaui a:hover{color:#08a5ef!important}
 		#gmayaui .head{position:relative;display:inline-block;width:100%}
@@ -293,12 +293,13 @@
 		#gmayavruibgclose{position:absolute;width:100%;height:100%}
 		#gmayaui .tabs{position:relative;margin:0 auto;width:100%;left:0!important;top:0!important;right:0!important;
 		 bottom:0!important;padding:unset!important;display:block!important}
-		#gmayaui .tabs nav ul{position:relative;display:flex;margin:0 auto;padding:0;list-style:none;
-		 flex-flow:row wrap;justify-content:center}
-		#gmayaui .tabs nav ul li{position:relative;display:block;color:#999;margin:0 .5em;flex:1;line-height:2.5;
+		#gmayaui .tabs nav{background:none!important;box-shadow:none!important;position: relative!important}
+		#gmayaui .tabs nav ul{position:relative!important;display:flex!important;margin:0 auto!important;padding:0!important;list-style:none!important;
+		 flex-flow:row wrap!important;justify-content:center!important}
+		#gmayaui .tabs nav ul li{position:relative!important;display:block!important;color:#999!important;margin:0 .5em;flex:1;line-height:2.5;
 		 -webkit-transition:color .3s;transition:color .3s}
 		#gmayaui .tabs nav ul li:focus,#gmayaui .tabs nav ul li:hover{color:#779}
-		#gmayaui .tabs nav ul li::before{content:'';position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;
+		#gmayaui .tabs nav ul li::before{content:'';position:absolute!important;top:0;left:0;z-index:-1;width:100%;height:100%;
 		 background:#fff6;clip-path:inset(92% 0 0 0);-webkit-transition:background-color .3s;
 		 transition:background-color .3s}
 		#gmayaui .tabs nav ul li:focus::before,#gmayaui .tabs nav ul li:hover::before{background:#aab}
@@ -689,7 +690,7 @@
 			.gmAyaRecBtn{position:absolute;left:0;top:0;display:inline-block;border-radius:4px;
 			 background-color:#ff7728bb;border:none;color:#fff;text-align:center;font-size:12pt;padding:5px 10px;
 			 cursor:pointer;margin:5px;font-family:"Microsoft YaHei",Arial,sans-serif;z-index:998!important;
-			 transition:.5s!important}
+			 transition:.5s!important;line-height:1!important}
 			.gmAyaRecBtn:hover{background-color:#ff5520}
 			.gmAyaRecBtn.dl{background-color:#56bb2cbb;padding-right:18px;transition:.5s}
 			.gmAyaRecBtn.dl:hover{background-color:#2cbb80;transition:.5s}
