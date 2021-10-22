@@ -256,7 +256,7 @@
 		 box-sizing:unset;-moz-user-select:none;-moz-box-sizing:unset;z-index:6}
 		#gmayaui,#gmayaui div,#gmayaui label,#gmayaui li,#gmayaui span{outline:0!important;text-align:center!important;
 		 font-weight:400!important;font-family:'Microsoft YaHei',Helvetica,'宋体',Tahoma,Arial,sans-serif!important;
-		 font-size:12pt!important;border:0!important;line-height:1!important}
+		 font-size:12pt!important;border:0!important}
 		#gmayaui a{color:unset!important;text-decoration:none!important;transition:color .3s}
 		#gmayaui a:hover{color:#08a5ef!important}
 		#gmayaui .head{position:relative;display:inline-block;width:100%}
