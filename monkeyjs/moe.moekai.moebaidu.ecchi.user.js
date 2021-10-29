@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.9.1
+// @version      2.9.2
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -79,6 +79,12 @@
 	.darkmode.dark .setweather-content .warn-mod{background:#30303050!important}
 	#s_side_wrapper{opacity:.3;transition:.3s}
 	#s_side_wrapper:hover{opacity:.9}
+	::-webkit-scrollbar{width:1rem;height:1rem}
+	::-webkit-scrollbar-track-piece:vertical{background:#fff;box-shadow:inset 8px 0 8px #d3dbe0, inset -2px 0 8px #f5f5f5}
+	::-webkit-scrollbar-track-piece:horizontal{background:#fff;box-shadow:inset 0 8px 8px #d3dbe0, inset 0 -2px 8px #f5f5f5}
+	::-webkit-scrollbar-thumb{border-radius:1rem}
+	::-webkit-scrollbar-thumb:vertical{background:linear-gradient(92deg,#fcffff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, 5px -7px 10px #c8d0da}
+    ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#fcfdff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, -5px 7px 10px #959ca5}
 	</style>`;
 
 	let ru = `<style>
@@ -184,7 +190,8 @@
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
 	.darkmode a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
-	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend{color:#9db2ff!important}
+	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
+	 .darkmode.dark .col-header .overview-desc-wrap{color:#9db2ff!important}
 	.darkmode .wrapper_new .s_ipt_wr{border:2px solid #556}
 	.darkmode .wrapper_new .s_ipt_wr:hover{border-color:#99a}
 	.darkmode .s_ipt_wr{background:#3337!important}.darkmode .s_ipt_wr input{color:#aaa}
@@ -210,10 +217,10 @@
 	 .darkmode.dark .new-pmd .c-border:hover{background:#4446!important}
 	.darkmode.dark .new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.darkmode.dark .new-pmd .c-tabs-content,
 	 .darkmode.dark .op_express_delivery_more,.darkmode.dark .result-molecule>#page a,.darkmode.dark.new-pmd .c-border,
-	 .darkmode.dark .c-group-wrapper,.darkmode.dark #head:hover,.darkmode.dark #wrapper #s_tab:hover,
-	 .darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input,
+	 .darkmode.dark .c-group-wrapper,.darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input,
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]){background:#3336!important}
 	.darkmode.dark #head,.darkmode.dark #wrapper #s_tab{background:#3332!important}
+	.darkmode.dark #head:hover,.darkmode.dark #wrapper #s_tab:hover{background:#22222833!important}
 	.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,.darkmode.dark .usermenu{background:#0008!important}
 	.darkmode.dark .soutu-hover-tip{background:#222e!important}
 	.darkmode.dark .c-tip-con,.darkmode.dark #c-tip-custom-calenderCont,.darkmode.dark #c-tip-custom-calenderCont .op_cal,
@@ -257,7 +264,7 @@
 	.darkmode.dark .op_express_delivery_hot li{border-color:#777 #777 #777 transparent}
 	.darkmode.dark .new-pmd .se_st_icon_book,.darkmode.dark .new-pmd .se_st_icon_download,
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
-	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input{color:#bbb}
+	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text{color:#bbb}
 	.darkmode.dark .result-op [class*=card_]{background:#333b;backdrop-filter:blur(8px)}
 	.darkmode.dark .soutu-layer .soutu-url-wrap,.darkmode.dark .c-select-selection,.darkmode.dark .c-select-dropdown{background:#333}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
@@ -266,6 +273,13 @@
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-drop{background:#2222}
 	.darkmode.dark .bdlayer,.darkmode.dark .advanced-setting .adv-input-prepend{background:#112b;backdrop-filter: blur(5px)}
 	.darkmode.dark .c-radio-inner,.darkmode.dark .c-checkbox-inner{background-color:#0000}
+	.darkmode.dark .op_new_cal_screen,.darkmode.dark [data-pmd] .c-container,
+	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
+	.darkmode.dark [data-pmd] .c-img img{filter: invert(1)}
+	.darkmode.dark .col-header .overview-display-wrap li{border-color:#888}
+	.darkmode.dark .col-header .overview-display-wrap li:hover{background-color:#1115}
+	.darkmode.dark .col-header .overview-display-wrap li::after,
+	 .darkmode.dark .col-header .col-overview-desc::before,.darkmode.dark .col-header .col-overview-display::before{background:#999}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -286,6 +300,13 @@
 	let bgCircleMaskSurface,bgCircleMaskInside = `{left:0;top:0;width:100%;height:100%;position:fixed;z-index:-3;
 	background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat;background-attachment:fixed;background-repeat:no-repeat;background-position:center}`;
 
+	let darkmodeScrollbarCss = `<style id="gmdarkscrollbar">
+	::-webkit-scrollbar-track-piece:vertical{background:#666;box-shadow:inset 8px 0 8px #222, inset -2px 0 8px #666}
+	::-webkit-scrollbar-track-piece:horizontal{background:#666;box-shadow:inset 0 8px 8px #222, inset 0 -2px 8px #666}
+	::-webkit-scrollbar-thumb:vertical{background:linear-gradient(92deg,#666,#222);box-shadow:5px 7px 10px #111, 5px -7px 10px #111}
+    ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#666,#222);box-shadow:5px 7px 10px #111, -5px 7px 10px #111}
+	</style>`;
+
 	//------------------------------------ JS Run -------------------------------------------
 	if(window.location.href.indexOf('.com/s')<0)
 	{
@@ -303,8 +324,12 @@
 			darkModeMenu.click(function(){
 				if(isDark){
 					$('body').removeClass(darkModeMenu.data('cssDarkMode'));
+					$('#gmdarkscrollbar').remove();
 				}else{
 					$('body').addClass(darkModeMenu.data('cssDarkMode'));
+					if($('#gmdarkscrollbar').length < 1){
+						$('head').append(darkmodeScrollbarCss);
+					}
 				}
 				isDark = !isDark;
 				$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
@@ -509,8 +534,12 @@
 				pMenuDarkMode.click(function(){
 					if(isDark){
 						$('body').removeClass(pMenuDarkMode.data('cssDarkMode'));
+						$('#gmdarkscrollbar').remove();
 					}else{
 						$('body').addClass(pMenuDarkMode.data('cssDarkMode'));
+						if($('#gmdarkscrollbar').length < 1){
+							$('head').append(darkmodeScrollbarCss);
+						}
 					}
 					isDark = !isDark;
 					$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
