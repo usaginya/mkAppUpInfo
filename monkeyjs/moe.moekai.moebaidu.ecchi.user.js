@@ -207,7 +207,7 @@
 	.darkmode.dark #container.sam_newgrid #content_left .result-op,.darkmode.dark #container.sam_newgrid #content_left .result,
 	 .darkmode.dark #rs,.darkmode.dark .video_list{background:#3c3c3c88!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op:hover,
-	 .darkmode.dark #container.sam_newgrid #content_left .result:hover,.darkmode.dark .video_list:hover{background:#5558!important}
+	 .darkmode.dark #container.sam_newgrid #content_left .result:hover,.darkmode.dark .video_list:hover{background:#1116!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover{background:#2229!important}
