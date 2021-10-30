@@ -1,0 +1,20 @@
+{
+    "assets": [],
+    "encryptLevel": 1,
+    "useFeatures": [],
+    "launchConfig": {
+      "displaySplash": false,
+      "hideLogs": true,
+      "stableMode": false
+    },
+    "main": "main.js",
+    "name": "e家小妖精",
+    "optimization": {
+      "removeOpenCv": true,
+      "unusedResources": true
+    },
+    "packageName": "moe.moekai.chdeyosei",
+    "scripts": {},
+    "versionCode": 1,
+    "versionName": "1.0.0"
+  }
