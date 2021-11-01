@@ -288,7 +288,7 @@
 	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2222!important}
 	.darkmode.dark .c-dropdown2:hover .c-dropdown2-btn-icon-border,
 	 .darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border{background:#222!important}
-	.darkmode.dark .c-dropdown2 .c-dropdown2-menu{background:#222b;backdrop-filter:blur(5px)}
+	.darkmode.dark .c-dropdown2 .c-dropdown2-menu,.darkmode.dark [class*=data-tip]{background:#222b;backdrop-filter:blur(5px)}
 	.darkmode.dark .op-exrate-nav{border-bottom:1px solid #9db2ff}
 	.darkmode.dark .op-exrate-li,.darkmode.dark .op-exrate-dropdown dl dd div{color:#777}
 	.darkmode.dark .op-exrate-nav li.op-exrate-li-sel{color:#9db2ff;background:#2222;border:1px solid #9db2ff}
