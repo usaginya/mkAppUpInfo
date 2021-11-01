@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.9.4
+// @version      2.9.5
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -284,7 +284,19 @@
 	.darkmode.dark .ask-doctor-card .ask-doctor-btn{background:#2228}
 	.darkmode.dark .ask-doctor-card .ask-doctor-btn:hover{background:#1118;color:#a088ff!important}
 	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,
-	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input{background:#2222!important}
+	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
+	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2222!important}
+	.darkmode.dark .c-dropdown2:hover .c-dropdown2-btn-icon-border,
+	 .darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border{background:#222!important}
+	.darkmode.dark .c-dropdown2 .c-dropdown2-menu{background:#222b;backdrop-filter:blur(5px)}
+	.darkmode.dark .op-exrate-nav{border-bottom:1px solid #9db2ff}
+	.darkmode.dark .op-exrate-li,.darkmode.dark .op-exrate-dropdown dl dd div{color:#777}
+	.darkmode.dark .op-exrate-nav li.op-exrate-li-sel{color:#9db2ff;background:#2222;border:1px solid #9db2ff}
+	.darkmode.dark .c-dropdown2 .c-dropdown2-selected{color:#9db2ff;background:#9db2ff22!important}
+	.darkmode.dark .opui-scroll-ctrl-scroll{border:none!important}
+	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-axis{background:#0005}
+	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-slider{background:#6665;border:1px solid #9db2ff1f}
+	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
 	</style>`;
 
 	let rippleCss = `<style>
