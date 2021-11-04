@@ -112,9 +112,9 @@
 	.s-tab-item:hover:after,#wrapper #content_left .op-soft-title a:hover:after{width:100%;left:0;transition-delay:.1s}
 	.s-tab-item:hover~.s-tab-item:after{left:0}
 	#s_tab .s-tab-item:before{color:#c0c2c8!important}
-	#wrapper #content_left .result h3 a:hover,#wrapper #content_left .result-op h3 a:hover{background:-webkit-linear-gradient(left,
-	 #d50,#d00 6.25%,#dd5d00 12.5%,#dd0 18.75%,#0d0 25%,#0dd 31.25%,#00d 37.5%,#d0d 43.75%,#dd0 50%,#d00 56.25%,#dd5d00 62.5%,
-	 #dd0 68.75%,#0d0 75%,#0dd 81.25%,#00d 87.5%,#d0d 93.75%,#dd0 100%);
+	#wrapper #content_left .result h3 a:hover,#wrapper #content_left .result-op h3 a:hover,
+	 .c-link:hover{background:-webkit-linear-gradient(left,#d50,#d00 6.25%,#dd5d00 12.5%,#dd0 18.75%,#0d0 25%,#0dd 31.25%,#00d 37.5%,
+	 #d0d 43.75%,#dd0 50%,#d00 56.25%,#dd5d00 62.5%,#dd0 68.75%,#0d0 75%,#0dd 81.25%,#00d 87.5%,#d0d 93.75%,#dd0 100%);
 	 -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 100%;animation:masked-animation 3s infinite linear}
 	 @keyframes masked-animation{0%{background-position: 0 0}100%{background-position: -100%, 0}}
 	#su{background-color:#4ea6f2aa!important;transition-duration:.5s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
