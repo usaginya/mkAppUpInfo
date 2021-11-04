@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.9.5
+// @version      2.9.6
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -188,10 +188,11 @@
 	.darkmode em{color:#f77!important}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
+	.darkmode.dark a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
 	 .darkmode.dark .col-header .overview-desc-wrap{color:#9db2ff!important}
+	.darkmode.dark a:hover,.darkmode.dark #u>a:hover{color:#b9f!important}
 	.darkmode .wrapper_new .s_ipt_wr{border:2px solid #556}
 	.darkmode .wrapper_new .s_ipt_wr:hover{border-color:#99a}
 	.darkmode .s_ipt_wr{background:#3337!important}.darkmode .s_ipt_wr input{color:#aaa}
@@ -297,6 +298,7 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-axis{background:#0005}
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-slider{background:#6665;border:1px solid #9db2ff1f}
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
+	.darkmode.dark .c-color-text{color:#909cb3}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -322,6 +324,11 @@
 	::-webkit-scrollbar-track-piece:horizontal{background:#666;box-shadow:inset 0 8px 8px #222, inset 0 -2px 8px #666}
 	::-webkit-scrollbar-thumb:vertical{background:linear-gradient(92deg,#666,#222);box-shadow:5px 7px 10px #111, 5px -7px 10px #111}
     ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#666,#222);box-shadow:5px 7px 10px #111, -5px 7px 10px #111}
+	</style>`;
+
+	let scrollbarCssFix = `<style id="gmscrollbarfix">
+	::-webkit-scrollbar{width:1rem;height:1rem}
+	::-webkit-scrollbar-thumb{border-radius:1rem}
 	</style>`;
 
 	//------------------------------------ JS Run -------------------------------------------
@@ -373,6 +380,11 @@
 		$('head')
 			.append(ru)
 			.append(rippleCss);
+
+		// Fix scorll bar css
+		if(window.location.href.indexOf('.com/sf')>0){
+			$('head').append(scrollbarCssFix)
+		}
 
 		$('meta[name="referrer"]').attr('content','no-referrer');
 
@@ -536,16 +548,7 @@
 		function AddMenuDarkMode(){
 			let menuDarkModeId = 'gmbdecchi-menu-darkmode';
 			let styleDarkMode = 'darkmode dark';
-			//open dark
-			if(isDark && pMenuDarkMode && !$('body').hasClass(styleDarkMode)){
-				isDark = 0;
-				pMenuDarkMode.click();
-			}
-			if(menuDarkModeAdded > 0){
-				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
-				return;
-			}
-			if($('.bdpfmenu').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
+			let createDarkModeBtn = ()=>{
 				pMenuDarkMode = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
 				pMenuDarkMode.data('cssDarkMode', 'darkmode dark');
 				pMenuDarkMode.click(function(){
@@ -562,7 +565,20 @@
 					$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
 					GM_setValue('openDark',isDark);
 				});
-				$('.bdpfmenu').append(pMenuDarkMode);
+			};
+
+			//open dark
+			if(isDark && pMenuDarkMode && !$('body').hasClass(styleDarkMode)){
+				isDark = 0;
+				pMenuDarkMode.click();
+			}
+			if(menuDarkModeAdded > 0){
+				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
+				return;
+			}
+			if($('#u .toindex').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
+				createDarkModeBtn();
+				$('#u .toindex').after(pMenuDarkMode);
 				menuDarkModeAdded = 1;
 			}
 		}
