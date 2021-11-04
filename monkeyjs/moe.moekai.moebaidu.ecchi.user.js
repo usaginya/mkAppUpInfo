@@ -248,7 +248,7 @@
 	.darkmode.dark div[class*=calendar-box] div[class*=content-thead]{color:#aaa!important}
 	.darkmode.dark .cell-almanac,.darkmode.dark .result-molecule>#page a:hover{color:#ddd!important}
 	.darkmode.dark .cell-inner-box:not(.cell-work):not(.cell-rest):not(.cell-weekend):not(.cell-festival) .cell-daynumber{color:#eee}
-	.darkmode.dark .cell-rest{background:#fde3e47d}
+	.darkmode.dark .cell-rest{background:#6e2d307d}
 	.darkmode.dark .cell-work{background: #f5f5f680}
 	.darkmode.dark div[class*=calendar-box] div[class*=calendar-box-right]{background:#4e6ef270}
 	.darkmode.dark div[class*=calendar-box] div[class*=select-wrapper],
