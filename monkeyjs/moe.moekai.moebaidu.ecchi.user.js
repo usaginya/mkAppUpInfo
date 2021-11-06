@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.9.6
+// @version      2.9.7
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -174,6 +174,9 @@
 	 #aging-tools-pc>div div[class|=item][class*=checked]>div[class|=icon]{background-color:#6d87f2!important}
 	#aging-tools-pc>div div[class|=float]{background:#fffb!important}
 	#aging-tools-pc>div div[class|=pop]{background:#fffc;backdrop-filter:blur(10px)}
+	.xdp{overflow:overlay}.xdp::-webkit-scrollbar{width:.1rem;height:.1rem}
+	.x-interact-publish .emoj-panel{margin:0 12px;width:96%;right:0!important}
+	.xdp .no-margin-left{margin-right:10px}
 	.darkmode.dark input:not(#kw){background-color:#2228}
 	.darkmode.dark #aging-tools-pc>div{background:#0004!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
@@ -239,7 +242,7 @@
 	 .darkmode.dark div[class*=gameinfo] [class*=item_]{background-color:#2228}
 	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .c-tabs-nav,
 	.darkmode.dark c-tabs-item,.darkmode.dark .c-input{background-color:#2228!important}
-	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected{color:#2c99ff}
+	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff}
 	.darkmode.dark .result-op [class*=tabs-],.darkmode.dark .c-gap-top-large [class*=tag-item]{background-color:#2225}
 	.darkmode.dark .result-op [class*=tab-item-selected]{background-color:#777}
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]){background:#0000}
@@ -272,13 +275,15 @@
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-error,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-waiting{background:#222d}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-drop{background:#2222}
-	.darkmode.dark .bdlayer,.darkmode.dark .advanced-setting .adv-input-prepend{background:#112b;backdrop-filter: blur(5px)}
+	.darkmode.dark .bdlayer,.darkmode.dark .advanced-setting .adv-input-prepend{background:#112b;backdrop-filter:blur(5px)}
 	.darkmode.dark .c-radio-inner,.darkmode.dark .c-checkbox-inner{background-color:#0000}
 	.darkmode.dark .op_new_cal_screen,.darkmode.dark [data-pmd] .c-container,
 	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
-	.darkmode.dark [data-pmd] .c-img img{filter: invert(1)}
+	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark [class*=icon_],.darkmode.dark .x-interact-publish-opt>*:not(.send),
+	 .darkmode.dark .interact-bar-right,.darkmode.dark .xcp-list-loader.is-second .icon{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li{border-color:#888}
-	.darkmode.dark .col-header .overview-display-wrap li:hover{background-color:#1115}
+	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
+	 .darkmode.dark .x-interact-publish-cont-topic{background-color:#1115}
 	.darkmode.dark .col-header .overview-display-wrap li::after,
 	 .darkmode.dark .col-header .col-overview-desc::before,.darkmode.dark .col-header .col-overview-display::before{background:#999}
 	.darkmode.dark .op_exactqa_word_how_read,.darkmode.dark .op_exactqa_word_mp3_play{mix-blend-mode:color-burn}
@@ -298,13 +303,21 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-axis{background:#0005}
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-slider{background:#6665;border:1px solid #9db2ff1f}
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
-	.darkmode.dark .c-color-text{color:#909cb3}
+	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area{color:#909cb3}
+	.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,.darkmode.dark .xcp-list-title{color:#aaa}
+	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
+	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
+	.darkmode.dark .x-interact-publish .emoj-panel{background:#1118}
+	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_]{color:#fff!important}
+	.darkmode.dark [srcid]:not([srcid=''])>[class*=root]{border-bottom:1px solid #556}
+	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
+	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	</style>`;
 
 	let rippleCss = `<style>
 	.legitRipple{position:relative;overflow:hidden}
 	.legitRipple-ripple{position:absolute;z-index:0;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);
-	pointer-events:none;border-radius:50%;background:#fff4;will-change:transform,width,opacity;
+	pointer-events:none!important;border-radius:50%;background:#fff4;will-change:transform,width,opacity;
 	-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);width:0;opacity:1;
 	-webkit-transition:width .5s linear,opacity 2s ease-out;transition:width .5s linear, opacity 2s ease-out}
 	.legitRipple-ripple:before{content:"";padding-top:100%;display: block}
