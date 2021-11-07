@@ -348,6 +348,23 @@
 	::-webkit-scrollbar-thumb{border-radius:1rem}
 	</style>`;
 
+	//------------------------------------ Global -------------------------------------------
+	function getRandom(min,max){
+		return Math.floor(Math.random()*(max+1-min)+min)
+	}
+
+	const rippleObject = {
+		'.result,.result-op,.video_list':{
+			dragging: 0,
+			allowDragging: 1,
+			callback: ($container,$ripple)=>{
+				if($ripple.hasSetColor) return;
+				$ripple.hasSetColor = 1;
+				$ripple.css('background',`rgba(${getRandom(180,255)},${getRandom(180,255)},${getRandom(180,255)},.26)`);
+			}
+		}
+	};
+
 	//------------------------------------ JS Run -------------------------------------------
 	if(window.location.href.indexOf('.com/s')<0)
 	{
@@ -542,21 +559,9 @@
 		});
 
 		//Add ripples
-		function getRandom(min,max){
-			return Math.floor(Math.random()*(max+1-min)+min)
-		}
 		function ReAddRipples(){
 			$.ripple.destroy();
-			$.ripple({
-				'.result,.result-op':{
-					dragging: 0,
-					allowDragging: 1,
-					callback: ($container,$ripple)=>{
-						if($ripple.hasSetColor) return;
-						$ripple.hasSetColor = 1;
-						$ripple.css('background',`rgba(${getRandom(180,255)},${getRandom(180,255)},${getRandom(180,255)},.26)`);
-					}}
-			});
+			$.ripple(rippleObject);
 		};
 
 		//Add dark mode menu to upper right menu
