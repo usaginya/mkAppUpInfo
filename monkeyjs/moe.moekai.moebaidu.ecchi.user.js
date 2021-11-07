@@ -297,7 +297,7 @@
 	 .darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border{background:#222!important}
 	.darkmode.dark .c-dropdown2 .c-dropdown2-menu,.darkmode.dark [class*=data-tip]{background:#222b;backdrop-filter:blur(5px)}
 	.darkmode.dark .op-exrate-nav{border-bottom:1px solid #9db2ff}
-	.darkmode.dark .op-exrate-li,.darkmode.dark .op-exrate-dropdown dl dd div{color:#777}
+	.darkmode.dark .op-exrate-li,.darkmode.dark .op-exrate-dropdown dl dd div,.darkmode.dark .nors li{color:#777}
 	.darkmode.dark .op-exrate-nav li.op-exrate-li-sel{color:#9db2ff;background:#2222;border:1px solid #9db2ff}
 	.darkmode.dark .c-dropdown2 .c-dropdown2-selected{color:#9db2ff;background:#9db2ff22!important}
 	.darkmode.dark .opui-scroll-ctrl-scroll{border:none!important}
@@ -306,12 +306,12 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
 	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,
 	 .darkmode.dark [class*=cc-title_]{color:#909cb3}
-	.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,.darkmode.dark .xcp-list-title{color:#aaa}
+	.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,.darkmode.dark .xcp-list-title,.darkmode.dark .nors p{color:#aaa}
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
 	.darkmode.dark .x-interact-publish .emoj-panel{background:#1118}
 	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_]{color:#fff!important}
-	.darkmode.dark [srcid]:not([srcid=''])>[class*=root]{border-bottom:1px solid #556}
+	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
