@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.9.7
+// @version      2.9.8
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -218,7 +218,7 @@
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
-	 .darkmode.dark .new-pmd .c-border:hover{background:#4446!important}
+	 .darkmode.dark .new-pmd .c-border:hover{background:#2225!important}
 	.darkmode.dark .new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.darkmode.dark .new-pmd .c-tabs-content,
 	 .darkmode.dark .op_express_delivery_more,.darkmode.dark .result-molecule>#page a,.darkmode.dark.new-pmd .c-border,
 	 .darkmode.dark .c-group-wrapper,.darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input,
@@ -240,6 +240,7 @@
 	 .darkmode.dark .op_exactqa_word_word_text,.darkmode.dark .op_exactqa_word_word_pronounce{color:#eee}
 	.darkmode.dark .c-btn,.darkmode.dark .result-op [class*=episode-btn],
 	 .darkmode.dark div[class*=gameinfo] [class*=item_]{background-color:#2228}
+	.darkmode.dark .c-btn:active{-webkit-box-shadow:inset 1px 1px 0px #000,inset -1px -1px 0px #555}
 	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .c-tabs-nav,
 	.darkmode.dark c-tabs-item,.darkmode.dark .c-input{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff}
@@ -264,7 +265,7 @@
 	.darkmode.dark .op_express_delivery_hot li,.darkmode.dark .c-gap-top-large [class*=tag-item]:nor([class*=tag-item-selected]){color:#888}
 	.darkmode.dark .op_express_delivery_more li i,.darkmode.dark .op_express_delivery_hidemore,
 	 .darkmode.dark .op_express_delivery_showmore{color:#a7a7ff}
-	.darkmode.dark .c-border{border:1px solid #888;border-bottom-color:#888;border-right-color:#888}
+	.darkmode.dark .c-border{border:1px solid #5566;border-bottom-color:#5556;border-right-color:#5556}
 	.darkmode.dark .op_express_delivery_hot li{border-color:#777 #777 #777 transparent}
 	.darkmode.dark .new-pmd .se_st_icon_book,.darkmode.dark .new-pmd .se_st_icon_download,
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
@@ -280,8 +281,8 @@
 	.darkmode.dark .op_new_cal_screen,.darkmode.dark [data-pmd] .c-container,
 	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
 	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark [class*=icon_],.darkmode.dark .x-interact-publish-opt>*:not(.send),
-	 .darkmode.dark .interact-bar-right,.darkmode.dark .xcp-list-loader.is-second .icon{filter:invert(1)}
-	.darkmode.dark .col-header .overview-display-wrap li{border-color:#888}
+	 .darkmode.dark .interact-bar-right,.darkmode.dark .xcp-list-loader.is-second.icon,.darkmode.dark .c-icon[class*=img2_]{filter:invert(1)}
+	.darkmode.dark .col-header .overview-display-wrap li{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark .x-interact-publish-cont-topic{background-color:#1115}
 	.darkmode.dark .col-header .overview-display-wrap li::after,
@@ -303,7 +304,8 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-axis{background:#0005}
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-slider{background:#6665;border:1px solid #9db2ff1f}
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
-	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area{color:#909cb3}
+	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,
+	 .darkmode.dark [class*=cc-title_]{color:#909cb3}
 	.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,.darkmode.dark .xcp-list-title{color:#aaa}
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
@@ -312,6 +314,8 @@
 	.darkmode.dark [srcid]:not([srcid=''])>[class*=root]{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
+	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
+	.darkmode.dark .new-pmd .c-text-blue-border{border:1px solid #859dff}
 	</style>`;
 
 	let rippleCss = `<style>
