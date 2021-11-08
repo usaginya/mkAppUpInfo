@@ -194,8 +194,8 @@
 	.darkmode.dark a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
-	 .darkmode.dark .col-header .overview-desc-wrap{color:#9db2ff!important}
-	.darkmode.dark a:hover,.darkmode.dark #u>a:hover{color:#b9f!important}
+	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text{color:#9db2ff!important}
+	.darkmode.dark a:hover,.darkmode.dark #u>a:hover,.darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text{color:#b9f!important}
 	.darkmode .wrapper_new .s_ipt_wr{border:2px solid #556}
 	.darkmode .wrapper_new .s_ipt_wr:hover{border-color:#99a}
 	.darkmode .s_ipt_wr{background:#3337!important}.darkmode .s_ipt_wr input{color:#aaa}
