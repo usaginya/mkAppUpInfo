@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      2.9.9
+// @version      3.0.0
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -25,7 +25,7 @@
 	#su:hover{background:#0072ffcc!important}
 	#kw,#soutu-url-kw{border-color:#0072ffa8!important;background:#fffa!important}
 	#kw:focus{border-color:#0072ffdd!important}
-	#kw:focus,.bdsug,.s-skin-layer{background:#fffc!important}
+	#kw:focus,.bdsug,.s-skin-layer{background:#fffc!important;backdrop-filter:blur(3px)}
 	.s-skin-layer{backdrop-filter:blur(8px)!important}
 	#wrapper #form .bdsug-new .bdsug-s{background-color:#fff5!important;backdrop-filter:blur(8px);box-shadow:0 0 5px 0px #fff5}
 	.soutu-drop,.soutu-state-normal,.soutu-error,.soutu-waiting,#aging-tools-pc>div div[class|=float]{background:#fffb!important}
@@ -35,6 +35,7 @@
 	.upload-wrap{background: #4e71f2b0!important}
 	.s-bottom-space{height:20px!important}
 	.s-top-wrap{height:30px}
+	.s-top-right .s-top-login-btn{margin-top:2px;margin-left:18px}
 	.s-skin-layer .s-skin-up{color:#b5b6bd!important}
 	.s-skin-layer .s-skin-up:hover{color:#315efbf5!important}
 	.s-skin-layer .subnav-tag,.s-skin-layer .defined-state-chooseimg,.s-skin-layer .skin-img-list .no-img{background:#f2f2f890!important}
@@ -55,6 +56,8 @@
 	#aging-tools-pc>div div[class|=item]:hover>div[class|=icon],
 	 #aging-tools-pc>div div[class|=item][class*=checked]>div[class|=icon]{background-color:#6d87f2!important}
 	#aging-tools-pc>div div[class|=pop]{background:#fffc;backdrop-filter:blur(10px)}
+	.darkmode.dark input:not(#kw){background-color:#2228}
+	.darkmode.dark [class*=input_]{color:#eee}
 	.darkmode.dark{background-color:#1f1f25cc!important}
 	.darkmode.dark #bottom_layer,.darkmode.dark #head,.darkmode.dark #s_menu_gurd.s-down,
 	 .darkmode.dark #s_wrap{background-color:#0000}
@@ -74,9 +77,10 @@
 	 .darkmode.dark .c-floating-box{background:#333b!important}
 	.darkmode.dark .soutu-hover-tip{color:#eee}
 	.darkmode #s-user-name-menu a,.darkmode #s-user-name-menu a:visited,.darkmode #s-user-setting-menu a,
-	 .darkmode #s-user-setting-menu a:visited{color:#ffd862}
+	 .darkmode #s-user-setting-menu a:visited{color:#b9a260}
 	.darkmode #s-user-name-menu a:hover,.darkmode #s-user-setting-menu a:hover{color:#fff762}
 	.darkmode.dark .setweather-content .warn-mod{background:#30303050!important}
+	.darkmode.dark .title-content:hover,.darkmode.dark .hot-refresh:hover .c-icon,.darkmode.dark .hot-refresh:hover .hot-refresh-text{color:#5af}
 	#s_side_wrapper{opacity:.3;transition:.3s}
 	#s_side_wrapper:hover{opacity:.9}
 	::-webkit-scrollbar{width:1rem;height:1rem}
@@ -118,11 +122,11 @@
 	 -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 100%;animation:masked-animation 3s infinite linear}
 	 @keyframes masked-animation{0%{background-position: 0 0}100%{background-position: -100%, 0}}
 	#su{background-color:#4ea6f2aa!important;transition-duration:.5s}#su:hover{background-color:#4e88f2ee!important;transition-duration:.2s}
-	.iptfocus.s_ipt_wr,#form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
+	.wrapper_new .iptfocus.s_ipt_wr,.wrapper_new #form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
 	.sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
 	.selected-search-box{background:#fff8!important;backdrop-filter:blur(3px)}
 	.bdpfmenu,.usermenu{background:#fffd!important;backdrop-filter:blur(3px)}
-	#u .bdpfmenu a:hover,#u .usermenu a:hover,.bdsug{background-color:#fffe!important;transition-duration:.3s}
+	#u .bdpfmenu a:hover,#u .usermenu a:hover,.bdsug{background-color:#5bf3!important;transition-duration:.3s}
 	#s_tab{padding-top:72px!important}
 	.s_ipt_wr{background:#fff7!important;transition-duration:.3s}
 	.s_ipt_wr:hover{background:#fffa!important;transition-duration:.3s}
@@ -139,14 +143,20 @@
 	.result-molecule>#page,.recommend-line-one .recommend-item-a{background-color:#f5f5f666!important}
 	.result-molecule>#page strong{background-color:#4e90f2d4!important}
 	.result-molecule>#page a:hover,.result-molecule>#page .n:hover,.darkmode.dark .result-molecule>#page a:hover,
-	.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]):hover{background:#4e90f2c0!important}
-	.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]):hover{color:#fff!important}
-	#foot #help,.c-tip-con .c-tip-menu li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
+	.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]):hover{background:#4e90f2c0!important;color:#fff!important}
+	#foot #help,.c-tip-con [class*=menu] li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
 	#wrapper #content_left .result[tpl='soft'] .op-soft-title,#wrapper #content_left .result h3,#wrapper #content_left .c-container h3,
 	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container
-	.ms-measures-content .op-unit-tabs-nav-container,.ms-measures-content .tabs-nav{background-color:#fff0!important}
-	.c-tip-con .c-tip-menu li a:hover{background-color:#ccc6!important;transition-duration:.3s}
-	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal,#container.sam_newgrid div[class*=has-content_]{background:#fffb!important;backdrop-filter:blur(3px)}
+	.ms-measures-content .op-unit-tabs-nav-container,.ms-measures-content .tabs-nav,[class*=dis_able],[class*=time_li_],
+	 [class*=pop_over_] li{background-color:#fff0!important}
+	[class*=pop_over_] li:hover{background-color:#5bf3!important}
+	.c-tip-con [class*=menu] li a:hover{background-color:#ccc6!important;transition-duration:.3s}
+	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal,#container.sam_newgrid div[class*=has-content_],
+	 [class*=pop_over_]{background:#fffb!important;backdrop-filter:blur(3px)}
+	[class*=normal_color_]{background:#fffb}
+	[class*=input_]{background-color:#fffb}
+	[class*=dis_able]:not([class*=file_li_]){color:#88a!important}
+	[class*=calendar-wrapper_]{background:#fffe!important}
 	.soutu-hover-tip,.soutu-env-new .soutu-layer .soutu-state-normal,.soutu-env-new .soutu-layer .soutu-error,.soutu-env-new .soutu-layer .soutu-waiting{background:#fffd}
 	.sam_newgrid~#page strong,.sam_newgrid~#page a:hover,
 	.sam_newgrid~#page a:hover .pc,.sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
@@ -168,6 +178,8 @@
 	.op-qr{top:-100px!important;left:auto!important}
 	.result-molecule[tpl*="app/rs"] td a{background:#f5f5f699!important}
 	.result-molecule[tpl*="app/rs"] td a:hover{background:#f0f3fdbb!important}
+	div[class*=button-list_] div[class*=item_] a{background:#eee9}
+	div[class*=button-list_] div[class*=item_] a:hover{background:#5bf3}
 	#aging-tools-pc>div{background:#eee9!important}
 	#aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#fff9}
 	#aging-tools-pc>div div[class|=item]:hover>div[class|=icon],
@@ -178,6 +190,7 @@
 	.x-interact-publish .emoj-panel{margin:0 12px;width:96%;right:0!important}
 	.xdp .no-margin-left{margin-right:10px}
 	.darkmode.dark input:not(#kw){background-color:#2228}
+	.darkmode.dark [class*=input_]{color:#eee}
 	.darkmode.dark #aging-tools-pc>div{background:#0004!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
 	.darkmode.dark #aging-tools-pc>div div[class*=item-text]{color:#aaa}
@@ -188,25 +201,33 @@
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] button:hover{color:#7bf}
 	.darkmode.dark #aging-tools-pc>div div[class|=float]{background:#222b!important}
 	.darkmode.blue{background-color:#141e42cc!important}
-	.darkmode em{color:#f77!important}
+	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_]{color:#f77!important}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
 	.darkmode.dark a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
-	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text{color:#9db2ff!important}
-	.darkmode.dark a:hover,.darkmode.dark #u>a:hover,.darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text{color:#b9f!important}
-	.darkmode .wrapper_new .s_ipt_wr{border:2px solid #556}
-	.darkmode .wrapper_new .s_ipt_wr:hover{border-color:#99a}
-	.darkmode .s_ipt_wr{background:#3337!important}.darkmode .s_ipt_wr input{color:#aaa}
-	.darkmode .s_ipt_wr:hover{background:#2228!important}.darkmode .s_ipt_wr:hover input,.darkmode.dark .c-input{color:#eee}
+	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
+	 .darkmode.dark [class*=time_li_]{color:#9db2ff!important}
+	.darkmode.dark [class*=normal_color_]{color:#9db2ff}
+	.darkmode.dark a:hover,.darkmode.dark #u>a:hover:not([name*=login]),.darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
+	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
+	 .darkmode.dark [class*=time_li_]:hover{color:#b9f!important}
+	.darkmode.dark [class*=active_color_],.darkmode.dark [class*=active_color_] span,.darkmode.dark [class*=pick_color]{color:#89f!important}
+	.darkmode .s_ipt_wr{border:2px solid #556}
+	.darkmode .s_ipt_wr:hover{border-color:#99a}
+	.darkmode .s_ipt_wr{background:#3337!important}
+	.darkmode .s_ipt_wr input{color:#aaa}
+	.darkmode .s_ipt_wr:hover{background:#2228!important}
+	.darkmode .s_ipt_wr:hover input,.darkmode.dark .c-input{color:#eee}
+	.darkmode.dark #u>a[name*=login]:hover{color:#eee!important}
 	.darkmode .cr-content a,.darkmode.dark .search_tool,.darkmode.dark .securityplan .hint_right_content
 	.darkmode.dark .search_tool_conter span,.darkmode.dark .new-pmd .cr-title{color:#909cb3!important}
 	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
-	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a,
+	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
 	.darkmode #content_left .result-op,.darkmode #content_left .result{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode.dark .result-op [class*=source-name_],
-	 .darkmode.dark .pfpanel-bd{color:#888!important}
+	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op,.darkmode.dark #container.sam_newgrid #content_left .result,
 	 .darkmode.dark #rs,.darkmode.dark .video_list{background:#3c3c3c88!important}
@@ -214,7 +235,9 @@
 	 .darkmode.dark #container.sam_newgrid #content_left .result:hover,.darkmode.dark .video_list:hover{background:#1116!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
-	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover{background:#2229!important}
+	.darkmode.dark div[class*=button-list_] div[class*=item_] a{background:#3339}
+	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,
+	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
@@ -226,18 +249,26 @@
 	.darkmode.dark #head,.darkmode.dark #wrapper #s_tab{background:#3332!important}
 	.darkmode.dark #head:hover,.darkmode.dark #wrapper #s_tab:hover{background:#22222833!important}
 	.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,.darkmode.dark .usermenu{background:#0008!important}
-	.darkmode.dark .soutu-hover-tip{background:#222e!important}
+	.darkmode.dark .soutu-hover-tip,.darkmode.dark [class*=calendar-wrapper_]{background:#222e!important}
+	.darkmode.dark [class*=calendar-table_] thead{background-color:#333a!important}
+	.darkmode.dark [class*=calendar-table_] th:not([class*=danger_]){color:#aad}
+	.darkmode.dark [class*=calendar-table_] tr td:not([class*=current_]){color:#557}
+	.darkmode.dark [class*=calendar-table_] tr td[class*=current_]{color:#eee}
+	.darkmode.dark [class*=calendar-table_] div:hover{background-color:#52f8!important}
 	.darkmode.dark .c-tip-con,.darkmode.dark #c-tip-custom-calenderCont,.darkmode.dark #c-tip-custom-calenderCont .op_cal,
-	 .darkmode.dark #container.sam_newgrid div[class*=has-content_]{background:#222b!important}
+	 .darkmode.dark #container.sam_newgrid div[class*=has-content_],.darkmode.dark [class*=pop_over_]{background:#222b!important}
+	.darkmode.dark .c-tip-con [class*=menu] li a:hover,.darkmode.dark [class*=time_li_]:hover{background-color:#0006!important}
 	.darkmode.dark .new-pmd .c-tools-tip-con .c-tip-arrow em{border-bottom-color:#222b}
-	.darkmode.dark #u .bdpfmenu a:hover,.darkmode.dark #u .usermenu a:hover,.darkmode.dark .bdsug{background-color:#333e!important}
+	.darkmode.dark .bdsug{background-color:#333e!important}
+	.darkmode.dark #u .bdpfmenu a:hover,.darkmode.dark #u .usermenu a:hover{background-color:#000!important}
 	.darkmode.dark .wrapper_new #form .bdsug-new ul li{color:#aab0c5}
 	.darkmode.dark .wrapper_new #form .bdsug-new ul{border-top:2px solid #f5f5f630}
 	.darkmode.dark .wrapper_new #form .bdsug-new .bdsug-s{background-color:#222!important}
 	.darkmode.dark .wrapper_new #form .bdsug-new ul li b{color:#848797}
 	.darkmode.dark .c-gap-bottom-small,.darkmode.dark .c-gap-top-large [class*=tag-item-selected],
 	 .darkmode.dark .result-op [class*=list-num],.darkmode.dark .op_express_delivery_input span,
-	 .darkmode.dark .op_exactqa_word_word_text,.darkmode.dark .op_exactqa_word_word_pronounce{color:#eee}
+	 .darkmode.dark .op_exactqa_word_word_text,.darkmode.dark .op_exactqa_word_word_pronounce,
+	 .darkmode.dark #c-tip-custom-calenderCont{color:#eee}
 	.darkmode.dark .c-btn,.darkmode.dark .result-op [class*=episode-btn],
 	 .darkmode.dark div[class*=gameinfo] [class*=item_]{background-color:#2228}
 	.darkmode.dark .c-btn:active{-webkit-box-shadow:inset 1px 1px 0px #000,inset -1px -1px 0px #555}
@@ -245,8 +276,9 @@
 	.darkmode.dark c-tabs-item,.darkmode.dark .c-input{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff}
 	.darkmode.dark .result-op [class*=tabs-],.darkmode.dark .c-gap-top-large [class*=tag-item]{background-color:#2225}
-	.darkmode.dark .result-op [class*=tab-item-selected]{background-color:#777}
-	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]){background:#0000}
+	.darkmode.dark .result-op [class*=main-tabs_] [class*=tab-item-selected]{background-color:#777}
+	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
+	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table{background:#0000}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]{background:#f5f5f6a0!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]:hover{background:#f0f0f1db!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=content-thead]{color:#aaa!important}
@@ -277,10 +309,10 @@
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-waiting{background:#222d}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-drop{background:#2222}
 	.darkmode.dark .bdlayer,.darkmode.dark .advanced-setting .adv-input-prepend{background:#112b;backdrop-filter:blur(5px)}
-	.darkmode.dark .c-radio-inner,.darkmode.dark .c-checkbox-inner{background-color:#0000}
+	.darkmode.dark .c-radio-inner,.darkmode.dark .c-checkbox-inner,.darkmode.dark [class*=dis_able],.darkmode.dark [class*=time_li_]{background-color:#0000}
 	.darkmode.dark .op_new_cal_screen,.darkmode.dark [data-pmd] .c-container,
 	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
-	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark [class*=icon_],.darkmode.dark .x-interact-publish-opt>*:not(.send),
+	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark [class*=icon_]:not([class*=clear_]),.darkmode.dark .x-interact-publish-opt>*:not(.send),
 	 .darkmode.dark .interact-bar-right,.darkmode.dark .xcp-list-loader.is-second.icon,.darkmode.dark .c-icon[class*=img2_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
@@ -311,11 +343,29 @@
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
 	.darkmode.dark .x-interact-publish .emoj-panel{background:#1118}
 	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_]{color:#fff!important}
-	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom{border-bottom:1px solid #556}
+	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,
+	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
 	.darkmode.dark .new-pmd .c-text-blue-border{border:1px solid #859dff}
+	.darkmode.dark .c-tip-con .c-tip-timerfilter ul,.darkmode.dark [class*=pop_over_]{color:#999}
+	.darkmode.dark .c-tip-custom hr{border-top:1px solid #9db2ff66}
+	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-custom-submit,
+	 .darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-timerfilter-si-submit,.darkmode.dark #c-tip-custom-calenderCont,
+	 .darkmode.dark [class*=input_]{border:1px solid #778}
+	.darkmode.dark .op_mon h5{background:#0000;border-bottom:1px solid #448}
+	.darkmode.dark .op_mon td,.darkmode.dark .op_mon th{background:#0000;border:1px solid #448}
+	.darkmode.dark .op_mon th{background:#33a6}
+	.darkmode.dark #c-tip-custom-calenderCont .op_mon td.op_mon_cur_month{color:#fff}
+	.darkmode.dark .op_mon td.op_mon_day_disabled{color:#557!important}
+	.darkmode.dark .op_mon td.op_mon_day_hover{color:#6af;border:1px solid #38f}
+	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current),.darkmode.dark .wa-zp-exact-new-gray-a{color:#6af}
+	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
+	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
+	.darkmode.dark [class*=line_]{background:#9db2ff66}
+	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
+	.darkmode.dark [class*=pop_over_] li:hover{background-color:#0005!important;color:#b9f}
 	</style>`;
 
 	let rippleCss = `<style>
