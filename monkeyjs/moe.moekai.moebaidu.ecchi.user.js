@@ -225,7 +225,7 @@
 	.darkmode.dark .search_tool_conter span,.darkmode.dark .new-pmd .cr-title{color:#909cb3!important}
 	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
-	.darkmode #content_left .result-op,.darkmode #content_left .result{color:#aaa!important}
+	.darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
@@ -272,10 +272,10 @@
 	.darkmode.dark .c-btn,.darkmode.dark .result-op [class*=episode-btn],
 	 .darkmode.dark div[class*=gameinfo] [class*=item_]{background-color:#2228}
 	.darkmode.dark .c-btn:active{-webkit-box-shadow:inset 1px 1px 0px #000,inset -1px -1px 0px #555}
-	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .c-tabs-nav,
-	.darkmode.dark c-tabs-item,.darkmode.dark .c-input{background-color:#2228!important}
-	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff}
-	.darkmode.dark .result-op [class*=tabs-],.darkmode.dark .c-gap-top-large [class*=tag-item]{background-color:#2225}
+	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark c-tabs-item,.darkmode.dark .c-input{background-color:#2228!important}
+	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff!important}
+	.darkmode.dark .result-op [class*=tabs-],.darkmode.dark .c-gap-top-large [class*=tag-item],
+	 .darkmode.dark .result-op [class*=tabs-] a{background-color:#2225}
 	.darkmode.dark .result-op [class*=main-tabs_] [class*=tab-item-selected]{background-color:#777}
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
 	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table{background:#0000}
@@ -344,7 +344,7 @@
 	.darkmode.dark .x-interact-publish .emoj-panel{background:#1118}
 	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_]{color:#fff!important}
 	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,
-	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline{border-bottom:1px solid #556}
+	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline,.darkmode.dark .c-tabs-nav{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
