@@ -315,7 +315,7 @@
 	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]),
 	 .darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,.darkmode.dark .xcp-list-loader.is-second.icon,
 	 .darkmode.dark .c-icon[class*=img2_]{filter:invert(1)}
-	.darkmode.dark .col-header .overview-display-wrap li{border-color:#8887}
+	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark .x-interact-publish-cont-topic{background-color:#1115}
 	.darkmode.dark .col-header .overview-display-wrap li::after,
