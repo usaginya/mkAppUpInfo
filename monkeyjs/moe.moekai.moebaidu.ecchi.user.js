@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.0.2
+// @version      3.0.3
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -312,8 +312,9 @@
 	.darkmode.dark .c-radio-inner,.darkmode.dark .c-checkbox-inner,.darkmode.dark [class*=dis_able],.darkmode.dark [class*=time_li_]{background-color:#0000}
 	.darkmode.dark .op_new_cal_screen,.darkmode.dark [data-pmd] .c-container,
 	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
-	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]),
-	 .darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,.darkmode.dark .xcp-list-loader.is-second.icon,
+	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,
+	 .darkmode.dark .xcp-list-loader.is-second.icon,
+	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_]),
 	 .darkmode.dark .c-icon[class*=img2_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
