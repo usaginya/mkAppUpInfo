@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.0.3
+// @version      3.0.4
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -204,13 +204,13 @@
 	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_]{color:#f77!important}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode.dark a,.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
+	.darkmode.dark a:not([class*=op_weather]),.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
 	 .darkmode.dark [class*=time_li_]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_]{color:#9db2ff}
-	.darkmode.dark a:hover,.darkmode.dark #u>a:hover:not([name*=login]),.darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
+	.darkmode.dark a:not([class*=op_weather]):hover,.darkmode.dark #u>a:hover:not([name*=login]),.darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
 	 .darkmode.dark [class*=time_li_]:hover{color:#b9f!important}
 	.darkmode.dark [class*=active_color_],.darkmode.dark [class*=active_color_] span,.darkmode.dark [class*=pick_color]{color:#89f!important}
@@ -226,7 +226,7 @@
 	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
 	.darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li{color:#aaa!important}
-	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode.dark .result-op [class*=source-name_],
+	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op,.darkmode.dark #container.sam_newgrid #content_left .result,
@@ -314,7 +314,7 @@
 	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
 	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,
 	 .darkmode.dark .xcp-list-loader.is-second.icon,
-	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_]),
+	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_]):not([class*=op_weather]),
 	 .darkmode.dark .c-icon[class*=img2_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
