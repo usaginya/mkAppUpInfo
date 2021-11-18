@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.70
+// @version      3.3.71
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -14,10 +14,10 @@
 // ====== 可以修改以下参数等号后的值(保留最后的;） ======
 
 //主背景透明度, 可改范围0.00~1.00 , 值越小越透明
-var gmtp_background_opacity = 0.68;
+var gmtp_background_opacity = 0.75;
 
 //主背景模糊度, 默认是0 , 推荐0~8, 值越大越模糊
-var gmtp_background_blur = 0;
+var gmtp_background_blur = 0.3;
 
 // ============= 可以修改的部分到此为止 =================
 
@@ -40,7 +40,7 @@ var gmtp_background_blur = 0;
 	$(".home-settings").css("background","#dddddd50");
 	$("#rankContent").css("background-color","#daebf470");
 	$(".author-info").css("background","#f3f3f380");
-	$(".author-sign").css("background","#ffffff80");
+	$(".author-sign").css({"background":"#fffb","border":"1px outset #8888"});
 	$(".spoiler-content").css("background","none repeat scroll 0 0 #f5f5f590");
 	$(".spoiler-content span[style*='background-color']").css("background-color","#000000a5");
 	$("#main:contains('DailyRankings')").css("background","linear-gradient(135deg,#cebe29a6 0,#9b1f50a8 33%,#2989d8a8 71%,#89b4ffa8 91%);");
