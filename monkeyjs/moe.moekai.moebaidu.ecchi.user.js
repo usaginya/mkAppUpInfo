@@ -204,13 +204,14 @@
 	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_]{color:#f77!important}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode.dark a:not([class*=op_weather]),.darkmode.dark h3[class*=title_],.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
+	.darkmode.dark a:not(span):not([class*=op_weather]),.darkmode.dark h3[class*=title_],
+	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
 	 .darkmode.dark [class*=time_li_]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_]{color:#9db2ff}
-	.darkmode.dark a:not([class*=op_weather]):hover,.darkmode.dark #u>a:hover:not([name*=login]),.darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
+	.darkmode.dark a:hover:not([class*=op_weather]),.darkmode.dark #u>a:hover:not([name*=login]),.darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
 	 .darkmode.dark [class*=time_li_]:hover{color:#b9f!important}
 	.darkmode.dark [class*=active_color_],.darkmode.dark [class*=active_color_] span,.darkmode.dark [class*=pick_color]{color:#89f!important}
@@ -344,7 +345,8 @@
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
 	.darkmode.dark .x-interact-publish .emoj-panel{background:#1118}
-	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_]{color:#fff!important}
+	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_],.darkmode.dark .op_weather4_xlzstit,
+	 .darkmode.dark .op_weather4_jslul span{color:#fff!important}
 	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,
 	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline,.darkmode.dark .c-tabs-nav{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
