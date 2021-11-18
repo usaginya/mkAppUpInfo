@@ -575,7 +575,7 @@
 		}
 
 		function startBgAni(show){
-			bgAlpha += show ? -.02 : .02;
+			bgAlpha += show ? -.05 : .05;
 			bgAlpha = bgAlpha < 0 ? 0 : (bgAlpha > .8 ? .8 : bgAlpha);
 			ChangeBgColor(bgAlpha, 1);
 
