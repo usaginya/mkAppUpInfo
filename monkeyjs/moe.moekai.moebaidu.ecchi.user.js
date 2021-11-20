@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.0.5
+// @version      3.0.6
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -127,8 +127,8 @@
 	.wrapper_new .iptfocus.s_ipt_wr,.wrapper_new #form .bdsug-new{border-color: #4e71f2bb!important;transition-duration:.2s}
 	.sam_newgrid~#page a,.c-tabs-nav .c-tabs-nav-selected,.c-tabs-nav,.c-tabs-item,.c-input{background:#fff8!important}
 	.selected-search-box{background:#fff8!important;backdrop-filter:blur(3px)}
-	.bdpfmenu,.usermenu{background:#fffd!important;backdrop-filter:blur(3px)}
-	#u .bdpfmenu a:hover,#u .usermenu a:hover,.bdsug{background-color:#5bf3!important;transition-duration:.3s}
+	.bdsug,.bdpfmenu,.usermenu{background:#fffd!important;backdrop-filter:blur(3px)}
+	#u .bdpfmenu a:hover,#u .usermenu a:hover{background-color:#5bf3!important;transition-duration:.3s}
 	#s_tab{padding-top:72px!important}
 	.s_ipt_wr{background:#fff7!important;transition-duration:.3s}
 	.s_ipt_wr:hover{background:#fffa!important;transition-duration:.3s}
@@ -426,27 +426,251 @@
 	};
 
 	//------------------------------------ JS Run -------------------------------------------
-	if(window.location.href.indexOf('.com/s')<0)
+	function ecchiOnHome()
 	{
-		setTimeout(()=>{
-			let isDark = GM_getValue('openDark');
-			$('head').append(st);
-			$('#lg img').each(function(){
-				$(this).attr('src','https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white-d0c9fe2af5.png');
-			});
+		let isDark = GM_getValue('openDark');
+		$('head').append(st);
+		$('#lg img').each(function(){
+			$(this).attr('src','https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white-d0c9fe2af5.png');
+		});
 
-			//Add dark mode switch to upper right menu
-			let darkModeMenu;
+		//Add dark mode switch to upper right menu
+		let darkModeMenu;
+		let menuDarkModeId = 'gmbdecchi-menu-darkmode';
+		if($('#s-user-setting-menu').length > 0 && $(`#s-user-setting-menu #${menuDarkModeId}`).length < 1){
+			darkModeMenu = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
+			darkModeMenu.data('cssDarkMode', 'darkmode dark');
+			darkModeMenu.click(function(){
+				if(isDark){
+					$('body').removeClass(darkModeMenu.data('cssDarkMode'));
+					$('#gmdarkscrollbar').remove();
+				}else{
+					$('body').addClass(darkModeMenu.data('cssDarkMode'));
+					if($('#gmdarkscrollbar').length < 1){
+						$('head').append(darkmodeScrollbarCss);
+					}
+				}
+				isDark = !isDark;
+				$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
+				GM_setValue('openDark',isDark);
+			});
+			$('#s-user-setting-menu').append(darkModeMenu);
+
+			//open dark
+			if(isDark){
+				let intervalSetCss = setInterval(()=>{
+					if($('body').hasClass(darkModeMenu.data('cssDarkMode')))
+					{ return; }
+					isDark = 0;
+					darkModeMenu.click();
+				},500);
+				setTimeout(()=>clearInterval(intervalSetCss),1000);
+			}
+		}
+
+	}
+
+	//------ Search Page Dark Mode Init ------
+	function ecchiOnSearchInit(){
+		let isDark = GM_getValue('openDark');
+		let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
+
+		isDark = !isDark ? bddkmode : isDark;
+		if(!isDark){ return; }
+
+		$('head').append(`<style>html,body,#head{background:#334;color:#aaa}</style>`);
+		let intervalInit = setInterval(()=>{
+			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
+			isDark = !isDark ? bddkmode : isDark;
+			if(isDark && !bddkmode){
+				$('body').addClass('darkmode dark');
+			}
+
+		},100);
+		setTimeout(()=>{clearInterval(intervalInit);},5000);
+
+	}
+
+	//------ Search Page ------
+	function ecchiOnSearch() {
+		let isDark = GM_getValue('openDark')
+
+		if(isDark){
+			$('head').append(`<style>html,body,#head{background:#334;color:#aaa}</style>`);
+		}
+
+		$('head')
+			.append(ru)
+			.append(rippleCss);
+
+		// Fix scorll bar css
+		if(window.location.href.indexOf('.com/sf')>0){
+			$('head').append(scrollbarCssFix)
+		}
+
+		$('meta[name="referrer"]').attr('content','no-referrer');
+
+		// Recovery MutationObserver method
+		let ifr = document.createElement('iframe');
+		ifr.style.display = 'none';
+		document.body.appendChild(ifr);
+		unsafeWindow.MutationObserver = ifr.contentWindow.MutationObserver;
+		document.body.removeChild(ifr);
+
+		// listen body class change to dark mode
+		let bgChanging;
+		let observer = new unsafeWindow.MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
+				isDark = !isDark ? bddkmode : isDark;
+				if(isDark && !bddkmode){
+					$('body').addClass('darkmode dark');
+				}
+				if(bgChanging){ return; }
+				ChangeBgColor(.8);
+			});
+		});
+
+		//get random background url
+		let isBgMaskCssOk;
+		GM_xmlhttpRequest({
+			method: 'GET',
+			url: 'https://rimg.moest.top',
+			headers: {
+				'token': '0191f2696816cf0b4cf88c6ab4e1e6103f71d938'
+			},
+			onload: function(response){
+				let arrbgurl = $.parseJSON(response.responseText);
+				if(arrbgurl && arrbgurl.length < 2) return;
+
+				bgImageCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
+				let bgColor = '#ffffffc6';
+
+				if(isDark){
+					bgColor = '#1e1e28cc';
+					bgImageCss = bgImageCss.replace(/#ffffffc6/ig, bgColor);
+				}
+				bgCircleMaskInside = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
+				bgCircleMaskSurface = `.bgCircleMaskSurface${bgCircleMaskInside}`
+					+ `.darkmode.dark .bgCircleMaskSurface${bgCircleMaskInside.replace(/#ffffffc6/ig, '#1e1e28cc')}`;
+				bgCircleMaskInside = bgCircleMaskSurface.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
+				$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
+
+				//imgload
+				let imgPerfect = new Image();
+				imgPerfect.src = arrbgurl[1];
+
+				isBgMaskCssOk = 1;
+
+				// listen start
+				observer.observe(document.body, {attributes: true});
+			},
+			onerror: function(err){
+				console.log('baiduEcchi',err);
+			}
+		});
+
+		//show/hide background
+		let logodom = $('#result_logo'),
+			passBgLogo, passBgKeyboard,
+			isOnSearchBox = ()=> $('#kw').is(":focus");
+
+		let bgAnime = null, bgAlpha = .8;
+		function stopBgAni(){
+			//listen stop
+			observer.disconnect();
+
+			if(!bgAnime) return;
+			cancelAnimationFrame(bgAnime);
+			bgAnime = null;
+
+			// listen start
+			observer.observe(document.body, {attributes: true});
+		};
+
+		function ChangeBgColor(alpha, onlyAlpha){
+			//listen stop
+			observer.disconnect();
+			bgChanging = 1;
+
+			let newcss = $('body').css('background-image');
+			if(onlyAlpha){
+				newcss = newcss.replace(/(\d+\.\d+|\d)\)/gi, `${alpha})`);
+			}
+			else{
+				let colors = ['30, 30, 40', '255, 255, 255'];
+				newcss = newcss.replace(
+					new RegExp(`${isDark ? colors[1] : colors[0]}, (\\d+\\.\\d+|\\d)`,'gi'),
+					`${isDark ? colors[0] : colors[1]}, ${alpha}`
+			);
+
+			}
+			$('body').attr('style',`background-image:${newcss}!important`);
+
+			bgChanging = 0;
+			// listen start
+			observer.observe(document.body, {attributes: true});
+		}
+
+		function startBgAni(show){
+			bgAlpha += show ? -.05 : .05;
+			bgAlpha = bgAlpha < 0 ? 0 : (bgAlpha > .8 ? .8 : bgAlpha);
+			ChangeBgColor(bgAlpha, 1);
+
+			if(bgAlpha <= 0 || bgAlpha >= .8){
+				stopBgAni();
+				return;
+			}
+
+			bgAnime = requestAnimationFrame(()=>{startBgAni(show)});
+		};
+
+		function bgShow(){
+			stopBgAni();
+			startBgAni(1);
+			$('#wrapper,#aging-tools-wrapper').css('opacity','0');
+		};
+
+		function bgHide(){
+			stopBgAni();
+			startBgAni(0);
+			$('#wrapper,#aging-tools-wrapper').css('opacity','1');
+		};
+
+		$('#wrapper,#aging-tools-wrapper').addClass('hideWrapper');
+		logodom.hover(()=>{
+			if(!isBgMaskCssOk || passBgLogo || isOnSearchBox()) return;
+			$('.bgCircleMaskSurface').remove();
+			passBgKeyboard = 1;
+			bgShow();
+
+		},()=>{
+			if(!isBgMaskCssOk || passBgLogo || isOnSearchBox()) return;
+			bgHide();
+			passBgKeyboard = 0;
+		});
+
+		//Add ripples
+		function ReAddRipples(){
+			$.ripple.destroy();
+			$.ripple(rippleObject);
+		};
+
+		//Add dark mode menu to upper right menu
+		let menuDarkModeAdded;
+		let pMenuDarkMode;
+		function AddMenuDarkMode(){
 			let menuDarkModeId = 'gmbdecchi-menu-darkmode';
-			if($('#s-user-setting-menu').length > 0 && $(`#s-user-setting-menu #${menuDarkModeId}`).length < 1){
-				darkModeMenu = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
-				darkModeMenu.data('cssDarkMode', 'darkmode dark');
-				darkModeMenu.click(function(){
+			let styleDarkMode = 'darkmode dark';
+			let createDarkModeBtn = ()=>{
+				pMenuDarkMode = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
+				pMenuDarkMode.data('cssDarkMode', 'darkmode dark');
+				pMenuDarkMode.click(function(){
 					if(isDark){
-						$('body').removeClass(darkModeMenu.data('cssDarkMode'));
+						$('body').removeClass(pMenuDarkMode.data('cssDarkMode'));
 						$('#gmdarkscrollbar').remove();
 					}else{
-						$('body').addClass(darkModeMenu.data('cssDarkMode'));
+						$('body').addClass(pMenuDarkMode.data('cssDarkMode'));
 						if($('#gmdarkscrollbar').length < 1){
 							$('head').append(darkmodeScrollbarCss);
 						}
@@ -455,332 +679,140 @@
 					$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
 					GM_setValue('openDark',isDark);
 				});
-				$('#s-user-setting-menu').append(darkModeMenu);
+			};
 
-				//open dark
-				if(isDark){
-					let intervalSetCss = setInterval(()=>{
-						if($('body').hasClass(darkModeMenu.data('cssDarkMode')))
-						{ return; }
-						isDark = 0;
-						darkModeMenu.click();
-					},500);
-					setTimeout(()=>clearInterval(intervalSetCss),1000);
-				}
+			//open dark
+			if(isDark && pMenuDarkMode && !$('body').hasClass(styleDarkMode)){
+				isDark = 0;
+				pMenuDarkMode.click();
 			}
-		},300);
+			if(menuDarkModeAdded > 0){
+				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
+				return;
+			}
+			if($('#u .toindex').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
+				createDarkModeBtn();
+				$('#u .toindex').after(pMenuDarkMode);
+				menuDarkModeAdded = 1;
+			}
+		}
+
+		//Add ripples on start
+		setTimeout(()=>ReAddRipples(),500);
+
+		//Add dark mode menu on start
+		let setTimeoutAddDarkModeMenu;
+		let intervalAddDarkModeMenu = setInterval(()=>{
+			AddMenuDarkMode();
+			if((!isDark && menuDarkModeAdded > 0) || (isDark && menuDarkModeAdded > 4)){
+				clearInterval(intervalAddDarkModeMenu);
+				clearTimeout(setTimeoutAddDarkModeMenu);
+			}
+		},100);
+		//Limit add dark mode menu time
+		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),5000);
+
+		//On preloader
+		let interval_addrip;
+		$('#content_left').on('DOMNodeInserted',(e)=>{
+			if(interval_addrip || !e.target.className) return;
+
+			interval_addrip = setTimeout(()=>{
+				if(e.target.className.indexOf('ripple') > -1){
+					interval_addrip = null;
+					return;
+				}
+				ReAddRipples();
+				interval_addrip = null;
+			},800);
+
+			//Fix style occlusion
+			$('.result-op[tpl*="bk_"] .c-img-border').remove()
+		});
+
+		//Create mask bg
+		let bcmaskdom, ellipseOp, ellipseED, ellipseED2,
+			ellipseSize = ()=> passBgLogo ? 150 : 80,
+			edDelay = ()=> bcmaskdom.data('passBgLogo') ? 5.6 : 1.6;
+
+		$('body').mousedown((e)=>{
+			if(!isBgMaskCssOk) return;
+			let mouseX = e.pageX - window.pageXOffset,
+				mouseY = e.pageY - window.pageYOffset;
+
+			ellipseOp = `ellipse(0 0 at ${mouseX}px ${mouseY}px)`;
+			ellipseED = `ellipse(${ellipseSize()}px ${ellipseSize()}px at ${mouseX}px ${mouseY}px)`;
+			ellipseED2 = `ellipse(${ellipseSize()}.1px ${ellipseSize()}.1px at ${mouseX}px ${mouseY}px)`;
+
+			bcmaskdom = $(`<div class='${passBgLogo ? 'bgCircleMaskInside' : 'bgCircleMaskSurface'}'></div>`).clone();
+			bcmaskdom.css({'clip-path':ellipseOp, 'transition':'clip-path 4s'});
+			bcmaskdom.data('passBgLogo',passBgLogo).data('ed2',ellipseED2);
+
+			bcmaskdom.on('transitionend webkitTransitionEnd oTransitionEnd',(e)=>{
+				if($(e.target).css('opacity') <= 0){
+					$(e.target).off().remove();
+				}
+			});
+
+			$('body').append(bcmaskdom);
+
+			setTimeout(()=>bcmaskdom.css({'clip-path':ellipseED}),1);
+
+		}).mouseup(()=>maskAnimationEnd())
+			.on('dragover',()=>maskAnimationEnd())
+			.mouseleave(()=>maskAnimationEnd());
+
+		function maskAnimationEnd(){
+			if(!isBgMaskCssOk || !bcmaskdom || !bcmaskdom.data('ed2')) return;
+			bcmaskdom.css({'clip-path':bcmaskdom.data('ed2'),'opacity':'0',
+						   'transition':`clip-path .6s,opacity .3s ease-out ${edDelay()}s`});
+		}
+
+		//patch ac style
+		if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
+			$('head').append(acCenterPatch);
+		}
+
+		//disable video auto play
+		$('video').removeAttr('autoplay');
+
+		//listen keyboard hide wrapper
+		let timeCount = new Date();
+		$(document).keydown(function(event){
+			//192: ~
+			if(event.keyCode == 192){
+				if(!isBgMaskCssOk || isOnSearchBox()) return;
+				let timeSpace = new Date() - timeCount;
+				if(!passBgKeyboard && timeSpace > 100 && timeSpace < 700){
+					if($('#wrapper').css('opacity') < 1){
+						bgHide();
+						passBgLogo = 0;
+						$('.bgCircleMaskInside').remove();
+						$('#wrapper').css('pointer-events','');
+					}else{
+						bgShow();
+						passBgLogo = 1;
+						$('.bgCircleMaskSurface').remove();
+						$('#wrapper').css('pointer-events','none');
+					}
+				}
+				timeCount = new Date();
+			}
+		});
+
+	}
+
+	//------ Run on home ------
+	if(window.location.href.indexOf('.com/s')<0)
+	{
+		setTimeout(()=>{ecchiOnHome();}, 500);
 		return;
 	}
 
-	//------ Search Page ------
+	//------ Run on search page ------
 	if(window.location.href.indexOf('.com/s')>0) {
-		let isDark = GM_getValue('openDark')
-		if(isDark){
-			$('head').append(`<style id="gm-bdmoeecchi-dark-init">html,body,#head{background:#334;color:#aaa}</style>`);
-		}
-
-		setTimeout(()=>{
-			$('head')
-				.append(ru)
-				.append(rippleCss);
-
-			// Fix scorll bar css
-			if(window.location.href.indexOf('.com/sf')>0){
-				$('head').append(scrollbarCssFix)
-			}
-
-			$('meta[name="referrer"]').attr('content','no-referrer');
-
-			// Recovery MutationObserver method
-			let ifr = document.createElement('iframe');
-			ifr.style.display = 'none';
-			document.body.appendChild(ifr);
-			unsafeWindow.MutationObserver = ifr.contentWindow.MutationObserver;
-			document.body.removeChild(ifr);
-
-			// listen body class change to dark mode
-			let bgChanging;
-			let observer = new unsafeWindow.MutationObserver(function(mutations) {
-				mutations.forEach(function(mutation) {
-					let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
-					isDark = !isDark ? bddkmode : isDark;
-					if(isDark && !bddkmode){
-						$('body').addClass('darkmode dark');
-					}
-					if(bgChanging){ return; }
-					ChangeBgColor(.8);
-				});
-			});
-
-			//get random background url
-			let isBgMaskCssOk;
-			GM_xmlhttpRequest({
-				method: 'GET',
-				url: 'https://rimg.moest.top',
-				headers: {
-					'token': '0191f2696816cf0b4cf88c6ab4e1e6103f71d938'
-				},
-				onload: function(response){
-					let arrbgurl = $.parseJSON(response.responseText);
-					if(arrbgurl && arrbgurl.length < 2) return;
-
-					bgImageCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
-					let bgColor = '#ffffffc6';
-
-					if(isDark){
-						bgColor = '#1e1e28cc';
-						bgImageCss = bgImageCss.replace(/#ffffffc6/ig, bgColor);
-					}
-					bgCircleMaskInside = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
-					bgCircleMaskSurface = `.bgCircleMaskSurface${bgCircleMaskInside}`
-					+ `.darkmode.dark .bgCircleMaskSurface${bgCircleMaskInside.replace(/#ffffffc6/ig, '#1e1e28cc')}`;
-					bgCircleMaskInside = bgCircleMaskSurface.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
-					$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
-
-					//imgload
-					let imgPerfect = new Image();
-					imgPerfect.src = arrbgurl[1];
-
-					isBgMaskCssOk = 1;
-
-					// listen start
-					observer.observe(document.body, {attributes: true});
-				},
-				onerror: function(err){
-					console.log('baiduEcchi',err);
-				}
-			});
-
-			//show/hide background
-			let logodom = $('#result_logo'),
-				passBgLogo, passBgKeyboard,
-				isOnSearchBox = ()=> $('#kw').is(":focus");
-
-			let bgAnime = null, bgAlpha = .8;
-			function stopBgAni(){
-				//listen stop
-				observer.disconnect();
-
-				if(!bgAnime) return;
-				cancelAnimationFrame(bgAnime);
-				bgAnime = null;
-
-				// listen start
-				observer.observe(document.body, {attributes: true});
-			};
-
-			function ChangeBgColor(alpha, onlyAlpha){
-				//listen stop
-				observer.disconnect();
-				bgChanging = 1;
-
-				let newcss = $('body').css('background-image');
-				if(onlyAlpha){
-					newcss = newcss.replace(/(\d+\.\d+|\d)\)/gi, `${alpha})`);
-				}
-				else{
-					let colors = ['30, 30, 40', '255, 255, 255'];
-					newcss = newcss.replace(
-						new RegExp(`${isDark ? colors[1] : colors[0]}, (\\d+\\.\\d+|\\d)`,'gi'),
-						`${isDark ? colors[0] : colors[1]}, ${alpha}`
-			);
-
-				}
-				$('body').attr('style',`background-image:${newcss}!important`);
-
-				bgChanging = 0;
-				// listen start
-				observer.observe(document.body, {attributes: true});
-			}
-
-			function startBgAni(show){
-				bgAlpha += show ? -.05 : .05;
-				bgAlpha = bgAlpha < 0 ? 0 : (bgAlpha > .8 ? .8 : bgAlpha);
-				ChangeBgColor(bgAlpha, 1);
-
-				if(bgAlpha <= 0 || bgAlpha >= .8){
-					stopBgAni();
-					return;
-				}
-
-				bgAnime = requestAnimationFrame(()=>{startBgAni(show)});
-			};
-
-			function bgShow(){
-				stopBgAni();
-				startBgAni(1);
-				$('#wrapper,#aging-tools-wrapper').css('opacity','0');
-			};
-
-			function bgHide(){
-				stopBgAni();
-				startBgAni(0);
-				$('#wrapper,#aging-tools-wrapper').css('opacity','1');
-			};
-
-			$('#wrapper,#aging-tools-wrapper').addClass('hideWrapper');
-			logodom.hover(()=>{
-				if(!isBgMaskCssOk || passBgLogo || isOnSearchBox()) return;
-				$('.bgCircleMaskSurface').remove();
-				passBgKeyboard = 1;
-				bgShow();
-
-			},()=>{
-				if(!isBgMaskCssOk || passBgLogo || isOnSearchBox()) return;
-				bgHide();
-				passBgKeyboard = 0;
-			});
-
-			//Add ripples
-			function ReAddRipples(){
-				$.ripple.destroy();
-				$.ripple(rippleObject);
-			};
-
-			//Add dark mode menu to upper right menu
-			let menuDarkModeAdded;
-			let pMenuDarkMode;
-			function AddMenuDarkMode(){
-				let menuDarkModeId = 'gmbdecchi-menu-darkmode';
-				let styleDarkMode = 'darkmode dark';
-				let createDarkModeBtn = ()=>{
-					pMenuDarkMode = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
-					pMenuDarkMode.data('cssDarkMode', 'darkmode dark');
-					pMenuDarkMode.click(function(){
-						if(isDark){
-							$('body').removeClass(pMenuDarkMode.data('cssDarkMode'));
-							$('#gmdarkscrollbar').remove();
-						}else{
-							$('body').addClass(pMenuDarkMode.data('cssDarkMode'));
-							if($('#gmdarkscrollbar').length < 1){
-								$('head').append(darkmodeScrollbarCss);
-							}
-						}
-						isDark = !isDark;
-						$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
-						GM_setValue('openDark',isDark);
-					});
-				};
-
-				//open dark
-				if(isDark && pMenuDarkMode && !$('body').hasClass(styleDarkMode)){
-					isDark = 0;
-					pMenuDarkMode.click();
-				}
-				if(menuDarkModeAdded > 0){
-					menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
-					return;
-				}
-				if($('#u .toindex').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
-					createDarkModeBtn();
-					$('#u .toindex').after(pMenuDarkMode);
-					menuDarkModeAdded = 1;
-				}
-			}
-
-			//Add ripples on start
-			setTimeout(()=>ReAddRipples(),500);
-
-			//Add dark mode menu on start
-			let setTimeoutAddDarkModeMenu;
-			let intervalAddDarkModeMenu = setInterval(()=>{
-				AddMenuDarkMode();
-				if((!isDark && menuDarkModeAdded > 0) || (isDark && menuDarkModeAdded > 4)){
-					clearInterval(intervalAddDarkModeMenu);
-					clearTimeout(setTimeoutAddDarkModeMenu);
-				}
-			},100);
-			//Limit add dark mode menu time
-			setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),5000);
-
-			//On preloader
-			let interval_addrip;
-			$('#content_left').on('DOMNodeInserted',(e)=>{
-				if(interval_addrip || !e.target.className) return;
-
-				interval_addrip = setTimeout(()=>{
-					if(e.target.className.indexOf('ripple') > -1){
-						interval_addrip = null;
-						return;
-					}
-					ReAddRipples();
-					interval_addrip = null;
-				},800);
-
-				//Fix style occlusion
-				$('.result-op[tpl*="bk_"] .c-img-border').remove()
-			});
-
-			//Create mask bg
-			let bcmaskdom, ellipseOp, ellipseED, ellipseED2,
-				ellipseSize = ()=> passBgLogo ? 150 : 80,
-				edDelay = ()=> bcmaskdom.data('passBgLogo') ? 5.6 : 1.6;
-
-			$('body').mousedown((e)=>{
-				if(!isBgMaskCssOk) return;
-				let mouseX = e.pageX - window.pageXOffset,
-					mouseY = e.pageY - window.pageYOffset;
-
-				ellipseOp = `ellipse(0 0 at ${mouseX}px ${mouseY}px)`;
-				ellipseED = `ellipse(${ellipseSize()}px ${ellipseSize()}px at ${mouseX}px ${mouseY}px)`;
-				ellipseED2 = `ellipse(${ellipseSize()}.1px ${ellipseSize()}.1px at ${mouseX}px ${mouseY}px)`;
-
-				bcmaskdom = $(`<div class='${passBgLogo ? 'bgCircleMaskInside' : 'bgCircleMaskSurface'}'></div>`).clone();
-				bcmaskdom.css({'clip-path':ellipseOp, 'transition':'clip-path 4s'});
-				bcmaskdom.data('passBgLogo',passBgLogo).data('ed2',ellipseED2);
-
-				bcmaskdom.on('transitionend webkitTransitionEnd oTransitionEnd',(e)=>{
-					if($(e.target).css('opacity') <= 0){
-						$(e.target).off().remove();
-					}
-				});
-
-				$('body').append(bcmaskdom);
-
-				setTimeout(()=>bcmaskdom.css({'clip-path':ellipseED}),1);
-
-			}).mouseup(()=>maskAnimationEnd())
-				.on('dragover',()=>maskAnimationEnd())
-				.mouseleave(()=>maskAnimationEnd());
-
-			function maskAnimationEnd(){
-				if(!isBgMaskCssOk || !bcmaskdom || !bcmaskdom.data('ed2')) return;
-				bcmaskdom.css({'clip-path':bcmaskdom.data('ed2'),'opacity':'0',
-							   'transition':`clip-path .6s,opacity .3s ease-out ${edDelay()}s`});
-			}
-
-			//patch ac style
-			if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
-				$('head').append(acCenterPatch);
-			}
-
-			//disable video auto play
-			$('video').removeAttr('autoplay');
-
-			//listen keyboard hide wrapper
-			let timeCount = new Date();
-			$(document).keydown(function(event){
-				//192: ~
-				if(event.keyCode == 192){
-					if(!isBgMaskCssOk || isOnSearchBox()) return;
-					let timeSpace = new Date() - timeCount;
-					if(!passBgKeyboard && timeSpace > 100 && timeSpace < 700){
-						if($('#wrapper').css('opacity') < 1){
-							bgHide();
-							passBgLogo = 0;
-							$('.bgCircleMaskInside').remove();
-							$('#wrapper').css('pointer-events','');
-						}else{
-							bgShow();
-							passBgLogo = 1;
-							$('.bgCircleMaskSurface').remove();
-							$('#wrapper').css('pointer-events','none');
-						}
-					}
-					timeCount = new Date();
-				}
-			});
-		},300);
+		ecchiOnSearchInit();
+		setTimeout(()=>{ecchiOnSearch();}, 500);
 		return;
 	}
 
