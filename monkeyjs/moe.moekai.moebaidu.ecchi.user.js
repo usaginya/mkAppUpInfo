@@ -476,28 +476,20 @@
 		let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
 
 		isDark = !isDark ? bddkmode : isDark;
-		if(!isDark){ return; }
 
+		if(!isDark){
+			//Used to initialize button automatic switching
+			isDark = 1;
+			return;
+		}
+
+		isDark = 0;
 		$('head').append(`<style>html,body,#head{background:#334;color:#aaa}</style>`);
-		let intervalInit = setInterval(()=>{
-			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
-			isDark = !isDark ? bddkmode : isDark;
-			if(isDark && !bddkmode){
-				$('body').addClass('darkmode dark');
-			}
-
-		},100);
-		setTimeout(()=>{clearInterval(intervalInit);},5000);
-
 	}
 
 	//------ Search Page ------
 	function ecchiOnSearch() {
 		let isDark = GM_getValue('openDark')
-
-		if(isDark){
-			$('head').append(`<style>html,body,#head{background:#334;color:#aaa}</style>`);
-		}
 
 		$('head')
 			.append(ru)
