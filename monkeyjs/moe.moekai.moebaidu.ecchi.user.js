@@ -485,6 +485,13 @@
 
 		isDark = 0;
 		$('head').append(`<style>html,body,#head{background:#334;color:#aaa}</style>`);
+		let intervalInit = setInterval(()=>{
+			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
+			if(!bddkmode){
+				$('body').addClass('darkmode dark');
+			}
+		},300);
+		setTimeout(()=>{clearInterval(intervalInit);},3000);
 	}
 
 	//------ Search Page ------
