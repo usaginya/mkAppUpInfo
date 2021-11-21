@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.0.6
+// @version      3.0.7
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -206,7 +206,7 @@
 	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_]{color:#f77!important}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode.dark a:not(span):not([class*=op_weather]),.darkmode.dark h3[class*=title_],
+	.darkmode.dark a:not(span):not([class*=op_weather]):not(.OP_LOG_LINK),.darkmode.dark h3[class*=title_],
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
@@ -333,8 +333,8 @@
 	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,
 	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
 	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2222!important}
-	.darkmode.dark .c-dropdown2:hover .c-dropdown2-btn-icon-border,
-	 .darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border{background:#222!important}
+	.darkmode.dark .c-dropdown2:hover .c-dropdown2-btn-icon-border,.darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border,
+	 .darkmode.dark .c-tabs-item .c-btn:hover{background:#222!important}
 	.darkmode.dark .c-dropdown2 .c-dropdown2-menu,.darkmode.dark [class*=data-tip]{background:#222b;backdrop-filter:blur(5px)}
 	.darkmode.dark .op-exrate-nav{border-bottom:1px solid #9db2ff}
 	.darkmode.dark .op-exrate-li,.darkmode.dark .op-exrate-dropdown dl dd div,.darkmode.dark .nors li{color:#777}
@@ -345,16 +345,16 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-slider{background:#6665;border:1px solid #9db2ff1f}
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
 	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,
-	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3{color:#909cb3}
+	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3,.darkmode.dark [class*=car-pc-series-color]{color:#909cb3}
 	.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,.darkmode.dark .xcp-list-title,.darkmode.dark .nors p{color:#aaa}
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
-	.darkmode.dark .x-interact-publish .emoj-panel{background:#1118}
+	.darkmode.dark .x-interact-publish .emoj-panel,.darkmode.dark [class*=car-pc-series-table]{background:#1118}
 	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_],.darkmode.dark .op_weather4_xlzstit,
 	 .darkmode.dark .op_weather4_jslul span{color:#fff!important}
 	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,
 	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline,.darkmode.dark .c-tabs-nav,
-	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_]{border-bottom:1px solid #556}
+	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline]{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
@@ -363,7 +363,7 @@
 	.darkmode.dark .c-tip-custom hr{border-top:1px solid #9db2ff66}
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-custom-submit,
 	 .darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-timerfilter-si-submit,.darkmode.dark #c-tip-custom-calenderCont,
-	 .darkmode.dark [class*=input_]{border:1px solid #778}
+	 .darkmode.dark [class*=input_],.darkmode.dark [class*=car-pc-list]{border:1px solid #778}
 	.darkmode.dark .op_mon h5{background:#0000;border-bottom:1px solid #448}
 	.darkmode.dark .op_mon td,.darkmode.dark .op_mon th{background:#0000;border:1px solid #448}
 	.darkmode.dark .op_mon th{background:#33a6}
