@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.0.7
+// @version      3.0.8
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -397,10 +397,10 @@
 	background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat;background-attachment:fixed;background-repeat:no-repeat;background-position:center}`;
 
 	let darkmodeScrollbarCss = `<style id="gmdarkscrollbar">
-	::-webkit-scrollbar-track-piece:vertical{background:#666;box-shadow:inset 8px 0 8px #222, inset -2px 0 8px #666}
-	::-webkit-scrollbar-track-piece:horizontal{background:#666;box-shadow:inset 0 8px 8px #222, inset 0 -2px 8px #666}
-	::-webkit-scrollbar-thumb:vertical{background:linear-gradient(92deg,#666,#222);box-shadow:5px 7px 10px #111, 5px -7px 10px #111}
-    ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#666,#222);box-shadow:5px 7px 10px #111, -5px 7px 10px #111}
+	::-webkit-scrollbar-track-piece:vertical{background:#666!important;box-shadow:inset 8px 0 8px #222, inset -2px 0 8px #666!important}
+	::-webkit-scrollbar-track-piece:horizontal{background:#666!important;box-shadow:inset 0 8px 8px #222, inset 0 -2px 8px #666!important}
+	::-webkit-scrollbar-thumb:vertical{background:linear-gradient(92deg,#666,#222)!important;box-shadow:5px 7px 10px #111, 5px -7px 10px #111!important}
+    ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#666,#222)!important;box-shadow:5px 7px 10px #111, -5px 7px 10px #111!important}
 	</style>`;
 
 	let scrollbarCssFix = `<style id="gmscrollbarfix">
@@ -489,6 +489,9 @@
 			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
 			if(!bddkmode){
 				$('body').addClass('darkmode dark');
+				if($('#gmdarkscrollbar').length < 1){
+					$('head').append(darkmodeScrollbarCss);
+				}
 			}
 		},300);
 		setTimeout(()=>{clearInterval(intervalInit);},3000);
