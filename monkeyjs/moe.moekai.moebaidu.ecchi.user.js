@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.0.8
+// @version      3.0.9
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -484,7 +484,7 @@
 		}
 
 		isDark = 0;
-		$('head').append(`<style>html,body,#head{background:#334;color:#aaa}</style>`);
+		$('head').append(`<style id="gm_ebdinitbg">html,body,#head{background:#334;color:#aaa}</style>`);
 		let intervalInit = setInterval(()=>{
 			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
 			if(!bddkmode){
@@ -563,6 +563,9 @@
 				imgPerfect.src = arrbgurl[1];
 
 				isBgMaskCssOk = 1;
+
+				//remove init bg
+				setTimeout(()=>$('#gm_ebdinitbg').remove(),999);
 
 				// listen start
 				observer.observe(document.body, {attributes: true});
