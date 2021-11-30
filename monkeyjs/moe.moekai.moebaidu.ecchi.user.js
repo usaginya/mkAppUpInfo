@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.1.0
+// @version      3.1.1
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -44,7 +44,7 @@
 	.s-top-more,.soutu-hover-tip,.s-mod-setweather,.c-floating-box{background:#fffb!important;backdrop-filter:blur(5px)!important}
 	.setweather-content .warn-mod{background:#f2f2f850!important}
 	.s-skin-hasbg .s-top-wrap{background:rgba(0,0,0,.15)}
-	.s-top-left .mnav,.s-top-right .s-top-right-text,.s-weather-wrapper{margin-top:5px}
+	.s-top-left .mnav,.s-top-left-new .mnav,.s-top-right .s-top-right-text,.s-weather-wrapper{margin-top:5px}
 	.s-top-right .s-top-username{margin-top:2px}
 	.s-top-right .s-top-username .s-top-img-wrapper{width:20px;height:20px;top:2px}
 	.s-top-right .s-top-username img{padding:0;width:20px;height:20px}
