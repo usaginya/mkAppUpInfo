@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.1.1
+// @version      3.1.2
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -279,7 +279,7 @@
 	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark c-tabs-item,.darkmode.dark .c-input{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff!important}
 	.darkmode.dark .result-op [class*=tabs-],.darkmode.dark .c-gap-top-large [class*=tag-item],
-	 .darkmode.dark .result-op [class*=tabs-] a{background-color:#2225}
+	 .darkmode.dark .result-op [class*=tabs-] a,.darkmode.dark .result-op [class*=tags-] span{background-color:#2225}
 	.darkmode.dark .result-op [class*=main-tabs_] [class*=tab-item-selected]{background-color:#777}
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
 	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table{background:#0000}
@@ -334,7 +334,7 @@
 	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
 	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2222!important}
 	.darkmode.dark .c-dropdown2:hover .c-dropdown2-btn-icon-border,.darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border,
-	 .darkmode.dark .c-tabs-item .c-btn:hover{background:#222!important}
+	 .darkmode.dark .c-tabs-item .c-btn:hover,.darkmode.dark .result-op [class*=tags-] span:hover{background:#222!important}
 	.darkmode.dark .c-dropdown2 .c-dropdown2-menu,.darkmode.dark [class*=data-tip]{background:#222b;backdrop-filter:blur(5px)}
 	.darkmode.dark .op-exrate-nav{border-bottom:1px solid #9db2ff}
 	.darkmode.dark .op-exrate-li,.darkmode.dark .op-exrate-dropdown dl dd div,.darkmode.dark .nors li{color:#777}
