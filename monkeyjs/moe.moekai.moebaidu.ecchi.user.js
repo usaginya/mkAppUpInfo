@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.1.2
+// @version      3.1.3
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -10,6 +10,8 @@
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
+// @grant        GM_registerMenuCommand
+// @grant        GM_unregisterMenuCommand
 // @connect      moest.top
 // @run-at       document-start
 // @require      https://libs.baidu.com/jquery/2.0.3/jquery.min.js
@@ -18,6 +20,15 @@
 
 (function(){
 	//--------------- STYLE -----------------------------------------
+	let gb = `<style>
+	.pass-qrcode-download{display:none!important}
+	.darkmode.dark .tang-pass-pop-login div.tang-body{color:#bbb;background-color:#222;box-shadow:1px 5px 12px 0 #4e6ff24d}
+	.darkmode.dark .login-type-tab .switch-item.activ,.darkmode.dark .tang-pass-pop-login .pass-text-input{color:#ccc}
+	.darkmode.dark .compose-left-container{border-right:1px solid #555}
+	.darkmode.dark .tang-pass-pop-login .pass-item-timer,
+	 .darkmode.dark .tang-pass-pop-login .pass-item-time-timing{background-color:#0000}
+	</style>`
+
 	let st = `<style>
 	#lg img{opacity:.2;transition:opacity 1s}
 	#lg:hover img{opacity:.9}
@@ -409,6 +420,41 @@
 	</style>`;
 
 	//------------------------------------ Global -------------------------------------------
+	const gmCfg = {
+		ecchiMode: {
+			get: () => GM_getValue('ecchiMode'),
+			set: (value) => { GM_setValue('ecchiMode', value); }
+		}
+	};
+
+	const gmMenu = {
+		ecchiMode: {
+			id: 0,
+			title:{
+				on: '开启ecchi模式',
+				off: '关闭ecchi模式'
+			},
+			call: function(){
+				gmCfg.ecchiMode.set(!gmCfg.ecchiMode.get());
+				registerMenu();
+			}
+		}
+	};
+
+	function registerMenu() {
+		// Remove old menu
+		$.each(gmMenu, function(i, ele){
+			if (ele.id) {
+				GM_unregisterMenuCommand(ele.id);
+			}
+		});
+
+		gmMenu.ecchiMode.id = GM_registerMenuCommand(
+			gmCfg.ecchiMode.get() ? gmMenu.ecchiMode.title.off : gmMenu.ecchiMode.title.on,
+			gmMenu.ecchiMode.call
+		);
+	}
+
 	function getRandom(min,max){
 		return Math.floor(Math.random()*(max+1-min)+min)
 	}
@@ -425,16 +471,20 @@
 		}
 	};
 
+
 	//------------------------------------ JS Run -------------------------------------------
 	function ecchiOnHome()
 	{
 		let isDark = GM_getValue('openDark');
-		$('head').append(st);
+		$('head')
+			.append(gb)
+			.append(st);
+
 		$('#lg img').each(function(){
 			$(this).attr('src','https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white-d0c9fe2af5.png');
 		});
 
-		//Add dark mode switch to upper right menu
+		// Add dark mode switch to upper right menu
 		let darkModeMenu;
 		let menuDarkModeId = 'gmbdecchi-menu-darkmode';
 		if($('#s-user-setting-menu').length > 0 && $(`#s-user-setting-menu #${menuDarkModeId}`).length < 1){
@@ -456,7 +506,7 @@
 			});
 			$('#s-user-setting-menu').append(darkModeMenu);
 
-			//open dark
+			// Open dark
 			if(isDark){
 				let intervalSetCss = setInterval(()=>{
 					if($('body').hasClass(darkModeMenu.data('cssDarkMode')))
@@ -478,7 +528,7 @@
 		isDark = !isDark ? bddkmode : isDark;
 
 		if(!isDark){
-			//Used to initialize button automatic switching
+			// Used to initialize button automatic switching
 			isDark = 1;
 			return;
 		}
@@ -499,9 +549,10 @@
 
 	//------ Search Page ------
 	function ecchiOnSearch() {
-		let isDark = GM_getValue('openDark')
+		let isDark = GM_getValue('openDark');
 
 		$('head')
+			.append(gb)
 			.append(ru)
 			.append(rippleCss);
 
@@ -519,7 +570,7 @@
 		unsafeWindow.MutationObserver = ifr.contentWindow.MutationObserver;
 		document.body.removeChild(ifr);
 
-		// listen body class change to dark mode
+		// Listen body class change to dark mode
 		let bgChanging;
 		let observer = new unsafeWindow.MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
@@ -533,7 +584,100 @@
 			});
 		});
 
-		//get random background url
+		// Add ripples
+		function ReAddRipples(){
+			$.ripple.destroy();
+			$.ripple(rippleObject);
+		};
+
+		// Add dark mode menu to upper right menu
+		let menuDarkModeAdded;
+		let pMenuDarkMode;
+		function AddMenuDarkMode(){
+			let menuDarkModeId = 'gmbdecchi-menu-darkmode';
+			let styleDarkMode = 'darkmode dark';
+			let createDarkModeBtn = ()=>{
+				pMenuDarkMode = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
+				pMenuDarkMode.data('cssDarkMode', 'darkmode dark');
+				pMenuDarkMode.click(function(){
+					if(isDark){
+						$('body').removeClass(pMenuDarkMode.data('cssDarkMode'));
+						$('#gmdarkscrollbar').remove();
+					}else{
+						$('body').addClass(pMenuDarkMode.data('cssDarkMode'));
+						if($('#gmdarkscrollbar').length < 1){
+							$('head').append(darkmodeScrollbarCss);
+						}
+					}
+					isDark = !isDark;
+					$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
+					GM_setValue('openDark',isDark);
+				});
+			};
+
+			// Open dark
+			if(isDark && pMenuDarkMode && !$('body').hasClass(styleDarkMode)){
+				isDark = 0;
+				pMenuDarkMode.click();
+			}
+			if(menuDarkModeAdded > 0){
+				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
+				return;
+			}
+			if($('#u .toindex').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
+				createDarkModeBtn();
+				$('#u .toindex').after(pMenuDarkMode);
+				menuDarkModeAdded = 1;
+			}
+		}
+
+		// Add ripples on start
+		setTimeout(()=>ReAddRipples(),500);
+
+		// Add dark mode menu on start
+		let setTimeoutAddDarkModeMenu;
+		let intervalAddDarkModeMenu = setInterval(()=>{
+			AddMenuDarkMode();
+			if((!isDark && menuDarkModeAdded > 0) || (isDark && menuDarkModeAdded > 4)){
+				clearInterval(intervalAddDarkModeMenu);
+				clearTimeout(setTimeoutAddDarkModeMenu);
+			}
+		},100);
+		// Limit add dark mode menu time
+		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),5000);
+
+		// On preloader
+		let interval_addrip;
+		$('#content_left').on('DOMNodeInserted',(e)=>{
+			if(interval_addrip || !e.target.className) return;
+
+			interval_addrip = setTimeout(()=>{
+				if(e.target.className.indexOf('ripple') > -1){
+					interval_addrip = null;
+					return;
+				}
+				ReAddRipples();
+				interval_addrip = null;
+			},800);
+
+			//Fix style occlusion
+			$('.result-op[tpl*="bk_"] .c-img-border').remove()
+		});
+
+		// Patch ac style
+		if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
+			$('head').append(acCenterPatch);
+		}
+
+		// Disable video auto play
+		$('video').removeAttr('autoplay');
+
+		// The following is the on ecchi mode
+		if (!gmCfg.ecchiMode.get()) {
+			return;
+		}
+
+		// Get random background url
 		let isBgMaskCssOk;
 		GM_xmlhttpRequest({
 			method: 'GET',
@@ -541,79 +685,90 @@
 			headers: {
 				'token': '0191f2696816cf0b4cf88c6ab4e1e6103f71d938'
 			},
-			onload: function(response){
+			onload: function(response) {
 				let arrbgurl = $.parseJSON(response.responseText);
 				if(arrbgurl && arrbgurl.length < 2) return;
 
-				bgImageCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
-				let bgColor = '#ffffffc6';
+				// Preload complete
+				let Preloaded = 0;
+				function setBackground() {
+					Preloaded++;
+					if (Preloaded < 2) { return; }
 
-				if(isDark){
-					bgColor = '#1e1e28cc';
-					bgImageCss = bgImageCss.replace(/#ffffffc6/ig, bgColor);
-				}
-				bgCircleMaskInside = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
-				bgCircleMaskSurface = `.bgCircleMaskSurface${bgCircleMaskInside}`
+					let bgColor = '#ffffffc6';
+					bgImageCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
+
+					if(isDark){
+						bgColor = '#1e1e28cc';
+						bgImageCss = bgImageCss.replace(/#ffffffc6/ig, bgColor);
+					}
+					bgCircleMaskInside = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
+					bgCircleMaskSurface = `.bgCircleMaskSurface${bgCircleMaskInside}`
 					+ `.darkmode.dark .bgCircleMaskSurface${bgCircleMaskInside.replace(/#ffffffc6/ig, '#1e1e28cc')}`;
-				bgCircleMaskInside = bgCircleMaskSurface.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
-				$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
+					bgCircleMaskInside = bgCircleMaskSurface.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
+					$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
 
-				//imgload
-				let imgPerfect = new Image();
-				imgPerfect.src = arrbgurl[1];
+					isBgMaskCssOk = 1;
 
-				isBgMaskCssOk = 1;
+					// Remove init bg
+					setTimeout(()=>$('#gm_ebdinitbg').remove(),999);
 
-				//remove init bg
-				setTimeout(()=>$('#gm_ebdinitbg').remove(),999);
+					// Listen start
+					observer.observe(document.body, {attributes: true});
+				}
 
-				// listen start
-				observer.observe(document.body, {attributes: true});
+				// Preload background img
+				let imgA = new Image(), imgB = new Image();
+				imgA.onload = setBackground;
+				imgA.src = arrbgurl[0];
+				imgB.onload = setBackground;
+				imgB.src = arrbgurl[1];
+
 			},
 			onerror: function(err){
 				console.log('baiduEcchi',err);
 			}
 		});
 
-		//show/hide background
+		// Show/hide background
 		let logodom = $('#result_logo'),
 			passBgLogo, passBgKeyboard,
 			isOnSearchBox = ()=> $('#kw').is(":focus");
 
 		let bgAnime = null, bgAlpha = .8;
 		function stopBgAni(){
-			//listen stop
+			// Listen stop
 			observer.disconnect();
 
 			if(!bgAnime) return;
 			cancelAnimationFrame(bgAnime);
 			bgAnime = null;
 
-			// listen start
+			// Listen start
 			observer.observe(document.body, {attributes: true});
 		};
 
 		function ChangeBgColor(alpha, onlyAlpha){
-			//listen stop
+			// Listen stop
 			observer.disconnect();
 			bgChanging = 1;
 
 			let newcss = $('body').css('background-image');
 			if(onlyAlpha){
 				newcss = newcss.replace(/(\d+\.\d+|\d)\)/gi, `${alpha})`);
-			}
-			else{
+
+			} else {
 				let colors = ['30, 30, 40', '255, 255, 255'];
 				newcss = newcss.replace(
 					new RegExp(`${isDark ? colors[1] : colors[0]}, (\\d+\\.\\d+|\\d)`,'gi'),
 					`${isDark ? colors[0] : colors[1]}, ${alpha}`
-			);
-
+				);
 			}
+
 			$('body').attr('style',`background-image:${newcss}!important`);
 
 			bgChanging = 0;
-			// listen start
+			// Listen start
 			observer.observe(document.body, {attributes: true});
 		}
 
@@ -655,90 +810,10 @@
 			passBgKeyboard = 0;
 		});
 
-		//Add ripples
-		function ReAddRipples(){
-			$.ripple.destroy();
-			$.ripple(rippleObject);
-		};
-
-		//Add dark mode menu to upper right menu
-		let menuDarkModeAdded;
-		let pMenuDarkMode;
-		function AddMenuDarkMode(){
-			let menuDarkModeId = 'gmbdecchi-menu-darkmode';
-			let styleDarkMode = 'darkmode dark';
-			let createDarkModeBtn = ()=>{
-				pMenuDarkMode = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
-				pMenuDarkMode.data('cssDarkMode', 'darkmode dark');
-				pMenuDarkMode.click(function(){
-					if(isDark){
-						$('body').removeClass(pMenuDarkMode.data('cssDarkMode'));
-						$('#gmdarkscrollbar').remove();
-					}else{
-						$('body').addClass(pMenuDarkMode.data('cssDarkMode'));
-						if($('#gmdarkscrollbar').length < 1){
-							$('head').append(darkmodeScrollbarCss);
-						}
-					}
-					isDark = !isDark;
-					$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
-					GM_setValue('openDark',isDark);
-				});
-			};
-
-			//open dark
-			if(isDark && pMenuDarkMode && !$('body').hasClass(styleDarkMode)){
-				isDark = 0;
-				pMenuDarkMode.click();
-			}
-			if(menuDarkModeAdded > 0){
-				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
-				return;
-			}
-			if($('#u .toindex').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
-				createDarkModeBtn();
-				$('#u .toindex').after(pMenuDarkMode);
-				menuDarkModeAdded = 1;
-			}
-		}
-
-		//Add ripples on start
-		setTimeout(()=>ReAddRipples(),500);
-
-		//Add dark mode menu on start
-		let setTimeoutAddDarkModeMenu;
-		let intervalAddDarkModeMenu = setInterval(()=>{
-			AddMenuDarkMode();
-			if((!isDark && menuDarkModeAdded > 0) || (isDark && menuDarkModeAdded > 4)){
-				clearInterval(intervalAddDarkModeMenu);
-				clearTimeout(setTimeoutAddDarkModeMenu);
-			}
-		},100);
-		//Limit add dark mode menu time
-		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),5000);
-
-		//On preloader
-		let interval_addrip;
-		$('#content_left').on('DOMNodeInserted',(e)=>{
-			if(interval_addrip || !e.target.className) return;
-
-			interval_addrip = setTimeout(()=>{
-				if(e.target.className.indexOf('ripple') > -1){
-					interval_addrip = null;
-					return;
-				}
-				ReAddRipples();
-				interval_addrip = null;
-			},800);
-
-			//Fix style occlusion
-			$('.result-op[tpl*="bk_"] .c-img-border').remove()
-		});
-
-		//Create mask bg
+		// Create mask bg
 		let bcmaskdom, ellipseOp, ellipseED, ellipseED2,
 			ellipseSize = ()=> passBgLogo ? 150 : 80,
-			edDelay = ()=> bcmaskdom.data('passBgLogo') ? 5.6 : 1.6;
+			edDelay = ()=> bcmaskdom.data('passBgLogo') ? 7.6 : 1.6;
 
 		$('body').mousedown((e)=>{
 			if(!isBgMaskCssOk) return;
@@ -773,18 +848,10 @@
 						   'transition':`clip-path .6s,opacity .3s ease-out ${edDelay()}s`});
 		}
 
-		//patch ac style
-		if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
-			$('head').append(acCenterPatch);
-		}
-
-		//disable video auto play
-		$('video').removeAttr('autoplay');
-
-		//listen keyboard hide wrapper
+		// Listen keyboard hide wrapper
 		let timeCount = new Date();
 		$(document).keydown(function(event){
-			//192: ~
+			// 192: ~
 			if(event.keyCode == 192){
 				if(!isBgMaskCssOk || isOnSearchBox()) return;
 				let timeSpace = new Date() - timeCount;
@@ -810,14 +877,23 @@
 	//------ Run on home ------
 	if(window.location.href.indexOf('.com/s')<0)
 	{
-		setTimeout(()=>{ecchiOnHome();}, 500);
+		setTimeout(()=>{
+			ecchiOnHome();
+		}, 500);
+
+		registerMenu();
 		return;
 	}
 
 	//------ Run on search page ------
 	if(window.location.href.indexOf('.com/s')>0) {
 		ecchiOnSearchInit();
-		setTimeout(()=>{ecchiOnSearch();}, 500);
+
+		setTimeout(()=>{
+			ecchiOnSearch();
+		}, 500);
+
+		registerMenu();
 		return;
 	}
 
