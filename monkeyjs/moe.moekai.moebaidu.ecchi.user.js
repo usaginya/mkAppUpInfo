@@ -711,7 +711,7 @@
 					isBgMaskCssOk = 1;
 
 					// Remove init bg
-					setTimeout(()=>$('#gm_ebdinitbg').remove(),999);
+					$('#gm_ebdinitbg').remove();
 
 					// Listen start
 					observer.observe(document.body, {attributes: true});
