@@ -572,6 +572,31 @@
 
 		// Listen body class change to dark mode
 		let bgChanging;
+
+		function ChangeBgColor(alpha, onlyAlpha) {
+			// Listen stop
+			observer.disconnect();
+			bgChanging = 1;
+
+			let newcss = $('body').css('background-image');
+			if(onlyAlpha){
+				newcss = newcss.replace(/(\d+\.\d+|\d)\)/gi, `${alpha})`);
+
+			} else {
+				let colors = ['30, 30, 40', '255, 255, 255'];
+				newcss = newcss.replace(
+					new RegExp(`${isDark ? colors[1] : colors[0]}, (\\d+\\.\\d+|\\d)`,'gi'),
+					`${isDark ? colors[0] : colors[1]}, ${alpha}`
+				);
+			}
+
+			$('body').attr('style',`background-image:${newcss}!important`);
+
+			bgChanging = 0;
+			// Listen start
+			observer.observe(document.body, {attributes: true});
+		}
+
 		let observer = new unsafeWindow.MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
 				let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
@@ -672,7 +697,7 @@
 		// Disable video auto play
 		$('video').removeAttr('autoplay');
 
-		// The following is the on ecchi mode
+		// The following is the on ecchi mode --------------------------------------
 		if (!gmCfg.ecchiMode.get()) {
 			return;
 		}
@@ -747,30 +772,6 @@
 			// Listen start
 			observer.observe(document.body, {attributes: true});
 		};
-
-		function ChangeBgColor(alpha, onlyAlpha){
-			// Listen stop
-			observer.disconnect();
-			bgChanging = 1;
-
-			let newcss = $('body').css('background-image');
-			if(onlyAlpha){
-				newcss = newcss.replace(/(\d+\.\d+|\d)\)/gi, `${alpha})`);
-
-			} else {
-				let colors = ['30, 30, 40', '255, 255, 255'];
-				newcss = newcss.replace(
-					new RegExp(`${isDark ? colors[1] : colors[0]}, (\\d+\\.\\d+|\\d)`,'gi'),
-					`${isDark ? colors[0] : colors[1]}, ${alpha}`
-				);
-			}
-
-			$('body').attr('style',`background-image:${newcss}!important`);
-
-			bgChanging = 0;
-			// Listen start
-			observer.observe(document.body, {attributes: true});
-		}
 
 		function startBgAni(show){
 			bgAlpha += show ? -.05 : .05;
