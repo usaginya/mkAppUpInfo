@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.1.3
+// @version      3.1.4
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -336,6 +336,8 @@
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark .x-interact-publish-cont-topic{background-color:#1115}
+	.darkmode.dark .new-pmd .c-tag{background-color:#1113}
+	.darkmode.dark .new-pmd .c-tag:hover{background-color:#111c}
 	.darkmode.dark .col-header .overview-display-wrap li::after,
 	 .darkmode.dark .col-header .col-overview-desc::before,.darkmode.dark .col-header .col-overview-display::before{background:#999}
 	.darkmode.dark .op_exactqa_word_how_read,.darkmode.dark .op_exactqa_word_mp3_play{mix-blend-mode:color-burn}
