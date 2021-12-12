@@ -203,7 +203,7 @@
 	.x-interact-publish .emoj-panel{margin:0 12px;width:96%;right:0!important}
 	.xdp .no-margin-left{margin-right:10px}
 	.darkmode.dark input:not(#kw){background-color:#2228}
-	.darkmode.dark [class*=input_]{color:#eee}
+	.darkmode.dark [class*=input_],.darkmode.dark .op_translation_usertip{color:#eee}
 	.darkmode.dark #aging-tools-pc>div{background:#0004!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
 	.darkmode.dark #aging-tools-pc>div div[class*=item-text]{color:#aaa}
@@ -389,6 +389,7 @@
 	.darkmode.dark [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]){background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover{background-color:#0005!important;color:#b9f}
+	.darkmode.dark .op_translation_textbg{background:unset;color:#eee;font:10pt Microsoft-Yahei,sans-serif}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -400,6 +401,8 @@
 	.legitRipple-ripple:before{content:"";padding-top:100%;display: block}
 	img ~ .legitRipple-ripple{z-index:auto}
 	</style>`;
+
+	let onSearchInitCss = `<style id="gm_ebdinitbg">html,body,#head{background:#333;color:#aaa}</style>`;
 
 	let acCenterPatch = `<style>#con-at .result-op{margin:0 auto;left:-2%}</style>`;
 
@@ -536,7 +539,7 @@
 		}
 
 		isDark = 0;
-		$('head').append(`<style id="gm_ebdinitbg">html,body,#head{background:#334;color:#aaa}</style>`);
+		$('head').append(onSearchInitCss);
 		let intervalInit = setInterval(()=>{
 			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
 			if(!bddkmode){
@@ -545,7 +548,7 @@
 					$('head').append(darkmodeScrollbarCss);
 				}
 			}
-		},300);
+		},100);
 		setTimeout(()=>{clearInterval(intervalInit);},3000);
 	}
 
@@ -630,6 +633,7 @@
 					if(isDark){
 						$('body').removeClass(pMenuDarkMode.data('cssDarkMode'));
 						$('#gmdarkscrollbar').remove();
+						$('#gm_ebdinitbg').remove();
 					}else{
 						$('body').addClass(pMenuDarkMode.data('cssDarkMode'));
 						if($('#gmdarkscrollbar').length < 1){
@@ -699,7 +703,7 @@
 		// Disable video auto play
 		$('video').removeAttr('autoplay');
 
-		// The following is the on ecchi mode --------------------------------------
+		// The following is the on ecchi mode ---------------------------------------------------------------------------
 		if (!gmCfg.ecchiMode.get()) {
 			return;
 		}
