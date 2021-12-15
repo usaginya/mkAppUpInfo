@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.1.7
+// @version      3.1.8
 // @description  萌化度娘搜索18+限制级
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -403,7 +403,7 @@
 	img ~ .legitRipple-ripple{z-index:auto}
 	</style>`;
 
-	let onSearchInitCss = `<style id="gm_ebdinitbg">html,body,#head{background:#333;color:#aaa}</style>`;
+	let onSearchInitCss = `<style id="gm_ebdinitbg">html,body,#head{background:#333!important;color:#aaa!important}</style>`;
 
 	let acCenterPatch = `<style>#con-at .result-op{margin:0 auto;left:-2%}</style>`;
 
