@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.1.8
-// @description  萌化度娘搜索18+限制级
+// @version      3.1.9
+// @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
 // @match        *://www.baidu.com/*
@@ -217,14 +217,15 @@
 	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_]{color:#f77!important}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode.dark a:not(span):not([class*=op_weather]):not(.OP_LOG_LINK),.darkmode.dark h3[class*=title_],
+	.darkmode.dark a:not(span):not([class*=op_weather]):not(.OP_LOG_LINK):not(.header .c-btn),.darkmode.dark h3[class*=title_],
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
 	 .darkmode.dark [class*=time_li_]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_]{color:#9db2ff}
-	.darkmode.dark a:hover:not([class*=op_weather]),.darkmode.dark #u>a:hover:not([name*=login]),.darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
+	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
+	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
 	 .darkmode.dark [class*=time_li_]:hover{color:#b9f!important}
 	.darkmode.dark [class*=active_color_],.darkmode.dark [class*=active_color_] span,.darkmode.dark [class*=pick_color]{color:#89f!important}
@@ -239,7 +240,8 @@
 	.darkmode.dark .search_tool_conter span,.darkmode.dark .new-pmd .cr-title{color:#909cb3!important}
 	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
-	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li{color:#aaa!important}
+	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
+	 .darkmode .op_exactqa_gray{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_]{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
@@ -280,7 +282,7 @@
 	.darkmode.dark .wrapper_new #form .bdsug-new ul{border-top:2px solid #f5f5f630}
 	.darkmode.dark .wrapper_new #form .bdsug-new .bdsug-s{background-color:#222!important}
 	.darkmode.dark .wrapper_new #form .bdsug-new ul li b{color:#848797}
-	.darkmode.dark .c-gap-bottom-small,.darkmode.dark .c-gap-top-large [class*=tag-item-selected],
+	.darkmode.dark .c-gap-top-large [class*=tag-item-selected],
 	 .darkmode.dark .result-op [class*=list-num],.darkmode.dark .op_express_delivery_input span,
 	 .darkmode.dark .op_exactqa_word_word_text,.darkmode.dark .op_exactqa_word_word_pronounce,
 	 .darkmode.dark #c-tip-custom-calenderCont{color:#eee}
@@ -318,7 +320,8 @@
 	.darkmode.dark .op_express_delivery_hot li{border-color:#777 #777 #777 transparent}
 	.darkmode.dark .new-pmd .se_st_icon_book,.darkmode.dark .new-pmd .se_st_icon_download,
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
-	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text{color:#bbb}
+	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
+	 .darkmode.dark .op_exactqa_detail_word_pronounce{color:#bbb}
 	.darkmode.dark .result-op [class*=card_]{background:#333b;backdrop-filter:blur(8px)}
 	.darkmode.dark .soutu-layer .soutu-url-wrap,.darkmode.dark .c-select-selection,.darkmode.dark .c-select-dropdown{background:#333}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
@@ -341,8 +344,10 @@
 	.darkmode.dark .col-header .overview-display-wrap li::after,
 	 .darkmode.dark .col-header .col-overview-desc::before,.darkmode.dark .col-header .col-overview-display::before{background:#999}
 	.darkmode.dark .op_exactqa_word_how_read,.darkmode.dark .op_exactqa_word_mp3_play{mix-blend-mode:color-burn}
-	.darkmode.dark .ask-doctor-card .ask-doctor-btn{background:#2228}
-	.darkmode.dark .ask-doctor-card .ask-doctor-btn:hover{background:#1118;color:#a088ff!important}
+	.darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]),
+	 .darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)){background:#2228;color:#bbb}
+	.darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover,
+	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):hover{background:#1118;color:#a088ff!important}
 	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,
 	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
 	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2222!important}
@@ -359,7 +364,8 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
 	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,
 	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3,.darkmode.dark [class*=car-pc-series-color]{color:#909cb3}
-	.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,.darkmode.dark .xcp-list-title,.darkmode.dark .nors p{color:#aaa}
+	.darkmode.dark .c-gap-bottom-small,.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,
+	 .darkmode.dark .xcp-list-title,.darkmode.dark .nors p,.darkmode.dark .content *{color:#aaa}
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
 	.darkmode.dark .x-interact-publish .emoj-panel,.darkmode.dark [class*=car-pc-series-table]{background:#1118}
@@ -367,7 +373,8 @@
 	 .darkmode.dark .op_weather4_jslul span{color:#fff!important}
 	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,
 	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline,.darkmode.dark .c-tabs-nav,
-	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline]{border-bottom:1px solid #556}
+	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline],
+	 .darkmode.dark [class*=head-container_]{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
@@ -391,6 +398,13 @@
 	.darkmode.dark [class*=pop_over_] li:hover{background-color:#0005!important;color:#b9f}
 	.darkmode.dark .op_translation_textbg{background:unset;color:#eee;font:10pt Microsoft-Yahei,sans-serif}
 	.darkmode.dark #container.sam_newgrid .c-showurl{color:#88a}
+	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content{background-color:#111a;backdrop-filter:blur(5px)}
+	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content .popover-arrow{color:#1119}
+	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content .popover-inner{background-color:#0000}
+	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content .actions .btn{background-color:#3337}
+	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content .actions .btn:hover{background-color:#000a}
+	.darkmode.dark section.header{filter:opacity(.7);transition-duration:.3s}
+	.darkmode.dark section.header:hover{filter:initial}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -549,8 +563,8 @@
 					$('head').append(darkmodeScrollbarCss);
 				}
 			}
-		},300);
-		setTimeout(()=>{clearInterval(intervalInit);},3800);
+		},100);
+		setTimeout(()=>{clearInterval(intervalInit);},3999);
 	}
 
 	//------ Search Page ------
@@ -579,6 +593,18 @@
 		// Listen body class change to dark mode
 		let bgChanging;
 
+		let observer = new unsafeWindow.MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
+				isDark = !isDark ? bddkmode : isDark;
+				if(isDark && !bddkmode){
+					$('body').addClass('darkmode dark');
+				}
+				if(bgChanging){ return; }
+				ChangeBgColor(.8);
+			});
+		});
+
 		function ChangeBgColor(alpha, onlyAlpha) {
 			// Listen stop
 			observer.disconnect();
@@ -602,18 +628,6 @@
 			// Listen start
 			observer.observe(document.body, {attributes: true});
 		}
-
-		let observer = new unsafeWindow.MutationObserver(function(mutations) {
-			mutations.forEach(function(mutation) {
-				let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
-				isDark = !isDark ? bddkmode : isDark;
-				if(isDark && !bddkmode){
-					$('body').addClass('darkmode dark');
-				}
-				if(bgChanging){ return; }
-				ChangeBgColor(.8);
-			});
-		});
 
 		// Add ripples
 		function ReAddRipples(){
@@ -674,7 +688,7 @@
 				clearInterval(intervalAddDarkModeMenu);
 				clearTimeout(setTimeoutAddDarkModeMenu);
 			}
-		},100);
+		},200);
 		// Limit add dark mode menu time
 		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),5000);
 
@@ -885,10 +899,7 @@
 	//------ Run on home ------
 	if(window.location.href.indexOf('.com/s')<0)
 	{
-		setTimeout(()=>{
-			ecchiOnHome();
-		}, 500);
-
+		ecchiOnHome();
 		registerMenu();
 		return;
 	}
@@ -896,11 +907,7 @@
 	//------ Run on search page ------
 	if(window.location.href.indexOf('.com/s')>0) {
 		ecchiOnSearchInit();
-
-		setTimeout(()=>{
-			ecchiOnSearch();
-		}, 500);
-
+		ecchiOnSearch();
 		registerMenu();
 		return;
 	}
