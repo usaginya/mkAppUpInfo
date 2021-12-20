@@ -346,8 +346,10 @@
 	.darkmode.dark .op_exactqa_word_how_read,.darkmode.dark .op_exactqa_word_mp3_play{mix-blend-mode:color-burn}
 	.darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]),
 	 .darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)){background:#2228;color:#bbb}
+	.darkmode.dark .result-op [class*=tag-item_]:not([class*=tag-item-active_]){background:#2228!important;color:#bbb!important}
 	.darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover,
-	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):hover{background:#1118;color:#a088ff!important}
+	 .darkmode.dark .result-op [class*=tag-item_]:not([class*=tag-item-active_]):hover,
+	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):hover{background:#1118!important;color:#a088ff!important}
 	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,
 	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
 	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2222!important}
