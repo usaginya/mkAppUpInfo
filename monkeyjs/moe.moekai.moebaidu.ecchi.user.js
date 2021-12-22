@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.1.9
+// @version      3.2.0
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -214,7 +214,7 @@
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] button:hover{color:#7bf}
 	.darkmode.dark #aging-tools-pc>div div[class|=float]{background:#222b!important}
 	.darkmode.blue{background-color:#141e42cc!important}
-	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_]{color:#f77!important}
+	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_],.darkmode.dark .op-weather-province-city{color:#f77!important}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
 	.darkmode.dark a:not(span):not([class*=op_weather]):not(.OP_LOG_LINK):not(.header .c-btn),.darkmode.dark h3[class*=title_],
@@ -376,7 +376,7 @@
 	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,
 	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline,.darkmode.dark .c-tabs-nav,
 	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline],
-	 .darkmode.dark [class*=head-container_]{border-bottom:1px solid #556}
+	 .darkmode.dark [class*=head-container_],.darkmode.dark .op-weather-province-item{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
