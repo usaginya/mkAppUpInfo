@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.2.0
+// @version      3.2.1
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -295,7 +295,8 @@
 	 .darkmode.dark .result-op [class*=tabs-] a,.darkmode.dark .result-op [class*=tags-] span{background-color:#2225}
 	.darkmode.dark .result-op [class*=main-tabs_] [class*=tab-item-selected]{background-color:#777}
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
-	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table{background:#0000}
+	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table,
+	 .darkmode.dark .op-b2b-find-all{background:#0000}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]{background:#f5f5f6a0!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]:hover{background:#f0f0f1db!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=content-thead]{color:#aaa!important}
@@ -695,30 +696,44 @@
 		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),5000);
 
 		// On preloader
-		let interval_addrip;
-		$('#content_left').on('DOMNodeInserted',(e)=>{
-			if(interval_addrip || !e.target.className) return;
+		setTimeout(()=> {
+			let interval_addrip;
+			$('#content_left').on('DOMNodeInserted',(e)=>{
 
-			interval_addrip = setTimeout(()=>{
-				if(e.target.className.indexOf('ripple') > -1){
-					interval_addrip = null;
-					return;
+				if (e.target.nodeName !== 'DIV') { return; }
+
+				let $this = $(e.target);
+
+				if(!interval_addrip && e.target.className) {
+					interval_addrip = setTimeout(()=>{
+						if(e.target.className.indexOf('ripple') > -1){
+							interval_addrip = null;
+							return;
+						}
+						ReAddRipples();
+						interval_addrip = null;
+					},900);
 				}
-				ReAddRipples();
-				interval_addrip = null;
-			},800);
 
-			//Fix style occlusion
-			$('.result-op[tpl*="bk_"] .c-img-border').remove()
-		});
+				//Fix style occlusion
+				let tql = $this.attr('tql');
+				if (tql && tql.indexOf('bk_')) {
+					$this.find('.c-img-border').remove();
+				}
 
-		// Patch ac style
-		if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
-			$('head').append(acCenterPatch);
-		}
+				// Remove promotion results
+				$this.find('[data-placeid]').remove();
+			});
 
-		// Disable video auto play
-		$('video').removeAttr('autoplay');
+			// Patch ac style
+			if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
+				$('head').append(acCenterPatch);
+			}
+
+			// Disable video auto play
+			$('video').removeAttr('autoplay');
+
+		}, 900);
 
 		// The following is the on ecchi mode ---------------------------------------------------------------------------
 		if (!gmCfg.ecchiMode.get()) {
