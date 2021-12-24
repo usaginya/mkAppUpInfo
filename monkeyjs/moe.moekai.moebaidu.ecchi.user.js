@@ -215,6 +215,7 @@
 	.darkmode.dark #aging-tools-pc>div div[class|=float]{background:#222b!important}
 	.darkmode.blue{background-color:#141e42cc!important}
 	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_],.darkmode.dark .op-weather-province-city{color:#f77!important}
+	.darkmode.dark .result-op [class*=up_]{color:#f77}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
 	.darkmode.dark a:not(span):not([class*=op_weather]):not(.OP_LOG_LINK):not(.header .c-btn),.darkmode.dark h3[class*=title_],
@@ -223,7 +224,7 @@
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
 	 .darkmode.dark [class*=time_li_]{color:#9db2ff!important}
-	.darkmode.dark [class*=normal_color_]{color:#9db2ff}
+	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_]{color:#9db2ff}
 	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
