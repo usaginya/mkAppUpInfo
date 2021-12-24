@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.2.1
+// @version      3.2.2
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -345,12 +345,12 @@
 	.darkmode.dark .col-header .overview-display-wrap li::after,
 	 .darkmode.dark .col-header .col-overview-desc::before,.darkmode.dark .col-header .col-overview-display::before{background:#999}
 	.darkmode.dark .op_exactqa_word_how_read,.darkmode.dark .op_exactqa_word_mp3_play{mix-blend-mode:color-burn}
-	.darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]),
+	.darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)),
 	 .darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)){background:#2228;color:#bbb}
 	.darkmode.dark .result-op [class*=tag-item_]:not([class*=tag-item-active_]){background:#2228!important;color:#bbb!important}
 	.darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover,
 	 .darkmode.dark .result-op [class*=tag-item_]:not([class*=tag-item-active_]):hover,
-	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):hover{background:#1118!important;color:#a088ff!important}
+	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover{background:#1118!important;color:#a088ff!important}
 	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,
 	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
 	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2222!important}
