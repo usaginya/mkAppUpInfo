@@ -561,6 +561,7 @@
 
 			// Open dark
 			if(isDark){
+				$('head').append(darkmodeScrollbarCss);
 				let intervalSetCss = setInterval(()=>{
 					if($('body').hasClass(darkModeMenu.data('cssDarkMode')))
 					{ return; }
@@ -588,6 +589,7 @@
 
 		isDark = 0;
 		$('body').addClass('darkmode dark');
+		$('head').append(darkmodeScrollbarCss);
 		$('head').append(onSearchInitCss);
 		let intervalInit = setInterval(()=>{
 			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
