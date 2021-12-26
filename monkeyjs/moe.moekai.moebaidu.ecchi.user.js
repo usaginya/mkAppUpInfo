@@ -27,7 +27,21 @@
 	.darkmode.dark .login-type-tab .switch-item.activ,.darkmode.dark .tang-pass-pop-login .pass-text-input{color:#ccc}
 	.darkmode.dark .compose-left-container{border-right:1px solid #555}
 	.darkmode.dark .tang-pass-pop-login .pass-item-timer,
-	 .darkmode.dark .tang-pass-pop-login .pass-item-time-timing{background-color:#0000}
+	 .darkmode.dark .tang-pass-pop-login .pass-item-time-timing,
+	 .darkmode.dark .c-radio-inner,.darkmode.dark .c-checkbox-inner,
+	 .darkmode.dark [class*=dis_able],.darkmode.dark [class*=time_li_]{background-color:#0000}
+	.darkmode.dark .soutu-layer .soutu-url-wrap,.darkmode.dark .c-select-selection,
+	 .darkmode.dark .c-select-dropdown{background:#333d;backdrop-filter:blur(8px)}
+	.darkmode.dark .bdlayer{background:#112b;backdrop-filter:blur(5px)}
+	.darkmode.dark .advanced-setting .adv-input-prepend{background:#2228}
+	.darkmode.dark .pfpanel-bd{color:#888!important}
+	.darkmode.dark .pftab .pftab_hd{color:#aaa}
+	.darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend{color:#9db2ff!important}
+	.darkmode.dark .c-input{color:#eee}
+	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,
+	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
+	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2225!important}
+	.darkmode.dark .c-radio-checked + .setting-radio-label{color:#ddd!important}
 	</style>`
 
 	let st = `<style>
@@ -236,10 +250,9 @@
 	.darkmode.dark .result-op [class*=up_]{color:#f77}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode.dark a:not([class*=op_weather]):not(.OP_LOG_LINK):not(.header .c-btn),.darkmode.dark h3[class*=title_],
+	.darkmode.dark a:not([class*=op_weather]):not(.OP_LOG_LINK):not(.c-btn),.darkmode.dark h3[class*=title_],
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
-	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
 	 .darkmode.dark [class*=time_li_]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_]{color:#9db2ff}
@@ -253,7 +266,7 @@
 	.darkmode .s_ipt_wr{background:#3337!important}
 	.darkmode .s_ipt_wr input,.darkmode [class*=input-color] input{color:#aaa}
 	.darkmode .s_ipt_wr:hover{background:#2228!important}
-	.darkmode .s_ipt_wr:hover input,.darkmode.dark .c-input{color:#eee}
+	.darkmode .s_ipt_wr:hover input{color:#eee}
 	.darkmode.dark #u>a[name*=login]:hover{color:#eee!important}
 	.darkmode .cr-content a,.darkmode.dark .search_tool,.darkmode.dark .securityplan .hint_right_content
 	.darkmode.dark .search_tool_conter span,.darkmode.dark .new-pmd .cr-title{color:#909cb3!important}
@@ -308,7 +321,7 @@
 	.darkmode.dark .c-btn,.darkmode.dark .result-op [class*=episode-btn],
 	 .darkmode.dark div[class*=gameinfo] [class*=item_]{background-color:#2228}
 	.darkmode.dark .c-btn:active{-webkit-box-shadow:inset 1px 1px 0px #000,inset -1px -1px 0px #555}
-	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark c-tabs-item,.darkmode.dark .c-input{background-color:#2228!important}
+	.darkmode.dark .sam_newgrid~#page a{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff!important}
 	.darkmode.dark .result-op [class*=tabs-],.darkmode.dark .c-gap-top-large [class*=tag-item],
 	 .darkmode.dark .result-op [class*=tabs-] a,.darkmode.dark .result-op [class*=tags-] span{background-color:#2225}
@@ -344,13 +357,10 @@
 	 .darkmode.dark .op_exactqa_detail_word_pronounce{color:#bbb}
 	.darkmode.dark .result-op [class*=card_],.darkmode.dark .result-op [class*=right-btn_]{background:#333b;backdrop-filter:blur(8px)}
 	.darkmode.dark .result-op [class*=boiling-btn_]{background-color:#333b!important;backdrop-filter:blur(8px)}
-	.darkmode.dark .soutu-layer .soutu-url-wrap,.darkmode.dark .c-select-selection,.darkmode.dark .c-select-dropdown{background:#333}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-error,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-waiting{background:#222d}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-drop{background:#2222}
-	.darkmode.dark .bdlayer,.darkmode.dark .advanced-setting .adv-input-prepend{background:#112b;backdrop-filter:blur(5px)}
-	.darkmode.dark .c-radio-inner,.darkmode.dark .c-checkbox-inner,.darkmode.dark [class*=dis_able],.darkmode.dark [class*=time_li_]{background-color:#0000}
 	.darkmode.dark .op_new_cal_screen,.darkmode.dark [data-pmd] .c-container,
 	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
 	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,
@@ -373,9 +383,7 @@
 	 .darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover,
 	 .darkmode.dark .result-op [class*=tag-item_]:not([class*=tag-item-active_]):hover,
 	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover{background:#1118!important;color:#a088ff!important}
-	.darkmode.dark .sam_newgrid~#page a,.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,
-	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
-	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2222!important}
+	.darkmode.dark .sam_newgrid~#page a{background:#2222!important}
 	.darkmode.dark .c-dropdown2:hover .c-dropdown2-btn-icon-border,.darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border,
 	 .darkmode.dark .c-tabs-item .c-btn:hover,.darkmode.dark .result-op [class*=tags-] span:hover{background:#222!important}
 	.darkmode.dark .c-dropdown2 .c-dropdown2-menu,.darkmode.dark [class*=data-tip]{background:#222b;backdrop-filter:blur(5px)}
@@ -579,6 +587,7 @@
 		}
 
 		isDark = 0;
+		$('body').addClass('darkmode dark');
 		$('head').append(onSearchInitCss);
 		let intervalInit = setInterval(()=>{
 			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
@@ -589,7 +598,7 @@
 				}
 			}
 		},100);
-		setTimeout(()=>{clearInterval(intervalInit);},3999);
+		setTimeout(()=>{clearInterval(intervalInit);},3800);
 	}
 
 	//------ Search Page ------
