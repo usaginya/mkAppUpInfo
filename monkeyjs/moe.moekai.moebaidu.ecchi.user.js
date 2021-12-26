@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.2.3
+// @version      3.2.4
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -21,6 +21,7 @@
 (function(){
 	//--------------- STYLE -----------------------------------------
 	let gb = `<style>
+	html{overflow-y:auto}
 	.pass-qrcode-download{display:none!important}
 	.darkmode.dark .tang-pass-pop-login div.tang-body{color:#bbb;background-color:#222;box-shadow:1px 5px 12px 0 #4e6ff24d}
 	.darkmode.dark .login-type-tab .switch-item.activ,.darkmode.dark .tang-pass-pop-login .pass-text-input{color:#ccc}
@@ -32,8 +33,7 @@
 	let st = `<style>
 	#lg img{opacity:.2;transition:opacity 1s}
 	#lg:hover img{opacity:.9}
-	#head_wrapper.s-ps-islite #s_lg_img,#head_wrapper.s-ps-islite #s_lg_img_aging,
-	 #head_wrapper.s-ps-islite #s_lg_img_new{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
+	#head_wrapper #lg [id*=s_lg_img]{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
 	#su{background:#0072ffa8!important}
 	#su:hover{background:#0072ffcc!important}
 	#kw,#soutu-url-kw{border-color:#0072ffa8!important;background:#fffa!important}
@@ -69,7 +69,7 @@
 	#aging-tools-pc>div div[class|=item]:hover>div[class|=icon],
 	 #aging-tools-pc>div div[class|=item][class*=checked]>div[class|=icon]{background-color:#6d87f2!important}
 	#aging-tools-pc>div div[class|=pop]{background:#fffc;backdrop-filter:blur(10px)}
-	.darkmode.dark input:not(#kw){background-color:#2228}
+	.darkmode.dark input:not(#kw),.darkmode #s_side_wrapper{background-color:#2228}
 	.darkmode.dark [class*=input_]{color:#eee}
 	.darkmode.dark{background-color:#1f1f25cc!important}
 	.darkmode.dark #bottom_layer,.darkmode.dark #head,.darkmode.dark #s_menu_gurd.s-down,
@@ -80,22 +80,39 @@
 	.darkmode.dark #aging-tools-pc>div div[class*=item-text]{color:#aaa}
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] div[class*=barBac]{background:#0006}
 	.darkmode.dark #aging-tools-pc>div div[class|=pop]{background:#0006}
-	.darkmode.dark #aging-tools-pc>div div[class|=pop]>div[class*=left]{color:#ddd}
+	.darkmode.dark #aging-tools-pc>div div[class|=pop]>div[class*=left],
+	 .darkmode .c-color-gray,.darkmode .news-meta-item:nth-of-type(n+4) .c-index-single{color:#ddd}
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] button{background:#5555;color:#ddd}
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] button:hover{color:#7bf}
-	.darkmode.dark #aging-tools-pc>div div[class|=float]{background:#222b!important}
-	.darkmode.dark .s-skin-hasbg #s_main{background:#22222555}
-	.darkmode.dark .s-skin-hasbg #s_main:hover{background:#22222599}
+	.darkmode.dark #aging-tools-pc>div div[class|=float],.darkmode #s_side_wrapper .side-entry .toast{background:#222b!important}
+	.darkmode.dark .s-skin-hasbg #s_main,.darkmode.dark .s-block-nav .nav-item-edit{background:#22222555}
+	.darkmode.dark .s-skin-hasbg #s_main:hover,.darkmode.dark .s-top-left-new .s-top-more .s-top-more-content>a:hover,
+	 .darkmode.dark .s-mod-setweather .setweather-content .everyday-mod .everyday-item:hover,
+	 .darkmode.dark .s-top-left-new .s-top-more .s-top-tomore:hover,
+	 .darkmode.dark .edting-block .d-nav-item .border-for-item,.darkmode.dark .edting-block .nav-item .border-for-item{background:#22222599}
 	.darkmode.dark .s-top-more,.darkmode.dark .soutu-hover-tip,.darkmode.dark .s-mod-setweather,
 	 .darkmode.dark .c-floating-box{background:#333b!important}
-	.darkmode.dark .soutu-hover-tip{color:#eee}
+	.darkmode.dark .soutu-hover-tip,.darkmode .c-color-gray2{color:#eee}
 	.darkmode #s-user-name-menu a,.darkmode #s-user-name-menu a:visited,.darkmode #s-user-setting-menu a,
 	 .darkmode #s-user-setting-menu a:visited{color:#b9a260}
 	.darkmode #s-user-name-menu a:hover,.darkmode #s-user-setting-menu a:hover{color:#fff762}
 	.darkmode.dark .setweather-content .warn-mod{background:#30303050!important}
-	.darkmode.dark .title-content:hover,.darkmode.dark .hot-refresh:hover .c-icon,.darkmode.dark .hot-refresh:hover .hot-refresh-text{color:#5af}
+	.darkmode.dark .s-mod-setweather .setweather-content .lunar-mod .lunar-sevenday,.darkmode .s-nav-wrapper .nav-block:hover,
+	 .darkmode.dark .s-code-blocks .s-setbar .set-menu .edit-class .selected,.darkmode.dark .s-top-left-new .s-top-more .s-top-tomore:hover a,
+	 .darkmode.dark .s-top-left-new .s-top-more .s-top-more-content>a:hover .s-top-more-title{color:#50bfff}
+	.darkmode.dark .hot-refresh .hot-refresh-text{color:#fff762!important}
+	.darkmode.dark .title-content:hover,.darkmode.dark .hot-refresh:hover .c-icon,
+	 .darkmode.dark .hot-refresh:hover .hot-refresh-text{color:#5af!important}
 	#s_side_wrapper{opacity:.3;transition:.3s}
 	#s_side_wrapper:hover{opacity:.9}
+	.darkmode .c-color-text,.darkmode .s-block-stock .stock-item .stock-highprice,.darkmode .s-block-stock .stock-item .stock-lowprice,
+	 .darkmode .s-block-stock .stock-item .stock-updatetime,.darkmode .s-skin-hasbg .s-block-stock .stock-banner,
+	 .darkmode .s-xmancard-mine_new .tips-manager-btn .manager-btn-text{color:#cef}
+	.darkmode .s-xmancard-mine_new .edting-btn-text .manager-btn-text,
+	 .darkmode .s-xmancard-mine_new .tips-manager-btn .manager-btn-text:hover,
+	 .darkmode .s-mod-setweather .setweather-content .lunar-mod .lunar-setting-btn:hover .lunar-settint-text{color:#fff!important}
+	.darkmode.dark .s-ctner-contents .s-loading .load-done,.darkmode.dark .s-ctner-contents .s-loading .load-text,
+	 .darkmode.dark .s-ctner-contents .s-loading img{filter:brightness(0.7)}
 	::-webkit-scrollbar{width:1rem;height:1rem}
 	::-webkit-scrollbar-track-piece:vertical{background:#fff;box-shadow:inset 8px 0 8px #d3dbe0, inset -2px 0 8px #f5f5f5}
 	::-webkit-scrollbar-track-piece:horizontal{background:#fff;box-shadow:inset 0 8px 8px #d3dbe0, inset 0 -2px 8px #f5f5f5}
@@ -180,7 +197,8 @@
 	.col-header-wrap::before{background:-webkit-linear-gradient(150deg,#00d3ea6b,#00cfa3b0)!important;background:linear-gradient(-60deg,#00d3ea6b,#00cfa3b0)!important}
 	div .sp-separator{width:100%;background-color:#fffa!important;backdrop-filter:blur(6px);transition-duration:.3s}
 	div .sp-separator:hover{transition-duration:.3s}
-	.result-op [class*=card_]{background:#fffc;backdrop-filter:blur(8px)}
+	.result-op [class*=card_],.result-op [class*=right-btn_]{background:#fffc;backdrop-filter:blur(8px)}
+	.result-op [class*=boiling-btn_]{background-color:#fffc!important;backdrop-filter:blur(8px)}
 	::-webkit-scrollbar{width:.16rem;height:.17rem}
 	::-webkit-scrollbar-track-piece:vertical{background:#fff;box-shadow:inset 8px 0 8px #d3dbe0, inset -2px 0 8px #f5f5f5}
 	::-webkit-scrollbar-track-piece:horizontal{background:#fff;box-shadow:inset 0 8px 8px #d3dbe0, inset 0 -2px 8px #f5f5f5}
@@ -218,7 +236,7 @@
 	.darkmode.dark .result-op [class*=up_]{color:#f77}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode.dark a:not(span):not([class*=op_weather]):not(.OP_LOG_LINK):not(.header .c-btn),.darkmode.dark h3[class*=title_],
+	.darkmode.dark a:not([class*=op_weather]):not(.OP_LOG_LINK):not(.header .c-btn),.darkmode.dark h3[class*=title_],
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .pftab .pftab_hd .cur,.darkmode.dark .advanced-setting .adv-input-prepend,
@@ -228,7 +246,7 @@
 	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
-	 .darkmode.dark [class*=time_li_]:hover{color:#b9f!important}
+	 .darkmode.dark [class*=time_li_]:hover{color:#c8f!important}
 	.darkmode.dark [class*=active_color_],.darkmode.dark [class*=active_color_] span,.darkmode.dark [class*=pick_color]{color:#89f!important}
 	.darkmode .s_ipt_wr{border:2px solid #556}
 	.darkmode .s_ipt_wr:hover{border-color:#99a}
@@ -324,7 +342,8 @@
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
 	 .darkmode.dark .op_exactqa_detail_word_pronounce{color:#bbb}
-	.darkmode.dark .result-op [class*=card_]{background:#333b;backdrop-filter:blur(8px)}
+	.darkmode.dark .result-op [class*=card_],.darkmode.dark .result-op [class*=right-btn_]{background:#333b;backdrop-filter:blur(8px)}
+	.darkmode.dark .result-op [class*=boiling-btn_]{background-color:#333b!important;backdrop-filter:blur(8px)}
 	.darkmode.dark .soutu-layer .soutu-url-wrap,.darkmode.dark .c-select-selection,.darkmode.dark .c-select-dropdown{background:#333}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-error,
@@ -539,8 +558,8 @@
 					{ return; }
 					isDark = 0;
 					darkModeMenu.click();
-				},500);
-				setTimeout(()=>clearInterval(intervalSetCss),1000);
+				},300);
+				setTimeout(()=>clearInterval(intervalSetCss),3000);
 			}
 		}
 
