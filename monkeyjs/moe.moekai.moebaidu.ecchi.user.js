@@ -23,6 +23,7 @@
 	let gb = `<style>
 	html{overflow-y:auto}
 	.pass-qrcode-download{display:none!important}
+	.darkmode.dark .op_weather4_twoicon_bg{opacity:.5!important}
 	.darkmode.dark .tang-pass-pop-login div.tang-body{color:#bbb;background-color:#222;box-shadow:1px 5px 12px 0 #4e6ff24d}
 	.darkmode.dark .login-type-tab .switch-item.activ,.darkmode.dark .tang-pass-pop-login .pass-text-input{color:#ccc}
 	.darkmode.dark .compose-left-container{border-right:1px solid #555}
