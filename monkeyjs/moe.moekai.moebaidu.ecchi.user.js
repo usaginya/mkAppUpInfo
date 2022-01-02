@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.2.5
+// @version      3.2.6
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -255,12 +255,13 @@
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
-	 .darkmode.dark [class*=time_li_]{color:#9db2ff!important}
+	 .darkmode.dark [class*=time_li_],.darkmode.dark [class*=card-more-link]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_]{color:#9db2ff}
 	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
-	 .darkmode.dark [class*=time_li_]:hover{color:#c8f!important}
+	 .darkmode.dark [class*=time_li_]:hover,.darkmode.dark [class*=card-more-link]:hover,
+	 .darkmode.dark [class*=card-more_]:hover [class*=card-more-link]{color:#c8f!important}
 	.darkmode.dark [class*=active_color_],.darkmode.dark [class*=active_color_] span,.darkmode.dark [class*=pick_color]{color:#89f!important}
 	.darkmode .s_ipt_wr{border:2px solid #556}
 	.darkmode .s_ipt_wr:hover{border-color:#99a}
@@ -357,7 +358,8 @@
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
 	 .darkmode.dark .op_exactqa_detail_word_pronounce{color:#bbb}
 	.darkmode.dark .result-op [class*=card_],.darkmode.dark .result-op [class*=right-btn_]{background:#333b;backdrop-filter:blur(8px)}
-	.darkmode.dark .result-op [class*=boiling-btn_]{background-color:#333b!important;backdrop-filter:blur(8px)}
+	.darkmode.dark .result-op [class*=boiling-btn_],
+	 .darkmode.dark .result-op [class*=card-more_]:hover{background-color:#333b!important;backdrop-filter:blur(8px)}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-error,
 	 .darkmode.dark .soutu-env-new .soutu-layer .soutu-waiting{background:#222d}
