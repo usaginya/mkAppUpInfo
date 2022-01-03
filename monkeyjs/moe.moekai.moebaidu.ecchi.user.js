@@ -949,20 +949,23 @@
 
 	}
 
-	//------ Run on home ------
-	if(window.location.href.indexOf('.com/s')<0)
-	{
-		ecchiOnHome();
-		registerMenu();
-		return;
-	}
 
-	//------ Run on search page ------
-	if(window.location.href.indexOf('.com/s')>0) {
-		ecchiOnSearchInit();
-		ecchiOnSearch();
-		registerMenu();
-		return;
-	}
+	$(function(){
+		//------ Run on home ------
+		if(window.location.href.indexOf('.com/s')<0)
+		{
+			ecchiOnHome();
+			registerMenu();
+			return;
+		}
+
+		//------ Run on search page ------
+		if(window.location.href.indexOf('.com/s')>0) {
+			ecchiOnSearchInit();
+			ecchiOnSearch();
+			registerMenu();
+			return;
+		}
+	});
 
 })();
