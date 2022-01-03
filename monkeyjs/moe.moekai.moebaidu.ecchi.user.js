@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.2.6
+// @version      3.2.7
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -571,7 +571,7 @@
 					isDark = 0;
 					darkModeMenu.click();
 				},300);
-				setTimeout(()=>clearInterval(intervalSetCss),3000);
+				setTimeout(()=>clearInterval(intervalSetCss),5000);
 			}
 		}
 
