@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.2.7
+// @version      3.2.8
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -578,22 +578,20 @@
 	}
 
 	//------ Search Page Dark Mode Init ------
-	function ecchiOnSearchInit(){
+	// {bool} again - Initialize again when dom is loaded
+	function ecchiOnSearchInit(again){
 		let isDark = GM_getValue('openDark');
 		let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
 
 		isDark = !isDark ? bddkmode : isDark;
 
-		if(!isDark){
-			// Used to initialize button automatic switching
-			isDark = 1;
-			return;
-		}
+		if(!isDark){ return; }
 
-		isDark = 0;
 		$('body').addClass('darkmode dark');
-		$('head').append(darkmodeScrollbarCss);
-		$('head').append(onSearchInitCss);
+		$('head').append(darkmodeScrollbarCss).append(onSearchInitCss);
+
+		if(!again){ return; }
+
 		let intervalInit = setInterval(()=>{
 			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
 			if(!bddkmode){
@@ -950,6 +948,12 @@
 	}
 
 
+	//-- Priority processing --
+	if(window.location.href.indexOf('.com/s')>0) {
+		ecchiOnSearchInit();
+	}
+
+
 	$(function(){
 		//------ Run on home ------
 		if(window.location.href.indexOf('.com/s')<0)
@@ -961,7 +965,7 @@
 
 		//------ Run on search page ------
 		if(window.location.href.indexOf('.com/s')>0) {
-			ecchiOnSearchInit();
+			ecchiOnSearchInit(1);
 			ecchiOnSearch();
 			registerMenu();
 			return;
