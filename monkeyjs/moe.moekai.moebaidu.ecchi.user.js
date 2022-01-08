@@ -460,7 +460,7 @@
 	let bgImageCss = `body{background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat!important;
 	 background-attachment:fixed!important;background-repeat:no-repeat;background-position:center}`;
 
-	let bgCircleMaskSurface,bgCircleMaskInside = `{left:0;top:0;width:100%;height:100%;position:fixed;z-index:1;
+	let bgCircleMaskSurface,bgCircleMaskInside = `{left:0;top:0;width:100%;height:100%;position:fixed;z-index:-3;
 	background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat;background-attachment:fixed;background-repeat:no-repeat;background-position:center}`;
 
 	let darkmodeScrollbarCss = `<style id="gmdarkscrollbar">
@@ -587,10 +587,15 @@
 
 		if(!isDark){ return; }
 
-		$('body').addClass('darkmode dark');
-		$('head').append(darkmodeScrollbarCss).append(onSearchInitCss);
+		if(!again){
+			$('body').addClass('darkmode dark');
+			$('head').append(darkmodeScrollbarCss).append(onSearchInitCss);
+			return;
+		}
 
-		if(!again){ return; }
+		if($('#gm_ebdinitbg').length < 1) {
+			$('head').append(onSearchInitCss);
+		}
 
 		let intervalInit = setInterval(()=>{
 			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
