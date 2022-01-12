@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.3.0
+// @version      3.3.1
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -459,11 +459,14 @@
 
 	let acCenterPatch = `<style>#con-at .result-op{margin:0 auto;left:-2%}</style>`;
 
-	let bgImageCss = `body{background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat!important;
-	 background-attachment:fixed!important;background-repeat:no-repeat;background-position:center}`;
+	let bgImageCss = `body:before{content: '';position:fixed;top:0;left:0;height:100%;width:100%;animation:gmebdbgfadein .6s ease-in both}
+	body{background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat!important;
+	background-attachment:fixed!important;background-repeat:no-repeat;background-position:center}
+	@-webkit-keyframes gmebdbgfadein{ 0% {background:rgba(255,255,255,1)} 100% {background:rgba(255,255,255,0)} }`;
 
 	let bgCircleMaskSurface,bgCircleMaskInside = `{left:0;top:0;width:100%;height:100%;position:fixed;z-index:-3;
-	background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat;background-attachment:fixed;background-repeat:no-repeat;background-position:center}`;
+	background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat;background-attachment:fixed;
+	background-repeat:no-repeat;background-position:center}`;
 
 	let darkmodeScrollbarCss = `<style id="gmdarkscrollbar">
 	::-webkit-scrollbar-track-piece:vertical{background:#666!important;box-shadow:inset 8px 0 8px #222, inset -2px 0 8px #666!important}
@@ -799,12 +802,13 @@
 					Preloaded++;
 					if (Preloaded < 2) { return; }
 
-					let bgColor = '#ffffffc6';
 					bgImageCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
 
 					if(isDark){
-						bgColor = '#1e1e28cc';
-						bgImageCss = bgImageCss.replace(/#ffffffc6/ig, bgColor);
+						let bgColorA = '30,30,40,1',
+							bgColorB = '30,30,40,0',
+							bgColorC = '#1e1e28cc';
+						bgImageCss = bgImageCss.replace(/255,255,255,1/ig, bgColorA).replace(/255,255,255,0/ig, bgColorB).replace(/#ffffffc6/ig, bgColorC);
 					}
 					bgCircleMaskInside = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
 					bgCircleMaskSurface = `.bgCircleMaskSurface${bgCircleMaskInside}`
