@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.3.4
+// @version      3.3.5
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -193,11 +193,11 @@
 	#wrapper #content_left .result[tpl='soft'] .op-soft-title,#wrapper #content_left .result h3,#wrapper #content_left .c-container h3,
 	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container
 	.ms-measures-content .op-unit-tabs-nav-container,.ms-measures-content .tabs-nav,[class*=dis_able],[class*=time_li_],
-	 [class*=pop_over_] li{background-color:#fff0!important}
-	[class*=pop_over_] li:hover{background-color:#5bf3!important}
+	 [class*=pop_over_] li,[class*=select-container] li{background-color:#fff0!important}
+	[class*=pop_over_] li:hover,[class*=select-container] li:hover{background-color:#5bf3!important}
 	.c-tip-con [class*=menu] li a:hover{background-color:#ccc6!important;transition-duration:.3s}
 	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal,#container.sam_newgrid div[class*=has-content_],
-	 [class*=pop_over_]{background:#fffb!important;backdrop-filter:blur(3px)}
+	 [class*=select-container] ul,[class*=pop_over_]{background:#fffb!important;backdrop-filter:blur(3px)}
 	[class*=normal_color_]{background:#fffb}
 	[class*=input_]{background-color:#fffb}
 	[class*=dis_able]:not([class*=file_li_]){color:#88a!important}
@@ -212,7 +212,8 @@
 	.col-header-wrap::before{background:-webkit-linear-gradient(150deg,#00d3ea6b,#00cfa3b0)!important;background:linear-gradient(-60deg,#00d3ea6b,#00cfa3b0)!important}
 	div .sp-separator{width:100%;background-color:#fffa!important;backdrop-filter:blur(6px);transition-duration:.3s}
 	div .sp-separator:hover{transition-duration:.3s}
-	.result-op [class*=card_],.result-op [class*=right-btn_]{background:#fffc;backdrop-filter:blur(8px)}
+	.result-op [class*=card_]{padding:10px 16px}
+	.result-op [class*=card_],.result-op [class*=right-btn_]{background:#fff0;backdrop-filter:blur(3px);box-shadow:inset 0 0 12px 0 #0003}
 	.result-op [class*=boiling-btn_]{background-color:#fffc!important;backdrop-filter:blur(8px)}
 	::-webkit-scrollbar{width:.16rem;height:.17rem}
 	::-webkit-scrollbar-track-piece:vertical{background:#fff;box-shadow:inset 8px 0 8px #d3dbe0, inset -2px 0 8px #f5f5f5}
@@ -247,7 +248,8 @@
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] button:hover{color:#7bf}
 	.darkmode.dark #aging-tools-pc>div div[class|=float]{background:#222b!important}
 	.darkmode.blue{background-color:#141e42cc!important}
-	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_],.darkmode.dark .op-weather-province-city{color:#f77!important}
+	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_],.darkmode.dark .op-weather-province-city,
+	 .darkmode.dark [class*=error-tip]{color:#f77!important}
 	.darkmode.dark .result-op [class*=up_]{color:#f77}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
@@ -256,7 +258,9 @@
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
 	 .darkmode.dark [class*=time_li_],.darkmode.dark [class*=card-more-link]{color:#9db2ff!important}
-	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_]{color:#9db2ff}
+	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_],.darkmode.dark [class*=LabelText_],
+	 .darkmode.dark [class*=Container_],.darkmode.dark [class*=description_],.darkmode.dark [class*=Label_],
+	 .darkmode.dark [class*=domain-name_]{color:#9db2ff}
 	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
@@ -307,7 +311,8 @@
 	.darkmode.dark [class*=calendar-table_] tr td[class*=current_]{color:#eee}
 	.darkmode.dark [class*=calendar-table_] div:hover{background-color:#52f8!important}
 	.darkmode.dark .c-tip-con,.darkmode.dark #c-tip-custom-calenderCont,.darkmode.dark #c-tip-custom-calenderCont .op_cal,
-	 .darkmode.dark #container.sam_newgrid div[class*=has-content_],.darkmode.dark [class*=pop_over_]{background:#222b!important}
+	 .darkmode.dark #container.sam_newgrid div[class*=has-content_],.darkmode.dark [class*=pop_over_],
+	 .darkmode.dark [class*=select-container] ul{background:#222b!important}
 	.darkmode.dark .c-tip-con [class*=menu] li a:hover,.darkmode.dark [class*=time_li_]:hover{background-color:#0006!important}
 	.darkmode.dark .new-pmd .c-tools-tip-con .c-tip-arrow em{border-bottom-color:#222b}
 	.darkmode.dark .bdsug{background-color:#333e!important}
@@ -321,7 +326,8 @@
 	 .darkmode.dark .op_exactqa_word_word_text,.darkmode.dark .op_exactqa_word_word_pronounce,
 	 .darkmode.dark #c-tip-custom-calenderCont{color:#eee}
 	.darkmode.dark .c-btn,.darkmode.dark .result-op [class*=episode-btn],
-	 .darkmode.dark div[class*=gameinfo] [class*=item_]{background-color:#2228}
+	 .darkmode.dark div[class*=gameinfo] [class*=item_],
+	 .darkmode.dark [class*=table-body-row_]:nth-of-type(odd){background-color:#2228}
 	.darkmode.dark .c-btn:active{-webkit-box-shadow:inset 1px 1px 0px #000,inset -1px -1px 0px #555}
 	.darkmode.dark .sam_newgrid~#page a{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff!important}
@@ -356,8 +362,10 @@
 	.darkmode.dark .new-pmd .se_st_icon_book,.darkmode.dark .new-pmd .se_st_icon_download,
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
-	 .darkmode.dark .op_exactqa_detail_word_pronounce{color:#bbb}
-	.darkmode.dark .result-op [class*=card_],.darkmode.dark .result-op [class*=right-btn_]{background:#333b;backdrop-filter:blur(8px)}
+	 .darkmode.dark .op_exactqa_detail_word_pronounce,.darkmode.dark [class*=search-container] input,
+	 .darkmode.dark [class*=select-container]{color:#bbb}
+	.darkmode.dark .result-op [class*=card_],
+	 .darkmode.dark .result-op [class*=right-btn_]{background:#0000;backdrop-filter:blur(3px);box-shadow:inset 0 0 12px 0 #0007}
 	.darkmode.dark .result-op [class*=boiling-btn_],
 	 .darkmode.dark .result-op [class*=card-more_]:hover{background-color:#333b!important;backdrop-filter:blur(8px)}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
@@ -400,7 +408,7 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-axis{background:#0005}
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-slider{background:#6665;border:1px solid #9db2ff1f}
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
-	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,
+	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,.darkmode.dark [class*=SuffixText_],
 	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3,.darkmode.dark [class*=car-pc-series-color]{color:#909cb3}
 	.darkmode.dark .c-gap-bottom-small,.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,
 	 .darkmode.dark .xcp-list-title,.darkmode.dark .nors p,.darkmode.dark .content *{color:#aaa}
@@ -417,7 +425,7 @@
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
 	.darkmode.dark .new-pmd .c-text-blue-border{border:1px solid #859dff}
-	.darkmode.dark .c-tip-con .c-tip-timerfilter ul,.darkmode.dark [class*=pop_over_]{color:#999}
+	.darkmode.dark .c-tip-con .c-tip-timerfilter ul,.darkmode.dark [class*=pop_over_],.darkmode.dark [class*=select-container] ul{color:#999}
 	.darkmode.dark .c-tip-custom hr{border-top:1px solid #9db2ff66}
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-custom-submit,
 	 .darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-timerfilter-si-submit,.darkmode.dark #c-tip-custom-calenderCont,
@@ -431,9 +439,10 @@
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current),.darkmode.dark .wa-zp-exact-new-gray-a{color:#6af}
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
 	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
-	.darkmode.dark [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]){background:#9db2ff66}
+	.darkmode.dark [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]),
+	 .darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
-	.darkmode.dark [class*=pop_over_] li:hover{background-color:#0005!important;color:#b9f}
+	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=select-container] li:hover{background-color:#0005!important;color:#b9f}
 	.darkmode.dark .op_translation_textbg{background:unset;color:#eee;font:10pt Microsoft-Yahei,sans-serif}
 	.darkmode.dark #container.sam_newgrid .c-showurl{color:#88a}
 	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content{background-color:#111a;backdrop-filter:blur(5px)}
@@ -443,6 +452,8 @@
 	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content .actions .btn:hover{background-color:#000a}
 	.darkmode.dark section.header{filter:opacity(.7);transition-duration:.3s}
 	.darkmode.dark section.header:hover{filter:initial}
+	.darkmode.dark [class*=table-body-row_] span{color:#09f}
+	.darkmode.dark [class*=table-body-row_] span:hover{color:#0df}
 	</style>`;
 
 	let rippleCss = `<style>
