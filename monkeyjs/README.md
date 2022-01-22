@@ -12,6 +12,7 @@
 | moe.moekai.moebaidu.ecchi.user.js | 百度娘搜索萌化（18+限制级） |
 | moe.moekai.aya.videorecorder.user.js | 文文录像机-网页视频录像 |
 | moe.moekai.epicgames.removeblock.user.js | EPIC移除商店限制提示 |
+| moe.moekai.website.autosign.user.js | 常用网站自动签到（自用） |
 
 # 自改各种油猴脚本
 | 原名  | 简介  |
