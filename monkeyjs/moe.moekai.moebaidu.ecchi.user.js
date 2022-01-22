@@ -275,7 +275,7 @@
 	.darkmode .s_ipt_wr:hover input{color:#eee}
 	.darkmode.dark #u>a[name*=login]:hover{color:#eee!important}
 	.darkmode .cr-content a,.darkmode.dark .search_tool,.darkmode.dark .securityplan .hint_right_content
-	.darkmode.dark .search_tool_conter span,.darkmode.dark .c-border [class*=cr-title]{color:#909cb3!important}
+	.darkmode.dark .search_tool_conter span,.darkmode.dark [class*=cr-title]{color:#909cb3!important}
 	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
