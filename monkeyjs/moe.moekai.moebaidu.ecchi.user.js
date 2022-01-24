@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.3.7
-// @description  萌化度娘搜索R18限制级、未成年勿用
+// @version      3.3.8
+// @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
 // @match        *://www.baidu.com/*
@@ -286,7 +286,7 @@
 	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
-	 .darkmode .op_exactqa_gray{color:#aaa!important}
+	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_]{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
@@ -339,11 +339,12 @@
 	.darkmode.dark .sam_newgrid~#page a{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff!important}
 	.darkmode.dark .result-op [class*=tabs-],.darkmode.dark .c-gap-top-large [class*=tag-item],
-	 .darkmode.dark .result-op [class*=tabs-] a,.darkmode.dark .result-op [class*=tags-] span{background-color:#2225}
+	 .darkmode.dark .result-op [class*=tabs-] a:not([class*=-links-]),.darkmode.dark .result-op [class*=tags-] span{background-color:#2225}
 	.darkmode.dark .result-op [class*=main-tabs_] [class*=tab-item-selected]{background-color:#777}
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
 	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table,
 	 .darkmode.dark .op-b2b-find-all{background:#0000}
+	.darkmode.dark div[class*=resultItem-hover]{background-color:#222a}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]{background:#f5f5f6a0!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]:hover{background:#f0f0f1db!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=content-thead]{color:#aaa!important}
