@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.3.6
+// @version      3.3.7
 // @description  萌化度娘搜索R18限制级、未成年勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -95,7 +95,7 @@
 	.darkmode.dark #aging-tools-pc>div div[class*=item-text]{color:#aaa}
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] div[class*=barBac]{background:#0006}
 	.darkmode.dark #aging-tools-pc>div div[class|=pop]{background:#0006}
-	.darkmode.dark #aging-tools-pc>div div[class|=pop]>div[class*=left],
+	.darkmode.dark #aging-tools-pc>div div[class|=pop]>div[class*=left],.darkmode .s-skin-layer .s-skin-random,
 	 .darkmode .c-color-gray,.darkmode .news-meta-item:nth-of-type(n+4) .c-index-single{color:#ddd}
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] button{background:#5555;color:#ddd}
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] button:hover{color:#7bf}
@@ -104,7 +104,7 @@
 	.darkmode.dark .s-skin-hasbg #s_main:hover,.darkmode.dark .s-top-left-new .s-top-more .s-top-more-content>a:hover,
 	 .darkmode.dark .s-mod-setweather .setweather-content .everyday-mod .everyday-item:hover,
 	 .darkmode.dark .s-top-left-new .s-top-more .s-top-tomore:hover,
-	 .darkmode.dark .edting-block .d-nav-item .border-for-item,.darkmode.dark .edting-block .nav-item .border-for-item{background:#22222599}
+	 .darkmode.dark .edting-block .d-nav-item .border-for-item,.darkmode.dark .edting-block .nav-item .border-for-item{background:#222c}
 	.darkmode.dark .s-top-more,.darkmode.dark .soutu-hover-tip,.darkmode.dark .s-mod-setweather,
 	 .darkmode.dark .c-floating-box{background:#333b!important}
 	.darkmode.dark .soutu-hover-tip,.darkmode .c-color-gray2{color:#eee}
@@ -128,6 +128,13 @@
 	 .darkmode .s-mod-setweather .setweather-content .lunar-mod .lunar-setting-btn:hover .lunar-settint-text{color:#fff!important}
 	.darkmode.dark .s-ctner-contents .s-loading .load-done,.darkmode.dark .s-ctner-contents .s-loading .load-text,
 	 .darkmode.dark .s-ctner-contents .s-loading img{filter:brightness(0.7)}
+	.darkmode .s-skin-layer{background:#222b!important}
+	.darkmode .s-skin-layer .choose-nav,.darkmode .s-skin-layer .s-skin-subnav li.cur .subnav-tag{color:#00e7ff}
+	.darkmode .s-skin-layer .nav-underline{background:#00e7ff}
+	.darkmode .s-skin-layer .choose-nav:hover,.darkmode .s-skin-layer .skin-nav:hover,
+	 .darkmode .s-skin-layer .s-skin-set.is-hover,.darkmode .s-skin-layer .subnav-tag:hover{color:#00adff}
+	.darkmode .s-skin-layer .subnav-tag,.darkmode .s-skin-layer .defined-state-chooseimg,
+	 .darkmode .s-skin-layer .skin-img-list .no-img{background:#1e1e267a!important}
 	::-webkit-scrollbar{width:1rem;height:1rem}
 	::-webkit-scrollbar-track-piece:vertical{background:#fff;box-shadow:inset 8px 0 8px #d3dbe0, inset -2px 0 8px #f5f5f5}
 	::-webkit-scrollbar-track-piece:horizontal{background:#fff;box-shadow:inset 0 8px 8px #d3dbe0, inset 0 -2px 8px #f5f5f5}
