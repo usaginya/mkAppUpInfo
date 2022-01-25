@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.3.8
+// @version      3.3.9
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -267,7 +267,7 @@
 	 .darkmode.dark [class*=time_li_],.darkmode.dark [class*=card-more-link]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_],.darkmode.dark [class*=LabelText_],
 	 .darkmode.dark [class*=Container_],.darkmode.dark [class*=description_],.darkmode.dark [class*=Label_],
-	 .darkmode.dark [class*=domain-name_]{color:#9db2ff}
+	 .darkmode.dark [class*=domain-name_],.darkmode.dark [class*=card-title-text]{color:#9db2ff}
 	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
