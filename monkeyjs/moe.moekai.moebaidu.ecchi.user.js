@@ -392,7 +392,7 @@
 	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
 	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,
 	 .darkmode.dark .xcp-list-loader.is-second.icon,
-	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_]):not([class*=op_weather]),
+	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_]):not([class*=op_weather]):not([class*=full-star_]),
 	 .darkmode.dark .c-icon [class*=img2_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
@@ -427,7 +427,7 @@
 	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,.darkmode.dark [class*=SuffixText_],
 	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3,.darkmode.dark [class*=car-pc-series-color]{color:#909cb3}
 	.darkmode.dark .c-gap-bottom-small,.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,
-	 .darkmode.dark .xcp-list-title,.darkmode.dark .nors p,.darkmode.dark .content *{color:#aaa}
+	 .darkmode.dark .xcp-list-title,.darkmode.dark .nors p,.darkmode.dark .content *:not([class*=-game-]){color:#aaa}
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
 	.darkmode.dark .x-interact-publish .emoj-panel,.darkmode.dark [class*=car-pc-series-table]{background:#1118}
