@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.3.9
+// @version      3.4.0
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -219,8 +219,12 @@
 	.col-header-wrap::before{background:-webkit-linear-gradient(150deg,#00d3ea6b,#00cfa3b0)!important;background:linear-gradient(-60deg,#00d3ea6b,#00cfa3b0)!important}
 	div .sp-separator{width:100%;background-color:#fffa!important;backdrop-filter:blur(6px);transition-duration:.3s}
 	div .sp-separator:hover{transition-duration:.3s}
-	.result-op [class*=card_]:not(.result-op [class*=image-]){padding:10px 16px}
-	.result-op [class*=card_],.result-op [class*=right-btn_]{background:#fff0;backdrop-filter:blur(3px);box-shadow:inset 0 0 12px 0 #0003}
+	.result-op [class*=card_]:not(.result-op [class*=image-]):not(.c-onlyshow-toppic [class*=card_]){padding:10px 16px}
+	.result-op [class*=card_],.c-onlyshow-toppic [class*=right-btn_]{background:#fff6;backdrop-filter:blur(3px)!important;
+	  box-shadow:inset 0 0 12px 0 #0003!important}
+	.c-onlyshow-toppic [class*=card_]{background:#fffa!important}
+	.c-onlyshow-toppic [class*=right-btn_],.c-onlyshow-toppic [class*=left-btn_]{background:#fffa!important}
+	.c-onlyshow-toppic [class*=left-btn_]{left:-18px!important}
 	.result-op [class*=boiling-btn_]{background-color:#fffc!important;backdrop-filter:blur(8px)}
 	::-webkit-scrollbar{width:.16rem;height:.17rem}
 	::-webkit-scrollbar-track-piece:vertical{background:#fff;box-shadow:inset 8px 0 8px #d3dbe0, inset -2px 0 8px #f5f5f5}
@@ -373,8 +377,11 @@
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
 	 .darkmode.dark .op_exactqa_detail_word_pronounce,.darkmode.dark [class*=search-container] input,
 	 .darkmode.dark [class*=select-container]{color:#bbb}
-	.darkmode.dark .result-op [class*=card_],
-	 .darkmode.dark .result-op [class*=right-btn_]{background:#0000;backdrop-filter:blur(3px);box-shadow:inset 0 0 12px 0 #0007}
+	.darkmode.dark .result-op [class*=card_],.darkmode.dark .c-onlyshow-toppic [class*=right-btn_],
+	 .darkmode.dark .c-onlyshow-toppic [class*=left-btn_]{background:#2226!important;backdrop-filter:blur(3px)!important;
+	   box-shadow:inset 0 0 12px 0 #0007!important}
+	.darkmode.dark .c-onlyshow-toppic [class*=right-btn_],
+	.darkmode.dark .c-onlyshow-toppic [class*=left-btn_]{background:#2228!important}
 	.darkmode.dark .result-op [class*=boiling-btn_],
 	 .darkmode.dark .result-op [class*=card-more_]:hover{background-color:#333b!important;backdrop-filter:blur(8px)}
 	.darkmode.dark .soutu-env-new .soutu-layer .soutu-state-normal,
