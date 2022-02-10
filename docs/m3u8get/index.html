@@ -320,10 +320,10 @@
 </body>
 
 <!--vue 前端框架-->
-<script src="https://ghproxy.com/https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/docs/m3u8get/vue.min.js"></script>
-<script src="https://ghproxy.com/https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/docs/m3u8get/aes-decryptor.js"></script>
-<script src="https://ghproxy.com/https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/docs/m3u8get/mux-mp4.js"></script>
-<script src="https://ghproxy.com/https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/docs/m3u8get/tld.min.js"></script>
+<script src="https://gcore.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/docs/m3u8get/vue.min.js"></script>
+<script src="https://gcore.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/docs/m3u8get/aes-decryptor.js"></script>
+<script src="https://gcore.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/docs/m3u8get/mux-mp4.js"></script>
+<script src="https://gcore.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/docs/m3u8get/tld.min.js"></script>
 <script>
   // script注入
   new Vue({
@@ -778,16 +778,16 @@
           document.body.appendChild($section);
           // 加载 ASE 解密
           let $ase = document.createElement('script')
-          $ase.src = 'https://ghproxy.com/https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/docs/m3u8get/aes-decryptor.js'
+          $ase.src = 'https://gcore.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/docs/m3u8get/aes-decryptor.js'
           // 加载 mp4 转码
           let $mp4 = document.createElement('script')
-          $mp4.src = 'https://ghproxy.com/https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/docs/m3u8get/mux-mp4.js'
+          $mp4.src = 'https://gcore.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/docs/m3u8get/mux-mp4.js'
           // 加载 vue
           let $vue = document.createElement('script')
-          $vue.src = 'https://ghproxy.com/https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/docs/m3u8get/vue.min.js'
+          $vue.src = 'https://gcore.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/docs/m3u8get/vue.min.js'
           // 加载 tld
           let $tld = document.createElement('script')
-          $tld = 'https://ghproxy.com/https://raw.githubusercontent.com/usaginya/mkAppUpInfo/master/docs/m3u8get/tld.min.js'
+          $tld = 'https://gcore.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/docs/m3u8get/tld.min.js'
           // 监听 vue 加载完成，执行业务代码
           $vue.addEventListener('load', () => {${script}})
           document.body.appendChild($tld);
