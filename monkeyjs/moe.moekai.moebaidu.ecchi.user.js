@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.4.2
+// @version      3.4.3
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -293,7 +293,7 @@
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
 	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark .c-btn{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
-	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],
+	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],.darkmode .c-author,.darkmode .c-title-author,
 	 .darkmode.dark [class*=sftip_] [class*=content_]{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op,.darkmode.dark #container.sam_newgrid #content_left .result,
@@ -426,7 +426,8 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-slider{background:#6665;border:1px solid #9db2ff1f}
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
 	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,.darkmode.dark [class*=SuffixText_],
-	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3,.darkmode.dark [class*=car-pc-series-color]{color:#909cb3}
+	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3,.darkmode .c-summary,
+	 .darkmode.dark [class*=car-pc-series-color]{color:#909cb3}
 	.darkmode.dark .c-gap-bottom-small,.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,
 	 .darkmode.dark .xcp-list-title,.darkmode.dark .nors p,.darkmode.dark .content *:not([class*=-img-]):not([class*=-game-]){color:#aaa}
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
