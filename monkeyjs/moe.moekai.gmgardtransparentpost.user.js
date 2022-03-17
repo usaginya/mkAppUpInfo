@@ -105,7 +105,7 @@ input[type='week'],input[type='number'],input[type='email'],input[type='url'],in
 .totop-wrapper.hidden>.totop{background-position-x:-250px}
 .user-bg>h2,.user-bg>.user-stats{padding:2px 10px}
 .user-bg>h2,.user-bg>.user-stats,.user-bg>.user-numbers-div,.userinfo h3{background-color:#fffa;border-radius:5px}
-::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar{width:12px;height:12px}
 ::-webkit-scrollbar-thumb{border:solid 1px #0001;border-radius:8px;box-shadow:0 0 6px 2px #fff8;background-color:rgba(153,153,153,.5)}
 ::-webkit-scrollbar-thumb:hover{background-color:rgba(100,100,100,.5);border-color:#0004}
 ::-webkit-scrollbar-thumb:active{background-color:rgba(50,50,50,.5);border-color:#0006}
