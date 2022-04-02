@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         常用网站自动签到
 // @namespace    moe.moekai.website.autosign
-// @version      0.6
+// @version      0.7
 // @description  每天打开常用的网站时自动签到特定的网站
 // @author       YIU
 // @icon         https://www.hfday.com/favicon.ico
@@ -45,18 +45,18 @@
         },
 
         checkUrl: [{
-            url: 'https://gmgard.com/Rank'
+            url: 'https://gmgard.moe/Rank'
         },
         {
             url: 'https://hggard.com/Rank'
         },
         {
-            url: 'https://gmgard.moe/Rank'
+            url: 'https://gmgard.com/Rank'
         }
         ],
 
         signUrl: [{
-            url: 'https://gmgard.com/api/PunchIn/Do',
+            url: 'https://gmgard.moe/api/PunchIn/Do',
             method: 'POST',
             data: '{}',
             headers: {
@@ -72,7 +72,7 @@
             }
         },
         {
-            url: 'https://gmgard.moe/api/PunchIn/Do',
+            url: 'https://gmgard.com/api/PunchIn/Do',
             method: 'POST',
             data: '{}',
             headers: {
