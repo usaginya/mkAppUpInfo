@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.4.5
+// @version      3.4.6
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -272,7 +272,11 @@
 	 .darkmode.dark [class*=time_li_],.darkmode.dark [class*=card-more-link]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_],.darkmode.dark [class*=LabelText_],
 	 .darkmode.dark [class*=Container_],.darkmode.dark [class*=description_],.darkmode.dark [class*=Label_],
-	 .darkmode.dark [class*=domain-name_],.darkmode.dark [class*=card-title-text]{color:#9db2ff}
+	 .darkmode.dark [class*=domain-name_],.darkmode.dark [class*=card-title-text],
+	 .darkmode.dark [class*=label-bar_] [class*=nav-item_]:hover,
+	 .darkmode.dark [class*=tab-bar_] [class*=nav-item_]:hover,
+	 .darkmode.dark [class*=custom-bar_] [class*=nav-item_]:hover,
+	 .darkmode.dark [class*=sample-bar_] [class*=nav-item_]:hover{color:#9db2ff}
 	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
@@ -302,8 +306,8 @@
 	 .darkmode.dark #container.sam_newgrid #content_left .result:hover,.darkmode.dark .video_list:hover{background:#1116!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
-	.darkmode.dark div[class*=button-list_] div[class*=item_] a{background:#3339}
-	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,
+	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]{background:#3339}
+	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
@@ -350,13 +354,14 @@
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
 	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table,
 	 .darkmode.dark .op-b2b-find-all{background:#0000}
-	.darkmode.dark div[class*=resultItem-hover]{background-color:#222a}
+	.darkmode.dark div[class*=resultItem-hover],.darkmode.dark a[class*=race_]:hover{background-color:#222a}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]{background:#f5f5f6a0!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=back-today]:hover{background:#f0f0f1db!important}
 	.darkmode.dark div[class*=calendar-box] div[class*=content-thead]{color:#aaa!important}
 	.darkmode.dark .cell-almanac,.darkmode.dark .result-molecule>#page a:hover{color:#ddd!important}
 	.darkmode.dark .cell-inner-box:not(.cell-work):not(.cell-rest):not(.cell-weekend):not(.cell-festival) .cell-daynumber,
-	 .darkmode.dark .result-op [class*=tab-selected_]{color:#eee}
+	 .darkmode.dark .result-op [class*=tab-selected_].darkmode.dark [class*=label-bar_],.darkmode.dark [class*=tab-bar_],
+	 .darkmode.dark [class*=custom-bar_],.darkmode.dark [class*=sample-bar_]{color:#eee}
 	.darkmode.dark .cell-rest{background:#6e2d307d}
 	.darkmode.dark .cell-work{background: #f5f5f680}
 	.darkmode.dark div[class*=calendar-box] div[class*=calendar-box-right]{background:#4e6ef270}
@@ -375,7 +380,7 @@
 	.darkmode.dark .op_express_delivery_hot li{border-color:#777 #777 #777 transparent}
 	.darkmode.dark .new-pmd .se_st_icon_book,.darkmode.dark .new-pmd .se_st_icon_download,
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
-	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
+	 .darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
 	 .darkmode.dark .op_exactqa_detail_word_pronounce,.darkmode.dark [class*=search-container] input,
 	 .darkmode.dark [class*=select-container]{color:#bbb}
 	.darkmode.dark .result-op [class*=card_],.darkmode.dark .c-onlyshow-toppic [class*=right-btn_],
@@ -397,7 +402,7 @@
 	 .darkmode.dark .c-icon [class*=img2_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
-	 .darkmode.dark .x-interact-publish-cont-topic{background-color:#1115}
+	 .darkmode.dark .x-interact-publish-cont-topic,.darkmode.dark a:nth-child(even) [class*=row-wrapper_]{background-color:#1115}
 	.darkmode.dark .new-pmd .c-tag{background-color:#1113}
 	.darkmode.dark .new-pmd .c-tag:hover{background-color:#111c}
 	.darkmode.dark .col-header .overview-display-wrap li::after,
@@ -435,10 +440,11 @@
 	.darkmode.dark .x-interact-publish .emoj-panel,.darkmode.dark [class*=car-pc-series-table]{background:#1118}
 	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_],.darkmode.dark .op_weather4_xlzstit,
 	 .darkmode.dark .op_weather4_jslul span{color:#fff!important}
-	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,
+	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,.darkmode.dark .hint_right_middle,
 	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline,.darkmode.dark .c-tabs-nav,
 	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline],
-	 .darkmode.dark [class*=head-container_],.darkmode.dark .op-weather-province-item{border-bottom:1px solid #556}
+	 .darkmode.dark [class*=head-container_],.darkmode.dark .op-weather-province-item,
+	 .darkmode.dark [class*=tab-bar_]{border-bottom:1px solid #556}
 	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
@@ -989,14 +995,15 @@
 
 
 	//-- Priority processing --
-	if(window.location.href.indexOf('.com/s')>0) {
+	if(window.location.href.indexOf('.com/s')>0 &&
+	   (window.location.href.indexOf('wd=')>0 || window.location.href.indexOf('word=')>0)) {
 		ecchiOnSearchInit();
 	}
 
 
 	$(function(){
 		//------ Run on home ------
-		if(window.location.href.indexOf('.com/s')<0)
+		if(window.location.href.indexOf('.com/s')<0 && window.location.href.indexOf('wd=')<0)
 		{
 			ecchiOnHome();
 			registerMenu();
@@ -1004,7 +1011,8 @@
 		}
 
 		//------ Run on search page ------
-		if(window.location.href.indexOf('.com/s')>0) {
+		if(window.location.href.indexOf('.com/s')>0 &&
+		   (window.location.href.indexOf('wd=')>0 || window.location.href.indexOf('word=')>0)) {
 			ecchiOnSearchInit(1);
 			ecchiOnSearch();
 			registerMenu();
