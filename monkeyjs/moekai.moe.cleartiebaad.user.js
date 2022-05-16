@@ -9,7 +9,6 @@
 // @match        *://tieba.baidu.com/p/*
 // @run-at       document-start
 // @require      https://libs.baidu.com/jquery/2.0.3/jquery.min.js
-// @grant        unsafeWindow
 // @compatible   chrome OK
 // @compatible   firefox OK
 // ==/UserScript==
@@ -21,7 +20,7 @@ var delams = 1;
 
 
 //======== 清理样式构建,不要修改 =========//
-var kamikakushi = '<style>';
+var kamikakushi = '<style id="kamikakushi">';
 
 //----------- 神隐AD -----------//
 
@@ -62,8 +61,14 @@ kamikakushi += '</style>';
 
 
 //======== 执行区,不要修改 =======
-(function($){
+(function(){
 
-	$("head").append(kamikakushi);
+	$('head').append(kamikakushi);
 
-})(unsafeWindow.jQuery);
+	//等待到页面载入后再检查注入、没有注入则重新注入
+	$(document).ready(function(){
+		if ($('#kamikakushi').length > 0) return;
+		$('head').append(kamikakushi);
+	});
+
+})();
