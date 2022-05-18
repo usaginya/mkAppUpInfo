@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.4.6
+// @version      3.4.7
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -298,7 +298,7 @@
 	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark .c-btn,.darkmode.dark [class^=text_]{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],.darkmode .c-author,.darkmode .c-title-author,
-	 .darkmode.dark [class*=sftip_] [class*=content_],.darkmode.dark [class^=tips-]{color:#888!important}
+	 .darkmode.dark [class*=sftip_] [class*=content_],.darkmode.dark [class^=tips-],.darkmode.dark [class*=loc-wrapper_] [class*=wrapper_]{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op,.darkmode.dark #container.sam_newgrid #content_left .result,
 	 .darkmode.dark #rs,.darkmode.dark .video_list{background:#3c3c3c88!important}
@@ -312,7 +312,8 @@
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
-	 .darkmode.dark .new-pmd .c-border:hover,.darkmode.dark [class*=hover_]:hover{background:#2225!important}
+	 .darkmode.dark .new-pmd .c-border:hover,.darkmode.dark [class*=hover_]:hover,.darkmode.dark [class*=rel-divider],
+	 .darkmode.dark [class*=loc-wrapper_]{background:#2225!important}
 	.darkmode.dark .new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.darkmode.dark .new-pmd .c-tabs-content,
 	 .darkmode.dark .op_express_delivery_more,.darkmode.dark .result-molecule>#page a,.darkmode.dark.new-pmd .c-border,
 	 .darkmode.dark .c-group-wrapper,.darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input,
@@ -478,6 +479,7 @@
 	.darkmode.dark section.header:hover{filter:initial}
 	.darkmode.dark [class*=table-body-row_] span{color:#09f}
 	.darkmode.dark [class*=table-body-row_] span:hover{color:#0df}
+	.darkmode.dark [class*=virus-item_] [style*="#4D5054"]{color:#999!important}
 	</style>`;
 
 	let rippleCss = `<style>
