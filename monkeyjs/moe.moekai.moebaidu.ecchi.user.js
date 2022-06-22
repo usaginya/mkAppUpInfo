@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.4.8
+// @version      3.4.9
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -313,7 +313,7 @@
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
 	 .darkmode.dark .new-pmd .c-border:hover,.darkmode.dark [class*=hover_]:hover,.darkmode.dark [class*=rel-divider],
-	 .darkmode.dark [class*=loc-wrapper_]{background:#2225!important}
+	 .darkmode.dark [class*=loc-wrapper_],.darkmode.dark [class*=episode-btn_],.darkmode.dark [class*=-tlinkur] a{background:#2225!important}
 	.darkmode.dark .new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.darkmode.dark .new-pmd .c-tabs-content,
 	 .darkmode.dark .op_express_delivery_more,.darkmode.dark .result-molecule>#page a,.darkmode.dark.new-pmd .c-border,
 	 .darkmode.dark .c-group-wrapper,.darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input,
@@ -479,6 +479,7 @@
 	.darkmode.dark [class*=table-body-row_] span{color:#09f}
 	.darkmode.dark [class*=table-body-row_] span:hover{color:#0df}
 	.darkmode.dark [class*=virus-item_] [style*="#4D5054"]{color:#999!important}
+	.darkmode.dark [class*=episode-btn_]:hover,.darkmode.dark [class*=-tlinkur] a:hover{background:#111!important}
 	</style>`;
 
 	let rippleCss = `<style>
