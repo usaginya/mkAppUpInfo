@@ -23,10 +23,10 @@ var kamikakushi = '<style id="kamikakushi">';
 
 //----------- 神隐 ---------------------------------------//
 
-//-- 贴吧贴子列表, 贴子中插入
+//-- 贴子列表, 贴子夹层AD
 kamikakushi += '.threadlist_bright>li:not([data-tid]), [ad-dom-img], .fengchao-wrap-feed, [class*=-ad-], .tbui_aside_float_bar + div,';
 
-//-- 贴子选项卡：我的游戏
+//-- 贴子列表选项卡：我的游戏
 kamikakushi += '.nav_list .more-config-navtab,';
 
 //-- 贴子列表顶部相关活动信息
