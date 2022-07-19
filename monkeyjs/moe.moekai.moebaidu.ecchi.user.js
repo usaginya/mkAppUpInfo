@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.5.0
+// @version      3.5.1
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -446,7 +446,7 @@
 	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline],
 	 .darkmode.dark [class*=head-container_],.darkmode.dark .op-weather-province-item,
 	 .darkmode.dark [class*=tab-bar_]{border-bottom:1px solid #556}
-	.darkmode.dark .xcp-list-loader:not(.is-second){background:#2223}
+	.darkmode.dark .xcp-list-loader:not(.is-second),.darkmode.dark [class*=reyi-item-group],.darkmode.dark [class*=container_]{background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
 	.darkmode.dark .new-pmd .c-text-blue-border{border:1px solid #859dff}
