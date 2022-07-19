@@ -2,11 +2,15 @@
 // @name         清理百度贴吧插入广告
 // @icon         http://www.gzqiyi.cn/fximg/delicious.gif
 // @namespace    moekai.moe.cleartiebaad
-// @version      1.2.5
+// @version      1.2.6
 // @description  清理掉贴吧列表和贴子中插入的广告
 // @author       YIU
 // @match        *://tieba.baidu.com/f*
 // @match        *://tieba.baidu.com/p/*
+// @match        *://*.tieba.baidu.com/f*
+// @match        *://*.tieba.baidu.com/p/*
+// @match        *://jump.bdimg.com/f*
+// @match        *://jump.bdimg.com/p/*
 // @run-at       document-start
 // @require      https://libs.baidu.com/jquery/2.0.3/jquery.min.js
 // ==/UserScript==
