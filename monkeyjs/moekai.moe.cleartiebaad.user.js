@@ -28,7 +28,7 @@ var kamikakushi = '<style id="kamikakushi">';
 //----------- 神隐 ---------------------------------------//
 
 //-- 贴子列表, 贴子夹层AD
-kamikakushi += '.threadlist_bright>li:not([data-tid]), #j_p_postlist>.l_post:not([data-field]),';
+kamikakushi += '.threadlist_bright>li:not([data-field]):not([data-tid]), #j_p_postlist>.l_post:not([data-field]):not([data-tid]),';
 kamikakushi += '[ad-dom-img], .fengchao-wrap-feed, [class*=-ad-], .tbui_aside_float_bar + div,';
 
 //-- 贴子列表选项卡：我的游戏
