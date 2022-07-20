@@ -157,6 +157,7 @@
 	[class^="view-right_"]{right:6%!important}
 	.view-bac_PurEx{padding-right:12px!important}
 	.c-container{width:100%!important}
+	.c-group-wrapper{margin-left:auto!important}
 	.dropdown-menu,.c-dropdown2 .c-dropdown2-menu{position: fixed!important;left:auto!important;top:auto!important;width:auto!important;}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#222!important}
 	#s_tab .cur-tab:before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover:before{color:#626675!important}
