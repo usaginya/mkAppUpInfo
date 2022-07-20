@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.5.1
+// @version      3.5.2
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -307,9 +307,10 @@
 	 .darkmode.dark #container.sam_newgrid #content_left .result:hover,.darkmode.dark .video_list:hover{background:#1116!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
-	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]{background:#3339}
+	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_],
+	 .darkmode.dark div[class*=list_]>[class*=item_]{background:#3339}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]:hover,
-	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover{background:#2229!important}
+	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
@@ -446,7 +447,7 @@
 	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline],
 	 .darkmode.dark [class*=head-container_],.darkmode.dark .op-weather-province-item,
 	 .darkmode.dark [class*=tab-bar_]{border-bottom:1px solid #556}
-	.darkmode.dark .xcp-list-loader:not(.is-second),.darkmode.dark [class*=reyi-item-group],.darkmode.dark [class*=container_]{background:#2223}
+	.darkmode.dark .xcp-list-loader:not(.is-second),.darkmode.dark [class*=reyi-item-group]{background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
 	.darkmode.dark .new-pmd .c-text-blue-border{border:1px solid #859dff}
@@ -481,6 +482,7 @@
 	.darkmode.dark [class*=table-body-row_] span:hover{color:#0df}
 	.darkmode.dark [class*=virus-item_] [style*="#4D5054"]{color:#999!important}
 	.darkmode.dark [class*=episode-btn_]:hover,.darkmode.dark [class*=-tlinkur] a:hover{background:#111!important}
+	.darkmode.dark [class*=result] [class*=text-container_]{width:268px}
 	</style>`;
 
 	let rippleCss = `<style>
