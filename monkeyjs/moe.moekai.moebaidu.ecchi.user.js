@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.5.2
+// @version      3.5.3
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -152,7 +152,7 @@
 	#head,#wrapper #s_tab{background:#fff2!important;backdrop-filter:blur(3px);transition-duration:.3s}
 	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
 	#con-at .result-op{width:90%!important;border-radius:16px!important}
-	[class*="bac-box_"]{background:#fff0!important}
+	[class*="bac-box_"]{background:#fff0!important;color:#aaa}
 	[class*="bac-img_"]{opacity:.7!important}
 	[class^="view-right_"]{right:6%!important}
 	.view-bac_PurEx{padding-right:12px!important}
@@ -249,7 +249,7 @@
 	.xdp{overflow:overlay}.xdp::-webkit-scrollbar{width:.1rem;height:.1rem}
 	.x-interact-publish .emoj-panel{margin:0 12px;width:96%;right:0!important}
 	.xdp .no-margin-left{margin-right:10px}
-	.darkmode.dark input:not(#kw){background-color:#2228}
+	.darkmode.dark input:not(#kw){background-color:#2228;color:#aaa}
 	.darkmode.dark [class*=input_],.darkmode.dark .op_translation_usertip{color:#eee}
 	.darkmode.dark #aging-tools-pc>div{background:#0004!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
@@ -325,7 +325,7 @@
 	.darkmode.dark #head:hover,.darkmode.dark #wrapper #s_tab:hover{background:#22222833!important}
 	.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,.darkmode.dark .usermenu,
 	 .darkmode.dark .result-op [class*=tab-selected_]{background:#0008!important}
-	.darkmode.dark .soutu-hover-tip,.darkmode.dark [class*=calendar-wrapper_]{background:#222e!important}
+	.darkmode.dark .soutu-hover-tip,.darkmode.dark [class*=calendar-wrapper_],.darkmode.dark .dropdown-menu{background:#222e!important}
 	.darkmode.dark [class*=calendar-table_] thead{background-color:#333a!important}
 	.darkmode.dark [class*=calendar-table_] th:not([class*=danger_]){color:#aad}
 	.darkmode.dark [class*=calendar-table_] tr td:not([class*=current_]){color:#557}
@@ -484,6 +484,15 @@
 	.darkmode.dark [class*=virus-item_] [style*="#4D5054"]{color:#999!important}
 	.darkmode.dark [class*=episode-btn_]:hover,.darkmode.dark [class*=-tlinkur] a:hover{background:#111!important}
 	.darkmode.dark [class*=result] [class*=text-container_]{width:268px}
+	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav,.darkmode.dark .single-answer,.darkmode.dark .ms-measures-content .op-result,
+	 .darkmode.dark .op-unit-tabs-nav-container .op-unit-tabs-nav-right{border-color:#6ff5!important}
+	.darkmode.dark .op-unit-tabs-nav-left-bg{border-color:#fff0!important}
+	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav li:not(.tabs-nav-selected):not(:last-of-type)::after{background-color:#6ff5!important}
+	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav .tabs-nav-selected{border-color:#1bb!important;background-color:#1118!important;color:#fff!important}
+	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav li{color:#999!important}
+	.darkmode.dark .ms-measures-container .op-unit-exchange{border-color:#999}
+	.darkmode.dark .dropdown-menu-item{color:#ccc!important}
+	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
 	</style>`;
 
 	let rippleCss = `<style>
