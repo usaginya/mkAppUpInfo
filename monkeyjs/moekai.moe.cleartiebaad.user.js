@@ -2,7 +2,7 @@
 // @name         清理百度贴吧插入广告
 // @icon         http://www.gzqiyi.cn/fximg/delicious.gif
 // @namespace    moekai.moe.cleartiebaad
-// @version      1.2.7
+// @version      1.2.8
 // @description  清理掉贴吧列表和贴子中插入的广告
 // @author       YIU
 // @match        *://tieba.baidu.com/f*
@@ -11,6 +11,9 @@
 // @match        *://*.tieba.baidu.com/p/*
 // @match        *://jump.bdimg.com/f*
 // @match        *://jump.bdimg.com/p/*
+// @match        *://*.tieba.baidu.com/home/*
+// @match        *://tieba.baidu.com/home/*
+// @match        *://jump.bdimg.com/home/*
 // @run-at       document-start
 // @require      https://libs.baidu.com/jquery/2.0.3/jquery.min.js
 // ==/UserScript==
@@ -50,7 +53,10 @@ kamikakushi += '#banner_pb_customize, #branding_ads, div[id*=aside-ad], #fc-wrap
 kamikakushi += '.lu-search-box,';
 
 //-- 贴吧底部关注提示
-kamikakushi += '.xiu8_follow_warn';
+kamikakushi += '.xiu8_follow_warn,';
+
+//-- 贴吧主页边栏AD
+kamikakushi += '#lu-user-right[class*=_]';
 
 //------! 神隐 !------
 kamikakushi += '{display:none!important}';
