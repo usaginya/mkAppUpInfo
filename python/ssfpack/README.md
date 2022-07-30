@@ -22,6 +22,7 @@
 
 以下仅说明在 Windows 系统下使用的方法
 
+
 ### 安装 Python 3
 
 > **已安装好的可以跳过**
@@ -30,16 +31,19 @@
 
 https://www.python.org/downloads/
 
+
 ### 下载文件
 
 1. requirements.txt
 2. ssfpack
+
 
 ### 启动控制台
 
 在 ssfpack 文件所在的目录中按住 shift 键
 
 然后右击鼠标右键 打开右键菜单中的 `在此处打开 Powershell 窗口`
+
 
 ### 安装依赖包
 
@@ -48,6 +52,7 @@ https://www.python.org/downloads/
 ```
 pip install -r requirements.txt
 ```
+
 
 ### 提取皮肤文件
 
@@ -61,6 +66,7 @@ ssfpack .ssf皮肤文件 要保存提取出内容的文件夹
 python ssfpack 搜狗拼音皮肤.ssf 搜狗拼音皮肤
 ```
 
+
 ### 打包皮肤文件
 
 命令格式为：
@@ -72,6 +78,7 @@ ssfpack 要打包为皮肤文件的文件夹 皮肤文件名称.ssf
 ```
 python ssfpack 搜狗拼音皮肤 搜狗拼音皮肤.ssf
 ```
+
 
 ### 查看使用方法帮助
 
