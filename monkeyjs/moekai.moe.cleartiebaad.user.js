@@ -2,7 +2,7 @@
 // @name         清理百度贴吧插入广告
 // @icon         http://www.gzqiyi.cn/fximg/delicious.gif
 // @namespace    moekai.moe.cleartiebaad
-// @version      1.2.8
+// @version      1.2.9
 // @description  清理掉贴吧列表和贴子中插入的广告
 // @author       YIU
 // @match        *://tieba.baidu.com/f*
@@ -31,7 +31,8 @@ var kamikakushi = '<style id="kamikakushi">';
 //----------- 神隐 ---------------------------------------//
 
 //-- 贴子列表, 贴子夹层AD
-kamikakushi += '#thread_list>:not([data-field]):not([data-tid]), #j_p_postlist>.l_post:not([data-field]):not([data-tid]),';
+kamikakushi += '#thread_list>:not(.thread_top_list_folder):not([data-field]):not([data-tid]),'
+kamikakushi += '#j_p_postlist>.l_post:not([data-field]):not([data-tid]),';
 kamikakushi += '[ad-dom-img], .fengchao-wrap-feed, [class*=-ad-], .tbui_aside_float_bar + div,';
 
 //-- 贴子列表选项卡：我的游戏
@@ -71,17 +72,6 @@ kamikakushi += '#plat_recom_carousel';
 
 //------! 秘匿 !------
 kamikakushi += '{visibility:hidden!important}';
-
-
-
-
-//---- 神隐保护 (以ID选择来提高优先级) ---------------------//
-
-//-- 置顶贴列表
-kamikakushi += '#thread_list>.thread_top_list_folder';
-
-//------! 保护 !------
-kamikakushi += '{display:block!important}';
 
 
 
