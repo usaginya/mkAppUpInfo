@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.5.3
+// @version      3.5.4
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -347,7 +347,7 @@
 	 .darkmode.dark .op_exactqa_word_word_text,.darkmode.dark .op_exactqa_word_word_pronounce,
 	 .darkmode.dark #c-tip-custom-calenderCont{color:#eee}
 	.darkmode.dark .c-btn,.darkmode.dark .result-op [class*=episode-btn],
-	 .darkmode.dark div[class*=gameinfo] [class*=item_],.darkmode.dark [class*=table-body-row_]:nth-of-type(odd),{background-color:#2228}
+	 .darkmode.dark div[class*=gameinfo] [class*=item_],.darkmode.dark [class*=table-body-row_]:nth-of-type(odd){background-color:#2228}
 	.darkmode.dark .c-btn:active,.darkmode.dark [class*=hover_]:hover{-webkit-box-shadow:inset 1px 1px 0px #000,inset -1px -1px 0px #555}
 	.darkmode.dark .sam_newgrid~#page a{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff!important}
@@ -491,6 +491,7 @@
 	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav .tabs-nav-selected{border-color:#1bb!important;background-color:#1118!important;color:#fff!important}
 	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav li{color:#999!important}
 	.darkmode.dark .ms-measures-container .op-unit-exchange{border-color:#999}
+	.darkmode.dark .ms-measures-container .answer-item{color:#ccc;border-color:#9996!important}
 	.darkmode.dark .dropdown-menu-item{color:#ccc!important}
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
 	</style>`;
