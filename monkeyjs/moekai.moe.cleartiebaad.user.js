@@ -2,9 +2,11 @@
 // @name         清理百度贴吧插入广告
 // @icon         http://www.gzqiyi.cn/fximg/delicious.gif
 // @namespace    moekai.moe.cleartiebaad
-// @version      1.2.9
+// @version      1.3.0
 // @description  清理掉贴吧列表和贴子中插入的广告
 // @author       YIU
+// @supportURL   https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
+// @homepageURL  https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
 // @match        *://tieba.baidu.com/f*
 // @match        *://tieba.baidu.com/p/*
 // @match        *://*.tieba.baidu.com/f*
@@ -31,8 +33,8 @@ var kamikakushi = '<style id="kamikakushi">';
 //----------- 神隐 ---------------------------------------//
 
 //-- 贴子列表, 贴子夹层AD
-kamikakushi += '#thread_list>:not(.thread_top_list_folder):not([data-field]):not([data-tid]),'
-kamikakushi += '#j_p_postlist>.l_post:not([data-field]):not([data-tid]),';
+kamikakushi += '#thread_list>:not(.thread_top_list_folder):not([data-field*=author_]):not([data-tid]),'
+kamikakushi += '#j_p_postlist>.l_post:not([data-field*=content\\"\\:]):not([data-tid]),';
 kamikakushi += '[ad-dom-img], .fengchao-wrap-feed, [class*=-ad-], .tbui_aside_float_bar + div,';
 
 //-- 贴子列表选项卡：我的游戏
