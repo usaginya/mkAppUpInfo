@@ -5,8 +5,6 @@
 // @version      1.3.0
 // @description  清理掉贴吧列表和贴子中插入的广告
 // @author       YIU
-// @supportURL   https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
-// @homepageURL  https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
 // @match        *://tieba.baidu.com/f*
 // @match        *://tieba.baidu.com/p/*
 // @match        *://*.tieba.baidu.com/f*
@@ -18,6 +16,8 @@
 // @match        *://jump.bdimg.com/home/*
 // @run-at       document-start
 // @require      https://libs.baidu.com/jquery/2.0.3/jquery.min.js
+// @supportURL   https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
+// @homepageURL  https://github.com/usaginya/mkAppUpInfo/tree/master/monkeyjs
 // ==/UserScript==
 
 //======== 你可以修改这下面的开关数值 (0不清理 1清理) ========
