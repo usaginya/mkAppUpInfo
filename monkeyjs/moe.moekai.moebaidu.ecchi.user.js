@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.5.4
+// @version      3.5.5
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -10,6 +10,7 @@
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
+// @grant        GM_deleteValue
 // @grant        GM_registerMenuCommand
 // @grant        GM_unregisterMenuCommand
 // @connect      moest.top
@@ -157,6 +158,7 @@
 	[class^="view-right_"]{right:6%!important}
 	.view-bac_PurEx{padding-right:12px!important}
 	.c-container{width:100%!important}
+	.container_l.sam_newgrid{width:80vw}
 	.c-group-wrapper{margin-left:auto!important}
 	.dropdown-menu,.c-dropdown2 .c-dropdown2-menu{position: fixed!important;left:auto!important;top:auto!important;width:auto!important;}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#222!important}
@@ -192,7 +194,7 @@
 	.video_list:hover{background:#fffb!important;box-shadow:#0003 0 2px 9px;transition-duration:.5s}
 	.new-pmd .c-border,.c-group-wrapper{background:#fff5!important;transition-duration:.5s}
 	.new-pmd .c-border:hover{background:#fffb!important;transition-duration:.5s}
-	#content_right{opacity:.01;transition-duration:.38s}#content_right:hover{opacity:1;transition-duration:.38s}
+	#content_right{opacity:0;transition-duration:.38s}#content_right:hover{opacity:1;transition-duration:.38s}
 	#foot,.sam_newgrid~#page,.x-interact-publish-cont,#container.sam_newgrid div[class*=has-content_] textarea,
 	.result-molecule>#page,.recommend-line-one .recommend-item-a{background-color:#f5f5f666!important}
 	.result-molecule>#page strong{background-color:#4e90f2d4!important}
@@ -270,7 +272,8 @@
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
-	 .darkmode.dark [class*=time_li_],.darkmode.dark [class*=card-more-link]{color:#9db2ff!important}
+	 .darkmode.dark [class*=time_li_],.darkmode.dark [class*=card-more-link],
+	 .darkmode.dark [class*=info-row-btn_],.darkmode.dark [class*=button_]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_],.darkmode.dark [class*=LabelText_],
 	 .darkmode.dark [class*=Container_],.darkmode.dark [class*=description_],.darkmode.dark [class*=Label_],
 	 .darkmode.dark [class*=domain-name_],.darkmode.dark [class*=card-title-text],
@@ -297,7 +300,7 @@
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
 	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark .c-btn,.darkmode.dark [class^=text_],
-	 .darkmode.dark [class*=big-img-sub-abs_]{color:#aaa!important}
+	 .darkmode.dark [class*=big-img-sub-abs_],.darkmode.dark [class^=name_]{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],.darkmode .c-author,.darkmode .c-title-author,
 	 .darkmode.dark [class*=sftip_] [class*=content_],.darkmode.dark [class^=tips-],.darkmode.dark [class*=loc-wrapper_] [class*=wrapper_]{color:#888!important}
@@ -309,9 +312,11 @@
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
 	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_],
-	 .darkmode.dark div[class*=list_]>[class*=item_]{background:#3339}
+	 .darkmode.dark div[class*=list_]>[class*=item_],.darkmode.dark [class*=info-row-btn_],
+	 .darkmode.dark [class^=wrap_]:not([class*=like_]){background:#3339}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]:hover,
-	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:hover{background:#2229!important}
+	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:hover,
+	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
@@ -401,8 +406,9 @@
 	 .darkmode.dark .col-header .col-overview{background-color:#2222!important;color:#aaa}
 	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,
 	 .darkmode.dark .xcp-list-loader.is-second.icon,
-	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_]):not([class*=op_weather]):not([class*=full-star_]),
-	 .darkmode.dark .c-icon [class*=img2_]{filter:invert(1)}
+	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_])`
+	+`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i),
+	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark .x-interact-publish-cont-topic,.darkmode.dark a:nth-child(even) [class*=row-wrapper_]{background-color:#1115}
@@ -435,7 +441,7 @@
 	.darkmode.dark .opui-scroll-ctrl-scroll-touch .opui-scroll-slider{border:1px solid #9db2ff;margin-left:-2px}
 	.darkmode.dark .c-color-text,.darkmode.dark [class*=opt-ctn],.darkmode.dark .xdp .title-area,.darkmode.dark [class*=SuffixText_],
 	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3,.darkmode .c-summary,
-	 .darkmode.dark [class*=car-pc-series-color]{color:#909cb3}
+	 .darkmode.dark [class*=car-pc-series-color],.darkmode.dark [class^=wrap_]:not([class*=like_]){color:#909cb3}
 	.darkmode.dark .c-gap-bottom-small,.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,
 	 .darkmode.dark .xcp-list-title,.darkmode.dark .nors p,.darkmode.dark .content *:not([class*=-img-]):not([class*=-game-]){color:#aaa}
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
@@ -470,7 +476,7 @@
 	 .darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=select-container] li:hover{background-color:#0005!important;color:#b9f}
-	.darkmode.dark .op_translation_textbg{background:unset;color:#eee;font:10pt Microsoft-Yahei,sans-serif}
+	.darkmode.dark .op_translation_textbg,.darkmode.dark [class^=publisher-wrap_] [class^=textarea_]{background:unset;color:#eee;font:10pt Microsoft-Yahei,sans-serif}
 	.darkmode.dark #container.sam_newgrid .c-showurl{color:#88a}
 	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content{background-color:#111a;backdrop-filter:blur(5px)}
 	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content .popover-arrow{color:#1119}
@@ -494,6 +500,18 @@
 	.darkmode.dark .ms-measures-container .answer-item{color:#ccc;border-color:#9996!important}
 	.darkmode.dark .dropdown-menu-item{color:#ccc!important}
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
+	.darkmode.dark [class*=sg-content_]{background:#0000!important}
+	.darkmode.dark [class*=container_] [class*=right-icon_],.darkmode.dark [class*=button_]{background:#2228}
+	.darkmode.dark [class*=container_] [class*=right-icon_]:hover,.darkmode.dark [class*=button_]:hover{background:#111!important}
+	.darkmode.dark [class^=title_]{color:#a8b8c8}
+	.darkmode.dark [class*=danmaku_] [class*=mask_]{background:linear-gradient(180deg,#222,#0000)}
+	.darkmode.dark [class^=wrap_]:not([class*=like_]):hover{box-shadow:0 2px 5px 0 #735aff4d}
+	.darkmode.dark [class^=publisher_]{background:#0000}
+	.darkmode.dark [class^=publisher-wrap_]{background:#3338!important}
+	.darkmode.dark [class^=publisher-wrap_]:hover{background:#2228!important}
+	.darkmode.dark [class^=publisher_][class*=border_]:not(:hover){border:1px solid #666}
+	.darkmode.dark [class^=emoji-picker_]{background-color:#222d}
+	.darkmode.dark [class^=emoji-picker-item_]:hover{background-color:#fff2}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -509,6 +527,15 @@
 	let onSearchInitCss = `<style id="gm_ebdinitbg">html,body,#head{background:#333!important;color:#aaa!important}</style>`;
 
 	let acCenterPatch = `<style>#con-at .result-op{margin:0 auto;left:-2%}</style>`;
+
+	let rightListSwitchCss = `<style>
+	.gm-right-switch{float:right;margin-bottom:10px;padding:5px;box-sizing:border-box;text-align:center}
+	.hamburger .line{width:12px;height:2px;background-color:#9db2ff;display:block;margin:2px auto;transition:all 0.3s ease-in-out}
+	#hamburger-1.is-active .line:nth-child(2){opacity:0}
+	#hamburger-1.is-active .line:nth-child(1){transform:translateY(4px) rotate(45deg)}
+	#hamburger-1.is-active .line:nth-child(3){transform: translateY(-4px) rotate(-45deg)}
+	.hamburger:hover{cursor:pointer}
+	</style>`
 
 	let bgImageCss = `body:before{content: '';position:fixed;top:0;left:0;height:100%;width:100%;animation:gmebdbgfadein .6s ease-in both;z-index:-1}
 	body{background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat!important;
@@ -534,8 +561,17 @@
 	//------------------------------------ Global -------------------------------------------
 	const gmCfg = {
 		ecchiMode: {
-			get: () => GM_getValue('ecchiMode'),
-			set: (value) => { GM_setValue('ecchiMode', value); }
+			id: 'ecchiMode',
+			get: () => GM_getValue(gmCfg.ecchiMode.id),
+			set: value => { GM_setValue(gmCfg.ecchiMode.id, value); }
+		},
+		rightListSwitch: {
+			id: 'rightListSwitch',
+			get: () => GM_getValue(gmCfg.rightListSwitch.id),
+			set: value => {
+				if(!value) { GM_deleteValue(gmCfg.rightListSwitch.id); return; }
+				GM_setValue(gmCfg.rightListSwitch.id, value);
+			}
 		}
 	};
 
@@ -572,7 +608,7 @@
 	}
 
 	const rippleObject = {
-		'.result,.result-op,.video_list':{
+		'.result,.result-op:not([tpl=interactive]),.video_list':{
 			dragging: 0,
 			allowDragging: 1,
 			callback: ($container,$ripple)=>{
@@ -645,7 +681,7 @@
 
 		if(!again){
 			$('body').addClass('darkmode dark');
-			$('head').append(darkmodeScrollbarCss).append(onSearchInitCss);
+			$('head').append(darkmodeScrollbarCss).append(onSearchInitCss).append(rightListSwitchCss);
 			return;
 		}
 
@@ -790,6 +826,35 @@
 		// Limit add dark mode menu time
 		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),5000);
 
+		// Right list switch
+		let RightListSwitch = {
+			button: $(`<div class="gm-right-switch">
+				<div class="hamburger is-active" id="hamburger-1">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+				</div></div>`),
+			create: ()=>{
+				if($('#content_right').length < 1 || $('#content_right .gm-right-switch').length > 0){
+					return;
+				}
+				$('#content_right').prepend(RightListSwitch.button);
+				RightListSwitch.button.on('click',()=> { RightListSwitch.onClick(); });
+			},
+			onClick: active => {
+				if(!active && active != false){ RightListSwitch.create(); }
+				let hamburger = RightListSwitch.button.find('.hamburger');
+				hamburger.toggleClass('is-active', active);
+				if(hamburger.hasClass('is-active')){
+					$('#content_right>table').show();
+					gmCfg.rightListSwitch.set();
+					return;
+				}
+				$('#content_right>table').hide();
+				gmCfg.rightListSwitch.set('1');
+			}
+		};
+
 		// On preloader
 		setTimeout(()=> {
 			let interval_addrip;
@@ -810,7 +875,7 @@
 					},900);
 				}
 
-				//Fix style occlusion
+				// Fix style occlusion
 				let tql = $this.attr('tql');
 				if (tql && tql.indexOf('bk_')) {
 					$this.find('.c-img-border').remove();
@@ -827,6 +892,10 @@
 
 			// Disable video auto play
 			$('video').removeAttr('autoplay');
+
+			// Create right List switch
+			RightListSwitch.create();
+			if(gmCfg.rightListSwitch.get()) { RightListSwitch.onClick(false); }
 
 		}, 900);
 
@@ -1008,7 +1077,7 @@
 		});
 
 	}
-
+	//----------------------------------------------------------------
 
 	//-- Priority processing --
 	if(window.location.href.indexOf('.com/s')>0 &&
