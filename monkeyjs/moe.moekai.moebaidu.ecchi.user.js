@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.5.7
+// @version      3.5.8
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -24,6 +24,7 @@
 	let gb = `<style>
 	html{overflow-y:auto}
 	.pass-qrcode-download{display:none!important}
+	#container.sam_newgrid #content_left,.new-pmd .c-span12{width:580px}
 	.darkmode.dark .op_weather4_twoicon_bg{opacity:.5!important}
 	.darkmode.dark .tang-background{box-shadow:1px 5px 12px 0 #4e6ff24d}
 	.darkmode.dark p.pass-form-logo{color:#dde}
@@ -257,7 +258,8 @@
 	.xdp{overflow:overlay}.xdp::-webkit-scrollbar{width:.1rem;height:.1rem}
 	.x-interact-publish .emoj-panel{margin:0 12px;width:96%;right:0!important}
 	.xdp .no-margin-left{margin-right:10px}
-	.darkmode.dark #s_tab .cur-tab, #s_tab .s-tab-item:hover, #u>a{color:#9d9bff!important}
+	.darkmode.dark #s_tab .cur-tab:hover,.darkmode.dark #s_tab .s-tab-item:hover,.darkmode.dark #u>a:hover{color:#9d9bff!important}
+	.darkmode.dark #s_tab .cur-tab,.darkmode.dark #u>a{color:#ddd!important}
 	.darkmode.dark input:not(#kw){background-color:#1118;color:#aaa}
 	.darkmode.dark [class*=input_],.darkmode.dark .op_translation_usertip{color:#eee}
 	.darkmode.dark #aging-tools-pc>div{background:#0004!important}
@@ -272,7 +274,7 @@
 	.darkmode.blue{background-color:#141e42cc!important}
 	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_],.darkmode.dark .op-weather-province-city,
 	 .darkmode.dark [class*=error-tip]{color:#f77!important}
-	.darkmode.dark .result-op [class*=up_]{color:#f77}
+	.darkmode.dark .result-op [class*=up_],.darkmode.dark .op-concept-stock-rose{color:#f77}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
 	.darkmode.dark a:not([class*=op_weather]):not(.OP_LOG_LINK):not(.c-btn),.darkmode.dark h3[class*=title_],
@@ -306,16 +308,19 @@
 	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
-	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark .c-btn,.darkmode.dark [class^=text_],
+	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark .c-btn:not([class*=btn-content_]),.darkmode.dark [class^=text_],
 	 .darkmode.dark [class*=big-img-sub-abs_],.darkmode.dark [class^=name_]{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],.darkmode .c-author,.darkmode .c-title-author,
 	 .darkmode.dark [class*=sftip_] [class*=content_],.darkmode.dark [class^=tips-],.darkmode.dark [class*=loc-wrapper_] [class*=wrapper_]{color:#888!important}
 	.darkmode #s_tab .cur-tab:before,.darkmode #s_tab a,.darkmode #s_tab b,.darkmode #s_tab .s-tab-item:hover:before{color:#888!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op,.darkmode.dark #container.sam_newgrid #content_left .result,
-	 .darkmode.dark #rs,.darkmode.dark .video_list{background:#3c3c3c88!important}
+	 .darkmode.dark #rs,.darkmode.dark .video_list,.darkmode.dark [class*=see-more-wrap_],
+	 .darkmode.dark [class*=see-more-wrap_] [class*=see-more-content_],
+	 .darkmode.dark [class*=see-more-wrap_]:hover [class*=see-more-content_]{background:#3c3c3c88!important}
 	.darkmode.dark #container.sam_newgrid #content_left .result-op:hover,
-	 .darkmode.dark #container.sam_newgrid #content_left .result:hover,.darkmode.dark .video_list:hover{background:#1116!important}
+	 .darkmode.dark #container.sam_newgrid #content_left .result:hover,.darkmode.dark .video_list:hover,
+	 .darkmode.dark [class*=see-more-wrap_]:hover{background:#1116!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
 	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_],
@@ -399,7 +404,7 @@
 	 .darkmode.dark .op_exactqa_detail_word_pronounce,.darkmode.dark [class*=search-container] input,
 	 .darkmode.dark [class*=select-container]{color:#bbb}
 	.darkmode.dark .result-op [class*=card_],.darkmode.dark .c-onlyshow-toppic [class*=right-btn_],
-	 .darkmode.dark .c-onlyshow-toppic [class*=left-btn_]{background:#2226!important;backdrop-filter:blur(3px)!important;
+	 .darkmode.dark .c-onlyshow-toppic [class*=left-btn_]{border-radius:8px;background:#2226!important;backdrop-filter:blur(3px)!important;
 	   box-shadow:inset 0 0 12px 0 #0007!important}
 	.darkmode.dark .c-onlyshow-toppic [class*=right-btn_],
 	.darkmode.dark .c-onlyshow-toppic [class*=left-btn_]{background:#2228!important}
@@ -415,7 +420,7 @@
 	 .darkmode.dark .xcp-list-loader.is-second.icon,
 	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_])`
 	+`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_]),
-	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_]{filter:invert(1)}
+	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=icon-more_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark .x-interact-publish-cont-topic,.darkmode.dark a:nth-child(even) [class*=row-wrapper_]{background-color:#1115}
@@ -530,6 +535,11 @@
 	.darkmode.dark .video-tag-container{background-color:unset}
 	.darkmode.dark .video-tag-item{background-color:#3335}
 	.darkmode.dark .video-tag-item-select{background-color:#111a}
+	.darkmode.dark .c-table th{color:#888;background-color:#2225}
+	.darkmode.dark .c-table th,.darkmode.dark .c-table td{border-color:#555}
+	.darkmode.dark .op-concept-stock-fall{color:#5d5}
+	.darkmode.dark [class*=see-more-wrap_] [class*=see-more-content_],
+	 .darkmode.dark [class*=see-more-wrap_]:hover [class*=see-more-content_]{border-radius:6px}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -572,7 +582,7 @@
 	#head:hover,#wrapper #s_tab:hover{background:#22222833!important}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#9d9bff!important}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
-	 .c-tabs-nav-li,.c-tabs-nav li,.c-btn{color:#aaa!important}
+	 .c-tabs-nav-li,.c-tabs-nav li,.c-btn:not([class*=btn-content_]){color:#aaa!important}
 	#s_tab .cur-tab:before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover:before{color:#888!important}
 	.bdpfmenu,.usermenu,.result-op [class*=tab-selected_]{background:#0008!important}
 	.wrapper_new #u .bdpfmenu a,.wrapper_new #u .usermenu a{color:#aaa!important}
