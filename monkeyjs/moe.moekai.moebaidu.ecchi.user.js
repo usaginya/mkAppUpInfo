@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.5.9
+// @version      3.6.0
 // @description  萌化度娘搜索R18限制级、18岁以下勿用
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -24,6 +24,7 @@
 	let gb = `<style>
 	html{overflow-y:auto}
 	.pass-qrcode-download{display:none!important}
+	#container.sam_newgrid .right-ceiling{position:unset}
 	#container.sam_newgrid #content_left,.new-pmd .c-span12{width:580px}
 	.darkmode.dark .op_weather4_twoicon_bg{opacity:.5!important}
 	.darkmode.dark .tang-background{box-shadow:1px 5px 12px 0 #4e6ff24d}
@@ -261,7 +262,7 @@
 	.xdp .no-margin-left{margin-right:10px}
 	.darkmode.dark #s_tab .cur-tab:hover,.darkmode.dark #s_tab .s-tab-item:hover,.darkmode.dark #u>a:hover{color:#9d9bff!important}
 	.darkmode.dark #s_tab .cur-tab,.darkmode.dark #u>a{color:#ddd!important}
-	.darkmode.dark input:not(#kw){background-color:#1118;color:#aaa}
+	.darkmode.dark input:not(#kw){background-color:#1118;color:#bbb!important}
 	.darkmode.dark [class*=input_],.darkmode.dark .op_translation_usertip{color:#eee}
 	.darkmode.dark #aging-tools-pc>div{background:#0004!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
@@ -273,6 +274,7 @@
 	.darkmode.dark #aging-tools-pc>div div[class|=pop] button:hover{color:#7bf}
 	.darkmode.dark #aging-tools-pc>div div[class|=float]{background:#222b!important}
 	.darkmode.blue{background-color:#141e42cc!important}
+	.darkmode.dark .c-btn:not([class*=btn-content_]){color:#ddd!important}
 	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_],.darkmode.dark .op-weather-province-city,
 	 .darkmode.dark [class*=error-tip]{color:#f77!important}
 	.darkmode.dark .result-op [class*=up_],.darkmode.dark .op-concept-stock-rose{color:#f77}
@@ -309,7 +311,7 @@
 	.darkmode .new-pmd .c-color-link,.darkmode.dark font[color*="0000cc"]{color:#6783f5!important}
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
-	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark .c-btn:not([class*=btn-content_]),.darkmode.dark [class^=text_],
+	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark [class^=text_],
 	 .darkmode.dark [class*=big-img-sub-abs_],.darkmode.dark [class^=name_]{color:#aaa!important}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],.darkmode .c-author,.darkmode .c-title-author,
@@ -339,8 +341,9 @@
 	 .darkmode.dark .op_express_delivery_more,.darkmode.dark .result-molecule>#page a,.darkmode.dark.new-pmd .c-border,
 	 .darkmode.dark .c-group-wrapper,.darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input,
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]){background:#3336!important}
-	.darkmode.dark #head,.darkmode.dark #wrapper #s_tab{background:#3332!important}
-	.darkmode.dark #head:hover,.darkmode.dark #wrapper #s_tab:hover{background:#22222833!important}
+	.darkmode.dark #head,.darkmode.dark #wrapper #s_tab,.darkmode.dark .tag-container-fixed{background:#3332!important}
+	.darkmode.dark #head:hover,.darkmode.dark #wrapper #s_tab:hover,.darkmode.dark .tag-container-fixed:hover{background:#22222833!important}
+	.darkmode.dark .tag-container-fixed{backdrop-filter:blur(3px)}
 	.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,.darkmode.dark .usermenu,
 	 .darkmode.dark .result-op [class*=tab-selected_]{background:#0008!important}
 	.darkmode.dark .soutu-hover-tip,.darkmode.dark [class*=calendar-wrapper_],.darkmode.dark .dropdown-menu{background:#222e!important}
@@ -397,6 +400,8 @@
 	.darkmode.dark .op_express_delivery_hot li,.darkmode.dark .c-gap-top-large [class*=tag-item]:nor([class*=tag-item-selected]){color:#888}
 	.darkmode.dark .op_express_delivery_more li i,.darkmode.dark .op_express_delivery_hidemore,
 	 .darkmode.dark .op_express_delivery_showmore{color:#a7a7ff}
+	.darkmode.dark .op_express_delivery_more li i:hover,.darkmode.dark .op_express_delivery_hidemore:hover,
+	 .darkmode.dark .op_express_delivery_showmore:hover{color:#e38cff}
 	.darkmode.dark .c-border{border:1px solid #5566;border-bottom-color:#5556;border-right-color:#5556}
 	.darkmode.dark .op_express_delivery_hot li{border-color:#777 #777 #777 transparent}
 	.darkmode.dark .new-pmd .se_st_icon_book,.darkmode.dark .new-pmd .se_st_icon_download,
@@ -447,7 +452,7 @@
 	.darkmode.dark .op-exrate-nav{border-bottom:1px solid #9db2ff}
 	.darkmode.dark .op-exrate-li,.darkmode.dark .op-exrate-dropdown dl dd div,.darkmode.dark .nors li{color:#777}
 	.darkmode.dark .op-exrate-nav li.op-exrate-li-sel{color:#9db2ff;background:#2222;border:1px solid #9db2ff}
-	.darkmode.dark .c-dropdown2 .c-dropdown2-selected{color:#9db2ff;background:#9db2ff22!important}
+	.darkmode.dark .c-dropdown2 .c-dropdown2-selected{color:#9db2ff!important;background:#9db2ff22!important}
 	.darkmode.dark .opui-scroll-ctrl-scroll{border:none!important}
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-axis{background:#0005}
 	.darkmode.dark .opui-scroll-ctrl-scroll .opui-scroll-slider{background:#6665;border:1px solid #9db2ff1f}
@@ -456,7 +461,8 @@
 	 .darkmode.dark [class*=cc-title_],.darkmode.dark .wenda-abstract-leading-words h3,.darkmode .c-summary,
 	 .darkmode.dark [class*=car-pc-series-color],.darkmode.dark [class^=wrap_]:not([class*=like_]){color:#909cb3}
 	.darkmode.dark .c-gap-bottom-small,.darkmode.dark [class*=rich-text],.darkmode.dark .xcp-publish-title,
-	 .darkmode.dark .xcp-list-title,.darkmode.dark .nors p,.darkmode.dark .content *:not([class*=-img-]):not([class*=-game-]){color:#aaa}
+	 .darkmode.dark .c-dropdown2 .c-dropdown2-option,.darkmode.dark .xcp-list-title,.darkmode.dark .nors p,
+	 .darkmode.dark .content *:not([class*=-img-]):not([class*=-game-]){color:#aaa}
 	.darkmode.dark [class*=article_]>[class*=title_],.darkmode.dark .user-bar-uname{color:#909cb3!important}
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
 	.darkmode.dark .x-interact-publish .emoj-panel,.darkmode.dark [class*=car-pc-series-table]{background:#1118}
@@ -531,6 +537,8 @@
 	.darkmode.dark .op-stockdynamic-map-tip{background:#111d;border-color:#444}
 	.darkmode.dark .op-stockdynamic-tabs-nav{border-color:#555}
 	.darkmode.dark .op-stockdynamic-tabs-nav .op-stockdynamic-tabs-nav-selected{color:#ccc;border-color:#555 #555 #9db2ff #555}
+	.darkmode.dark .s_side_wrapper{opacity:.1;transition-duration:.38s}
+	.darkmode.dark .s_side_wrapper:hover{opacity:1}
 	.darkmode.dark .s_side_wrapper,.darkmode.dark .video-tag-item:hover{background-color:#222a}
 	.darkmode.dark .side-toast{color:#ddd;background:#222a}
 	.darkmode.dark .video-tag-container{background-color:unset}
