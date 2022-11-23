@@ -209,7 +209,7 @@
 	.result-molecule>#page strong{background-color:#4e90f2d4!important}
 	.result-molecule>#page a:hover,.result-molecule>#page .n:hover,.darkmode.dark .result-molecule>#page a:hover,
 	.darkmode.dark .result-op [class*=pag-item_]:not([class*=active]):hover{background:#4e90f2c0!important;color:#fff!important}
-	#foot #help,.c-tip-con [class*=menu] li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited,#wrapper #rs .tt,
+	#foot #help,.c-tip-con [class*=menu] li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a,#wrapper #rs .tt,
 	#wrapper #content_left .result[tpl='soft'] .op-soft-title,#wrapper #content_left .result h3,#wrapper #content_left .c-container h3,
 	.op_express_delivery_hidemore,.op_express_delivery_showmore,#wrapper #content_left .c-container
 	.ms-measures-content .op-unit-tabs-nav-container,.ms-measures-content .tabs-nav,[class*=dis_able],[class*=time_li_],
