@@ -2,7 +2,7 @@
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
 // @version      3.6.1
-// @description  萌化度娘搜索R18限制级、18岁以下勿用
+// @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
 // @match        *://www.baidu.com/*
@@ -408,7 +408,8 @@
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
 	 .darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
 	 .darkmode.dark .op_exactqa_detail_word_pronounce,.darkmode.dark [class*=search-container] input,
-	 .darkmode.dark [class*=select-container]{color:#bbb}
+	 .darkmode.dark [class*=select-container],.darkmode.dark .cu-color-text,
+	 .darkmode.dark [data-pmd] .c-color-link{color:#bbb}
 	.darkmode.dark .result-op [class*=card_],.darkmode.dark .c-onlyshow-toppic [class*=right-btn_],
 	 .darkmode.dark .c-onlyshow-toppic [class*=left-btn_]{border-radius:8px;background:#2226!important;backdrop-filter:blur(3px)!important;
 	   box-shadow:inset 0 0 12px 0 #0007!important}
@@ -438,7 +439,8 @@
 	.darkmode.dark .c-container [class*=ask-doctor-btn]:not([class*=-btn-]),
 	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)),
 	 .darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)),
-	 .darkmode.dark .c-container [class*=btn-w]:not([class*=-btn-]){background:#2228;color:#bbb}
+	 .darkmode.dark .c-container [class*=btn-w]:not([class*=-btn-]),
+	 .darkmode.dark .col-header .col-viewmore-wrap{background:#2228;color:#bbb}
 	.darkmode.dark .result-op [class*=tag-item_]:not([class*=tag-item-active_]){background:#2228!important;color:#bbb!important}
 	.darkmode.dark .c-container [class*=ask-doctor-btn]:not([class*=-btn-]):hover,
 	 .darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover,
@@ -549,6 +551,7 @@
 	.darkmode.dark .op-concept-stock-fall{color:#5d5}
 	.darkmode.dark [class*=see-more-wrap_] [class*=see-more-content_],
 	 .darkmode.dark [class*=see-more-wrap_]:hover [class*=see-more-content_]{border-radius:6px}
+	.darkmode.dark [class*=doctor-desc] span,.darkmode.dark .cu-color-source{color:#9399af}
 	</style>`;
 
 	let rippleCss = `<style>
