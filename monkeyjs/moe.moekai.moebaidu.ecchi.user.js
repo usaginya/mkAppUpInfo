@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.6.1
+// @version      3.6.2
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -203,6 +203,7 @@
 	.video_list:hover{background:#fffb!important;box-shadow:#0003 0 2px 9px;transition-duration:.5s}
 	.new-pmd .c-border,.c-group-wrapper{background:#fff5!important;transition-duration:.5s}
 	.new-pmd .c-border:hover{background:#fffb!important;transition-duration:.5s}
+	#con-ar{margin-bottom:0!important;margin-top:40px}
 	#content_right{opacity:0;transition-duration:.38s}#content_right:hover{opacity:1;transition-duration:.38s}
 	#foot,.sam_newgrid~#page,.x-interact-publish-cont,#container.sam_newgrid div[class*=has-content_] textarea,
 	.result-molecule>#page,.recommend-line-one .recommend-item-a{background-color:#f5f5f666!important}
@@ -521,7 +522,7 @@
 	.darkmode.dark .ms-measures-container .answer-item{color:#ccc;border-color:#9996!important}
 	.darkmode.dark .dropdown-menu-item{color:#ccc!important}
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
-	.darkmode.dark [class*=sg-content_]{background:#0000!important}
+	.darkmode.dark [class*=sg-content_],.darkmode.dark #searchTag{background:#0000!important}
 	.darkmode.dark [class*=container_] [class^=right-icon_],.darkmode.dark [class*=button_]{background:#2228}
 	.darkmode.dark [class*=container_] [class^=right-icon_]:hover,.darkmode.dark [class*=button_]:hover{background:#111!important}
 	.darkmode.dark [class^=title_]{color:#a8b8c8}
@@ -539,10 +540,10 @@
 	.darkmode.dark .op-stockdynamic-map-tip{background:#111d;border-color:#444}
 	.darkmode.dark .op-stockdynamic-tabs-nav{border-color:#555}
 	.darkmode.dark .op-stockdynamic-tabs-nav .op-stockdynamic-tabs-nav-selected{color:#ccc;border-color:#555 #555 #9db2ff #555}
-	.darkmode.dark .s_side_wrapper{opacity:.1;transition-duration:.38s}
-	.darkmode.dark .s_side_wrapper:hover{opacity:1}
-	.darkmode.dark .s_side_wrapper,.darkmode.dark .video-tag-item:hover{background-color:#222a}
-	.darkmode.dark .side-toast{color:#ddd;background:#222a}
+	.darkmode.dark .s_side_wrapper,.darkmode.dark #s_side_wrapper{opacity:.1;transition-duration:.38s}
+	.darkmode.dark .s_side_wrapper:hover,.darkmode.dark #s_side_wrapper:hover{opacity:1}
+	.darkmode.dark .s_side_wrapper,.darkmode.dark #s_side_wrapper,.darkmode.dark .video-tag-item:hover{background-color:#222a}
+	.darkmode.dark .side-toast,.darkmode.dark #s_side_wrapper .toast{color:#ddd;background:#222a}
 	.darkmode.dark .video-tag-container{background-color:unset}
 	.darkmode.dark .video-tag-item{background-color:#3335}
 	.darkmode.dark .video-tag-item-select{background-color:#111a}
@@ -552,6 +553,8 @@
 	.darkmode.dark [class*=see-more-wrap_] [class*=see-more-content_],
 	 .darkmode.dark [class*=see-more-wrap_]:hover [class*=see-more-content_]{border-radius:6px}
 	.darkmode.dark [class*=doctor-desc] span,.darkmode.dark .cu-color-source{color:#9399af}
+	.darkmode.dark [class*=tagContainer_] [class*=tagSelected_],.darkmode.dark [class*=tags_]:hover{background-color:#292930bb!important}
+	.darkmode.dark [class*=tags_]{background-color:#29293050!important}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -576,6 +579,8 @@
 	#hamburger-1.is-active .line:nth-child(3){transform: translateY(-4px) rotate(-45deg)}
 	.hamburger:hover{cursor:pointer}
 	</style>`
+	
+	let initHideRightListCss = `<style>#content_right>table,#con-ar{display:none}</style>`;
 
 	let bgImageCss = `body:before{content: '';position:fixed;top:0;left:0;height:100%;width:100%;animation:gmebdbgfadein .6s ease-in both;z-index:-1}
 	body{background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat!important;
@@ -742,6 +747,9 @@
 		if(!again){
 			$('body').addClass('darkmode dark');
 			$('head').append(darkmodeScrollbarCss).append(onSearchInitCss).append(rightListSwitchCss);
+			if(gmCfg.rightListSwitch.get() === '1'){
+				setTimeout(()=>{ $('head').append(initHideRightListCss) },100);
+			}
 			return;
 		}
 
@@ -907,10 +915,12 @@
 				hamburger.toggleClass('is-active', active);
 				if(hamburger.hasClass('is-active')){
 					$('#content_right>table').show();
+					$('#con-ar').show();
 					gmCfg.rightListSwitch.set();
 					return;
 				}
 				$('#content_right>table').hide();
+				$('#con-ar').hide();
 				gmCfg.rightListSwitch.set('1');
 			}
 		};
