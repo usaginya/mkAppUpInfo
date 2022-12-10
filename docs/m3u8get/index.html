@@ -208,8 +208,7 @@
       background-color: #DC5350;
     }
 
-    .m-p-cross,
-    .m-p-final {
+    .m-p-stream, .m-p-report, .m-p-cross, .m-p-final {
       display: inline-block;
       width: 100%;
       height: 50px;
@@ -224,8 +223,14 @@
       transition: 0.3s all;
     }
 
+    .m-p-stream {
+      background-color: #0ACD76 !important;
+    }
+    .m-p-report {
+      background-color: #e74c3c !important;
+      text-decoration: none;
+    }
     .m-p-final {
-      margin-top: 10px;
       text-decoration: none;
     }
 
@@ -298,6 +303,8 @@
       <div v-else @click="togglePause">{{ isPause ? '恢复下载' : '暂停下载' }}</div>
     </section>
 
+    <div class="m-p-stream" @click="gotoOrigin">下载出问题？前往作者最新版本 >>></div>
+    
     <div class="m-p-cross" @click="copyCode">当无法下载，资源发生跨域限制时，点击地址栏小锁，将网站设置中允许不安全内容启用</div>
     <a class="m-p-final" target="_blank"
       href="https://segmentfault.com/a/1190000025182822">下载的视频看不了？试试这个终结解决方案「无差别视频提取工具」，有配套「油猴」插件啦！！！</a>
@@ -746,6 +753,11 @@
         this.downloading = false
         this.tips = 'm3u8 视频在线提取工具';
       },
+      
+      // 前往最新版本
+      gotoOrigin() {
+        window.location.href='http://blog.luckly-mjw.cn/tool-show/m3u8-downloader/index.html';
+      }
 
       // 拷贝本页面本身，解决跨域问题
       copyCode() {
