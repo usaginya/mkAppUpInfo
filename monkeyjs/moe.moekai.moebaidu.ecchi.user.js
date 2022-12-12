@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.6.4
+// @version      3.6.5
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -329,7 +329,7 @@
 	 .darkmode.dark .usermenu{background:#3339!important}
 	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_],
 	 .darkmode.dark div[class*=list_]>[class*=item_],.darkmode.dark [class*=info-row-btn_],
-	 .darkmode.dark [class^=wrap_]:not([class*=like_]){background:#3339}
+	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_]{background:#3339}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:hover,
 	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover{background:#2229!important}
@@ -386,7 +386,8 @@
 	.darkmode.dark .cell-almanac,.darkmode.dark .result-molecule>#page a:hover{color:#ddd!important}
 	.darkmode.dark .cell-inner-box:not(.cell-work):not(.cell-rest):not(.cell-weekend):not(.cell-festival) .cell-daynumber,
 	 .darkmode.dark .result-op [class*=tab-selected_].darkmode.dark [class*=label-bar_],.darkmode.dark [class*=tab-bar_],
-	 .darkmode.dark [class*=custom-bar_],.darkmode.dark [class*=sample-bar_]{color:#eee}
+	 .darkmode.dark [class*=custom-bar_],.darkmode.dark [class*=sample-bar_],
+	 .darkmode.dark [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-scroll-item_] p{color:#eee}
 	.darkmode.dark .cell-rest{background:#6e2d307d}
 	.darkmode.dark .cell-work{background: #f5f5f680}
 	.darkmode.dark div[class*=calendar-box] div[class*=calendar-box-right]{background:#4e6ef270}
@@ -485,7 +486,7 @@
 	.darkmode.dark .c-tip-custom hr{border-top:1px solid #9db2ff66}
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-custom-submit,
 	 .darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-timerfilter-si-submit,.darkmode.dark #c-tip-custom-calenderCont,
-	 .darkmode.dark [class*=input_],.darkmode.dark [class*=car-pc-list]{border:1px solid #778}
+	 .darkmode.dark [class*=input_],.darkmode.dark [class*=car-pc-list],.darkmode.dark [class*=text-area-box_]{border:1px solid #778}
 	.darkmode.dark .op_mon h5{background:#0000;border-bottom:1px solid #448}
 	.darkmode.dark .op_mon td,.darkmode.dark .op_mon th{background:#0000;border:1px solid #448}
 	.darkmode.dark .op_mon th{background:#33a6}
@@ -499,7 +500,8 @@
 	 .darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=select-container] li:hover{background-color:#0005!important;color:#b9f}
-	.darkmode.dark .op_translation_textbg,.darkmode.dark [class^=publisher-wrap_] [class^=textarea_]{background:unset;color:#eee;font:10pt Microsoft-Yahei,sans-serif}
+	.darkmode.dark .op_translation_textbg,.darkmode.dark [class^=publisher-wrap_] [class^=textarea_],
+	 .darkmode.dark [class*=text-area-box_] [class*=text-area_]{background:unset;color:#eee!important;font:10pt Microsoft-Yahei,sans-serif}
 	.darkmode.dark #container.sam_newgrid .c-showurl{color:#88a}
 	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content{background-color:#111a;backdrop-filter:blur(5px)}
 	.darkmode.dark #guaranteePopper.guarantee-pc .popover-content .popover-arrow{color:#1119}
@@ -521,7 +523,7 @@
 	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav li{color:#999!important}
 	.darkmode.dark .ms-measures-container .op-unit-exchange{border-color:#999}
 	.darkmode.dark .ms-measures-container .answer-item{color:#ccc;border-color:#9996!important}
-	.darkmode.dark .dropdown-menu-item,.darkmode.dark [class*=pc-name_],.darkmode.dark [class*=subtitle_],
+	.darkmode.dark .dropdown-menu-item,.darkmode.dark [class*=pc-name_],.darkmode.dark [class*=pc-sub-title_],.darkmode.dark [class*=subtitle_],
 	 .darkmode.dark [class*=answer-pc_]{color:#ccc!important}
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
 	.darkmode.dark [class*=sg-content_],.darkmode.dark #searchTag{background:#0000!important}
@@ -537,7 +539,8 @@
 	.darkmode.dark [class^=emoji-picker_]{background-color:#222d}
 	.darkmode.dark [class^=emoji-picker-item_]:hover{background-color:#fff2}
 	.darkmode.dark .op-stockdynamic-content{color:#bbb}
-	.darkmode.dark .op-stockdynamic-map{background:#1115}
+	.darkmode.dark .op-stockdynamic-map,.darkmode.dark [class^=vote-content_] [class*=gary_],
+	 .darkmode.dark [class*=icon-wrapper_]:not([class*=-icon-wrapper_]){background:#1115}
 	.darkmode.dark .op-stockdynamic-map-tag{background-color:#555}
 	.darkmode.dark .op-stockdynamic-map-tip{background:#111d;border-color:#444}
 	.darkmode.dark .op-stockdynamic-tabs-nav{border-color:#555}
@@ -558,6 +561,10 @@
 	.darkmode.dark [class*=tagContainer_] [class*=tagSelected_],.darkmode.dark [class^=tags_]:hover{background-color:#292930bb!important}
 	.darkmode.dark [class^=tags_]{background-color:#29293050!important}
 	.darkmode.dark [class*=vertical-gradient_]{background-image:linear-gradient(to top,#2626268a,#3330)!important}
+	.darkmode.dark [class^=comment-wrapper_] [class^=cover-container_]{background:linear-gradient(to top,#222,#0000)}
+	.darkmode.dark [class*=vmp-zxenterprise-new_] table tbody tr:nth-child(odd){background:unset}
+	.darkmode.dark [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-scroll-item-title_]{color:unset}
+	.darkmode.dark [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-links_]{background:#1115;color:#eee}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -582,7 +589,7 @@
 	#hamburger-1.is-active .line:nth-child(3){transform: translateY(-4px) rotate(-45deg)}
 	.hamburger:hover{cursor:pointer}
 	</style>`
-	
+
 	let initHideRightListCss = `<style>#content_right>table,#con-ar{display:none}</style>`;
 
 	let bgImageCss = `body:before{content: '';position:fixed;top:0;left:0;height:100%;width:100%;animation:gmebdbgfadein .6s ease-in both;z-index:-1}
