@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.6.2
+// @version      3.6.3
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -281,7 +281,7 @@
 	.darkmode.dark .result-op [class*=up_],.darkmode.dark .op-concept-stock-rose{color:#f77}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode.dark a:not([class*=op_weather]):not(.OP_LOG_LINK):not(.c-btn),.darkmode.dark h3[class*=title_],
+	.darkmode.dark a:not([class*=op_weather]):not(.OP_LOG_LINK):not(.c-btn):not([class*=consulting-btn_]),.darkmode.dark h3[class*=title_],
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
@@ -428,7 +428,8 @@
 	 .darkmode.dark .xcp-list-loader.is-second.icon,
 	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_])`
 	+`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_]),
-	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=icon-more_]{filter:invert(1)}
+	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=icon-more_],
+	 .darkmode.dark [class*=title-icon-row_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark .x-interact-publish-cont-topic,.darkmode.dark a:nth-child(even) [class*=row-wrapper_]{background-color:#1115}
@@ -520,7 +521,8 @@
 	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav li{color:#999!important}
 	.darkmode.dark .ms-measures-container .op-unit-exchange{border-color:#999}
 	.darkmode.dark .ms-measures-container .answer-item{color:#ccc;border-color:#9996!important}
-	.darkmode.dark .dropdown-menu-item{color:#ccc!important}
+	.darkmode.dark .dropdown-menu-item,.darkmode.dark [class*=pc-name_],.darkmode.dark [class*=subtitle_],
+	 .darkmode.dark [class*=answer-pc_]{color:#ccc!important}
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
 	.darkmode.dark [class*=sg-content_],.darkmode.dark #searchTag{background:#0000!important}
 	.darkmode.dark [class*=container_] [class^=right-icon_],.darkmode.dark [class*=button_]{background:#2228}
@@ -553,8 +555,9 @@
 	.darkmode.dark [class*=see-more-wrap_] [class*=see-more-content_],
 	 .darkmode.dark [class*=see-more-wrap_]:hover [class*=see-more-content_]{border-radius:6px}
 	.darkmode.dark [class*=doctor-desc] span,.darkmode.dark .cu-color-source{color:#9399af}
-	.darkmode.dark [class*=tagContainer_] [class*=tagSelected_],.darkmode.dark [class*=tags_]:hover{background-color:#292930bb!important}
-	.darkmode.dark [class*=tags_]{background-color:#29293050!important}
+	.darkmode.dark [class*=tagContainer_] [class*=tagSelected_],.darkmode.dark [class^=tags_]:hover{background-color:#292930bb!important}
+	.darkmode.dark [class^=tags_]{background-color:#29293050!important}
+	.darkmode.dark [class*=vertical-gradient_]{background-image:linear-gradient(to top,#2626268a,#3330)!important}
 	</style>`;
 
 	let rippleCss = `<style>
