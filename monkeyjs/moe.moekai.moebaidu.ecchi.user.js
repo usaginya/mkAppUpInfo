@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.6.6
+// @version      3.6.7
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -300,8 +300,8 @@
 	 .darkmode.dark [class*=time_li_]:hover,.darkmode.dark [class*=card-more-link]:hover,
 	 .darkmode.dark [class*=card-more_]:hover [class*=card-more-link]{color:#c8f!important}
 	.darkmode.dark [class*=active_color_],.darkmode.dark [class*=active_color_] span,.darkmode.dark [class*=pick_color]{color:#89f!important}
-	.darkmode .s_ipt_wr{border:2px solid #556}
-	.darkmode .s_ipt_wr:hover{border-color:#99a}
+	.darkmode .s_ipt_wr{border:2px solid #556!important}
+	.darkmode .s_ipt_wr:hover{border-color:#99a!important}
 	.darkmode .s_ipt_wr{background:#3337!important}
 	.darkmode .s_ipt_wr input,.darkmode [class*=input-color] input{color:#aaa!important}
 	.darkmode .s_ipt_wr:hover{background:#2228!important}
