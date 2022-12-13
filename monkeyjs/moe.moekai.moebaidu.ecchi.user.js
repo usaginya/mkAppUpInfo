@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.6.5
+// @version      3.6.6
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -558,8 +558,9 @@
 	.darkmode.dark [class*=see-more-wrap_] [class*=see-more-content_],
 	 .darkmode.dark [class*=see-more-wrap_]:hover [class*=see-more-content_]{border-radius:6px}
 	.darkmode.dark [class*=doctor-desc] span,.darkmode.dark .cu-color-source{color:#9399af}
-	.darkmode.dark [class*=tagContainer_] [class*=tagSelected_],.darkmode.dark [class^=tags_]:hover{background-color:#292930bb!important}
-	.darkmode.dark [class^=tags_]{background-color:#29293050!important}
+	.darkmode.dark #searchTag [class*=tagSelected_],.darkmode.dark #searchTag [class*=tags_]:hover{background-color:#292930bb!important}
+	.darkmode.dark #searchTag [class*=tagSelected_]{box-shadow:0px 1px 0px 1px #2226 inset,0px -1px 0px 0px #9ae6 inset}
+	.darkmode.dark #searchTag [class*=tags_]{background-color:#29293050!important}
 	.darkmode.dark [class*=vertical-gradient_]{background-image:linear-gradient(to top,#2626268a,#3330)!important}
 	.darkmode.dark [class^=comment-wrapper_] [class^=cover-container_]{background:linear-gradient(to top,#222,#0000)}
 	.darkmode.dark [class*=vmp-zxenterprise-new_] table tbody tr:nth-child(odd){background:unset}
