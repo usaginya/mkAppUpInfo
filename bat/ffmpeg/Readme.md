@@ -11,4 +11,5 @@ Use [ffmpeg.exe](https://ffmpeg.org/)
 | mp4audiomix.bat | 将 aac 音频文件与 mp4 合并、可设置音轨声音大小 |
 | mp4fade.bat | 在视频开始添加淡入或者在视频结尾添加淡出黑屏的效果 |
 | mp4endOfExtension.bat | 将视频最后一帧延长到指定的时间长度 |
+| nvenc_convert.bat | 使用 nvenc 方式更快的转换视频编码 `需要NVIDIA显卡支持`|
 | video2gif.bat | 将视频转换为高质量 gif 图片、可设置图片尺寸和每秒帧率\(fps\) |
