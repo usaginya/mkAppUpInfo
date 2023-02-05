@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.6.9
+// @version      3.7.0
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -319,6 +319,7 @@
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
 	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark [class^=text_],
 	 .darkmode.dark [class*=big-img-sub-abs_],.darkmode.dark [class^=name_]{color:#aaa!important}
+	.darkmode #content_left .result-op [class*=audio-] [class*=pinyin]{color:#000}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],.darkmode .c-author,.darkmode .c-title-author,
 	 .darkmode.dark [class*=sftip_] [class*=content_],.darkmode.dark [class^=tips-],.darkmode.dark [class*=loc-wrapper_] [class*=wrapper_]{color:#888!important}
@@ -333,11 +334,12 @@
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
 	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_],
-	 .darkmode.dark div[class*=list_]>[class*=item_],.darkmode.dark [class*=info-row-btn_],
+	 .darkmode.dark div[class*=list_]>[class*=item_],.darkmode.dark [class*=info-row-btn_],.darkmode.dark [class*=item-] [class*=link_],
 	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_]{background:#3339}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:hover,
-	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover{background:#2229!important}
+	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover,
+	 .darkmode.dark [class*=item-] [class*=link_]:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
@@ -433,7 +435,8 @@
 	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,
 	 .darkmode.dark .xcp-list-loader.is-second.icon,
 	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_])`
-	+`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_]):not([class^=source-icon_]),
+	+`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_])`
+	+`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar]):not(.c-showurl [class*=icon_]),
 	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=icon-more_],
 	 .darkmode.dark [class*=title-icon-row_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
@@ -501,7 +504,7 @@
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current),.darkmode.dark .wa-zp-exact-new-gray-a{color:#6af}
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
 	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
-	.darkmode.dark [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]),
+	.darkmode.dark [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]):not([class*=pinyin]),
 	 .darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=select-container] li:hover{background-color:#0005!important;color:#b9f}
