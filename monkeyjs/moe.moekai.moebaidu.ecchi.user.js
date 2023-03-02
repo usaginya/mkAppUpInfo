@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.0
+// @version      3.7.1
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -99,7 +99,7 @@
 	.darkmode.dark{background-color:#1f1f25cc!important}
 	.darkmode.dark #bottom_layer,.darkmode.dark #head,.darkmode.dark #s_menu_gurd.s-down,
 	 .darkmode.dark #s_wrap{background-color:#0000}
-	.darkmode.dark #s_top_wrap,.darkmode.dark #s_top_wrap.s-down .s-center-box{background-color:#3338}
+	.darkmode.dark #s_top_wrap,.darkmode.dark #s_top_wrap.s-down .s-center-box{background-color:#3337}
 	.darkmode.dark #aging-tools-pc>div{background:#000b!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
 	.darkmode.dark #aging-tools-pc>div div[class*=item-text]{color:#aaa}
@@ -263,6 +263,10 @@
 	.xdp{overflow:overlay}.xdp::-webkit-scrollbar{width:.1rem;height:.1rem}
 	.x-interact-publish .emoj-panel{margin:0 12px;width:96%;right:0!important}
 	.xdp .no-margin-left{margin-right:10px}
+	div[class*=img-content-wrap_],.darkmode.dark div[class*=head-wrap-new_]{background:#fff0!important}
+	div[class*=content-wrapper_],div[class*=weather-top_]{background-image:none!important;background-color:#fff0!important}
+	div[class*=forecast_]{background:none!important}
+	div[class*=weather-top_] div[class*=bg-wrapper_]{opacity:0.7}
 	.darkmode.dark #s_tab .cur-tab:hover,.darkmode.dark #s_tab .s-tab-item:hover,.darkmode.dark #u>a:hover{color:#9d9bff!important}
 	.darkmode.dark #s_tab .cur-tab,.darkmode.dark #u>a{color:#ddd!important}
 	.darkmode.dark input:not(#kw){background-color:#1118;color:#bbb!important}
@@ -295,7 +299,7 @@
 	 .darkmode.dark [class*=label-bar_] [class*=nav-item_]:hover,
 	 .darkmode.dark [class*=tab-bar_] [class*=nav-item_]:hover,
 	 .darkmode.dark [class*=custom-bar_] [class*=nav-item_]:hover,
-	 .darkmode.dark [class*=sample-bar_] [class*=nav-item_]:hover{color:#9db2ff}
+	 .darkmode.dark [class*=sample-bar_] [class*=nav-item_]:hover,.darkmode.dark [class*=pan-link_]{color:#9db2ff}
 	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
@@ -335,11 +339,13 @@
 	 .darkmode.dark .usermenu{background:#3339!important}
 	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_],
 	 .darkmode.dark div[class*=list_]>[class*=item_],.darkmode.dark [class*=info-row-btn_],.darkmode.dark [class*=item-] [class*=link_],
-	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_]{background:#3339}
+	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_],
+	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]{background:#3339}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:hover,
 	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover,
-	 .darkmode.dark [class*=item-] [class*=link_]:hover{background:#2229!important}
+	 .darkmode.dark [class*=item-] [class*=link_]:hover,
+	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
@@ -436,7 +442,8 @@
 	 .darkmode.dark .xcp-list-loader.is-second.icon,
 	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_])`
 	+`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_])`
-	+`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar]):not(.c-showurl [class*=icon_]),
+	+`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar])`
+	+`:not(.c-showurl [class*=icon_]):not([class*=weather-icon_]):not([class*=icon-gap-big_]):not([class*=qihou-icon_]),
 	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=icon-more_],
 	 .darkmode.dark [class*=title-icon-row_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
@@ -480,7 +487,7 @@
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
 	.darkmode.dark .x-interact-publish .emoj-panel,.darkmode.dark [class*=car-pc-series-table]{background:#1118}
 	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_],.darkmode.dark .op_weather4_xlzstit,
-	 .darkmode.dark .op_weather4_jslul span{color:#fff!important}
+	 .darkmode.dark .op_weather4_jslul span,.darkmode.dark [class*=color-span_] [class^=text_]{color:#fff!important}
 	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,.darkmode.dark .hint_right_middle,
 	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline,.darkmode.dark .c-tabs-nav,
 	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline],
@@ -504,7 +511,8 @@
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current),.darkmode.dark .wa-zp-exact-new-gray-a{color:#6af}
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
 	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
-	.darkmode.dark [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]):not([class*=pinyin]),
+	.darkmode.dark [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]):not([class*=pinyin])`
+	 +`:not([class*=chart-line_]),
 	 .darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=select-container] li:hover{background-color:#0005!important;color:#b9f}
@@ -537,7 +545,7 @@
 	.darkmode.dark [class*=sg-content_],.darkmode.dark #searchTag{background:#0000!important}
 	.darkmode.dark [class*=container_] [class^=right-icon_],.darkmode.dark [class*=button_]{background:#2228}
 	.darkmode.dark [class*=container_] [class^=right-icon_]:hover,.darkmode.dark [class*=button_]:hover{background:#111!important}
-	.darkmode.dark [class^=title_]{color:#a8b8c8}
+	.darkmode.dark [class^=title_],.darkmode.dark [class^=list-gap_],.darkmode.dark [class*=group-title_]{color:#a8b8c8}
 	.darkmode.dark [class*=danmaku_] [class*=mask_]{background:linear-gradient(180deg,#222,#0000)}
 	.darkmode.dark [class^=wrap_]:not([class*=like_]):hover{box-shadow:0 2px 5px 0 #735aff4d}
 	.darkmode.dark [class^=publisher_]{background:#0000}
@@ -565,7 +573,7 @@
 	.darkmode.dark .op-concept-stock-fall{color:#5d5}
 	.darkmode.dark [class*=see-more-wrap_] [class*=see-more-content_],
 	 .darkmode.dark [class*=see-more-wrap_]:hover [class*=see-more-content_]{border-radius:6px}
-	.darkmode.dark [class*=doctor-desc] span,.darkmode.dark .cu-color-source{color:#9399af}
+	.darkmode.dark [class*=doctor-desc] span,.darkmode.dark .cu-color-source{color:#6aa2cb}
 	.darkmode.dark #searchTag [class*=tagSelected_],.darkmode.dark #searchTag [class*=tags_]:hover{background-color:#292930bb!important}
 	.darkmode.dark #searchTag [class*=tagSelected_]{box-shadow:0px 1px 0px 1px #2226 inset,0px -1px 0px 0px #9ae6 inset}
 	.darkmode.dark #searchTag [class*=tags_]{background-color:#29293050!important}
@@ -574,6 +582,23 @@
 	.darkmode.dark [class*=vmp-zxenterprise-new_] table tbody tr:nth-child(odd){background:unset}
 	.darkmode.dark [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-scroll-item-title_]{color:unset}
 	.darkmode.dark [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-links_]{background:#1115;color:#eee}
+	.darkmode.dark [class^=_content] [class^=load_]{background-color:#2225!important}
+	.darkmode.dark [class*=tabs-wrapper_] [class*=tab_]{color:#aaa!important}
+	.darkmode.dark [class*=tabs-wrapper_] [class*=tab_][class*=active_]{background:#2226!important;color:#a59fff!important}
+	.darkmode.dark [class*=pc_] [class*=item_]:hover [class*=item-hover_],
+	 .darkmode.dark [class*=list-row_]:hover{background-color:#1118!important}
+	.darkmode.dark [class*=more-btn_],.darkmode.dark [class*=box-item_]{background-color:#3335}
+	.darkmode.dark [class*=content_]{color:#b3bcff}
+	.darkmode.dark [class*=pc_] [class*=text_]{color:#90e5ff}
+	.darkmode.dark [class*=item-selected_]{background-color:#1117}
+	[class*=item-selected_] [class*=left-circle],[class*=item-selected_] [class*=right-circle]{background-color:#0000!important}
+	.darkmode.dark [class*=detail-bg_]{background-image:linear-gradient(#1117,#1111)}
+	.darkmode.dark .cos-city-selector-content,.darkmode.dark .cos-city-header-list-wrapper{background-color:#111a;backdrop-filter:blur(4px)}
+	.darkmode.dark .cos-city-header-city-search{background-color:#111a}
+	.darkmode.dark .cos-city-content,.darkmode.dark .cos-city-header-city-sug-list,.cos-city-header-city-sug-none,
+	 .darkmode.dark .cos-city-header-city-search input{background-color:#0000!important}
+	.darkmode.dark .cos-city-content-nav{color:#aaa}
+	.darkmode.dark .cos-city-content-city-item-wrapper{color:#bbb}
 	</style>`;
 
 	let rippleCss = `<style>
@@ -1177,7 +1202,7 @@
 
 	$(function(){
 		//------ Run on home ------
-		if(window.location.href.indexOf('.com/s')<0 && window.location.href.indexOf('wd=')<0)
+		if(window.location.href.indexOf('.com/s')<0 && window.location.pathname == '/' && window.location.href.indexOf('wd=')<0)
 		{
 			ecchiOnHome();
 			registerMenu();
