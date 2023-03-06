@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.2
+// @version      3.7.3
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -21,7 +21,7 @@
 
 (function(){
 	//--------------- STYLE -----------------------------------------
-	let gb = `<style>
+	let gb = `<style id="dumoe-gb">
 	html{overflow-y:auto}
 	.pass-qrcode-download{display:none!important}
 	#container.sam_newgrid .right-ceiling{position:unset}
@@ -55,7 +55,7 @@
 	.darkmode.dark [class*=color333_]{color:#888}
 	</style>`
 
-	let st = `<style>
+	let st = `<style id="dumoe-st">
 	#lg img{opacity:.2;transition:opacity 1s}
 	#lg:hover img{opacity:.9}
 	#head_wrapper #lg [id*=s_lg_img]{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
@@ -153,7 +153,7 @@
     ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#fcfdff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, -5px 7px 10px #959ca5}
 	</style>`;
 
-	let ru = `<style>
+	let ru = `<style id="dumoe-ru">
 	#result_logo{opacity:.6}
 	#result_logo .index-logo-src{display:block!important}
 	#result_logo .index-logo-srcnew,#result_logo .index-logo-peak{display:none!important}
@@ -602,7 +602,7 @@
 	.darkmode.dark .op_dict3_common{color:#a8bfff}
 	</style>`;
 
-	let rippleCss = `<style>
+	let rippleCss = `<style id="dumoe-rippleCss">
 	.legitRipple{position:relative;overflow:hidden}
 	.legitRipple-ripple{position:absolute;z-index:0;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);
 	pointer-events:none!important;border-radius:50%;background:#fff4;will-change:transform,width,opacity;
@@ -816,16 +816,21 @@
 
 	//------ Search Page ------
 	function ecchiOnSearch() {
+		if($('#dumoe-gb').length){
+			return;
+		}
+
 		let isDark = GM_getValue('openDark');
 
-		$('head')
-			.append(gb)
+		$('head').append(gb)
 			.append(ru)
-			.append(rippleCss);
+			.append(rippleCss)
 
 		// Fix scorll bar css
 		if(window.location.href.indexOf('.com/sf')>0 || window.location.href.indexOf('tn=news')>0){
-			$('head').append(scrollbarCssFix)
+			if(!$('#gmscrollbarfix').length < 1){
+				$('head').append(scrollbarCssFix)
+			}
 		}
 
 		$('meta[name="referrer"]').attr('content','no-referrer');
@@ -1194,16 +1199,21 @@
 	}
 	//----------------------------------------------------------------
 
+	function isOnHomePage(){
+		return window.location.href.indexOf('.com/s')<0 && window.location.pathname == '/' && window.location.href.indexOf('wd=')<0;
+	}
+	function isOnSearchPage(){
+		return window.location.href.indexOf('.com/s')>0 && (window.location.href.indexOf('wd=')>0 || window.location.href.indexOf('word=')>0);
+	}
+
 	//-- Priority processing --
-	if(window.location.href.indexOf('.com/s')>0 &&
-	   (window.location.href.indexOf('wd=')>0 || window.location.href.indexOf('word=')>0)) {
+	if(isOnSearchPage()) {
 		ecchiOnSearchInit();
 	}
 
-
 	$(function(){
 		//------ Run on home ------
-		if(window.location.href.indexOf('.com/s')<0 && window.location.pathname == '/' && window.location.href.indexOf('wd=')<0)
+		if(isOnHomePage())
 		{
 			ecchiOnHome();
 			registerMenu();
@@ -1211,13 +1221,37 @@
 		}
 
 		//------ Run on search page ------
-		if(window.location.href.indexOf('.com/s')>0 &&
-		   (window.location.href.indexOf('wd=')>0 || window.location.href.indexOf('word=')>0)) {
+		if(isOnSearchPage()) {
 			ecchiOnSearchInit(1);
 			ecchiOnSearch();
 			registerMenu();
 			return;
 		}
 	});
+
+	//-- Post-processing for asynchronous search page ------
+	const addHistoryEvent = function(type) {
+		let originalMethod = history[type];
+		return function() {
+			let recallMethod = originalMethod.apply(this, arguments);
+			let e = new Event(type);
+			e.arguments = arguments;
+			window.dispatchEvent(e);
+			return recallMethod;
+		};
+	};
+	history.pushState = addHistoryEvent('pushState');
+	history.replaceState = addHistoryEvent('replaceState');
+
+	const handler = function(...arg){
+			if(isOnSearchPage()) {
+				ecchiOnSearchInit(1);
+				ecchiOnSearch();
+				registerMenu();
+				return;
+			}
+	}
+	window.addEventListener('pushState', handler);
+	window.addEventListener('replaceState', handler);
 
 })();
