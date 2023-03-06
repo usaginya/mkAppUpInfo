@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.1
+// @version      3.7.2
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -598,7 +598,8 @@
 	.darkmode.dark .cos-city-content,.darkmode.dark .cos-city-header-city-sug-list,.cos-city-header-city-sug-none,
 	 .darkmode.dark .cos-city-header-city-search input{background-color:#0000!important}
 	.darkmode.dark .cos-city-content-nav{color:#aaa}
-	.darkmode.dark .cos-city-content-city-item-wrapper{color:#bbb}
+	.darkmode.dark .cos-city-content-city-item-wrapper,.darkmode.dark .op_dict3_title{color:#bbb}
+	.darkmode.dark .op_dict3_common{color:#a8bfff}
 	</style>`;
 
 	let rippleCss = `<style>
