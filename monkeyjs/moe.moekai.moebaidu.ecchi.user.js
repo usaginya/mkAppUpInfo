@@ -816,7 +816,7 @@
 
 	//------ Search Page ------
 	function ecchiOnSearch() {
-		if($('#dumoe-gb').length){
+		if($('#dumoe-ru').length){
 			return;
 		}
 
