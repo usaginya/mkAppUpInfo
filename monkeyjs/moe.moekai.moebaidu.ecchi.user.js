@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.3
+// @version      3.7.4
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -53,6 +53,7 @@
 	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2225!important}
 	.darkmode.dark .c-radio-checked + .setting-radio-label{color:#ddd!important}
 	.darkmode.dark [class*=color333_]{color:#888}
+	.darkmode.dark .sug-search-icon{color:#77809f!important}
 	</style>`
 
 	let st = `<style id="dumoe-st">
@@ -337,14 +338,17 @@
 	 .darkmode.dark [class*=see-more-wrap_]:hover{background:#1116!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
-	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_],
-	 .darkmode.dark div[class*=list_]>[class*=item_],.darkmode.dark [class*=info-row-btn_],.darkmode.dark [class*=item-] [class*=link_],
+	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]`
+	 +`:not([class*=bottom-scroll-item_]),
+	 .darkmode.dark div[class*=list_]>[class*=item_],.darkmode.dark [class*=info-row-btn_],
+	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]),
 	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_],
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]{background:#3339}
-	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]:hover,
+	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]`
+	 +`:not([class*=bottom-scroll-item_]):hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:hover,
 	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover,
-	 .darkmode.dark [class*=item-] [class*=link_]:hover,
+	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):hover,
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
@@ -443,7 +447,7 @@
 	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_])`
 	+`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_])`
 	+`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar])`
-	+`:not(.c-showurl [class*=icon_]):not([class*=weather-icon_]):not([class*=icon-gap-big_]):not([class*=qihou-icon_]),
+	+`:not(.c-showurl [class*=icon_]):not([class*=weather-icon_]):not([class*=icon-gap-big_]):not([class*=qihou-icon_]):not([class*=state-icon_]),
 	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=icon-more_],
 	 .darkmode.dark [class*=title-icon-row_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
@@ -787,7 +791,7 @@
 
 		isDark = !isDark ? bddkmode : isDark;
 
-		if(!isDark){ return; }
+		if(!isDark || $('#dumoe-ru').length){ return; }
 
 		if(!again){
 			$('body').addClass('darkmode dark');
