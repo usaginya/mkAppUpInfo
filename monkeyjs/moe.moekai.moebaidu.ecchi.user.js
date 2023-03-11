@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.4
+// @version      3.7.5
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -11,12 +11,16 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_deleteValue
+// @grant        GM_addStyle
+// @grant        GM_getResourceText
 // @grant        GM_registerMenuCommand
 // @grant        GM_unregisterMenuCommand
 // @connect      moest.top
 // @run-at       document-start
+// @resource     notyfCss https://cdn.bootcdn.net/ajax/libs/notyf/3.10.0/notyf.min.css
 // @require      https://cdn.bootcdn.net/ajax/libs/jquery/2.0.3/jquery.min.js
 // @require      https://raw.iqiq.io/matthias-vogt/legitRipple.js/gh-pages/js/ripple.js
+// @require      https://cdn.bootcdn.net/ajax/libs/notyf/3.10.0/notyf.min.js
 // ==/UserScript==
 
 (function(){
@@ -34,7 +38,7 @@
 	.darkmode.dark .tang-pass-pop-login div.tang-body{color:#bbb;background-color:#222d}
 	.darkmode.dark .tang-pass-pop-login .pass-item-timer,.darkmode.dark .tang-pass-pop-login .pass-item-time-timing{color:#9db2ff;border-color:#666}
 	.darkmode.dark .tang-pass-pop-login .pass-item-timer:hover,.darkmode.dark .tang-pass-pop-login .pass-item-time-timing:hover{color:#c8f;border-color:#ccc}
-	.darkmode.dark .login-type-tab .switch-item.activ{color:#ccc}
+	.darkmode.dark .login-type-tab .switch-item.activ,.darkmode.dark .desktop-opt{color:#ccc}
 	.darkmode.dark .compose-left-container{border-right:1px solid #555}
 	.darkmode.dark .tang-pass-pop-login .pass-item-timer,
 	 .darkmode.dark .tang-pass-pop-login .pass-item-time-timing,
@@ -52,8 +56,12 @@
 	 .darkmode.dark .c-tabs-nav,.darkmode.dark .c-tabs-item,.darkmode.dark .c-input,.darkmode.dark .c-dropdown2,
 	 .darkmode.dark .c-dropdown2 .c-dropdown2-btn-icon,.darkmode.dark .c-dropdown2 .c-dropdown2-option{background:#2225!important}
 	.darkmode.dark .c-radio-checked + .setting-radio-label{color:#ddd!important}
-	.darkmode.dark [class*=color333_]{color:#888}
+	.darkmode.dark [class*=color333_],.darkmode.dark [class*=card_layout_] [class*=title_]{color:#888}
 	.darkmode.dark .sug-search-icon{color:#77809f!important}
+	.darkmode.dark [class*=card_layout_]{background:#2222}
+	.darkmode.dark [class*=cate-title_]{background:#2223}
+	.darkmode.dark [class*=cate-title_]:hover{background:#1118;color:#eee}
+	.darkmode.dark .c-checkbox-inner{background:#0000!important}
 	</style>`
 
 	let st = `<style id="dumoe-st">
@@ -445,9 +453,10 @@
 	.darkmode.dark [data-pmd] .c-img img,.darkmode.dark .x-interact-publish-opt>*:not(.send),.darkmode.dark .interact-bar-right,
 	 .darkmode.dark .xcp-list-loader.is-second.icon,
 	 .darkmode.dark [class*=icon_]:not([class*=clear_]):not([class*=_download]):not([class*=bear-icon_]):not([class*=live-label-icon_])`
-	+`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_])`
-	+`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar])`
-	+`:not(.c-showurl [class*=icon_]):not([class*=weather-icon_]):not([class*=icon-gap-big_]):not([class*=qihou-icon_]):not([class*=state-icon_]),
+	 +`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_])`
+	 +`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar])`
+	 +`:not(.c-showurl [class*=icon_]):not([class*=weather-icon_]):not([class*=icon-gap-big_]):not([class*=qihou-icon_]):not([class*=state-icon_])`
+	 +`:not([class*=pause]):not([class*=play]),
 	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=icon-more_],
 	 .darkmode.dark [class*=title-icon-row_]{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
@@ -516,7 +525,7 @@
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
 	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
 	.darkmode.dark [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]):not([class*=pinyin])`
-	 +`:not([class*=chart-line_]),
+	 +`:not([class*=chart-line_]):not([class*=blog-item_]),.darkmode.dark [class*=hasline_]:after,
 	 .darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=select-container] li:hover{background-color:#0005!important;color:#b9f}
@@ -604,6 +613,9 @@
 	.darkmode.dark .cos-city-content-nav{color:#aaa}
 	.darkmode.dark .cos-city-content-city-item-wrapper,.darkmode.dark .op_dict3_title{color:#bbb}
 	.darkmode.dark .op_dict3_common{color:#a8bfff}
+	.darkmode.dark [class*=more-wrap_]:hover{background:#222a}
+	.darkmode.dark [class*=more-wrap_] [class*=more-span_]{background-color:#0000!important;color:#88a!important}
+	.darkmode.dark [class*=more-wrap_]:hover [class*=text_]{color:#a0b6ff!important}
 	</style>`;
 
 	let rippleCss = `<style id="dumoe-rippleCss">
@@ -618,9 +630,7 @@
 
 	let onSearchInitCss = `<style id="gm_ebdinitbg">html,body,#head{background:#333!important;color:#aaa!important}</style>`;
 
-	let acCenterPatch = `<style>#con-at .result-op{margin:0 auto;left:-2%}</style>`;
-
-	let rightListSwitchCss = `<style>
+	let rightListSwitchCss = `<style id="dumoe-rightListSwitch">
 	.gm-right-switch{float:right;margin-bottom:10px;padding:5px;box-sizing:border-box;text-align:center}
 	.hamburger .line{width:12px;height:2px;background-color:#9db2ff;display:block;margin:2px auto;transition:all 0.3s ease-in-out}
 	#hamburger-1.is-active .line:nth-child(2){opacity:0}
@@ -648,12 +658,13 @@
 	#head:hover,#wrapper #s_tab:hover{background:#22222833!important}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#9d9bff!important}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
-	 .c-tabs-nav-li,.c-tabs-nav li,.c-btn:not([class*=btn-content_]){color:#aaa!important}
+	 .c-tabs-nav-li,.c-tabs-nav li,.c-btn:not([class*=btn-content_]):not([class*=search]):not([class*=setting]){color:#aaa!important}
 	#s_tab .cur-tab:before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover:before{color:#888!important}
 	.bdpfmenu,.usermenu,.result-op [class*=tab-selected_]{background:#0008!important}
-	.wrapper_new #u .bdpfmenu a,.wrapper_new #u .usermenu a{color:#aaa!important}
+	#u .bdpfmenu a,#u .usermenu a{color:#aaa!important}
 	#u .bdpfmenu a:hover,#u .usermenu a:hover{color:#fff762!important;background-color:#000!important;transition-duration:.3s}
 	.c-tip-con [class*=menu] li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited{background-color:#fff0!important}
+	.darkmode.dark #u .bdpfmenu a,.darkmode.dark #u .usermenu a{border:none!important;background:#0000!important}
 	</style>`;
 
 	let darkmodeScrollbarCss = `<style id="gmdarkscrollbar">
@@ -669,11 +680,17 @@
 	</style>`;
 
 	//------------------------------------ Global -------------------------------------------
+	const notyf = new Notyf();
 	const gmCfg = {
 		ecchiMode: {
 			id: 'ecchiMode',
 			get: () => GM_getValue(gmCfg.ecchiMode.id),
 			set: value => { GM_setValue(gmCfg.ecchiMode.id, value); }
+		},
+		performanceMode: {
+			id: 'performanceMode',
+			get: () => GM_getValue(gmCfg.performanceMode.id),
+			set: value => { GM_setValue(gmCfg.performanceMode.id, value); }
 		},
 		rightListSwitch: {
 			id: 'rightListSwitch',
@@ -692,9 +709,32 @@
 				on: '开启ecchi模式',
 				off: '关闭ecchi模式'
 			},
+			showNotify: function(){
+				try{
+					notyf.success(`已${(gmCfg.ecchiMode.get() ? this.title.on : this.title.off)}`);
+				}catch{}
+			},
 			call: function(){
 				gmCfg.ecchiMode.set(!gmCfg.ecchiMode.get());
 				registerMenu();
+				gmMenu.ecchiMode.showNotify();
+			}
+		},
+		performanceMode: {
+			id: 0,
+			title:{
+				on: '开启性能模式',
+				off: '关闭性能模式'
+			},
+			showNotify: function(){
+				try{
+					notyf.success(`已${(gmCfg.performanceMode.get() ? this.title.on : this.title.off)}`);
+				}catch{}
+			},
+			call: function(){
+				gmCfg.performanceMode.set(!gmCfg.performanceMode.get());
+				registerMenu();
+				gmMenu.performanceMode.showNotify();
 			}
 		}
 	};
@@ -710,6 +750,11 @@
 		gmMenu.ecchiMode.id = GM_registerMenuCommand(
 			gmCfg.ecchiMode.get() ? gmMenu.ecchiMode.title.off : gmMenu.ecchiMode.title.on,
 			gmMenu.ecchiMode.call
+		);
+
+		gmMenu.performanceMode.id = GM_registerMenuCommand(
+			gmCfg.performanceMode.get() ? gmMenu.performanceMode.title.off : gmMenu.performanceMode.title.on,
+			gmMenu.performanceMode.call
 		);
 	}
 
@@ -729,8 +774,21 @@
 		}
 	};
 
+	function recoveryMutationObserver(){
+		let ifr = document.createElement('iframe');
+		ifr.style.display = 'none';
+		document.body.appendChild(ifr);
+		unsafeWindow.MutationObserver = ifr.contentWindow.MutationObserver;
+		document.body.removeChild(ifr);
+	}
+
+	function addNotyfStyle(){
+		GM_addStyle(GM_getResourceText('notyfCss'));
+	}
+
 
 	//------------------------------------ JS Run -------------------------------------------
+	let home_observer;
 	function ecchiOnHome()
 	{
 		let isDark = GM_getValue('openDark');
@@ -746,7 +804,7 @@
 		let darkModeMenu;
 		let menuDarkModeId = 'gmbdecchi-menu-darkmode';
 		if($('#s-user-setting-menu').length > 0 && $(`#s-user-setting-menu #${menuDarkModeId}`).length < 1){
-			darkModeMenu = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
+			darkModeMenu = $(`<a id="${menuDarkModeId}" href="javascript:;"><span class="set">${isDark ? '关闭' : '开启'}黑暗</span></a>`);
 			darkModeMenu.data('cssDarkMode', 'darkmode dark');
 			darkModeMenu.click(function(){
 				if(isDark){
@@ -755,50 +813,67 @@
 					$('head #gmdarkmodehometosearchcssfix').remove();
 				}else{
 					$('body').addClass(darkModeMenu.data('cssDarkMode'));
-					if($('#gmdarkscrollbar').length < 1){
+					if(!$('#gmdarkscrollbar').length){
 						$('head').append(darkmodeScrollbarCss);
 					}
-					if($('head #gmdarkmodehometosearchcssfix').length < 1){
+					if(!$('head #gmdarkmodehometosearchcssfix').length){
 						$('head').append(darkmodeHomeToSearchCssFix);
 					}
 				}
 				isDark = !isDark;
-				$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
+				$(this).find('span').text(`${isDark ? '关闭' : '开启'}黑暗`);
 				GM_setValue('openDark',isDark);
 			});
 			$('#s-user-setting-menu').append(darkModeMenu);
-
-			// Open dark
-			if(isDark){
-				$('head').append(darkmodeScrollbarCss);
-				let intervalSetCss = setInterval(()=>{
-					if($('body').hasClass(darkModeMenu.data('cssDarkMode')))
-					{ return; }
-					isDark = 0;
-					darkModeMenu.click();
-				},300);
-				setTimeout(()=>clearInterval(intervalSetCss),4000);
-			}
 		}
 
+		recoveryMutationObserver();
+		home_observer = new unsafeWindow.MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				let bddkmode = $('body.darkmode.dark').length > 0;
+				isDark = !isDark ? bddkmode : isDark;
+				if(!isDark){ return; }
+				if(!bddkmode){
+					home_observer.disconnect();
+					$('body').addClass(darkModeMenu.data('cssDarkMode'));
+					home_observer.observe(document.body, {attributes: true});
+				}
+				if(!$('head #gmdarkmodehometosearchcssfix').length){
+					$('head').append(darkmodeHomeToSearchCssFix);
+				}
+			});
+		});
+		home_observer.observe(document.body, {attributes: true});
+
+		addNotyfStyle();
 	}
 
 	//------ Search Page Dark Mode Init ------
 	// {bool} again - Initialize again when dom is loaded
-	function ecchiOnSearchInit(again){
+	function ecchiOnSearchInit(){
 		let isDark = GM_getValue('openDark');
-		let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
+		let bddkmode = $('body.darkmode.dark').length > 0;
+		let performanceMode = gmCfg.performanceMode.get();
 
 		isDark = !isDark ? bddkmode : isDark;
 
-		if(!isDark || $('#dumoe-ru').length){ return; }
+		if(home_observer){
+			home_observer.disconnect();
+			home_observer = undefined;
+		}
 
-		if(!again){
-			$('body').addClass('darkmode dark');
-			$('head').append(darkmodeScrollbarCss).append(onSearchInitCss).append(rightListSwitchCss);
+		if($('#dumoe-rightListSwitch').length < 1){
+			$('head').append(rightListSwitchCss)
 			if(gmCfg.rightListSwitch.get() === '1'){
 				setTimeout(()=>{ $('head').append(initHideRightListCss) },100);
 			}
+		}
+
+		if(!isDark || $('#dumoe-ru').length){ return; }
+
+		if(!bddkmode){
+			$('body, #wrapper').addClass('darkmode dark');
+			$('head').append(darkmodeScrollbarCss).append(onSearchInitCss);
 			return;
 		}
 
@@ -809,13 +884,15 @@
 		let intervalInit = setInterval(()=>{
 			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
 			if(!bddkmode){
-				$('body').addClass('darkmode dark');
+				$('body, #wrapper').addClass('darkmode dark');
 				if($('#gmdarkscrollbar').length < 1){
 					$('head').append(darkmodeScrollbarCss);
 				}
 			}
 		},100);
-		setTimeout(()=>{clearInterval(intervalInit);},3800);
+		setTimeout(()=>clearInterval(intervalInit), performanceMode ? 1500 : 3800);
+
+		addNotyfStyle();
 	}
 
 	//------ Search Page ------
@@ -825,10 +902,13 @@
 		}
 
 		let isDark = GM_getValue('openDark');
+		let performanceMode = gmCfg.performanceMode.get();
 
-		$('head').append(gb)
-			.append(ru)
-			.append(rippleCss)
+		$('head').append(gb).append(ru)
+
+		if(!performanceMode){
+			$('head').append(rippleCss)
+		}
 
 		// Fix scorll bar css
 		if(window.location.href.indexOf('.com/sf')>0 || window.location.href.indexOf('tn=news')>0){
@@ -836,34 +916,10 @@
 				$('head').append(scrollbarCssFix)
 			}
 		}
-
 		$('meta[name="referrer"]').attr('content','no-referrer');
 
-		// Recovery MutationObserver method
-		let ifr = document.createElement('iframe');
-		ifr.style.display = 'none';
-		document.body.appendChild(ifr);
-		unsafeWindow.MutationObserver = ifr.contentWindow.MutationObserver;
-		document.body.removeChild(ifr);
-
-		// Listen body class change to dark mode
 		let bgChanging;
-
-		let observer = new unsafeWindow.MutationObserver(function(mutations) {
-			mutations.forEach(function(mutation) {
-				let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
-				isDark = !isDark ? bddkmode : isDark;
-				if(isDark && !bddkmode){
-					$('body').addClass('darkmode dark');
-				}
-				if(bgChanging){ return; }
-				ChangeBgColor(.8);
-			});
-		});
-
 		function ChangeBgColor(alpha, onlyAlpha) {
-			// Listen stop
-			observer.disconnect();
 			bgChanging = 1;
 
 			let newcss = $('body').css('background-image');
@@ -873,20 +929,19 @@
 			} else {
 				let colors = ['30, 30, 40', '255, 255, 255'];
 				newcss = newcss.replace(
-					new RegExp(`${isDark ? colors[1] : colors[0]}, (\\d+\\.\\d+|\\d)`,'gi'),
-					`${isDark ? colors[0] : colors[1]}, ${alpha}`
+					new RegExp(`${isDark ? colors[0] : colors[1]}, (\\d+\\.\\d+|\\d)`,'gi'),
+					`${isDark ? colors[1] : colors[0]}, ${alpha}`
 				);
 			}
 
 			$('body').attr('style',`background-image:${newcss}!important`);
 
 			bgChanging = 0;
-			// Listen start
-			observer.observe(document.body, {attributes: true});
 		}
 
 		// Add ripples
 		function ReAddRipples(){
+			if(performanceMode){ return; }
 			$.ripple.destroy();
 			$.ripple(rippleObject);
 		};
@@ -898,21 +953,22 @@
 			let menuDarkModeId = 'gmbdecchi-menu-darkmode';
 			let styleDarkMode = 'darkmode dark';
 			let createDarkModeBtn = ()=>{
-				pMenuDarkMode = $(`<a id="${menuDarkModeId}" href="javascript:;">${isDark ? '关闭' : '开启'}黑暗</a>`);
+				pMenuDarkMode = $(`<a id="${menuDarkModeId}" href="javascript:;"><span class="set">${isDark ? '关闭' : '开启'}黑暗</span></a>`);
 				pMenuDarkMode.data('cssDarkMode', 'darkmode dark');
 				pMenuDarkMode.click(function(){
 					if(isDark){
-						$('body').removeClass(pMenuDarkMode.data('cssDarkMode'));
+						$('body ,#wrapper').removeClass(pMenuDarkMode.data('cssDarkMode'));
 						$('#gmdarkscrollbar').remove();
 						$('#gm_ebdinitbg').remove();
 					}else{
-						$('body').addClass(pMenuDarkMode.data('cssDarkMode'));
+						$('body ,#wrapper').addClass(pMenuDarkMode.data('cssDarkMode'));
 						if($('#gmdarkscrollbar').length < 1){
 							$('head').append(darkmodeScrollbarCss);
 						}
 					}
+					if(!bgChanging){ ChangeBgColor(.8); }
 					isDark = !isDark;
-					$(this).text(`${isDark ? '关闭' : '开启'}黑暗`);
+					$(this).find('span').text(`${isDark ? '关闭' : '开启'}黑暗`);
 					GM_setValue('openDark',isDark);
 				});
 			};
@@ -926,11 +982,11 @@
 				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
 				return;
 			}
-			if($('#u .toindex').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
+			if(!$(`.bdpfmenu #${menuDarkModeId}`).length){
 				createDarkModeBtn();
-				$('#u .toindex').after(pMenuDarkMode);
-				menuDarkModeAdded = 1;
+				$(`.bdpfmenu`).append(pMenuDarkMode);
 			}
+			menuDarkModeAdded = 1;
 		}
 
 		// Add ripples on start
@@ -988,7 +1044,7 @@
 
 				let $this = $(e.target);
 
-				if(!interval_addrip && e.target.className) {
+				if(!performanceMode && !interval_addrip && e.target.className) {
 					interval_addrip = setTimeout(()=>{
 						if(e.target.className.indexOf('ripple') > -1){
 							interval_addrip = null;
@@ -1009,11 +1065,6 @@
 				$this.find('[data-placeid]').remove();
 			});
 
-			// Patch ac style
-			if($('head').find('AC-Style-expand').length > 0 || $('head').find('.AC-TwoPageExStyle').length > 0){
-				$('head').append(acCenterPatch);
-			}
-
 			// Disable video auto play
 			$('video').removeAttr('autoplay');
 
@@ -1024,7 +1075,7 @@
 		}, 900);
 
 		// The following is the on ecchi mode ---------------------------------------------------------------------------
-		if (!gmCfg.ecchiMode.get()) {
+		if (!gmCfg.ecchiMode.get() || $('#dumoe-bgCss').length > 0) {
 			return;
 		}
 
@@ -1041,11 +1092,10 @@
 				if(arrbgurl && arrbgurl.length < 2) return;
 
 				// Preload complete
-				let Preloaded = 0;
 				function setBackground() {
-					Preloaded++;
-					if (Preloaded < 2) { return; }
-
+					if($('#dumoe-bgCss').length > 0){
+						return;
+					}
 					bgImageCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
 
 					if(isDark){
@@ -1058,27 +1108,26 @@
 					bgCircleMaskSurface = `.bgCircleMaskSurface${bgCircleMaskInside}`
 					+ `.darkmode.dark .bgCircleMaskSurface${bgCircleMaskInside.replace(/#ffffffc6/ig, '#1e1e28cc')}`;
 					bgCircleMaskInside = bgCircleMaskSurface.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
-					$('head').append(`<style>${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
+					$('head').append(`<style id="dumoe-bgCss">${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}`
+					+ `.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
 
 					isBgMaskCssOk = 1;
 
 					// Remove init bg
 					$('#gm_ebdinitbg').remove();
-
-					// Listen start
-					observer.observe(document.body, {attributes: true});
+					if($('body').css('background-image')=='none'){
+						$('body').css('background-image','')
+					}
 				}
-
 				// Preload background img
-				let imgA = new Image(), imgB = new Image();
-				imgA.onload = setBackground;
+				let imgA = new Image(),
+					imgB = new Image();
 				imgA.src = arrbgurl[0];
-				imgB.onload = setBackground;
 				imgB.src = arrbgurl[1];
-
+				imgB.onload = setBackground;
 			},
 			onerror: function(err){
-				console.log('baiduEcchi',err);
+				console.log('dumoe-ecchi',err);
 			}
 		});
 
@@ -1089,15 +1138,9 @@
 
 		let bgAnime = null, bgAlpha = .8;
 		function stopBgAni(){
-			// Listen stop
-			observer.disconnect();
-
 			if(!bgAnime) return;
 			cancelAnimationFrame(bgAnime);
 			bgAnime = null;
-
-			// Listen start
-			observer.observe(document.body, {attributes: true});
 		};
 
 		function startBgAni(show){
@@ -1226,7 +1269,7 @@
 
 		//------ Run on search page ------
 		if(isOnSearchPage()) {
-			ecchiOnSearchInit(1);
+			ecchiOnSearchInit();
 			ecchiOnSearch();
 			registerMenu();
 			return;
@@ -1248,12 +1291,14 @@
 	history.replaceState = addHistoryEvent('replaceState');
 
 	const handler = function(...arg){
+		let rerunInterval = setInterval(function(){
 			if(isOnSearchPage()) {
-				ecchiOnSearchInit(1);
+				ecchiOnSearchInit();
 				ecchiOnSearch();
-				registerMenu();
 				return;
 			}
+		},200);
+		setTimeout(()=>clearInterval(rerunInterval),2000)
 	}
 	window.addEventListener('pushState', handler);
 	window.addEventListener('replaceState', handler);
