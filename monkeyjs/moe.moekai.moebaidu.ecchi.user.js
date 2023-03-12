@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.5
+// @version      3.7.6
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -869,7 +869,7 @@
 			}
 		}
 
-		if(!isDark || $('#dumoe-ru').length){ return; }
+		if(!isDark || $('#dumoe-ru').length > 0){ return; }
 
 		if(!bddkmode){
 			$('body, #wrapper').addClass('darkmode dark');
@@ -882,7 +882,7 @@
 		}
 
 		let intervalInit = setInterval(()=>{
-			let bddkmode = $('body').hasClass('darkmode') && $('body').hasClass('dark');
+			let bddkmode = $('body.darkmode.dark').length > 0;
 			if(!bddkmode){
 				$('body, #wrapper').addClass('darkmode dark');
 				if($('#gmdarkscrollbar').length < 1){
@@ -890,20 +890,23 @@
 				}
 			}
 		},100);
-		setTimeout(()=>clearInterval(intervalInit), performanceMode ? 1500 : 3800);
+		setTimeout(()=>clearInterval(intervalInit), performanceMode ? 1500 : 3000);
 
 		addNotyfStyle();
 	}
 
 	//------ Search Page ------
 	function ecchiOnSearch() {
-		if($('#dumoe-ru').length){
-			return;
-		}
-
 		let isDark = GM_getValue('openDark');
 		let performanceMode = gmCfg.performanceMode.get();
 
+		if(isDark && $('#gmdarkscrollbar').length < 1){
+			$('head').append(darkmodeScrollbarCss);
+		}
+
+		if($('#dumoe-ru').length > 0){
+			return;
+		}
 		$('head').append(gb).append(ru)
 
 		if(!performanceMode){
@@ -1075,7 +1078,14 @@
 		}, 900);
 
 		// The following is the on ecchi mode ---------------------------------------------------------------------------
-		if (!gmCfg.ecchiMode.get() || $('#dumoe-bgCss').length > 0) {
+		if (!gmCfg.ecchiMode.get()) {
+			return;
+		}
+
+		if($('#dumoe-bgCss').length > 0){
+			if($('div[class*=]').length < 1){
+				createMaskBg();
+			}
 			return;
 		}
 
@@ -1112,6 +1122,8 @@
 					+ `.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
 
 					isBgMaskCssOk = 1;
+					bgCircleMaskInside = '';
+					bgCircleMaskSurface = '';
 
 					// Remove init bg
 					$('#gm_ebdinitbg').remove();
@@ -1124,6 +1136,7 @@
 					imgB = new Image();
 				imgA.src = arrbgurl[0];
 				imgB.src = arrbgurl[1];
+				imgA.onload = ()=>{}
 				imgB.onload = setBackground;
 			},
 			onerror: function(err){
@@ -1181,42 +1194,45 @@
 			passBgKeyboard = 0;
 		});
 
-		// Create mask bg
-		let bcmaskdom, ellipseOp, ellipseED, ellipseED2,
-			ellipseSize = ()=> passBgLogo ? 150 : 80,
-			edDelay = ()=> bcmaskdom.data('passBgLogo') ? 7.6 : 1.6;
+		createMaskBg();
 
-		$('body').mousedown((e)=>{
-			if(!isBgMaskCssOk) return;
-			let mouseX = e.pageX - window.pageXOffset,
-				mouseY = e.pageY - window.pageYOffset;
+		function createMaskBg(){
+			let bcmaskdom, ellipseOp, ellipseED, ellipseED2,
+				ellipseSize = ()=> passBgLogo ? 150 : 80,
+				edDelay = ()=> bcmaskdom.data('passBgLogo') ? 7.6 : 1.6;
 
-			ellipseOp = `ellipse(0 0 at ${mouseX}px ${mouseY}px)`;
-			ellipseED = `ellipse(${ellipseSize()}px ${ellipseSize()}px at ${mouseX}px ${mouseY}px)`;
-			ellipseED2 = `ellipse(${ellipseSize()}.1px ${ellipseSize()}.1px at ${mouseX}px ${mouseY}px)`;
+			$('body').mousedown((e)=>{
+				if(!isBgMaskCssOk) return;
+				let mouseX = e.pageX - window.pageXOffset,
+					mouseY = e.pageY - window.pageYOffset;
 
-			bcmaskdom = $(`<div class='${passBgLogo ? 'bgCircleMaskInside' : 'bgCircleMaskSurface'}'></div>`).clone();
-			bcmaskdom.css({'clip-path':ellipseOp, 'transition':'clip-path 4s'});
-			bcmaskdom.data('passBgLogo',passBgLogo).data('ed2',ellipseED2);
+				ellipseOp = `ellipse(0 0 at ${mouseX}px ${mouseY}px)`;
+				ellipseED = `ellipse(${ellipseSize()}px ${ellipseSize()}px at ${mouseX}px ${mouseY}px)`;
+				ellipseED2 = `ellipse(${ellipseSize()}.1px ${ellipseSize()}.1px at ${mouseX}px ${mouseY}px)`;
 
-			bcmaskdom.on('transitionend webkitTransitionEnd oTransitionEnd',(e)=>{
-				if($(e.target).css('opacity') <= 0){
-					$(e.target).off().remove();
-				}
-			});
+				bcmaskdom = $(`<div class='${passBgLogo ? 'bgCircleMaskInside' : 'bgCircleMaskSurface'}'></div>`).clone();
+				bcmaskdom.css({'clip-path':ellipseOp, 'transition':'clip-path 4s'});
+				bcmaskdom.data('passBgLogo',passBgLogo).data('ed2',ellipseED2);
 
-			$('body').append(bcmaskdom);
+				bcmaskdom.on('transitionend webkitTransitionEnd oTransitionEnd',(e)=>{
+					if($(e.target).css('opacity') <= 0){
+						$(e.target).off().remove();
+					}
+				});
 
-			setTimeout(()=>bcmaskdom.css({'clip-path':ellipseED}),1);
+				$('body').append(bcmaskdom);
 
-		}).mouseup(()=>maskAnimationEnd())
-			.on('dragover',()=>maskAnimationEnd())
-			.mouseleave(()=>maskAnimationEnd());
+				setTimeout(()=>bcmaskdom.css({'clip-path':ellipseED}),1);
 
-		function maskAnimationEnd(){
-			if(!isBgMaskCssOk || !bcmaskdom || !bcmaskdom.data('ed2')) return;
-			bcmaskdom.css({'clip-path':bcmaskdom.data('ed2'),'opacity':'0',
-						   'transition':`clip-path .6s,opacity .3s ease-out ${edDelay()}s`});
+			}).mouseup(()=>maskAnimationEnd())
+				.on('dragover',()=>maskAnimationEnd())
+				.mouseleave(()=>maskAnimationEnd());
+
+			function maskAnimationEnd(){
+				if(!isBgMaskCssOk || !bcmaskdom || !bcmaskdom.data('ed2')) return;
+				bcmaskdom.css({'clip-path':bcmaskdom.data('ed2'),'opacity':'0',
+							   'transition':`clip-path .6s,opacity .3s ease-out ${edDelay()}s`});
+			}
 		}
 
 		// Listen keyboard hide wrapper
