@@ -1138,6 +1138,8 @@
 				imgB.src = arrbgurl[1];
 				imgA.onload = ()=>{}
 				imgB.onload = setBackground;
+
+				createMaskBg();
 			},
 			onerror: function(err){
 				console.log('dumoe-ecchi',err);
@@ -1193,8 +1195,6 @@
 			bgHide();
 			passBgKeyboard = 0;
 		});
-
-		createMaskBg();
 
 		function createMaskBg(){
 			let bcmaskdom, ellipseOp, ellipseED, ellipseED2,
