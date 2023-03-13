@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.6
+// @version      3.7.7
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -869,13 +869,9 @@
 			}
 		}
 
-		if(!isDark || $('#dumoe-ru').length > 0){ return; }
+		addNotyfStyle();
 
-		if(!bddkmode){
-			$('body, #wrapper').addClass('darkmode dark');
-			$('head').append(darkmodeScrollbarCss).append(onSearchInitCss);
-			return;
-		}
+		if(!isDark || $('#dumoe-ru').length > 0 || $('#gmdarkscrollbar').length > 0){ return; }
 
 		if($('#gm_ebdinitbg').length < 1) {
 			$('head').append(onSearchInitCss);
@@ -891,11 +887,10 @@
 			}
 		},100);
 		setTimeout(()=>clearInterval(intervalInit), performanceMode ? 1500 : 3000);
-
-		addNotyfStyle();
 	}
 
 	//------ Search Page ------
+	let bgLoading;
 	function ecchiOnSearch() {
 		let isDark = GM_getValue('openDark');
 		let performanceMode = gmCfg.performanceMode.get();
@@ -1082,69 +1077,72 @@
 			return;
 		}
 
-		if($('#dumoe-bgCss').length > 0){
-			if($('div[class*=]').length < 1){
-				createMaskBg();
-			}
-			return;
-		}
-
 		// Get random background url
 		let isBgMaskCssOk;
-		GM_xmlhttpRequest({
-			method: 'GET',
-			url: 'https://rimg.moest.top',
-			headers: {
-				'token': '0191f2696816cf0b4cf88c6ab4e1e6103f71d938'
-			},
-			onload: function(response) {
-				let arrbgurl = $.parseJSON(response.responseText);
-				if(arrbgurl && arrbgurl.length < 2) return;
 
-				// Preload complete
-				function setBackground() {
-					if($('#dumoe-bgCss').length > 0){
-						return;
-					}
-					bgImageCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
+		if(!bgLoading){
+			bgLoading = true;
 
-					if(isDark){
-						let bgColorA = '30,30,40,1',
-							bgColorB = '30,30,40,0',
-							bgColorC = '#1e1e28cc';
-						bgImageCss = bgImageCss.replace(/255,255,255,1/ig, bgColorA).replace(/255,255,255,0/ig, bgColorB).replace(/#ffffffc6/ig, bgColorC);
-					}
-					bgCircleMaskInside = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
-					bgCircleMaskSurface = `.bgCircleMaskSurface${bgCircleMaskInside}`
-					+ `.darkmode.dark .bgCircleMaskSurface${bgCircleMaskInside.replace(/#ffffffc6/ig, '#1e1e28cc')}`;
-					bgCircleMaskInside = bgCircleMaskSurface.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
-					$('head').append(`<style id="dumoe-bgCss">${bgImageCss}${bgCircleMaskSurface}${bgCircleMaskInside}`
+			if($('#dumoe-bgCss').length > 0){
+				BackgroundLoaded();
+				bgLoading = false;
+				return;
+			}
+
+			GM_xmlhttpRequest({
+				method: 'GET',
+				url: 'https://rimg.moest.top',
+				headers: {
+					'token': '0191f2696816cf0b4cf88c6ab4e1e6103f71d938'
+				},
+				onload: function(response) {
+					let arrbgurl = $.parseJSON(response.responseText);
+					if(arrbgurl && arrbgurl.length < 2) return;
+
+					// Preload complete
+					function setBackground() {
+						let bgCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
+						let bgCircleMaskI = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
+						let bgCircleMaskS = `.bgCircleMaskSurface${bgCircleMaskI}`
+					    + `.darkmode.dark .bgCircleMaskSurface${bgCircleMaskI.replace(/#ffffffc6/ig, '#1e1e28cc')}`;
+
+						bgCircleMaskI = bgCircleMaskS.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
+
+						if(isDark){
+							let bgColorA = '30,30,40,1',
+								bgColorB = '30,30,40,0',
+								bgColorC = '#1e1e28cc';
+							bgCss = bgCss.replace(/255,255,255,1/ig, bgColorA).replace(/255,255,255,0/ig, bgColorB).replace(/#ffffffc6/ig, bgColorC);
+						}
+
+						$('head').append(`<style id="dumoe-bgCss">${bgCss}${bgCircleMaskS}${bgCircleMaskI}`
 					+ `.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
 
-					isBgMaskCssOk = 1;
-					bgCircleMaskInside = '';
-					bgCircleMaskSurface = '';
-
-					// Remove init bg
-					$('#gm_ebdinitbg').remove();
-					if($('body').css('background-image')=='none'){
-						$('body').css('background-image','')
+						createMaskBg();
+						BackgroundLoaded();
+						isBgMaskCssOk = 1;
+						bgLoading = false;
 					}
+					// Preload background img
+					let imgA = new Image(),
+						imgB = new Image();
+					imgA.src = arrbgurl[0];
+					imgB.src = arrbgurl[1];
+					imgA.onload = ()=>{}
+					imgB.onload = setBackground;
+				},
+				onerror: function(err){
+					console.log('dumoe-ecchi',err);
 				}
-				// Preload background img
-				let imgA = new Image(),
-					imgB = new Image();
-				imgA.src = arrbgurl[0];
-				imgB.src = arrbgurl[1];
-				imgA.onload = ()=>{}
-				imgB.onload = setBackground;
+			});
+		}
 
-				createMaskBg();
-			},
-			onerror: function(err){
-				console.log('dumoe-ecchi',err);
-			}
-		});
+		function BackgroundLoaded(){
+			// Remove init bg
+			$('#gm_ebdinitbg').remove();
+			$('#wrapper').removeClass('darkmode dark');
+			$('body').removeAttr('style');
+		}
 
 		// Show/hide background
 		let logodom = $('#result_logo'),
