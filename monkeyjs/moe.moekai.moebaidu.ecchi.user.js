@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.7
+// @version      3.7.8
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -103,7 +103,7 @@
 	#aging-tools-pc>div div[class|=item]:hover>div[class|=icon],
 	 #aging-tools-pc>div div[class|=item][class*=checked]>div[class|=icon]{background-color:#6d87f2!important}
 	#aging-tools-pc>div div[class|=pop]{background:#fffc;backdrop-filter:blur(10px)}
-	.darkmode.dark input:not(#kw),.darkmode #s_side_wrapper{background-color:#1118}
+	.darkmode.dark input:not(#kw):not([class*=select-input_]),.darkmode #s_side_wrapper{background-color:#1118}
 	.darkmode.dark [class*=input_]{color:#eee}
 	.darkmode.dark{background-color:#1f1f25cc!important}
 	.darkmode.dark #bottom_layer,.darkmode.dark #head,.darkmode.dark #s_menu_gurd.s-down,
@@ -178,7 +178,8 @@
 	.c-container{width:100%!important}
 	.container_l.sam_newgrid{width:80vw}
 	.c-group-wrapper{margin-left:auto!important}
-	.dropdown-menu,.c-dropdown2 .c-dropdown2-menu{position: fixed!important;left:auto!important;top:auto!important;width:auto!important;}
+	.dropdown-menu,.c-dropdown2 .c-dropdown2-menu,
+	 [class*=travel-select-board-layout]{position: fixed!important;left:auto!important;top:auto!important;width:auto!important;}
 	#s_tab .cur-tab,#s_tab .s-tab-item:hover,#u>a{color:#222!important}
 	#s_tab .cur-tab:before,#s_tab a,#s_tab b,#s_tab .s-tab-item:hover:before{color:#626675!important}
 	#s_tab a,#s_tab b{margin-right:auto!important;padding:0 13px 0 13px;text-align:center!important}
@@ -234,7 +235,9 @@
 	[class*=input_]{background-color:#fffb}
 	[class*=dis_able]:not([class*=file_li_]){color:#88a!important}
 	[class*=calendar-wrapper_]{background:#fffe!important}
-	.soutu-hover-tip,.soutu-env-new .soutu-layer .soutu-state-normal,.soutu-env-new .soutu-layer .soutu-error,.soutu-env-new .soutu-layer .soutu-waiting{background:#fffd}
+	[class*=travel-select-board-layout]{background:#fff9;backdrop-filter:blur(3px)}
+	.soutu-hover-tip,.soutu-env-new .soutu-layer .soutu-state-normal,
+	 .soutu-env-new .soutu-layer .soutu-error,.soutu-env-new .soutu-layer .soutu-waiting{background:#fffd}
 	.sam_newgrid~#page strong,.sam_newgrid~#page a:hover,
 	.sam_newgrid~#page a:hover .pc,.sam_newgrid~#page .n:hover{background:#0089ffab!important;color:#fff!important}
 	.new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.new-pmd .c-tabs-content,.op_express_delivery_more,.result-molecule>#page a{background-color:#fff6!important}
@@ -331,7 +334,8 @@
 	.darkmode .new-pmd .c-abstract,.darkmode #s_tab .cur-tab,.darkmode #s_tab .s-tab-item:hover,.darkmode #u>a:not([name*=login]),
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
 	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark [class^=text_],
-	 .darkmode.dark [class*=big-img-sub-abs_],.darkmode.dark [class^=name_]{color:#aaa!important}
+	 .darkmode.dark [class*=big-img-sub-abs_],.darkmode.dark [class^=name_],
+	 .darkmode.dark [class^=time_]{color:#aaa!important}
 	.darkmode #content_left .result-op [class*=audio-] [class*=pinyin]{color:#000}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],.darkmode .c-author,.darkmode .c-title-author,
@@ -371,7 +375,8 @@
 	.darkmode.dark #head:hover,.darkmode.dark #wrapper #s_tab:hover,.darkmode.dark .tag-container-fixed:hover{background:#22222833!important}
 	.darkmode.dark .tag-container-fixed{backdrop-filter:blur(3px)}
 	.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,.darkmode.dark .usermenu,
-	 .darkmode.dark .result-op [class*=tab-selected_]{background:#0008!important}
+	 .darkmode.dark .result-op [class*=tab-selected_],
+	 .darkmode.dark [class*=travel-select-board-layout] ul li:hover{background:#0008!important}
 	.darkmode.dark .soutu-hover-tip,.darkmode.dark [class*=calendar-wrapper_],.darkmode.dark .dropdown-menu{background:#222e!important}
 	.darkmode.dark [class*=calendar-table_] thead{background-color:#333a!important}
 	.darkmode.dark [class*=calendar-table_] th:not([class*=danger_]){color:#aad}
@@ -457,8 +462,8 @@
 	 +`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar])`
 	 +`:not(.c-showurl [class*=icon_]):not([class*=weather-icon_]):not([class*=icon-gap-big_]):not([class*=qihou-icon_]):not([class*=state-icon_])`
 	 +`:not([class*=pause]):not([class*=play]),
-	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=icon-more_],
-	 .darkmode.dark [class*=title-icon-row_]{filter:invert(1)}
+	 .darkmode.dark [class*=wrap_] [class*=opt-emoji_],.darkmode.dark .c-icon [class*=img2_],.darkmode.dark [class*=select-icon],
+	 .darkmode.dark [class*=icon-more_],.darkmode.dark [class*=title-icon-row_],.darkmode.dark .c-color .sub-icon{filter:invert(1)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark .x-interact-publish-cont-topic,.darkmode.dark a:nth-child(even) [class*=row-wrapper_]{background-color:#1115}
@@ -481,7 +486,8 @@
 	.darkmode.dark .sam_newgrid~#page a{background:#2222!important}
 	.darkmode.dark .c-dropdown2:hover .c-dropdown2-btn-icon-border,.darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border,
 	 .darkmode.dark .c-tabs-item .c-btn:hover,.darkmode.dark .result-op [class*=tags-] span:hover{background:#222!important}
-	.darkmode.dark .c-dropdown2 .c-dropdown2-menu,.darkmode.dark [class*=data-tip]{background:#222b;backdrop-filter:blur(5px)}
+	.darkmode.dark .c-dropdown2 .c-dropdown2-menu,.darkmode.dark [class*=data-tip],
+	 .darkmode.dark [class*=travel-select-board-layout]{background:#222b;backdrop-filter:blur(5px)}
 	.darkmode.dark .op-exrate-nav{border-bottom:1px solid #9db2ff}
 	.darkmode.dark .op-exrate-li,.darkmode.dark .op-exrate-dropdown dl dd div,.darkmode.dark .nors li{color:#777}
 	.darkmode.dark .op-exrate-nav li.op-exrate-li-sel{color:#9db2ff;background:#2222;border:1px solid #9db2ff}
@@ -506,7 +512,8 @@
 	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline],
 	 .darkmode.dark [class*=head-container_],.darkmode.dark .op-weather-province-item,
 	 .darkmode.dark [class*=tab-bar_]{border-bottom:1px solid #556}
-	.darkmode.dark .xcp-list-loader:not(.is-second),.darkmode.dark [class*=reyi-item-group]{background:#2223}
+	.darkmode.dark .xcp-list-loader:not(.is-second),.darkmode.dark [class*=reyi-item-group],
+	 .darkmode.dark [class*=select-wrapper_] [class*=select-box_]{background:#2223}
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
 	.darkmode.dark .new-pmd .c-text-blue-border{border:1px solid #859dff}
@@ -616,6 +623,9 @@
 	.darkmode.dark [class*=more-wrap_]:hover{background:#222a}
 	.darkmode.dark [class*=more-wrap_] [class*=more-span_]{background-color:#0000!important;color:#88a!important}
 	.darkmode.dark [class*=more-wrap_]:hover [class*=text_]{color:#a0b6ff!important}
+	.darkmode.dark [class*=money-style_]{color:#ffd400}
+	.darkmode.dark [class*=select-input_]{color:#0003}
+	.darkmode.dark [class*=select-wrapper_]{border-color:#6d5fdd70}
 	</style>`;
 
 	let rippleCss = `<style id="dumoe-rippleCss">
@@ -681,6 +691,7 @@
 
 	//------------------------------------ Global -------------------------------------------
 	const notyf = new Notyf();
+
 	const gmCfg = {
 		ecchiMode: {
 			id: 'ecchiMode',
@@ -786,15 +797,25 @@
 		GM_addStyle(GM_getResourceText('notyfCss'));
 	}
 
+	function getPerformanceModeStyle(style){
+		const regx = /transition.+?([;}])/g;
+		const performanceMode = gmCfg.performanceMode.get();
+		if(performanceMode){
+			style = style.replaceAll(regx, '$1');
+		}
+		return style
+	}
 
 	//------------------------------------ JS Run -------------------------------------------
 	let home_observer;
 	function ecchiOnHome()
 	{
 		let isDark = GM_getValue('openDark');
+
+
 		$('head')
 			.append(gb)
-			.append(st);
+			.append(getPerformanceModeStyle(st));
 
 		$('#lg img').each(function(){
 			$(this).attr('src','https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white-d0c9fe2af5.png');
@@ -817,7 +838,7 @@
 						$('head').append(darkmodeScrollbarCss);
 					}
 					if(!$('head #gmdarkmodehometosearchcssfix').length){
-						$('head').append(darkmodeHomeToSearchCssFix);
+						$('head').append(getPerformanceModeStyle(darkmodeHomeToSearchCssFix));
 					}
 				}
 				isDark = !isDark;
@@ -839,7 +860,7 @@
 					home_observer.observe(document.body, {attributes: true});
 				}
 				if(!$('head #gmdarkmodehometosearchcssfix').length){
-					$('head').append(darkmodeHomeToSearchCssFix);
+					$('head').append(getPerformanceModeStyle(darkmodeHomeToSearchCssFix));
 				}
 			});
 		});
@@ -902,7 +923,7 @@
 		if($('#dumoe-ru').length > 0){
 			return;
 		}
-		$('head').append(gb).append(ru)
+		$('head').append(gb).append(getPerformanceModeStyle(ru))
 
 		if(!performanceMode){
 			$('head').append(rippleCss)
@@ -980,9 +1001,13 @@
 				menuDarkModeAdded = isDark ? menuDarkModeAdded + 1 : 2;
 				return;
 			}
-			if(!$(`.bdpfmenu #${menuDarkModeId}`).length){
+			if($('b[class*=s-tab-ps]').length > 0 && $('.bdpfmenu').length > 0 && $(`.bdpfmenu #${menuDarkModeId}`).length < 1){
 				createDarkModeBtn();
-				$(`.bdpfmenu`).append(pMenuDarkMode);
+				$('.bdpfmenu').append(pMenuDarkMode);
+			}
+			else if($('#head #u').length > 0 && $(`#head #u #${menuDarkModeId}`).length < 1){
+				createDarkModeBtn();
+				$('#head #u').prepend(pMenuDarkMode);
 			}
 			menuDarkModeAdded = 1;
 		}
@@ -1099,10 +1124,16 @@
 					let arrbgurl = $.parseJSON(response.responseText);
 					if(arrbgurl && arrbgurl.length < 2) return;
 
+					let bgUrlA = arrbgurl[0];
+					let bgUrlB = arrbgurl[1];
+					let loaded = 0;
+
+					preloadBackground();
+
 					// Preload complete
 					function setBackground() {
-						let bgCss = bgImageCss.replaceAll('#url', `url(${arrbgurl[0]})`);
-						let bgCircleMaskI = bgCircleMaskInside.replace('#url', `url(${arrbgurl[1]})`);
+						let bgCss = bgImageCss.replaceAll('#url', `url(${bgUrlA})`);
+						let bgCircleMaskI = bgCircleMaskInside.replace('#url', `url(${bgUrlB})`);
 						let bgCircleMaskS = `.bgCircleMaskSurface${bgCircleMaskI}`
 					    + `.darkmode.dark .bgCircleMaskSurface${bgCircleMaskI.replace(/#ffffffc6/ig, '#1e1e28cc')}`;
 
@@ -1123,13 +1154,26 @@
 						isBgMaskCssOk = 1;
 						bgLoading = false;
 					}
-					// Preload background img
-					let imgA = new Image(),
-						imgB = new Image();
-					imgA.src = arrbgurl[0];
-					imgB.src = arrbgurl[1];
-					imgA.onload = ()=>{}
-					imgB.onload = setBackground;
+
+					function startSetBackground(){
+						loaded++;
+						if(loaded == 2) {
+							setBackground();
+						}
+					}
+
+					async function preloadBackground(){
+						let imgA = new Image(),
+							imgB = new Image();
+						await (()=>{
+							imgA.src = bgUrlA;
+							imgA.onload = startSetBackground();
+						})();
+						await (()=>{
+							imgB.src = bgUrlB;
+							imgB.onload = startSetBackground();
+						})();
+					}
 				},
 				onerror: function(err){
 					console.log('dumoe-ecchi',err);
