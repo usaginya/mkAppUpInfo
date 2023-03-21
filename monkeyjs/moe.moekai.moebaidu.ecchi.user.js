@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.7.8
+// @version      3.7.9
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -685,8 +685,8 @@
 	</style>`;
 
 	let scrollbarCssFix = `<style id="gmscrollbarfix">
-	::-webkit-scrollbar{width:1rem;height:1rem}
-	::-webkit-scrollbar-thumb{border-radius:1rem}
+	::-webkit-scrollbar{width:1rem!important;height:1rem!important}
+	::-webkit-scrollbar-thumb{border-radius:1rem!important}
 	</style>`;
 
 	//------------------------------------ Global -------------------------------------------
@@ -890,6 +890,14 @@
 			}
 		}
 
+		// Fix scorll bar css
+		if(window.location.href.indexOf('.com/sf')>0 || window.location.href.indexOf('tn=news')>0){
+			if($('#gmscrollbarfix').length < 1){
+				$('head').append(scrollbarCssFix)
+			}
+		}
+		$('meta[name="referrer"]').attr('content','no-referrer');
+
 		addNotyfStyle();
 
 		if(!isDark || $('#dumoe-ru').length > 0 || $('#gmdarkscrollbar').length > 0){ return; }
@@ -928,14 +936,6 @@
 		if(!performanceMode){
 			$('head').append(rippleCss)
 		}
-
-		// Fix scorll bar css
-		if(window.location.href.indexOf('.com/sf')>0 || window.location.href.indexOf('tn=news')>0){
-			if(!$('#gmscrollbarfix').length < 1){
-				$('head').append(scrollbarCssFix)
-			}
-		}
-		$('meta[name="referrer"]').attr('content','no-referrer');
 
 		let bgChanging;
 		function ChangeBgColor(alpha, onlyAlpha) {
@@ -983,6 +983,9 @@
 						$('body ,#wrapper').addClass(pMenuDarkMode.data('cssDarkMode'));
 						if($('#gmdarkscrollbar').length < 1){
 							$('head').append(darkmodeScrollbarCss);
+						}
+						if($('#gm_ebdinitbg').length < 1 && !gmCfg.ecchiMode.get()) {
+							$('head').append(onSearchInitCss);
 						}
 					}
 					if(!bgChanging){ ChangeBgColor(.8); }
