@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.3.72
+// @version      3.3.73
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
 // @match        http*://hggard.com/*
 // @match        http*://gmgard.moe/*
+// @match        http*://lzone.moe/*
 // @icon         https://hggard.com/favicon.ico
 // @run-at       document-end
 // @grant        unsafeWindow
