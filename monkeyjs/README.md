@@ -13,6 +13,7 @@
 | moe.moekai.aya.videorecorder.user.js | 文文录像机-网页视频录像 |
 | moe.moekai.epicgames.removeblock.user.js | EPIC移除商店限制提示 |
 | moe.moekai.website.autosign.user.js | 常用网站自动签到（自用） |
+| moe.moekai.kaoshibao-kao.user.js | 考试宝-鉴定为：烤（试题自动答题（加密试题无效））
 
 # 自改各种油猴脚本
 | 原名  | 简介  |
