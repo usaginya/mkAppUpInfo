@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         考试宝-溢烟丁真鉴定为：烤
 // @namespace    https://www.kaoshibao.com/
-// @version      2023.6.10.6
+// @version      2023.6.11.3
 // @description  轻轻敲醒厨圣的心灵
 // @author       YIU
 // @match        http*://www.kaoshibao.com/k*
@@ -235,18 +235,11 @@
 
 
 	//
-	// 交换最后两个字符
-	// 如果只有一个字符则为两个重复字符
+	// 重复最后一个字符一次
 	//
-	function swapLastTwoChars(str) {
-		if (str.length === 1) {
-			return str.toString().repeat(2);
-		} else {
-			const lastChar = str.charAt(str.length - 1);
-			const secondLastChar = str.charAt(str.length - 2);
-			const restOfString = str.slice(0, str.length - 2);
-			return restOfString + lastChar + secondLastChar;
-		}
+	function repeatLastCharOnce(str) {
+		str = str.toString();
+		return `${str}${str.slice(-1)}`;
 	}
 
 
@@ -295,14 +288,10 @@
 		}
 
 		//可匹配到的题目标题
-		//- 题目<span
-		//- &nbsp;题目<span
-		//- 题目&nbsp;<span
-		//- &nbsp;题目&nbsp;<span
-		//- 题目\n有换行<span
-		//- 题目\n有换行&nbsp;<span
-		//- &nbsp;题目\n有换行<span
-		//- &nbsp;题目\n有换行&nbsp;<span
+		//- 题目<br|<span|&nbsp;
+		//- &nbsp;题目<br|<span|&nbsp;
+		//- 题目\n有换行<br|<span|&nbsp;
+		//- &nbsp;题目\n有换行<br|<span|&nbsp;
 		qTitle = qTitleDom.innerHTML.match(/(?:^|&nbsp;)([\s\S]*?)(?=(<br|<span|&nbsp;))/);
 		return qTitle ? qTitle[0] : null;
 	}
@@ -359,6 +348,123 @@
 
 
 	//
+	// 取不重复的随机字母
+	// maxIndex      int 要取的最大区间 1~26
+	// excludedIndex int 要排除的字母索引
+	// count         int 要生成的字母数量
+	//
+	function getRandomLetters(maxIndex, excludedIndex, count) {
+		// 确保 maxIndex 在区间 [1, 26] 内
+		maxIndex = Math.max(1, Math.min(26, maxIndex));
+
+		// 确保 excludedIndex 在区间 [1, maxIndex] 内
+		excludedIndex = Math.max(1, Math.min(maxIndex, excludedIndex + 1));
+
+		count = Math.max(1, Math.min(26, count, maxIndex - 1));
+
+		// 最大区间与排除索引都为 1 时直接返回、因为处理这种情况不现实
+		if (maxIndex === 1 && excludedIndex === 1){
+			return String.fromCharCode(97);
+		}
+
+		let randNum;
+		let letters = [];
+		let whileDoCount = 0;
+		let doWhileCount = 0;
+
+		while (letters.length < count) {
+			let letter;
+
+			whileDoCount++;
+			if(whileDoCount > 1000){
+				console.warn('烤 - 1 取随机字母超出最大尝试次数');
+				break;
+			}
+
+			do {
+				doWhileCount++;
+				if(doWhileCount > 1000){
+					console.warn('烤 - 2 取随机字母超出最大尝试次数');
+					break;
+				}
+				// 生成 [1, maxIndex] 区间内的随机整数
+				randNum = Math.floor(Math.random() * maxIndex) + 1;
+			} while (randNum === excludedIndex);
+			doWhileCount = 0;
+
+			letter = String.fromCharCode(randNum + 96);
+
+			if (!letters.includes(letter)) {
+				letters.push(letter);
+			}
+		}
+
+		return letters.join('');
+	}
+
+
+	//
+	// 乱序字符串类方法 一定不会和原字符串相同
+	//
+	const shuffle = {
+		// 乱序数组
+		// 直接操作数组 无返回值
+		array: function (arr) {
+			// 如果只有2个字符则直接交换
+			if (arr.length === 2) {
+				[arr[1], arr[0]] = [arr[0], arr[1]];
+				return;
+			}
+			// 使用Fisher-Yates shuffle算法随机排序字符串中每一个字符
+			for (let i = arr.length - 1; i > 0; i--) {
+				let j = Math.floor(Math.random() * (i + 1));
+				[arr[i], arr[j]] = [arr[j], arr[i]];
+			}
+		},
+
+		// 乱序每个字符
+		char: function (str) {
+			// 如果只有一个字符则直接返回
+			if (str.length === 1) {
+				return str;
+			}
+
+			let arr = str.split('');
+			this.array(arr);
+			let newStr = arr.join('');
+
+			// 如果打乱后的字符串与原来的字符串相同、则重新打乱
+			if (newStr === str) {
+				return this.char(str);
+			}
+			return newStr;
+		},
+
+		// 以分隔符乱序每组字符串
+		// 分隔符默认为 |
+		group: function (str, separator = '|') {
+			let arr = str.split(separator);
+
+			// 将打乱后的字符串分组重新组合成字符串
+			this.array(arr);
+			let newStr = arr.join(separator);
+
+			// 如果打乱后的字符串与原来的字符串相同、则重新打乱
+			if (newStr === str) {
+				return this.group(str, separator);
+			}
+			return newStr;
+		},
+
+		// 通用乱序字符串方法
+		string: function (str, separator) {
+			// 如果参数提供了分隔符则调用group方法、否则调用char方法
+			return !separator ? this.char(str) : this.group(str, separator);
+		},
+	}
+
+
+	//
 	// 进行答题 递归
 	//
 	function Answer(){
@@ -402,15 +508,50 @@
 			beforeQusetionNumber = qNumInt;
 			answerAgainCount = 0;
 
+			// 答案字符串分隔符
+			const answerSeparator = '|';
 
-			// 是否为错误回答
-			let isWrongAnswer;
+			let examAnsDom, examAnsInputDom, examAnsSaveBtn, examAnsPostBtn;
+			let answerString, answerStringLength, answerGetStrLength, answerGroup, aIndex, answerOptions, firstAnswerId, answerCount;
 
 			let answerData = GetAnswerData();
-			if(answerData.data && answerData.data.answer && answerData.data.qtype){
+			if (answerData.data && answerData.data.answer && answerData.data.qtype) {
+				// 准备回答的原始答案字符串
+				answerString = answerData.data.answer;
+				answerStringLength = answerString.length;
 
-				let examAnsDom, examAnsInputDom, examAnsSaveBtn, examAnsPostBtn, answerGroup, aIndex, examAnsInputCount, wrongAnswerOk;
+				// 生成错误回答
+				// 根据错误回答组匹配替换正确回答内容
+				if (wrongAnswerCount > 0 && wrongAnswerIds.has(answerData.id)) {
+					switch(answerData.data.qtype){
+						case '1': case '2': case '3': //1单选 2多选 3判断
+							// 随机答案
+							// 截取第一个答案字母并获得索引
+							// 生成与答案总数相同而答案不同的答案
+							firstAnswerId = mapAnswerOption[answerString.slice(0,1)];
+							answerOptions = examDom.querySelectorAll('[class*=options]>*');
+							if (!answerOptions) {
+								break;
+							}
+							answerCount = answerOptions.length;
+							answerGetStrLength = answerStringLength === answerCount ? answerStringLength - 1 : answerStringLength;
+							answerGetStrLength = answerGetStrLength < 1 ? 1 : answerGetStrLength;
+							answerString = getRandomLetters(answerCount, firstAnswerId, answerGetStrLength)
+							break;
 
+						case '4': //填空题
+							if (answerString.includes(answerSeparator)) {
+								answerString = shuffle.string(answerString, answerSeparator);
+							}
+							else {
+								// 只有一个答案 直接重复最后一个字符
+								answerString = repeatLastCharOnce(answerString);
+							}
+							break;
+					}
+				}
+
+				// 答题操作
 				//1单选 2多选 3判断 4填空
 				switch(answerData.data.qtype){
 					case '1':
@@ -423,10 +564,16 @@
 							break;
 						}
 
-						answerGroup = answerData.data.answer.toUpperCase().split('');
-						if(answerGroup.length < 1) break;
+						// 如果答案字符串为空则跳过
+						if (!answerString) {
+							ShowAnswer(qNumInt, answerData.data.answer);
+							console.warn(qNumInt, '未得到答题原始字符串');
+							break;
+						}
 
-						examAnsInputCount = examAnsDom.children.length;
+						// 提取回答数组
+						answerGroup = answerString.toUpperCase().split('');
+						if(answerGroup.length < 1) break;
 
 						answerGroup.map((aKey)=>{
 							aIndex = mapAnswerOption[aKey];
@@ -434,29 +581,6 @@
 								ShowAnswer(qNumInt, answerData.data.answer);
 								console.warn(qNumInt, '未找到答题选项索引');
 								return;
-							}
-
-							// 答错题
-							if(wrongAnswerCount > 0){
-								isWrongAnswer = wrongAnswerIds.has(answerData.id);
-								// 多个答案时如果答案总数与选项元素总数相同改变答案索引
-								// 否则将每个答案往后移而最后的答案移到第一个
-								// 只有一个答案时选择另一个
-								if(isWrongAnswer){
-									if (answerGroup.length > 1) {
-										if(answerGroup.length === examAnsInputCount){
-											aIndex++;
-											wrongAnswerOk = !0;
-										}
-										else if(!wrongAnswerOk){
-											aIndex++;
-											aIndex = aIndex >= examAnsInputCount ? 0 : aIndex;
-										}
-									}
-									else {
-										aIndex = aIndex > 0 ? 0 : 1;
-									}
-								}
 							}
 
 							// 答题
@@ -505,7 +629,15 @@
 							break;
 						}
 
-						answerGroup = answerData.data.answer.toUpperCase().split('|');
+						// 如果答案字符串为空则跳过
+						if (!answerString) {
+							ShowAnswer(qNumInt, answerData.data.answer);
+							console.warn(qNumInt, '未得到答题原始字符串');
+							break;
+						}
+
+						// 提取回答数组
+						answerGroup = answerString.split('|');
 						if(answerGroup.length < 1) break;
 
 						answerGroup.map((answer, aIndex)=>{
@@ -513,19 +645,6 @@
 								ShowAnswer(qNumInt, answerData.data.answer);
 								console.warn(qNumInt, '未找到答案内容');
 								return;
-							}
-
-							// 答错题
-							if(wrongAnswerCount > 0){
-								isWrongAnswer = wrongAnswerIds.has(answerData.id);
-								if(isWrongAnswer){
-									if(answerGroup.length === 1){ //只有一个答案则直接修改答案内容
-										answer = swapLastTwoChars(answer);
-									}
-									else if(aIndex < 2){ // 多个答案时只反转前两个答案
-										aIndex = aIndex < 1 ? 1 : 0;
-									}
-								}
 							}
 
 							examAnsInputDom = examAnsDom.children[aIndex];
@@ -728,7 +847,6 @@
 
 			let eac = prompt('请输入错题个数，不输入或者输入0 按满分答题\n'
 							 + `错题个数最多可输入 ${maxErrorCount}\n`
-							 + '自动错题可能有 1～3 题误差\n'
 							 + '想要停止烤题可在右键脚本扩展找到此脚本菜单的强制停止') || '0';
 
 			if(!/^\d+$/.test(eac.replace(/\s+/g,'')) || eac > maxErrorCount){
