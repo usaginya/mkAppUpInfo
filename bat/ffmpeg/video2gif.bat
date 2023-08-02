@@ -1,26 +1,30 @@
 @echo off
 title ffmpeg 视频转 GIF 图片 by YIU
-::Last 2022-01-23
+::Last 2023-08-03
 
 :: 将下面一行的 = 后面改为你的ffmpeg路径
-set "ffmpeg=%~dp0tools\ffmpeg.exe"
-:: 改ffmpeg路径在上一行
+set "ffmpeg=ffmpeg.exe"
 
 :init
-set "ffmpeg=%ffmpeg:"=%"
-call :getName "%ffmpeg%"
-if not exist "%ffmpeg%" (if /i "%tn%"=="ffmpeg.exe" set "ffmpeg=ffmpeg")
+call :INFO
+if not defined %ffmpeg% (
+ set "ffmpeg=ffmpeg"
+) else (
+ set "ffmpeg=%ffmpeg:"=%"
+ call :getName "%ffmpeg%"
+ if not exist "%ffmpeg%" (if /i "%tn%"=="ffmpeg.exe" set "ffmpeg=ffmpeg")
+)
 
 set formdrag=0
 set invideo=%1
-if "%invideo%" neq "" set formdrag=1 & goto argop
+if defined invideo set "invideo=%invideo:"=%" & set formdrag=1 & goto argop
 
 :op
 echo.
 echo.
 echo     ◆ 请按以下提示依次输入后回车
 echo.
-echo     [3] 拖入视频文件(video)：
+echo     [4] 拖入视频文件(video)：
 Set /p invideo=　　
 :argop
 if "%invideo:"=%"=="" goto op
@@ -34,33 +38,111 @@ echo     ◆ 请按以下提示依次输入后回车
 echo.
 )
 
-echo     [2] 设置转换后图片宽度（单位：px 像素）
+echo     [3] 设置转换后图片宽度（单位：px 像素）
 set width=0
 Set /p width=　　默认原始大小（输入数字）：
 if %width% gtr 0 (set "scale=scale=%width%:-1:flags=lanczos,") else (set "scale=")
 echo.
 echo.
 
-echo     [1] 每秒帧数速率（单位：fps）
+echo     [2] 每秒帧数速率（单位：fps）
 set fps=0
 Set /p fps=　　默认自动速率（输入数字）：
 if %fps% gtr 0 (set "fps=fps=%fps%,") else (set "fps=")
 echo.
 echo.
 
+:InputColor
+set colorkey=
+echo     [1] 透明色（色键度 将指定颜色透明化 例子：0x00FF00）
+set hexColor=
+Set /p hexColor=　　默认忽略（跳过）：
+if not defined hexColor goto convert
+echo %hexColor%|findstr /r "^0x[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]$" || goto InputColorError
+set "colorkey=chromakey=%hexColor%"
+echo.
+echo.
+goto InputColorSimilarity
+
+:InputColorError
+echo.
+echo   输入的颜色格式错误！请重新输入！
+echo.
+goto InputColor
+
+:InputColorSimilarity
+echo     [1.2] 透明色相似度（0.01 完全相似  ~ 1 匹配任何颜色）
+set similarity=0.2
+Set /p similarity=　　默认 0.2（输入数字）：
+echo %similarity%|findstr /r "^1$" || ^
+echo %similarity%|findstr /r "^0\.[0-9][1-9]$" || ^
+echo %similarity%|findstr /r "^0\.[1-9]$" || ^
+goto InputColorSimilarityError
+set "colorkey=%colorkey%:%similarity%"
+echo.
+echo.
+goto InputColorBlend
+
+:InputColorSimilarityError
+echo.
+echo   输入的相似度错误！请输入 0.01~1 之间的数！
+echo.
+goto InputColorSimilarity
+
+:InputColorBlend
+echo     [1.1] 透明色融合度（0 完全透明 ~ 1 完全不透明）
+set blend=0.28
+Set /p blend=　　默认 0.28（输入数字）：
+echo %blend%|findstr /r "^[0-1]$" || ^
+echo %blend%|findstr /r "^0\.[0-9][1-9]$" || ^
+echo %blend%|findstr /r "^0\.[1-9]$" || ^
+goto InputColorBlendError
+set "colorkey=%colorkey%:%blend%,"
+echo.
+echo.
+goto convert
+
+:InputColorBlendError
+echo.
+echo   输入的融合度错误！请输入 0~1 之间的数！
+echo.
+goto InputColorBlend
+
+
+:convert
 ::取CPU核心数计算线程
 setlocal enabledelayedexpansion
 set line=0
 for /f  %%a in ('wmic cpu get numberofcores') do (
 set /a line+=1
-if !line!==2 set cpun=%%a
+if !line!==2 set /a cpun=%%a / 2
 )
-setlocal disabledelayedexpansion  
+setlocal disabledelayedexpansion
 
-if ERRORLEVEL 1 (set cpun=1)
-if %cpun% lss 1 (set cpun=2) else (set /a cpun=cpun-1)
+if ERRORLEVEL 1 set cpun=1
+if %cpun% lss 1 set cpun=1
 
-start /b /high /wait "" %ffmpeg% -i "%invideo%" -threads %cpun% -vf "%fps%%scale%split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 -y "%fn%.gif"
+set ffmpegRun=%ffmpeg% -i "%invideo%" -threads %cpun% -vf "%colorkey%%fps%%scale%split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 -y "%fn%.gif"
+
+echo.
+echo %ffmpegRun%
+echo.
+timeout /t 2 >nul
+echo.
+start /b /high /wait "" %ffmpegRun%
+
+echo.
+echo.
+echo.
+echo     转换完成！
+echo.
+timeout /t 5 >nul
+goto :eof 
 
 :getName
 set tn=%~nx1
+
+:INFO
+echo.
+echo --=== FFmpeg Video to Gif 视频转GIF批处理  Ver 1.2  by YIU ===--
+goto :eof

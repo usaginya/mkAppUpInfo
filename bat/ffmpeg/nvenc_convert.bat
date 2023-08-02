@@ -1,13 +1,13 @@
 @echo off
 title ffmpeg nvenc转码 by YIU
-::Last 2023-06-13
+::Last 2023-08-03
 
 :: 将下面一行的 = 后面改为你的 ffmpeg.exe 所在路径
 set "ffmpeg=ffmpeg.exe"
 
 :init
 call :INFO
-if not defined %ffmpeg% (
+if not defined ffmpeg (
  set "ffmpeg=ffmpeg"
 ) else (
  set "ffmpeg=%ffmpeg:"=%"
@@ -102,6 +102,7 @@ if ERRORLEVEL 1 set cpun=1
 if %cpun% lss 1 set cpun=1
 
 set ffmpegRun=%ffmpeg% -i "%invideo%" %width% -c:v %code%_nvenc -preset:v slow -tune:v hq -rc:v vbr -cq:v %cq% -b:v 0 -threads:v:0 %cpun% -filter_threads %cpun% -spatial_aq 1 -aq-strength 1 -y "%fn%_%code%_nvenc.mp4"
+
 echo.
 echo %ffmpegRun%
 echo.
