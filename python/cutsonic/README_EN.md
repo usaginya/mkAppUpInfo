@@ -1,6 +1,6 @@
 # Cut Sonic (Audio Segmentation and Enhancement)
 
-[English](https://github.com/usaginya/mkAppUpInfo/tree/master/python/cutsonic/README_EN.md)
+[中文](https://github.com/usaginya/mkAppUpInfo/tree/master/python/cutsonic/README.md)
 
 This script is used to split audio files such as WAV, MP3, OGG, etc., and optionally perform basic denoising and speech enhancement. Its primary purpose is to quickly create speech datasets for AI training.
 
