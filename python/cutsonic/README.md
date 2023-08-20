@@ -25,5 +25,7 @@
 ## 其他说明
 
 如果降噪和增强效果不满意、你自己可以修改脚本中 `self.__board__ = Pedalboard([...])` 内的效果器参数配置
+
 代码离开头很近、仅在20行以内、很快就能找到
+
 更多效果器配置请参考 [Pedalboard 的官方文档](https://spotify.github.io/pedalboard/index.html)
