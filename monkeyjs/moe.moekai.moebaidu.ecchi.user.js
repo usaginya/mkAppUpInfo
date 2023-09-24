@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.8.1
+// @version      3.8.2
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -17,10 +17,8 @@
 // @grant        GM_unregisterMenuCommand
 // @connect      moest.top
 // @run-at       document-start
-// @resource     notyfCss https://cdn.bootcdn.net/ajax/libs/notyf/3.10.0/notyf.min.css
 // @require      https://cdn.bootcdn.net/ajax/libs/jquery/2.0.3/jquery.min.js
-// @require      https://raw.iqiq.io/matthias-vogt/legitRipple.js/gh-pages/js/ripple.js
-// @require      https://cdn.bootcdn.net/ajax/libs/notyf/3.10.0/notyf.min.js
+// @require      https://jsdelivr.b-cdn.net/gh/matthias-vogt/legitRipple.js@gh-pages/js/ripple.js
 // ==/UserScript==
 
 (function(){
@@ -357,13 +355,13 @@
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a,.darkmode.dark .selected-search-box,.darkmode.dark .bdpfmenu,
 	 .darkmode.dark .usermenu{background:#3339!important}
 	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]`
-	 +`:not([class*=bottom-scroll-item_]),
+	 +`:not([class*=bottom-scroll-item_]),.darkmode.dark [class*=sc-scroll-control-],
 	 .darkmode.dark div[class*=list_]>[class*=item_],.darkmode.dark [class*=info-row-btn_],
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]),
 	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_],
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]{background:#3339}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]`
-	 +`:not([class*=bottom-scroll-item_]):hover,
+	 +`:not([class*=bottom-scroll-item_]):hover,.darkmode.dark [class*=sc-scroll-control-]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:hover,
 	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover,
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):hover,
@@ -525,7 +523,10 @@
 	.darkmode.dark .xcp-list-loader:not(.is-second):hover{background:#2228}
 	.darkmode .new-pmd .c-text-blue-border{color:#859dff!important}
 	.darkmode.dark .new-pmd .c-text-blue-border{border:1px solid #859dff}
-	.darkmode.dark .c-tip-con .c-tip-timerfilter ul,.darkmode.dark [class*=pop_over_],.darkmode.dark [class*=select-container] ul{color:#999}
+	.darkmode.dark .c-tip-con .c-tip-timerfilter ul,.darkmode.dark [class*=pop_over_],.darkmode.dark [class*=select-container] ul,
+	 .darkmode.dark .wrapper_new #form .bdsug-new ul li .name,
+	 .darkmode.dark .wrapper_new #form .bdsug-new ul li .brief,
+	 .darkmode.dark .wrapper_new #form .bdsug-new ul li .info{color:#999}
 	.darkmode.dark .c-tip-custom hr{border-top:1px solid #9db2ff66}
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-custom-submit,
 	 .darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-timerfilter-si-submit,.darkmode.dark #c-tip-custom-calenderCont,
@@ -570,8 +571,10 @@
 	.darkmode.dark .dropdown-menu-item,.darkmode.dark [class*=pc-name_],.darkmode.dark [class*=pc-sub-title_],.darkmode.dark [class*=subtitle_],
 	 .darkmode.dark [class*=answer-pc_]{color:#ccc!important}
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
-	.darkmode.dark [class*=container_] [class^=right-icon_],.darkmode.dark [class*=button_]{background:#2228}
-	.darkmode.dark [class*=container_] [class^=right-icon_]:hover,.darkmode.dark [class*=button_]:hover{background:#111!important}
+	.darkmode.dark [class*=container_] [class^=right-icon_],.darkmode.dark [class*=button_]:not([class*=slink-button]){background:#2228}
+	.darkmode.dark [class*=container_] [class^=right-icon_]:hover,
+	 .darkmode.dark [class*=button_]:not([class*=slink-button]):hover{background:#111!important}
+	.darkmode.dark [class*=button_]:not([class*=slink-button]):hover [class*=content_]{color:#eee}
 	.darkmode.dark [class^=title_],.darkmode.dark [class^=list-gap_],.darkmode.dark [class*=group-title_]{color:#a8b8c8}
 	.darkmode.dark [class*=danmaku_] [class*=mask_]{background:linear-gradient(180deg,#222,#0000)}
 	.darkmode.dark [class^=wrap_]:not([class*=like_]):hover{box-shadow:0 2px 5px 0 #735aff4d}
@@ -618,7 +621,7 @@
 	.darkmode.dark [class*=tabs-wrapper_] [class*=tab_][class*=active_]{background:#2226!important;color:#a59fff!important}
 	.darkmode.dark [class*=pc_] [class*=item_]:hover [class*=item-hover_],
 	 .darkmode.dark [class*=list-row_]:hover{background-color:#1118!important}
-	.darkmode.dark [class*=more-btn_],.darkmode.dark [class*=box-item_]{background-color:#3335}
+	.darkmode.dark [class*=more-btn_],.darkmode.dark [class*=box-item_],{background-color:#3335}
 	.darkmode.dark [class*=content_]{color:#b3bcff}
 	.darkmode.dark [class*=pc_] [class*=text_]{color:#90c2ff}
 	.darkmode.dark [class*=item-selected_]{background-color:#1117}
@@ -637,6 +640,10 @@
 	.darkmode.dark [class*=money-style_]{color:#ffd400}
 	.darkmode.dark [class*=select-input_]{color:#0003}
 	.darkmode.dark [class*=select-wrapper_]{border-color:#6d5fdd70}
+	.darkmode.dark .wrapper_new #form .bdsug-new ul li .right-btn{background-color:#3335;background-image:none!important}
+	.darkmode.dark [class*=baike-wrapper_],.darkmode.dark [class*=interaction-wrapper_] [class*=interaction_]{background-color:#222c}
+	.darkmode.dark [class*=baike-slink-wrapper_]{background-color:#222d}
+	.darkmode.dark [class*=interaction-wrapper_] svg[class*=irregularity-svg_] #WISE > g{fill:#222c}
 	</style>`;
 
 	let rippleCss = `<style id="dumoe-rippleCss">
@@ -700,9 +707,142 @@
 	::-webkit-scrollbar-thumb{border-radius:1rem!important}
 	</style>`;
 
-	//------------------------------------ Global -------------------------------------------
-	const notyf = new Notyf();
+	let notifyCss = `<style id="dumoe-notify">
+	.notify-item {
+	  min-width: 150px;  padding: 1.2vh 1.2vw;  font-size: 14pt;  line-height: 1.2;
+	  border-radius: 4px;  margin-bottom: 2vh;  animation-duration: .5s;
+	  animation-name: bounceIn;  position: relative; text-align: center;
+	}
+	.notify-item::before {
+	  content: "";  z-index: -1;  position: absolute;  border-radius: inherit;  background: inherit;  filter: blur(4px);
+	  top: 1px;  left: 0px;  opacity: 0.6;  width: 100%;  height: 100%;
+	}
+	.notify-container {
+	  position: fixed;  height: 0;  bottom: 0;  width: 100%;  z-index: 100;
+	  display: flex;  flex-direction: column-reverse;  align-items: center;  flex-wrap: nowrap;
+	}
+	.notify-item-removing{
+	  opacity: 0;
+	  transition: opacity 0.3s;
+	}
+	.notify-item-default {
+	  background: hsl(0, 0%, 85%);
+	  color: hsl(0, 0%, 10%);
+	}
+	.notify-item-green {
+	  background: hsl(126 70% 46%);
+	  color: #fff;
+	}
+	.notify-item-red {
+	  background: hsl(0, 88%, 68%);
+	  color: #fff;
+	}
+	@keyframes bounceIn {
+	  0%,20%,40%,60%,80%,to {
+		  -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
+		  animation-timing-function: cubic-bezier(.215,.61,.355,1)
+	  }
+	  0% {
+		  opacity: 0;
+		  -webkit-transform: scale3d(.3,.3,.3);
+		  transform: scale3d(.3,.3,.3)
+	  }
+	  20% {
+		  -webkit-transform: scale3d(1.05,1.05,1.05);
+		  transform: scale3d(1.05,1.05,1.05)
+	  }
+	  40% {
+		  -webkit-transform: scale3d(.95,.95,.95);
+		  transform: scale3d(.95,.95,.95)
+	  }
+	  60% {
+		  opacity: 1;
+		  -webkit-transform: scale3d(1.03,1.03,1.03);
+		  transform: scale3d(1.03,1.03,1.03)
+	  }
+	  80% {
+		  -webkit-transform: scale3d(.97,.97,.97);
+		  transform: scale3d(.97,.97,.97)
+	  }
+	  to {
+		  opacity: 1;
+		  -webkit-transform: scaleX(1);
+		  transform: scaleX(1)
+	  }
+	}
+	</style>`;
 
+	//-------- Class ----------------------------------------------------------------------
+	class Notify {
+		#$container;
+		constructor () {
+			// Add container to hold notify item
+			this.#$container = this.createNotifyContainer();
+			document.body.append(this.#$container);
+		}
+
+		show(options) {
+			if (!this.isOptionsValid(options)) return;
+
+			const $item = this.createNotifyItem(
+				options.message || '',
+				options.color || 'default'
+			);
+
+			if (options.timeout && options.timeout > 999) {
+				this.setAutocloseTimeout($item, options.timeout);
+			}
+
+			this.setCloseOnClick($item);
+			this.#$container.append($item);
+		}
+
+		createNotifyContainer() {
+			const $container = document.createElement('div');
+			$container.className = 'notify-container';
+
+			return $container;
+		}
+
+		createNotifyItem(message, color) {
+			const $item = document.createElement('div');
+			$item.classList.add('notify-item');
+			$item.classList.add('notify-item-' + color);
+			$item.innerHTML = message;
+
+			return $item;
+		}
+
+		setCloseOnClick($el) {
+			$el.addEventListener('click', () => {
+				this.removeNotifyItem($el);
+			});
+		}
+
+		setAutocloseTimeout($el, timeout) {
+			setTimeout(() => {
+				this.removeNotifyItem($el);
+			}, timeout);
+		}
+
+		removeNotifyItem($el) {
+			if ($el.classList.contains('notify-item-removing')) return;
+			$el.classList.add('notify-item-removing');
+			$el.addEventListener('transitionend', function() {
+				$el.remove();
+			});
+		}
+
+		isOptionsValid(options) {
+			return (
+				options ||
+				console.error(`usage: \n const notify = new Notify();\n notify.show({ message: 'OK', color: 'green', timeout: 3000 })`)
+			);
+		}
+	}
+	//------------------------------------------------------------- Class -----------------
+
+	//------------------------------------ Global -------------------------------------------
 	const gmCfg = {
 		ecchiMode: {
 			id: 'ecchiMode',
@@ -727,14 +867,25 @@
 	const gmMenu = {
 		ecchiMode: {
 			id: 0,
-			title:{
+			title: {
 				on: '开启ecchi模式',
 				off: '关闭ecchi模式'
 			},
+			initNotifyCss: function(){
+				if(!$('head #dumoe-notify').length){
+					$('head').append(notifyCss);
+				}
+			},
 			showNotify: function(){
-				try{
-					notyf.success(`已${(gmCfg.ecchiMode.get() ? this.title.on : this.title.off)}`);
-				}catch{}
+				const notify = window.dumoeNotify || new Notify();
+				const ecchiMode = gmCfg.ecchiMode.get();
+				window.dumoeNotify = notify;
+				gmMenu.ecchiMode.initNotifyCss();
+				notify.show({
+					message: `已${(ecchiMode ? this.title.on : this.title.off)}`,
+					color: ecchiMode ? 'green' : 'red',
+					timeout: 3000
+				});
 			},
 			call: function(){
 				gmCfg.ecchiMode.set(!gmCfg.ecchiMode.get());
@@ -748,10 +899,21 @@
 				on: '开启性能模式',
 				off: '关闭性能模式'
 			},
+			initNotifyCss: function(){
+				if(!$('head #dumoe-notify').length){
+					$('head').append(notifyCss);
+				}
+			},
 			showNotify: function(){
-				try{
-					notyf.success(`已${(gmCfg.performanceMode.get() ? this.title.on : this.title.off)}`);
-				}catch{}
+				const notify = window.dumoeNotify || new Notify();
+				const performanceMode = gmCfg.performanceMode.get();
+				window.dumoeNotify = notify;
+				gmMenu.performanceMode.initNotifyCss();
+				notify.show({
+					message: `已${(performanceMode ? this.title.on : this.title.off)}`,
+					color: performanceMode ? 'green' : 'red',
+					timeout: 3000
+				});
 			},
 			call: function(){
 				gmCfg.performanceMode.set(!gmCfg.performanceMode.get());
@@ -804,10 +966,6 @@
 		document.body.removeChild(ifr);
 	}
 
-	function addNotyfStyle(){
-		GM_addStyle(GM_getResourceText('notyfCss'));
-	}
-
 	function getPerformanceModeStyle(style){
 		const regx = /transition.+?([;}])/g;
 		const performanceMode = gmCfg.performanceMode.get();
@@ -822,7 +980,6 @@
 	function ecchiOnHome()
 	{
 		let isDark = GM_getValue('openDark');
-
 
 		$('head')
 			.append(gb)
@@ -876,8 +1033,6 @@
 			});
 		});
 		home_observer.observe(document.body, {attributes: true});
-
-		addNotyfStyle();
 	}
 
 	//------ Search Page Dark Mode Init ------
@@ -908,8 +1063,6 @@
 			}
 		}
 		$('meta[name="referrer"]').attr('content','no-referrer');
-
-		addNotyfStyle();
 
 		if(!isDark || $('#dumoe-ru').length > 0 || $('#gmdarkscrollbar').length > 0){ return; }
 
@@ -1133,7 +1286,7 @@
 				method: 'GET',
 				url: 'https://rimg.moest.top',
 				headers: {
-					'token': '0191f2696816cf0b4cf88c6ab4e1e6103f71d938'
+					'token': '0191f2696816cf0b4cf88c6ab4e1e6103f71d966'
 				},
 				onload: function(response) {
 					let arrbgurl = $.parseJSON(response.responseText);
@@ -1161,8 +1314,9 @@
 							bgCss = bgCss.replace(/255,255,255,1/ig, bgColorA).replace(/255,255,255,0/ig, bgColorB).replace(/#ffffffc6/ig, bgColorC);
 						}
 
+						$('body').attr('crossorigin','anonymous');
 						$('head').append(`<style id="dumoe-bgCss">${bgCss}${bgCircleMaskS}${bgCircleMaskI}`
-					+ `.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
+										 + `.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
 
 						createMaskBg();
 						BackgroundLoaded();
