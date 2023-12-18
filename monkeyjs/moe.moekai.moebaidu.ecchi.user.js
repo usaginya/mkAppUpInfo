@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.8.4
+// @version      3.8.5
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -90,7 +90,7 @@
 	.setweather-content .warn-mod{background:#f2f2f850!important}
 	.s-skin-hasbg .s-top-wrap{background:rgba(0,0,0,.15)}
 	.s-top-left .mnav,.s-top-left-new .mnav,.s-top-right .s-top-right-text,.s-weather-wrapper{margin-top:5px}
-	.s-top-right .s-top-username{margin-top:2px}
+	.s-top-right .s-top-username,.s-top-right .operate-wrapper{margin-top:2px;vertical-align:top}
 	.s-top-right .s-top-username .s-top-img-wrapper{width:20px;height:20px;top:2px}
 	.s-top-right .s-top-username img{padding:0;width:20px;height:20px}
 	.s-top-userset-menu,.s-mod-setweather{top:30px}
@@ -1094,7 +1094,13 @@
 		}
 
 		let intervalInit = setInterval(()=>{
-			let bddkmode = $('body.darkmode.dark').length > 0;
+			bddkmode = $('body.darkmode.dark').length > 0;
+			isDark = GM_getValue('openDark');
+			if (!isDark) {
+				clearInterval(intervalInit);
+				return;
+			}
+			console.log('darkmode', bddkmode, isDark);
 			if(!bddkmode){
 				$('body, #wrapper').addClass('darkmode dark');
 				if($('#gmdarkscrollbar').length < 1){
@@ -1102,7 +1108,7 @@
 				}
 			}
 		},100);
-		setTimeout(()=>clearInterval(intervalInit), performanceMode ? 1500 : 3000);
+		setTimeout(()=>clearInterval(intervalInit), performanceMode ? 5000 : 8000);
 	}
 
 	//------ Search Page ------
