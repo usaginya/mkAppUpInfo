@@ -25,7 +25,7 @@
 	//--------------- STYLE -----------------------------------------
 	let gb = `<style id="dumoe-gb">
 	html{overflow-y:auto}
-	#wrapper{z-index:2;position:inherit}
+	#wrapper{z-index:2;position:sticky}
 	.pass-qrcode-download{display:none!important}
 	#container.sam_newgrid .right-ceiling{position:unset}
 	#container.sam_newgrid #content_left,.new-pmd .c-span12{width:580px}
@@ -1516,63 +1516,63 @@
 		});
 
 	}
-	//----------------------------------------------------------------
+//----------------------------------------------------------------
 
-	function isOnHomePage(){
-		return window.location.href.indexOf('.com/s')<0 && window.location.pathname == '/' && window.location.href.indexOf('wd=')<0;
-	}
-	function isOnSearchPage(){
-		return window.location.href.indexOf('.com/s')>0 && (window.location.href.indexOf('wd=')>0 || window.location.href.indexOf('word=')>0);
+function isOnHomePage(){
+	return window.location.href.indexOf('.com/s')<0 && window.location.pathname == '/' && window.location.href.indexOf('wd=')<0;
+}
+function isOnSearchPage(){
+	return window.location.href.indexOf('.com/s')>0 && (window.location.href.indexOf('wd=')>0 || window.location.href.indexOf('word=')>0);
+}
+
+//-- Priority processing --
+if(isOnSearchPage()) {
+	ecchiOnSearchInit();
+}
+
+$(function(){
+	//------ Run on home ------
+	if(isOnHomePage())
+	{
+		ecchiOnHome();
+		registerMenu();
+		return;
 	}
 
-	//-- Priority processing --
+	//------ Run on search page ------
 	if(isOnSearchPage()) {
 		ecchiOnSearchInit();
+		ecchiOnSearch();
+		registerMenu();
+		return;
 	}
+});
 
-	$(function(){
-		//------ Run on home ------
-		if(isOnHomePage())
-		{
-			ecchiOnHome();
-			registerMenu();
-			return;
-		}
+//-- Post-processing for asynchronous search page ------
+const addHistoryEvent = function(type) {
+	let originalMethod = history[type];
+	return function() {
+		let recallMethod = originalMethod.apply(this, arguments);
+		let e = new Event(type);
+		e.arguments = arguments;
+		window.dispatchEvent(e);
+		return recallMethod;
+	};
+};
+history.pushState = addHistoryEvent('pushState');
+history.replaceState = addHistoryEvent('replaceState');
 
-		//------ Run on search page ------
+const handler = function(...arg){
+	let rerunInterval = setInterval(function(){
 		if(isOnSearchPage()) {
 			ecchiOnSearchInit();
 			ecchiOnSearch();
-			registerMenu();
 			return;
 		}
-	});
-
-	//-- Post-processing for asynchronous search page ------
-	const addHistoryEvent = function(type) {
-		let originalMethod = history[type];
-		return function() {
-			let recallMethod = originalMethod.apply(this, arguments);
-			let e = new Event(type);
-			e.arguments = arguments;
-			window.dispatchEvent(e);
-			return recallMethod;
-		};
-	};
-	history.pushState = addHistoryEvent('pushState');
-	history.replaceState = addHistoryEvent('replaceState');
-
-	const handler = function(...arg){
-		let rerunInterval = setInterval(function(){
-			if(isOnSearchPage()) {
-				ecchiOnSearchInit();
-				ecchiOnSearch();
-				return;
-			}
-		},200);
-		setTimeout(()=>clearInterval(rerunInterval),2000)
-	}
-	window.addEventListener('pushState', handler);
-	window.addEventListener('replaceState', handler);
+	},200);
+	setTimeout(()=>clearInterval(rerunInterval),2000)
+}
+window.addEventListener('pushState', handler);
+window.addEventListener('replaceState', handler);
 
 })();
