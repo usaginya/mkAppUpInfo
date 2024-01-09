@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.8.6
+// @version      3.8.7
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -641,8 +641,10 @@
 	[class*=item-selected_] [class*=left-circle],[class*=item-selected_] [class*=right-circle]{background-color:#0000!important}
 	.darkmode.dark #wrapper [class*=detail-bg_]{background-image:linear-gradient(#1117,#1111)}
 	.darkmode.dark .cos-city-selector-content,.darkmode.dark .cos-city-header-list-wrapper,
-	 .darkmode.dark [class*=selector-options_]{background-color:#111a;backdrop-filter:blur(4px)}
-	.darkmode.dark .cos-city-header-city-search{background-color:#111a}
+	 .darkmode.dark [class*=selector-options_],
+	 .darkmode.dark [class*=selectWrapper_] [class*=select_] [class*=select-wrapper_]{background-color:#111a;backdrop-filter:blur(4px)}
+	.darkmode.dark .cos-city-header-city-search,{background-color:#111a}
+	.darkmode.dark [class*=selectWrapper_] [class*=select_]{background-color:#1115}
 	.darkmode.dark .cos-city-content,.darkmode.dark .cos-city-header-city-sug-list,.cos-city-header-city-sug-none,
 	 .darkmode.dark .cos-city-header-city-search input{background-color:#0000!important}
 	.darkmode.dark .cos-city-content-nav,.darkmode.dark [class*=selector-options_] [class*=options-item_]{color:#aaa}
