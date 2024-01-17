@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.8.8
+// @version      3.8.9
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -18,7 +18,7 @@
 // @grant        GM_unregisterMenuCommand
 // @connect      moest.top
 // @run-at       document-start
-// @require      https://cdn.bootcdn.net/ajax/libs/jquery/2.0.3/jquery.min.js
+// @require      http://libs.baidu.com/jquery/2.1.4/jquery.min.js
 // @require      https://jsdelivr.b-cdn.net/gh/matthias-vogt/legitRipple.js@gh-pages/js/ripple.js
 // ==/UserScript==
 
