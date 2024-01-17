@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.8.7
+// @version      3.8.8
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
 // @match        *://www.baidu.com/*
+// @match        *://wappass.baidu.com/*
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
@@ -23,7 +24,7 @@
 
 (function(){
 	//--------------- STYLE -----------------------------------------
-	let gb = `<style id="dumoe-gb">
+	const gb = `<style id="dumoe-gb">
 	html{overflow-y:auto}
 	#wrapper{z-index:2;position:sticky}
 	.pass-qrcode-download{display:none!important}
@@ -64,7 +65,7 @@
 	.darkmode.dark .c-checkbox-inner{background:#0000!important}
 	</style>`
 
-	let st = `<style id="dumoe-st">
+	const st = `<style id="dumoe-st">
 	#lg img{opacity:.2;transition:opacity 1s}
 	#lg:hover img{opacity:.9}
 	#head_wrapper #lg [id*=s_lg_img]{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
@@ -162,7 +163,7 @@
     ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#fcfdff,#ccd2d8);box-shadow:5px 7px 10px #959ca5, -5px 7px 10px #959ca5}
 	</style>`;
 
-	let ru = `<style id="dumoe-ru">
+	const ru = `<style id="dumoe-ru">
 	#result_logo{opacity:.6}
 	#result_logo .index-logo-src{display:block!important}
 	#result_logo .index-logo-srcnew,#result_logo .index-logo-peak{display:none!important}
@@ -178,7 +179,7 @@
 	[class*="bac-box_"]{background:#fff0!important;color:#aaa}
 	[class*="bac-img_"]{opacity:.7!important}
 	[class^="view-right_"]{right:6%!important}
-	[class*=sg-content_]{background:#0000!important}
+	[class*=sg-content_],.cos-color-bg-page{background:#0000!important}
 	.view-bac_PurEx{padding-right:12px!important}
 	.c-container{width:100%!important}
 	.container_l.sam_newgrid{width:80vw}
@@ -210,6 +211,7 @@
 	.s_ipt_wr{background:#fff7!important;transition-duration:.3s}
 	.s_ipt_wr:hover{background:#fffa!important;transition-duration:.3s}
 	#wrapper #content_left .op-soft-title a,#wrapper #content_left .result h3 a,#wrapper #content_left .result-op h3 a{position:relative}
+	#wrapper [class*=vmp-zxenterprise-background_],#wrapper [class*=vmp-zxenterprise-new_] table tbody tr:nth-child(odd){background:unset}
 	#container.sam_newgrid,#wrapper_wrapper{background:unset!important}
 	#container.sam_newgrid .c-container .t a,#container.sam_newgrid .c-container .c-title a,a em{text-decoration:none!important}
 	#container.sam_newgrid #content_left .result-op,#container.sam_newgrid #content_left .result,
@@ -345,7 +347,7 @@
 	 .darkmode #content_left .result-op,.darkmode #content_left .result,.darkmode .c-tabs-nav-li,.darkmode .c-tabs-nav li,
 	 .darkmode .op_exactqa_gray,.darkmode .op-xueshu-links-new-journal,.darkmode.dark [class^=text_],.darkmode.dark [class*=-text_],
 	 .darkmode.dark [class*=-cont_],.darkmode.dark [class*=big-img-sub-abs_],.darkmode.dark [class^=name_],
-	 .darkmode.dark [class^=time_]{color:#aaa!important}
+	 .darkmode.dark [class^=time_],.darkmode.dark [class*=series-info_]{color:#aaa!important}
 	.darkmode #content_left .result-op [class*=audio-] [class*=pinyin]{color:#89e4ff}
 	.darkmode .new-pmd .c-color-gray,.darkmode .new-pmd .c-color-gray2,.darkmode .op_weather4_twoicon_wlink,.darkmode.dark .result-op [class*=source-name_],
 	 .darkmode.dark .pfpanel-bd,.darkmode.dark #timeRlt,.darkmode.dark [class*=common-font_],.darkmode .c-author,.darkmode .c-title-author,
@@ -365,14 +367,14 @@
 	 .darkmode.dark div[class*=list_]>[class*=item_]:not([class*=_item_]),.darkmode.dark [class*=info-row-btn_],
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]),
 	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_],
-	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_],
+	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_],.darkmode.dark [class*=tag-common_],
 	 .darkmode.dark [class*=words-record_]{background:#2224!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]`
 	 +`:not([class*=bottom-scroll-item_]):hover,.darkmode.dark [class*=sc-scroll-control-]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:not([class*=_item_]):hover,
 	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover,
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):hover,
-	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]:hover,
+	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]:hover,.darkmode.dark [class*=tag-selected_],
 	 .darkmode.dark [class*=words-record_]:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
@@ -416,9 +418,10 @@
 	.darkmode.dark .c-btn:active,.darkmode.dark [class*=hover_]:hover{-webkit-box-shadow:inset 1px 1px 0px #000,inset -1px -1px 0px #555}
 	.darkmode.dark .sam_newgrid~#page a{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff!important}
-	.darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-container]),.darkmode.dark .c-gap-top-large [class*=tag-item],
-	 .darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-container]) a:not([class*=-links-]),
-	 .darkmode.dark .result-op [class*=tags-]:not([class*=tabs-container]) span{background-color:#2225}
+	.darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-con]):not([class^=_tabs-nav_]):not([class^=_tabs_]),
+	 .darkmode.dark .c-gap-top-large [class*=tag-item],
+	 .darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-con]):not([class^=_tabs-nav_]):not([class^=_tabs_]) a:not([class*=-links-]),
+	 .darkmode.dark .result-op [class*=tags-]:not([class*=tabs-con]) span{background-color:#2225}
 	.darkmode.dark .result-op [class*=main-tabs_] [class*=tab-item-selected]{color:#ccc}
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
 	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table,
@@ -626,7 +629,6 @@
 	 .darkmode.dark #searchTag [class*=tagSelected_]{box-shadow:0px 1px 0px 1px #2226 inset,0px -1px 0px 0px #9ae6 inset}
 	.darkmode.dark #wrapper [class*=vertical-gradient_]{background-image:linear-gradient(to top,#2626268a,#3330)!important}
 	.darkmode.dark #wrapper [class^=comment-wrapper_] [class^=cover-container_]{background:linear-gradient(to top,#222,#0000)}
-	.darkmode.dark #wrapper [class*=vmp-zxenterprise-new_] table tbody tr:nth-child(odd){background:unset}
 	.darkmode.dark #wrapper [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-scroll-item-title_]{color:unset}
 	.darkmode.dark #wrapper [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-links_]{background:#1115;color:#eee}
 	.darkmode.dark #wrapper [class^=_content] [class^=load_]{background-color:#2225!important}
@@ -684,7 +686,7 @@
 	.darkmode.dark [class*=exam-tab_] [class*=select-item_]:after{background-image:radial-gradient(circle at top right,transparent .09rem,#22222245 0)}
 	</style>`;
 
-	let rippleCss = `<style id="dumoe-rippleCss">
+	const rippleCss = `<style id="dumoe-rippleCss">
 	.legitRipple{position:relative;overflow:hidden}
 	.legitRipple-ripple{position:absolute;z-index:0;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);
 	pointer-events:none!important;border-radius:50%;background:#fff4;will-change:transform,width,opacity;
@@ -694,9 +696,9 @@
 	img ~ .legitRipple-ripple{z-index:auto}
 	</style>`;
 
-	let onSearchInitCss = `<style id="gm_ebdinitbg">body,#head{background:#333!important;color:#aaa!important}</style>`;
+	const onSearchInitCss = `<style id="gm_ebdinitbg">body,#head{background:#333!important;color:#aaa!important}</style>`;
 
-	let rightListSwitchCss = `<style id="dumoe-rightListSwitch">
+	const rightListSwitchCss = `<style id="dumoe-rightListSwitch">
 	.gm-right-switch{float:right;margin-bottom:10px;padding:5px;box-sizing:border-box;text-align:center}
 	.hamburger .line{width:12px;height:2px;background-color:#9db2ff;display:block;margin:2px auto;transition:all 0.3s ease-in-out}
 	#hamburger-1.is-active .line:nth-child(2){opacity:0}
@@ -705,18 +707,19 @@
 	.hamburger:hover{cursor:pointer}
 	</style>`
 
-	let initHideRightListCss = `<style>#content_right>table,#con-ar{visibility:hidden}</style>`;
+	const initHideRightListCss = `<style>#content_right>table,#con-ar{visibility:hidden}</style>`;
 
-	let bgImageCss = `body:before{content: '';position:fixed;top:0;left:0;height:100%;width:100%;animation:gmebdbgfadein .6s ease-in both;z-index:-1}
+	let bgImageCss = `body:before{content: '';position:fixed;top:0;left:0;height:100%;width:100%;
+	 background:rgba(255,255,255,1);animation:gmebdbgfadein 1s ease-in both}
 	body{background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat!important;
-	background-attachment:fixed!important;background-repeat:no-repeat;background-position:center}
+	 background-attachment:fixed!important;background-repeat:no-repeat;background-position:center}
 	@-webkit-keyframes gmebdbgfadein{ 0% {background:rgba(255,255,255,1)} 100% {background:rgba(255,255,255,0)} }`;
 
 	let bgCircleMaskSurface,bgCircleMaskInside = `{left:0;top:0;width:100%;height:100%;position:fixed;
 	background:linear-gradient(#ffffffc6,#ffffffc6),#url center / cover no-repeat;background-attachment:fixed;
 	background-repeat:no-repeat;background-position:center}`;
 
-	let darkmodeHomeToSearchCssFix = `<style id="gmdarkmodehometosearchcssfix">
+	const darkmodeHomeToSearchCssFix = `<style id="gmdarkmodehometosearchcssfix">
 	body{background:#333!important}
 	#head,#wrapper #s_tab{background:#fff2!important;transition-duration:.3s}
 	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
@@ -733,19 +736,19 @@
 	.darkmode.dark #u .bdpfmenu a,.darkmode.dark #u .usermenu a{border:none!important;background:#0000!important}
 	</style>`;
 
-	let darkmodeScrollbarCss = `<style id="gmdarkscrollbar">
+	const darkmodeScrollbarCss = `<style id="gmdarkscrollbar">
 	::-webkit-scrollbar-track-piece:vertical{background:#666!important;box-shadow:inset 8px 0 8px #222, inset -2px 0 8px #666!important}
 	::-webkit-scrollbar-track-piece:horizontal{background:#666!important;box-shadow:inset 0 8px 8px #222, inset 0 -2px 8px #666!important}
 	::-webkit-scrollbar-thumb:vertical{background:linear-gradient(92deg,#666,#222)!important;box-shadow:5px 7px 10px #111, 5px -7px 10px #111!important}
     ::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,#666,#222)!important;box-shadow:5px 7px 10px #111, -5px 7px 10px #111!important}
 	</style>`;
 
-	let scrollbarCssFix = `<style id="gmscrollbarfix">
+	const scrollbarCssFix = `<style id="gmscrollbarfix">
 	::-webkit-scrollbar{width:1rem!important;height:1rem!important}
 	::-webkit-scrollbar-thumb{border-radius:1rem!important}
 	</style>`;
 
-	let notifyCss = `<style id="dumoe-notify">
+	const notifyCss = `<style id="dumoe-notify">
 	.notify-item {
 	  min-width: 150px;  padding: 1.2vh 1.2vw;  font-size: 14pt;  line-height: 1.2;
 	  border-radius: 4px;  margin-bottom: 2vh;  animation-duration: .5s;
@@ -771,8 +774,8 @@
 	  background: hsl(126 70% 46%);
 	  color: #fff;
 	}
-	.notify-item-red {
-	  background: hsl(0, 88%, 68%);
+	.notify-item-greyblue {
+	  background: hsl(220, 20%, 38%);
 	  color: #fff;
 	}
 	@keyframes bounceIn {
@@ -921,7 +924,7 @@
 				gmMenu.ecchiMode.initNotifyCss();
 				notify.show({
 					message: `已${(ecchiMode ? this.title.on : this.title.off)}`,
-					color: ecchiMode ? 'green' : 'red',
+					color: ecchiMode ? 'green' : 'greyblue',
 					timeout: 3000
 				});
 			},
@@ -949,7 +952,7 @@
 				gmMenu.performanceMode.initNotifyCss();
 				notify.show({
 					message: `已${(performanceMode ? this.title.on : this.title.off)}`,
-					color: performanceMode ? 'green' : 'red',
+					color: performanceMode ? 'green' : 'greyblue',
 					timeout: 3000
 				});
 			},
@@ -1013,10 +1016,16 @@
 		return style
 	}
 
+	function darkmodeStyleInit() {
+		const isDark = GM_getValue('openDark');
+		if(isDark) $('html').css('background','#333');
+	}
+
 	//------------------------------------ JS Run -------------------------------------------
 	let home_observer;
-	function ecchiOnHome()
-	{
+
+	//------ Home Page ------
+	function ecchiOnHome() {
 		let isDark = GM_getValue('openDark');
 
 		$('head')
@@ -1072,10 +1081,10 @@
 		});
 		home_observer.observe(document.body, {attributes: true});
 	}
+	//------ Home Page End ------
 
 	//------ Search Page Dark Mode Init ------
-	// {bool} again - Initialize again when dom is loaded
-	function ecchiOnSearchInit(){
+	function ecchiOnSearchInit() {
 		let isDark = GM_getValue('openDark');
 		let bddkmode = $('body.darkmode.dark').length > 0;
 		let performanceMode = gmCfg.performanceMode.get();
@@ -1117,7 +1126,7 @@
 				clearInterval(intervalInit);
 				return;
 			}
-			console.log('darkmode', bddkmode, isDark);
+			// console.log('darkmode', bddkmode, isDark);
 			if(!bddkmode){
 				$('body, #wrapper').addClass('darkmode dark');
 				if($('#gmdarkscrollbar').length < 1){
@@ -1348,6 +1357,7 @@
 
 					// Preload complete
 					function setBackground() {
+						let performanceMode = gmCfg.performanceMode.get();
 						let bgCss = bgImageCss.replaceAll('#url', `url(${bgUrlA})`);
 						let bgCircleMaskI = bgCircleMaskInside.replace('#url', `url(${bgUrlB})`);
 						let bgCircleMaskS = `.bgCircleMaskSurface${bgCircleMaskI}`
@@ -1355,6 +1365,7 @@
 
 						bgCircleMaskI = bgCircleMaskS.replaceAll('Surface','Inside').replace(/#ffffffc6|#1e1e28cc/ig, '#fff0');
 
+						//fade into background image
 						if(isDark){
 							let bgColorA = '30,30,40,1',
 								bgColorB = '30,30,40,0',
@@ -1362,15 +1373,17 @@
 							bgCss = bgCss.replace(/255,255,255,1/ig, bgColorA).replace(/255,255,255,0/ig, bgColorB).replace(/#ffffffc6/ig, bgColorC);
 						}
 
+						//if(performanceMode) bgCss = bgCss.replace(/body:before{[\s\S]*?}\n\t?/ig,'');
+
 						$('body').attr('crossorigin','anonymous');
 						$('head').append(`<style id="dumoe-bgCss">${bgCss}${bgCircleMaskS}${bgCircleMaskI}`
 										 + `.darkmode.dark{color:#aaa;background-color:#0000!important}</style>`);
 
-						// preload mask background
+						// preload inside mask background
 						let maskbg = $(`<div class="bgCircleMaskInside"></div>`).clone();
 						maskbg.css({'clip-path':'ellipse(1px 1px at -1% -1%)'});
-						setTimeout(() => maskbg.remove(), 3000);
 						$('body').append(maskbg);
+						setTimeout(() => maskbg.remove(), 3000);
 
 						createMaskBg();
 						BackgroundLoaded();
@@ -1533,63 +1546,84 @@
 		});
 
 	}
-//----------------------------------------------------------------
+	//------ Search Page End------
 
-function isOnHomePage(){
-	return window.location.href.indexOf('.com/s')<0 && window.location.pathname == '/' && window.location.href.indexOf('wd=')<0;
-}
-function isOnSearchPage(){
-	return window.location.href.indexOf('.com/s')>0 && (window.location.href.indexOf('wd=')>0 || window.location.href.indexOf('word=')>0);
-}
+	//------ Captcha Page ------
+	function ecchiOnCaptcha() {
+		let isDark = GM_getValue('openDark');
+		if(isDark && $('body.darkmode').length < 1){
+			$('body').addClass('darkmode');
+		}
+	}
+	//------ Captcha Page End------
+	//----------------------------------------------------------------
 
-//-- Priority processing --
-if(isOnSearchPage()) {
-	ecchiOnSearchInit();
-}
-
-$(function(){
-	//------ Run on home ------
-	if(isOnHomePage())
-	{
-		ecchiOnHome();
-		registerMenu();
-		return;
+	function isOnHomePage(){
+		return !window.location.href.includes('.com/s') && window.location.pathname == '/' && !window.location.href.includes('wd=');
+	}
+	function isOnSearchPage(){
+		return window.location.href.includes('.com/s') && (window.location.href.indexOf('wd=')>0 || window.location.href.includes('word='));
+	}
+	function  isOnCaptchaPage(){
+		return window.location.href.includes('/captcha/');
 	}
 
-	//------ Run on search page ------
+	//-- Priority processing --
 	if(isOnSearchPage()) {
 		ecchiOnSearchInit();
-		ecchiOnSearch();
-		registerMenu();
-		return;
 	}
-});
+	darkmodeStyleInit();
 
-//-- Post-processing for asynchronous search page ------
-const addHistoryEvent = function(type) {
-	let originalMethod = history[type];
-	return function() {
-		let recallMethod = originalMethod.apply(this, arguments);
-		let e = new Event(type);
-		e.arguments = arguments;
-		window.dispatchEvent(e);
-		return recallMethod;
-	};
-};
-history.pushState = addHistoryEvent('pushState');
-history.replaceState = addHistoryEvent('replaceState');
+	$(function(){
+		//------ Run on home ------
+		if(isOnHomePage())
+		{
+			ecchiOnHome();
+			registerMenu();
+			return;
+		}
 
-const handler = function(...arg){
-	let rerunInterval = setInterval(function(){
+		//------ Run on search page ------
 		if(isOnSearchPage()) {
 			ecchiOnSearchInit();
 			ecchiOnSearch();
+			registerMenu();
 			return;
 		}
-	},200);
-	setTimeout(()=>clearInterval(rerunInterval),2000)
-}
-window.addEventListener('pushState', handler);
-window.addEventListener('replaceState', handler);
+
+		//------ Run on captcha page ------
+		if(isOnCaptchaPage())
+		{
+			ecchiOnCaptcha();
+			return;
+		}
+	});
+
+	//-- Post-processing for asynchronous search page ------
+	const addHistoryEvent = function(type) {
+		let originalMethod = history[type];
+		return function() {
+			let recallMethod = originalMethod.apply(this, arguments);
+			let e = new Event(type);
+			e.arguments = arguments;
+			window.dispatchEvent(e);
+			return recallMethod;
+		};
+	};
+	history.pushState = addHistoryEvent('pushState');
+	history.replaceState = addHistoryEvent('replaceState');
+
+	const handler = function(...arg){
+		let rerunInterval = setInterval(function(){
+			if(isOnSearchPage()) {
+				ecchiOnSearchInit();
+				ecchiOnSearch();
+				return;
+			}
+		},200);
+		setTimeout(()=>clearInterval(rerunInterval),2000)
+	}
+	window.addEventListener('pushState', handler);
+	window.addEventListener('replaceState', handler);
 
 })();
