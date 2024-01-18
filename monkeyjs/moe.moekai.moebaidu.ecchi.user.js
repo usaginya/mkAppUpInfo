@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.8.9
+// @version      3.9.0
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -164,6 +164,7 @@
 	</style>`;
 
 	const ru = `<style id="dumoe-ru">
+	pre{background:#0000!important}
 	#result_logo{opacity:.6}
 	#result_logo .index-logo-src{display:block!important}
 	#result_logo .index-logo-srcnew,#result_logo .index-logo-peak{display:none!important}
@@ -307,7 +308,8 @@
 	.darkmode.blue{background-color:#141e42cc!important}
 	.darkmode.dark .c-btn:not([class*=btn-content_]){color:#ddd!important}
 	.darkmode em,.darkmode.dark div[class*=button-list_] span[class*=label_],.darkmode.dark .op-weather-province-city,
-	 .darkmode.dark [class*=error-tip]{color:#f77!important}
+	 .darkmode.dark [class*=error-tip],.darkmode.dark .markdownsdk-wrapper .md-highlight,
+	 .darkmode.dark .dqa-code-span{color:#f77!important}
 	.darkmode.dark .result-op [class*=up_],.darkmode.dark .op-concept-stock-rose{color:#f77}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
@@ -316,7 +318,7 @@
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
 	 .darkmode.dark [class*=time_li_],.darkmode.dark [class*=card-more-link],
-	 .darkmode.dark [class*=info-row-btn_],.darkmode.dark [class*=button_]{color:#9db2ff!important}
+	 .darkmode.dark [class*=info-row-btn_],.darkmode.dark [class*=button_],.darkmode.dark [class*=item-word_]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_],.darkmode.dark [class*=LabelText_],
 	 .darkmode.dark [class*=Container_],.darkmode.dark [class*=description_],.darkmode.dark [class*=Label_],
 	 .darkmode.dark [class*=domain-name_],.darkmode.dark [class*=card-title-text],
@@ -365,7 +367,7 @@
 	.darkmode.dark div[class*=button-list_] div[class*=item_] a,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]`
 	 +`:not([class*=bottom-scroll-item_]),.darkmode.dark [class*=sc-scroll-control-],
 	 .darkmode.dark div[class*=list_]>[class*=item_]:not([class*=_item_]),.darkmode.dark [class*=info-row-btn_],
-	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]),
+	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]),.darkmode.dark [class*=item-word_],
 	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_],
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_],.darkmode.dark [class*=tag-common_],
 	 .darkmode.dark [class*=words-record_]{background:#2224!important}
@@ -373,7 +375,7 @@
 	 +`:not([class*=bottom-scroll-item_]):hover,.darkmode.dark [class*=sc-scroll-control-]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:not([class*=_item_]):hover,
 	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover,
-	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):hover,
+	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):hover,.darkmode.dark [class*=item-word_]:hover,
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]:hover,.darkmode.dark [class*=tag-selected_],
 	 .darkmode.dark [class*=words-record_]:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
@@ -457,7 +459,7 @@
 	.darkmode.dark .search_tool:hover,.darkmode.dark .search_tool_conter span:hover,
 	 .darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
 	 .darkmode.dark .op_exactqa_detail_word_pronounce,.darkmode.dark [class*=search-container] input,
-	 .darkmode.dark [class*=select-container],.darkmode.dark .cu-color-text,
+	 .darkmode.dark [class*=select-container],.darkmode.dark .cu-color-text,.darkmode.dark .markdownsdk-wrapper,
 	 .darkmode.dark [data-pmd] .c-color-link{color:#bbb}
 	.darkmode.dark .result-op [class*=card_],.darkmode.dark .c-onlyshow-toppic [class*=right-btn_],
 	 .darkmode.dark .c-onlyshow-toppic [class*=left-btn_]{border-radius:8px;background:#2226!important;backdrop-filter:blur(3px)!important;
@@ -556,7 +558,7 @@
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
 	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
 	.darkmode.dark #wrapper [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]):not([class*=pinyin])`
-	 +`:not([class*=chart-line_]):not([class*=blog-item_]),.darkmode.dark [class*=hasline_]:after,
+	 +`:not([class*=chart-line_]):not([class*=blog-item_]):not([class*=praise-underline_]),.darkmode.dark [class*=hasline_]:after,
 	 .darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=_popup_] [class*=selectItem]:hover,
@@ -678,12 +680,20 @@
 	 .darkmode.dark .result-op [class*=bg_] [class*=entry-text_]{color:#ccc}
 	.darkmode.dark .result-op [class*=bg_] [class*=select-entry_]{background:#0000}
 	.darkmode.dark .result-op [class*=bg_] [class*=_select-entry_]{border-color:#677799}
-	.darkmode.dark .result-op [class*=bg_] [class*=header-btn_]{background:#2225}
+	.darkmode.dark .result-op [class*=bg_] [class*=header-btn_],
+	 .darkmode.dark [class*=praise-wrapper_]{background:#2225}
 	[class*=video-title_]{color:#6ea1ff!important}
 	[class*=exam-tab_] [class*=select-item_]:before{background-image:radial-gradient(circle at top left,transparent 0.09rem,#ffffff45 0)}
 	[class*=exam-tab_] [class*=select-item_]:after{background-image:radial-gradient(circle at top right,transparent .09rem,#ffffff45 0)}
 	.darkmode.dark [class*=exam-tab_] [class*=select-item_]:before{background-image:radial-gradient(circle at top left,transparent 0.09rem,#22222245 0)}
 	.darkmode.dark [class*=exam-tab_] [class*=select-item_]:after{background-image:radial-gradient(circle at top right,transparent .09rem,#22222245 0)}
+	.darkmode.dark .dqa-code-block{background:#2225!important;border-color:#444!important}
+	.darkmode.dark .dqa-code-span{background:#222c!important}
+	.darkmode.dark .code-header{background:#2225!important}
+	.darkmode.dark .code-copy{color:#9990c5!important}
+	.darkmode.dark .hljs{color:#7ec5b7!important}
+	.darkmode.dark [class*=spread_] .sc-fold-switch-text,.darkmode.dark [class*=spread_] .sc-fold-switch-icon{color:#999!important}
+	.darkmode.dark [class*=fold_]{background-image:linear-gradient(0deg,#222222cc 0,#222c 30%,#222222cc 65%,#0000 100%)}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
