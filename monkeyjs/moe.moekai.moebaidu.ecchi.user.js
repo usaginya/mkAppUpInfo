@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.9.1
+// @version      3.9.2
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -695,7 +695,7 @@
 	.darkmode.dark .code-copy{color:#9990c5!important}
 	.darkmode.dark .hljs{color:#7ec5b7!important}
 	.darkmode.dark [class*=spread_] .sc-fold-switch-text,.darkmode.dark [class*=spread_] .sc-fold-switch-icon{color:#999!important}
-	.darkmode.dark [class*=fold_]{background-image:linear-gradient(0deg,#222222cc 0,#222c 30%,#222222cc 65%,#0000 100%)}
+	.darkmode.dark [class*=fold_]:not([class*=container_]){background-image:linear-gradient(0deg,#222222cc 0,#222c 30%,#222222cc 65%,#0000 100%)}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
