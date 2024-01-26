@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.9.4
+// @version      3.9.5
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -289,9 +289,9 @@
 	#wrapper div[class*=forecast_]{background:none!important}
 	#wrapper div[class*=weather-top_] div[class*=bg-wrapper_]{margin-top:-10px;opacity:0.7}
 	.result-op[tpl*="fanyi"] [class*=horizontal-gradient_]{border:none!important}
-	.result-op[tpl*="fanyi"] [class*=operate-box_] [class*=audio-box_],
-	 .result-op[tpl*="fanyi"] [class*=operate-wrapper-box_] [class*=operate-wrapper]{background:#fff6!important}
 	[class*=chart-wrapper_] [class*=tip-alert_]{margin-right:22px}
+	[class*=audio-box_],[class*=operate-wrapper_]{background:#fff6!important}
+	.darkmode.dark [class*=audio-box_],.darkmode.dark [class*=operate-wrapper_]{background:#3335!important}
 	.darkmode.dark [class*=chart-wrapper_] [class*=tip-alert_]{background-color:#222;color:#eee;}
 	.darkmode.dark [class*=-chart-wrapper_] [class*=price-text_],
 	 .darkmode.dark [class*=-chart-wrapper] [class*=ratio-text_],
@@ -484,7 +484,7 @@
 	 +`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_])`
 	 +`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar])`
 	 +`:not(.c-showurl [class*=icon_]):not([class*=weather-icon_]):not([class*=icon-gap-]):not([class*=qihou-icon_]):not([class*=state-icon_])`
-	 +`:not([class*=pause]):not([class*=play]):not([class*=audio-wrapper_]):not([class*=change-icon_]),
+	 +`:not([class*=pause]):not([class*=play]):not([class*=audio-wrapper_]):not([class*=change-icon_]):not([class*=copy-icon_]),
 	 .darkmode.dark #wrapper [class*=wrap_] [class*=opt-emoji_],.darkmode.dark #wrapper .c-icon [class*=img2_],
 	 .darkmode.dark #wrapper .c-icon[class*=wrapper_],.darkmode.dark #wrapper [class*=select-icon],
 	 .darkmode.dark #wrapper [class*=icon-more_],.darkmode.dark #wrapper [class*=title-icon-row_],
@@ -700,6 +700,8 @@
 	.darkmode.dark .hljs{color:#7ec5b7!important}
 	.darkmode.dark [class*=spread_] .sc-fold-switch-text,.darkmode.dark [class*=spread_] .sc-fold-switch-icon{color:#999!important}
 	.darkmode.dark [class*=fold_]:not([class*=container_]){background-image:linear-gradient(0deg,#222222cc 0,#222c 30%,#222222cc 65%,#0000 100%)}
+	.darkmode.dark [class*=_content] [class*=text_]{color:#aaa!important}
+	
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
