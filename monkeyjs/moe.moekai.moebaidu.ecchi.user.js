@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.9.8
+// @version      3.9.9
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -386,7 +386,9 @@
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
 	 .darkmode.dark .new-pmd .c-border:hover,.darkmode.dark [class*=hover_]:hover,.darkmode.dark [class*=rel-divider],
-	 .darkmode.dark [class*=loc-wrapper_],.darkmode.dark [class*=episode-btn_],.darkmode.dark [class*=-tlinkur] a{background:#2225!important}
+	 .darkmode.dark [class*=loc-wrapper_],.darkmode.dark [class*=episode-btn_],.darkmode.dark [class*=-tlinkur] a,
+	 .darkmode.dark [class*=input-box_]{background:#2225!important}
+	.darkmode.dark [class*=input-box_] [class*=input_]{background:#1115!important;border:1px solid #0000!important}
 	.darkmode.dark .new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.darkmode.dark .new-pmd .c-tabs-content,
 	 .darkmode.dark .op_express_delivery_more,.darkmode.dark .result-molecule>#page a,.darkmode.dark.new-pmd .c-border,
 	 .darkmode.dark .c-group-wrapper,.darkmode.dark .new-pmd .c-border,.darkmode.dark .op_express_delivery_input,
@@ -488,7 +490,7 @@
 	 .darkmode.dark #wrapper [class*=wrap_] [class*=opt-emoji_],.darkmode.dark #wrapper .c-icon [class*=img2_],
 	 .darkmode.dark #wrapper .c-icon[class*=wrapper_],.darkmode.dark #wrapper [class*=select-icon],
 	 .darkmode.dark #wrapper [class*=icon-more_],.darkmode.dark #wrapper [class*=title-icon-row_],
-	 .darkmode.dark #wrapper .c-color .sub-icon,.darkmode.dark [class*=sc-audio-] [class*=-icon_]{filter:invert(1)}
+	 .darkmode.dark #wrapper .c-color .sub-icon,.darkmode.dark [class*=sc-audio-] [class*=-icon_]{filter:invert(1) hue-rotate(150deg)}
 	.darkmode.dark .col-header .overview-display-wrap li,.darkmode.dark .new-pmd .recommend-none-border{border-color:#8887}
 	.darkmode.dark .col-header .overview-display-wrap li:hover,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark .x-interact-publish-cont-topic,.darkmode.dark a:nth-child(even) [class*=row-wrapper_]{background-color:#1115}
@@ -497,17 +499,17 @@
 	.darkmode.dark .col-header .overview-display-wrap li::after,
 	 .darkmode.dark .col-header .col-overview-desc::before,.darkmode.dark .col-header .col-overview-display::before{background:#999}
 	.darkmode.dark .op_exactqa_word_how_read,.darkmode.dark .op_exactqa_word_mp3_play{mix-blend-mode:color-burn}
-	.darkmode.dark .c-container [class*=ask-doctor-btn]:not([class*=-btn-]),
-	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)),
-	 .darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)),
-	 .darkmode.dark .c-container [class*=btn-w]:not([class*=-btn-]):not([class*=cos-row]),
+	.darkmode.dark .c-container [class*=ask-doctor-btn]:not([class*=btn-]),
+	 .darkmode.dark .c-container [class*=-btn]:not([class*=btn-]):not(:not(.c-gap-left)),
+	 .darkmode.dark .result-op [class*=-btn]:not([class*=btn-]):not(:not(.c-gap-left)),
+	 .darkmode.dark .c-container [class*=btn-w]:not([class*=btn-]):not([class*=cos-row]),
 	 .darkmode.dark .col-header .col-viewmore-wrap{background:#2228;color:#bbb}
 	.darkmode.dark .result-op [class*=tag-item_]:not([class*=tag-item-active_]){background:#2228!important;color:#bbb!important}
-	.darkmode.dark .c-container [class*=ask-doctor-btn]:not([class*=-btn-]):hover,
-	 .darkmode.dark .result-op [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover,
+	.darkmode.dark .c-container [class*=ask-doctor-btn]:not([class*=btn-]):hover,
+	 .darkmode.dark .result-op [class*=-btn]:not([class*=btn-]):not(:not(.c-gap-left)):hover,
 	 .darkmode.dark .result-op [class*=tag-item_]:not([class*=tag-item-active_]):hover,
-	 .darkmode.dark .c-container [class*=-btn]:not([class*=-btn-]):not(:not(.c-gap-left)):hover,
-	 .darkmode.dark .c-container [class*=btn-w]:not([class*=-btn-]):not([class*=cos-row]):hover{background:#1118!important;color:#a088ff!important}
+	 .darkmode.dark .c-container [class*=-btn]:not([class*=btn-]):not(:not(.c-gap-left)):hover,
+	 .darkmode.dark .c-container [class*=btn-w]:not([class*=btn-]):not([class*=cos-row]):hover{background:#1118!important;color:#a088ff!important}
 	.darkmode.dark .sam_newgrid~#page a{background:#2222!important}
 	.darkmode.dark .c-dropdown2:hover .c-dropdown2-btn-icon-border,.darkmode.dark .c-dropdown2-hover .c-dropdown2-btn-icon-border,
 	 .darkmode.dark .c-tabs-item .c-btn:hover,.darkmode.dark .result-op [class*=tags-] span:hover{background:#222!important}
@@ -595,10 +597,10 @@
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
 	.darkmode.dark #wrapper [class*=container_] [class^=right-icon_],
 	 .darkmode.dark [class*=button_]:not([class*=slink-button]),.darkmode.dark [class*=-button]:not([class*=slink-button]),
-	 .darkmode.dark [class*=ala-box-pc_] [class*=zi_]{background:#2228}
+	 .darkmode.dark [class*=ala-box-pc_] [class*=zi_],.darkmode.dark [class*=zuci-link_]{background:#2228}
 	.darkmode.dark #wrapper [class*=container_] [class^=right-icon_]:hover,
 	 .darkmode.dark #wrapper [class*=button_]:not([class*=slink-button]):hover,
-	 .darkmode.dark [class*=-button]:not([class*=slink-button]):hover{background:#111!important}
+	 .darkmode.dark [class*=-button]:not([class*=slink-button]):hover,.darkmode.dark [class*=zuci-link_]:hover{background:#111!important}
 	.darkmode.dark #wrapper [class*=button_]:not([class*=slink-button]):hover [class*=content_]{color:#eee}
 	.darkmode.dark #wrapper [class^=title_],.darkmode.dark #wrapper [class^=list-gap_],.darkmode.dark #wrapper [class*=group-title_]{color:#a8b8c8}
 	.darkmode.dark #wrapper [class*=danmaku_] [class*=mask_]{background:linear-gradient(180deg,#222,#0000)}
