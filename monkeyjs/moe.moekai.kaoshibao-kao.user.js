@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         考试宝-溢烟丁真鉴定为：烤
 // @namespace    https://www.kaoshibao.com/
-// @version      2023.6.11.3
+// @version      2024.5.13.20
 // @description  轻轻敲醒厨圣的心灵
 // @author       YIU
 // @match        http*://www.kaoshibao.com/k*
@@ -26,6 +26,9 @@
 
 	// 考试DOM区域
 	let examDom;
+
+	// 考试内容区域
+	let examBox;
 
 	// 显示答案区域
 	let answerShowDom;
@@ -919,6 +922,33 @@
 		}
 	}
 
+	//
+	// 反反作弊
+	//
+	function antiCheat(){
+		let intervalAntiCheat = setInterval(function(){
+
+			if(!examBox){
+				examBox = document.querySelector('[class*=exam-box]');
+			}
+			if(!examBox){ return; }
+
+			//如果没有vue对象则无法处理
+			if(!examBox.__vue__){
+				console.log('反反作弊失败、因为对象没有vue对象');
+				clearInterval(intervalAntiCheat);
+				return;
+			}
+
+			examBox.__vue__.prevent_cheat_config_data.leave_num = 9999999;
+			examBox.__vue__.prevent_cheat_config_data.leave_second = 9999999;
+
+			clearInterval(intervalAntiCheat);
+		},500);
+
+		setTimeout(function(){ clearInterval(intervalAntiCheat); }, 1700);
+	}
+
 
 	//
 	// 初始化必要样式
@@ -949,6 +979,7 @@
 			InitCss();
 			CreatAnswerBtn();
 			CreatViewAnswerBtn();
+			antiCheat();
 		},800);
 	};
 
@@ -974,6 +1005,7 @@
 			InitCss();
 			CreatAnswerBtn();
 			CreatViewAnswerBtn();
+			antiCheat();
 		},1000);
 	}
 	window.addEventListener('pushState', handler);
