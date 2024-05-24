@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         考试宝-溢烟丁真鉴定为：烤
 // @namespace    https://www.kaoshibao.com/
-// @version      2024.5.13.21
+// @version      2024.5.13.22
 // @description  轻轻敲醒厨圣的心灵
 // @author       YIU
 // @match        http*://www.kaoshibao.com/k*
