@@ -942,6 +942,7 @@
 
 			examBox.__vue__.prevent_cheat_config_data.leave_num = 9999999;
 			examBox.__vue__.prevent_cheat_config_data.leave_second = 9999999;
+			examBox.__vue__.prevent_cheat_config_data.paste = '';
 
 			clearInterval(intervalAntiCheat);
 		},500);
