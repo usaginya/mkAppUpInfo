@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      3.9.9
+// @version      4.0.0
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -685,7 +685,7 @@
 	 .darkmode.dark .cos-search-link,.darkmode.dark #wrapper [class*=_popup_] [class*=selected]{color:#5bf}
 	.result-op [class*=bg_],.result-op [class*=content_],
 	 .darkmode.dark .result-op [class*=bg_],.darkmode.dark .result-op [class*=content_]{background-color:#0000}
-	.darkmode.dark .result-op [class*=content_] [class*=desc_],
+	.darkmode.dark .result-op [class*=content_] [class*=desc_],.darkmode.dark .result-op [class*=content_] [class*=name_],
 	 .darkmode.dark .result-op [class*=bg_] [class*=entry-text_]{color:#ccc}
 	.darkmode.dark .result-op [class*=bg_] [class*=select-entry_]{background:#0000}
 	.darkmode.dark .result-op [class*=bg_] [class*=_select-entry_]{border-color:#677799}
@@ -706,6 +706,14 @@
 	.darkmode.dark [class*=_content] [class*=text_]{color:#aaa!important}
 	.darkmode.dark [class*=left-tab_]{background:linear-gradient(to right,#d5d5d5 35%,#fff0 50%)}
 	.darkmode.dark [class*=right-tab_]{background:linear-gradient(to right, #fff0 0%,#d5d5d5 50%)}
+	.darkmode.dark [class*=comment-box_] [class*=comment_]{background:#2226!important}
+	.darkmode.dark [class*=comment-box_] [class*=comment_]:hover{background:#2228!important}
+	.darkmode.dark .cosd-markdown .marklang,.darkmode.dark .cosd-markdown .marklang .marklang-paragraph{color:var(--cos-color-text-slim)}
+	.darkmode.dark .cos-tooltip-content,.darkmode.dark .cos-tooltip-trigger .cos-tooltip-content,
+	 .darkmode.dark .cos-toast{background-color:var(--cos-color-text);color:var(--cos-color-text-slim)}
+	.darkmode.dark [class*=share_]{background-color:#2223}
+	.darkmode.dark [class*=share_]:hover{background-color:#2228}
+	.darkmode.dark .cosd-citation-citationId{color:var(--cos-color-text-inverse)}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
