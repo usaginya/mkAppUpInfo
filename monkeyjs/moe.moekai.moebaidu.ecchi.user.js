@@ -19,7 +19,7 @@
 // @connect      moest.top
 // @run-at       document-start
 // @require      http://libs.baidu.com/jquery/2.1.4/jquery.min.js
-// @require      https://cdn.jsdelivr.us/gh/matthias-vogt/legitRipple.js@gh-pages/dist/ripple.min.js
+// @require      https://fastly.jsdelivr.net/gh/matthias-vogt/legitRipple.js@gh-pages/js/ripple.js
 // ==/UserScript==
 
 (function(){
