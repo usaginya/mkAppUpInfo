@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      4.0.0
+// @version      4.0.1
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -486,7 +486,8 @@
 	 +`:not([class*=op_weather]):not([class*=full-star_]):not([class*=card-more-icon_]):not([class*=unselected_] i):not([class^=right-icon_])`
 	 +`:not([class^=source-icon_]):not([class*=live-icon]):not([class*=arrow-icon]):not([class*=theme-icon]):not([class*=avatar])`
 	 +`:not(.c-showurl [class*=icon_]):not([class*=weather-icon_]):not([class*=icon-gap-]):not([class*=qihou-icon_]):not([class*=state-icon_])`
-	 +`:not([class*=pause]):not([class*=play]):not([class*=audio-wrapper_]):not([class*=change-icon_]):not([class*=copy-icon_]),
+	 +`:not([class*=pause]):not([class*=play]):not([class*=audio-wrapper_]):not([class*=change-icon_]):not([class*=copy-icon_])`
+	 +`:not(class*=empty-icon_]),
 	 .darkmode.dark #wrapper [class*=wrap_] [class*=opt-emoji_],.darkmode.dark #wrapper .c-icon [class*=img2_],
 	 .darkmode.dark #wrapper .c-icon[class*=wrapper_],.darkmode.dark #wrapper [class*=select-icon],
 	 .darkmode.dark #wrapper [class*=icon-more_],.darkmode.dark #wrapper [class*=title-icon-row_],
@@ -564,8 +565,8 @@
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
 	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
 	.darkmode.dark #wrapper [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]):not([class*=pinyin])`
-	 +`:not([class*=chart-line_]):not([class*=blog-item_]):not([class*=praise-underline_]),.darkmode.dark [class*=hasline_]:after,
-	 .darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
+	 +`:not([class*=chart-line_]):not([class*=blog-item_]):not([class*=praise-underline_]):not([class*=feed-news-container_] [class*=line_]),
+	 .darkmode.dark [class*=hasline_]:after,.darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=_popup_] [class*=selectItem]:hover,
 	 .darkmode.dark [class*=select-container] li:hover{background-color:#0005!important;color:#b9f}
@@ -646,7 +647,7 @@
 	.darkmode.dark #wrapper [class*=tabs-wrapper_] [class*=tab_]{color:#aaa!important}
 	.darkmode.dark #wrapper [class*=tabs-wrapper_] [class*=tab_][class*=active_]{background:#2226!important;color:#a59fff!important}
 	.darkmode.dark #wrapper [class*=pc_] [class*=item_]:hover [class*=item-hover_],
-	 .darkmode.dark #wrapper [class*=list-row_]:hover{background-color:#1118!important}
+	 .darkmode.dark #wrapper [class*=list-row_]:hover,.darkmode.dark [class*=schedule_]:hover{background-color:#1118!important}
 	.darkmode.dark #wrapper [class*=more-btn_],.darkmode.dark [class*=box-item_]{background-color:#3335}
 	.darkmode.dark #wrapper [class*=content_]{color:#b3bcff}
 	.darkmode.dark #wrapper [class*=pc_] [class*=text_]{color:#90c2ff}
@@ -683,7 +684,7 @@
 	.darkmode.dark .result-op [class*=tag_][class*=primary_],
 	 .darkmode.dark .result-op [class*=bg_] [class*=header-btn_]:hover,
 	 .darkmode.dark .cos-search-link,.darkmode.dark #wrapper [class*=_popup_] [class*=selected]{color:#5bf}
-	.result-op [class*=bg_],.result-op [class*=content_],
+	.result-op [class*=bg_],.result-op [class*=content_],.result-op [class*=contentBg_],.darkmode.dark .result-op [class*=contentBg_],
 	 .darkmode.dark .result-op [class*=bg_],.darkmode.dark .result-op [class*=content_]{background-color:#0000}
 	.darkmode.dark .result-op [class*=content_] [class*=desc_],.darkmode.dark .result-op [class*=content_] [class*=name_],
 	 .darkmode.dark .result-op [class*=bg_] [class*=entry-text_]{color:#ccc}
@@ -708,12 +709,19 @@
 	.darkmode.dark [class*=right-tab_]{background:linear-gradient(to right, #fff0 0%,#d5d5d5 50%)}
 	.darkmode.dark [class*=comment-box_] [class*=comment_]{background:#2226!important}
 	.darkmode.dark [class*=comment-box_] [class*=comment_]:hover{background:#2228!important}
-	.darkmode.dark .cosd-markdown .marklang,.darkmode.dark .cosd-markdown .marklang .marklang-paragraph{color:var(--cos-color-text-slim)}
+	.darkmode.dark .cosd-markdown .marklang,.darkmode.dark .cosd-markdown .marklang .marklang-paragraph,
+	 .darkmode.dark [class*=title-instance_],.darkmode.dark [class*=paragraph_],.darkmode.dark [class*=selector-tab_],
+	 .darkmode.dark [class*=schedule-title_],.darkmode.dark [class*=schedule-date_],
+	 .darkmode.dark [class*=month-title_]{color:var(--cos-color-text-slim)!important}
 	.darkmode.dark .cos-tooltip-content,.darkmode.dark .cos-tooltip-trigger .cos-tooltip-content,
 	 .darkmode.dark .cos-toast{background-color:var(--cos-color-text);color:var(--cos-color-text-slim)}
 	.darkmode.dark [class*=share_]{background-color:#2223}
-	.darkmode.dark [class*=share_]:hover{background-color:#2228}
-	.darkmode.dark .cosd-citation-citationId{color:var(--cos-color-text-inverse)}
+	.darkmode.dark [class*=share_]:hover,.darkmode.dark [class*=selector-tab_],.darkmode.dark [class*=month-title_]{background-color:#2228}
+	.darkmode.dark .cosd-citation-citationId,.darkmode.dark .cosd-markdown .marklang mark{color:var(--cos-color-text-inverse)}
+	.darkmode.dark [data-module="cardentry"]:hover{background:var(--cos-color-bg-primary-hover)!important}
+	.darkmode.dark [data-module="cardentry"]:hover [class*=title-instance_]{color:var(--cos-color-text-inverse)!important}
+	.darkmode.dark [class*=_control_]{background:var(--cos-color-text)}
+	.darkmode.dark [class*=_control_] [class*=_control-icon_]{color:var(--cos-color-text-slim)}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
