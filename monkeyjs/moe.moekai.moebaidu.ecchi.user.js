@@ -597,7 +597,8 @@
 	 .darkmode.dark [class*=answer-pc_]{color:#ccc!important}
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
 	.darkmode.dark #wrapper [class*=container_] [class^=right-icon_],
-	 .darkmode.dark [class*=button_]:not([class*=slink-button]),.darkmode.dark [class*=-button]:not([class*=slink-button]),
+	 .darkmode.dark [class*=button_]:not([class*=slink-button]):not([class*=state-button-]),
+	 .darkmode.dark [class*=-button]:not([class*=slink-button]):not([class*=state-button-]),
 	 .darkmode.dark [class*=ala-box-pc_] [class*=zi_],.darkmode.dark [class*=zuci-link_]{background:#2228}
 	.darkmode.dark #wrapper [class*=container_] [class^=right-icon_]:hover,
 	 .darkmode.dark #wrapper [class*=button_]:not([class*=slink-button]):hover,
@@ -721,7 +722,8 @@
 	.darkmode.dark [data-module="cardentry"]:hover{background:var(--cos-color-bg-primary-hover)!important}
 	.darkmode.dark [data-module="cardentry"]:hover [class*=title-instance_]{color:var(--cos-color-text-inverse)!important}
 	.darkmode.dark [class*=_control_]{background:var(--cos-color-text)}
-	.darkmode.dark [class*=_control_] [class*=_control-icon_]{color:var(--cos-color-text-slim)}
+	.darkmode.dark [class*=_control_] [class*=_control-icon_],
+	 .darkmode.dark [class*=state-button-] [class*=text-box_]{color:var(--cos-color-text-slim)}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
@@ -773,6 +775,8 @@
 	.c-tip-con [class*=menu] li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited{background-color:#fff0!important}
 	.darkmode.dark #u .bdpfmenu a,.darkmode.dark #u .usermenu a{border:none!important;background:#0000!important}
 	</style>`;
+
+	const foldSwitchFix = `linear-gradient(#fff0 0, #0000 31%, var(--cos-color-bg-raised-inverse) 62%)!important`;
 
 	const darkmodeScrollbarCss = `<style id="gmdarkscrollbar">
 	::-webkit-scrollbar-track-piece:vertical{background:#666!important;box-shadow:inset 8px 0 8px #222, inset -2px 0 8px #666!important}
@@ -1037,6 +1041,26 @@
 		}
 	};
 
+	function observeChildChanges(element, callback, childList=true, attributes=true, subtree=true) {
+		const observer = new MutationObserver((mutationsList, observer) => {
+			for (let mutation of mutationsList) {
+				if (mutation.type === 'childList') {
+					callback('A child node has been added or removed.');
+				} else if (mutation.type === 'attributes') {
+					callback('An attribute was modified.');
+				}
+			}
+		});
+
+		const config = {
+			childList: childList,
+			attributes: attributes,
+			subtree: subtree
+		};
+
+		observer.observe(element, config);
+	}
+
 	function recoveryMutationObserver(){
 		let ifr = document.createElement('iframe');
 		ifr.style.display = 'none';
@@ -1288,6 +1312,26 @@
 		},200);
 		// Limit add dark mode menu time
 		setTimeoutAddDarkModeMenu = setTimeout(()=>clearInterval(intervalAddDarkModeMenu),5000);
+
+		// Fix fold switch css
+		let setTimeoutFixFoldSwitch;
+		let intervalFixFoldSwitch = setInterval(()=>{
+			if(isDark && $('.cos-fold-switch').length > 0){
+				clearInterval(intervalFixFoldSwitch);
+				const observedElement = $('.cos-fold-switch')[0];
+				observedElement.attrSeted = false;
+				observeChildChanges(observedElement, (message) => {
+					if (observedElement.attrSeted || !isDark) {
+						observedElement.attrSeted = false;
+						return;
+					}
+					observedElement.attrSeted = true;
+					$('.cos-fold-switch-mask').css('background', foldSwitchFix);
+				});
+				$('.cos-fold-switch-mask').css('background', foldSwitchFix);
+			}
+		},500);
+		setTimeoutFixFoldSwitch = setTimeout(()=>clearInterval(intervalFixFoldSwitch),8000);
 
 		// Right list switch
 		let RightListSwitch = {
@@ -1584,84 +1628,84 @@
 		});
 
 	}
-//------ Search Page End------
+	//------ Search Page End------
 
-//------ Captcha Page ------
-function ecchiOnCaptcha() {
-	let isDark = GM_getValue('openDark');
-	if(isDark && $('body.darkmode').length < 1){
-		$('body').addClass('darkmode');
+	//------ Captcha Page ------
+	function ecchiOnCaptcha() {
+		let isDark = GM_getValue('openDark');
+		if(isDark && $('body.darkmode').length < 1){
+			$('body').addClass('darkmode');
+		}
 	}
-}
-//------ Captcha Page End------
-//----------------------------------------------------------------
+	//------ Captcha Page End------
+	//----------------------------------------------------------------
 
-function isOnHomePage(){
-	return !window.location.href.includes('.com/s') && window.location.pathname == '/' && !window.location.href.includes('wd=');
-}
-function isOnSearchPage(){
-	return window.location.href.includes('.com/s') && (window.location.href.indexOf('wd=')>0 || window.location.href.includes('word='));
-}
-function  isOnCaptchaPage(){
-	return window.location.href.includes('/captcha/');
-}
-
-//-- Priority processing --
-if(isOnSearchPage()) {
-	ecchiOnSearchInit();
-}
-darkmodeStyleInit();
-
-$(function(){
-	//------ Run on home ------
-	if(isOnHomePage())
-	{
-		ecchiOnHome();
-		registerMenu();
-		return;
+	function isOnHomePage(){
+		return !window.location.href.includes('.com/s') && window.location.pathname == '/' && !window.location.href.includes('wd=');
+	}
+	function isOnSearchPage(){
+		return window.location.href.includes('.com/s') && (window.location.href.indexOf('wd=')>0 || window.location.href.includes('word='));
+	}
+	function  isOnCaptchaPage(){
+		return window.location.href.includes('/captcha/');
 	}
 
-	//------ Run on search page ------
+	//-- Priority processing --
 	if(isOnSearchPage()) {
 		ecchiOnSearchInit();
-		ecchiOnSearch();
-		registerMenu();
-		return;
 	}
+	darkmodeStyleInit();
 
-	//------ Run on captcha page ------
-	if(isOnCaptchaPage())
-	{
-		ecchiOnCaptcha();
-		return;
-	}
-});
+	$(function(){
+		//------ Run on home ------
+		if(isOnHomePage())
+		{
+			ecchiOnHome();
+			registerMenu();
+			return;
+		}
 
-//-- Post-processing for asynchronous search page ------
-const addHistoryEvent = function(type) {
-	let originalMethod = history[type];
-	return function() {
-		let recallMethod = originalMethod.apply(this, arguments);
-		let e = new Event(type);
-		e.arguments = arguments;
-		window.dispatchEvent(e);
-		return recallMethod;
-	};
-};
-history.pushState = addHistoryEvent('pushState');
-history.replaceState = addHistoryEvent('replaceState');
-
-const handler = function(...arg){
-	let rerunInterval = setInterval(function(){
+		//------ Run on search page ------
 		if(isOnSearchPage()) {
 			ecchiOnSearchInit();
 			ecchiOnSearch();
+			registerMenu();
 			return;
 		}
-	},200);
-	setTimeout(()=>clearInterval(rerunInterval),2000)
-}
-window.addEventListener('pushState', handler);
-window.addEventListener('replaceState', handler);
+
+		//------ Run on captcha page ------
+		if(isOnCaptchaPage())
+		{
+			ecchiOnCaptcha();
+			return;
+		}
+	});
+
+	//-- Post-processing for asynchronous search page ------
+	const addHistoryEvent = function(type) {
+		let originalMethod = history[type];
+		return function() {
+			let recallMethod = originalMethod.apply(this, arguments);
+			let e = new Event(type);
+			e.arguments = arguments;
+			window.dispatchEvent(e);
+			return recallMethod;
+		};
+	};
+	history.pushState = addHistoryEvent('pushState');
+	history.replaceState = addHistoryEvent('replaceState');
+
+	const handler = function(...arg){
+		let rerunInterval = setInterval(function(){
+			if(isOnSearchPage()) {
+				ecchiOnSearchInit();
+				ecchiOnSearch();
+				return;
+			}
+		},200);
+		setTimeout(()=>clearInterval(rerunInterval),2000)
+	}
+	window.addEventListener('pushState', handler);
+	window.addEventListener('replaceState', handler);
 
 })();
