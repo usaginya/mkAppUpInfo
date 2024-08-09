@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      4.0.3
+// @version      4.0.4
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -724,6 +724,7 @@
 	.darkmode.dark [class*=_control_]{background:var(--cos-color-text)}
 	.darkmode.dark [class*=_control_] [class*=_control-icon_],
 	 .darkmode.dark [class*=state-button-] [class*=text-box_]{color:var(--cos-color-text-slim)}
+	.darkmode.dark [class*=interact-mask_]{background:#0000!important}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
