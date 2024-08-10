@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      4.0.4
+// @version      4.0.5
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -104,7 +104,7 @@
 	#aging-tools-pc>div div[class|=item]:hover>div[class|=icon],
 	 #aging-tools-pc>div div[class|=item][class*=checked]>div[class|=icon]{background-color:#6d87f2!important}
 	#aging-tools-pc>div div[class|=pop]{background:#fffc;backdrop-filter:blur(10px)}
-	.darkmode.dark #wrapper input:not(#kw):not([class*=select-input_]):not([class*=c-btn]),.darkmode #s_side_wrapper{background-color:#1118}
+	.darkmode.dark #wrapper input:not(#kw):not([class*=select-input_]):not([class*=c-btn_]),.darkmode #s_side_wrapper{background-color:#1118}
 	.darkmode.dark #wrapper [class*=input_]{color:#eee}
 	.darkmode.dark{background-color:#1f1f25cc!important}
 	.darkmode.dark #bottom_layer,.darkmode.dark #head,.darkmode.dark #s_menu_gurd.s-down,
@@ -317,7 +317,7 @@
 	.darkmode.dark .result-op [class*=up_],.darkmode.dark .op-concept-stock-rose{color:#f77}
 	.darkmode.dark #su{background-color:#3f3dc780!important}
 	.darkmode.dark #su:hover{background-color:#5545ddaa!important}
-	.darkmode.dark a:not([class*=op_weather]):not(.OP_LOG_LINK):not(.c-btn):not([class*=consulting-btn_]),.darkmode.dark h3[class*=title_],
+	.darkmode.dark a:not([class*=op_weather]):not(.OP_LOG_LINK):not([class*=btn_]),.darkmode.dark h3[class*=title_],
 	 .darkmode.dark .result-op [class*=pag-item_]:not([class*=active]),.darkmode.dark .sc-button.sc-sublink,.darkmode.dark .sc-button-new.sc-sublink,
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
@@ -330,7 +330,7 @@
 	 .darkmode.dark [class*=tab-bar_] [class*=nav-item_]:hover,
 	 .darkmode.dark [class*=custom-bar_] [class*=nav-item_]:hover,
 	 .darkmode.dark [class*=sample-bar_] [class*=nav-item_]:hover,.darkmode.dark [class*=pan-link_]{color:#9db2ff}
-	.darkmode.dark a:hover:not([class*=op_weather]):not(.header .c-btn),.darkmode.dark #u>a:hover:not([name*=login]),
+	.darkmode.dark a:hover:not([class*=op_weather]):not([class*=btn_]),.darkmode.dark #u>a:hover:not([name*=login]),
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
 	 .darkmode.dark [class*=time_li_]:hover,.darkmode.dark [class*=card-more-link]:hover,
@@ -381,13 +381,14 @@
 	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover,
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):not([class*=sc-link]):hover,.darkmode.dark [class*=item-word_]:hover,
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]:hover,.darkmode.dark [class*=tag-selected_],
-	 .darkmode.dark [class*=words-record_]:hover{background:#2229!important}
+	 .darkmode.dark [class*=words-record_]:hover,.darkmode.dark [class*=orientation-title-wrapper_]{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
 	 .darkmode.dark .new-pmd .c-border:hover,.darkmode.dark [class*=hover_]:hover,.darkmode.dark [class*=rel-divider],
 	 .darkmode.dark [class*=loc-wrapper_],.darkmode.dark [class*=episode-btn_],.darkmode.dark [class*=-tlinkur] a,
-	 .darkmode.dark [class*=input-box_]{background:#2225!important}
+	 .darkmode.dark [class*=input-box_],.darkmode.dark [class*=desc-common_],
+	 .darkmode.dark [class*=query-wrapper_],.darkmode.dark [class*=orientation-title-wrapper_]{background:#2225!important}
 	.darkmode.dark [class*=input-box_] [class*=input_]{background:#1115!important;border:1px solid #0000!important}
 	.darkmode.dark .new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.darkmode.dark .new-pmd .c-tabs-content,
 	 .darkmode.dark .op_express_delivery_more,.darkmode.dark .result-molecule>#page a,.darkmode.dark.new-pmd .c-border,
@@ -429,7 +430,7 @@
 	.darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-con]):not([class^=_tabs-nav_]):not([class^=_tabs_]),
 	 .darkmode.dark .c-gap-top-large [class*=tag-item],
 	 .darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-con]):not([class^=_tabs-nav_]):not([class^=_tabs_]) a:not([class*=-links-]),
-	 .darkmode.dark .result-op [class*=tags-]:not([class*=tabs-con]) span{background-color:#2225}
+	 .darkmode.dark .result-op [class*=tags-]:not([class*=tabs-con]) span,.darkmode.dark [class*=consulting-btn]{background-color:#2225}
 	.darkmode.dark .result-op [class*=main-tabs_] [class*=tab-item-selected]{color:#ccc}
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
 	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table,
@@ -534,7 +535,7 @@
 	.darkmode.dark .x-interact-publish .textarea-topic,.darkmode.dark .x-interact-publish .text-area{background:#0000;color:#bbb}
 	.darkmode.dark .x-interact-publish .emoj-panel,.darkmode.dark [class*=car-pc-series-table]{background:#1118}
 	.darkmode.dark .new-pmd .c-line-clamp1[class*=source-name_],.darkmode.dark .op_weather4_xlzstit,
-	 .darkmode.dark .op_weather4_jslul span,.darkmode.dark [class*=color-span_] [class^=text_]{color:#fff!important}
+	 .darkmode.dark .op_weather4_jslul span,.darkmode.dark [class*=color-span_] [class^=text_],.darkmode.dark [class*=btn_] a{color:#fff!important}
 	.darkmode.dark [srcid]:not([srcid=''])>[class*=root],.darkmode.dark .res-border-bottom,.darkmode.dark .hint_right_middle,
 	 .darkmode.dark .med-qa .c-line-bottom,.darkmode.dark .wa-zp-exact-new-bline,.darkmode.dark .c-tabs-nav,
 	 .darkmode.dark [class*=nav_],.darkmode.dark [class*=table-thead_],.darkmode.dark [class*=car-pc-series-bline],
@@ -644,8 +645,8 @@
 	.darkmode.dark #wrapper [class^=comment-wrapper_] [class^=cover-container_]{background:linear-gradient(to top,#222,#0000)}
 	.darkmode.dark #wrapper [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-scroll-item-title_]{color:unset}
 	.darkmode.dark #wrapper [class*=vmp-zxenterprise-new_] [class*=vmp-zxenterprise-links_]{background:#1115;color:#eee}
-	.darkmode.dark #wrapper [class^=_content] [class^=load_]{background-color:#2225!important}
-	.darkmode.dark #wrapper [class*=tabs-wrapper_] [class*=tab_]{color:#aaa!important}
+	.darkmode.dark #wrapper [class^=_content] [class^=load_],.darkmode.dark [class*=more-btn-icon_]{background-color:#2225!important}
+	.darkmode.dark #wrapper [class*=tabs-wrapper_] [class*=tab_],.darkmode.dark [class*=orientation-title_]{color:#aaa!important}
 	.darkmode.dark #wrapper [class*=tabs-wrapper_] [class*=tab_][class*=active_]{background:#2226!important;color:#a59fff!important}
 	.darkmode.dark #wrapper [class*=pc_] [class*=item_]:hover [class*=item-hover_],
 	 .darkmode.dark #wrapper [class*=list-row_]:hover,.darkmode.dark [class*=schedule_]:hover{background-color:#1118!important}
@@ -725,6 +726,8 @@
 	.darkmode.dark [class*=_control_] [class*=_control-icon_],
 	 .darkmode.dark [class*=state-button-] [class*=text-box_]{color:var(--cos-color-text-slim)}
 	.darkmode.dark [class*=interact-mask_]{background:#0000!important}
+	.darkmode.dark [class*=desc-common_]::before{border-right: .03rem solid #2225}
+	.darkmode.dark [class*=title-icon] img{filter:invert(1) hue-rotate(180deg)}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
