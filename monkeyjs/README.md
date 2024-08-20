@@ -14,6 +14,8 @@
 | moe.moekai.epicgames.removeblock.user.js | EPIC移除商店限制提示 |
 | moe.moekai.website.autosign.user.js | 常用网站自动签到（自用） |
 | moe.moekai.kaoshibao-kao.user.js | 考试宝-鉴定为：烤（试题自动答题（加密试题无效、乱序答案效果差））
+| moe.moekai.prtswikiresdl.user.js | PRTS Wiki Resoures Download（从 PRTS Wiki 获得资源文件、仅PC端页面、暂时支持Spine模型） |
+
 
 # 自改各种油猴脚本
 | 原名  | 简介  |
