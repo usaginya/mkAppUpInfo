@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PRTS Wiki Resoures Download
 // @namespace    https://github.com/usaginya/mkAppUpInfo/blob/master/monkeyjs/moe.moekai.prtswikiresdl.user.js
-// @version      2024-08-21-05
+// @version      2024-08-29-00
 // @description  从 PRTS Wiki 获得资源文件
 // @author       YIU
 // @match        *://prts.wiki/w/*
@@ -102,7 +102,17 @@
 			}
 		})
 			.catch(errorMessage => {
-			console.error('解析spine模型信息json错误:', errorMessage);
+			// 解析独立模型、比如敌人
+			let spineData = document.querySelector('#SPINEDATA');
+			if (!spineData || !spineData.innerText && !spineData.textContent) {
+				console.error('解析spine模型信息json错误:', errorMessage);
+				return;
+			}
+			spineData = JSON.parse(spineData.inndeText || spineData.textContent);
+			globalSpineData = processSpineJsonData(spineData);
+			if (globalSpineData && globalSpineData.fileLinks.length > 0) {
+				addDownloadSpineModelsBtn();
+			}
 		});
 	}
 
