@@ -1,6 +1,6 @@
 @echo off
 title ffmpeg nvenc转码 by YIU
-::Last 2023-08-03
+::Last 2024-09-14
 
 :: 将下面一行的 = 后面改为你的 ffmpeg.exe 所在路径
 set "ffmpeg=ffmpeg.exe"
@@ -101,7 +101,7 @@ setlocal disabledelayedexpansion
 if ERRORLEVEL 1 set cpun=1
 if %cpun% lss 1 set cpun=1
 
-set ffmpegRun=%ffmpeg% -i "%invideo%" %width% -c:v %code%_nvenc -preset:v slow -tune:v hq -rc:v vbr -cq:v %cq% -b:v 0 -threads:v:0 %cpun% -filter_threads %cpun% -spatial_aq 1 -aq-strength 1 -y "%fn%_%code%_nvenc.mp4"
+set ffmpegRun=%ffmpeg% -i "%invideo%" %width% -c:v %code%_nvenc -preset:v slow -tune:v hq -rc:v vbr -cq:v %cq% -b:v 0 -threads:v:0 %cpun% -filter_threads %cpun% -spatial_aq 1 -aq-strength 1 -c:a copy -y "%fn%_%code%_nvenc.mp4"
 
 echo.
 echo %ffmpegRun%
@@ -123,5 +123,5 @@ set tn=%~nx1
 
 :INFO
 echo.
-echo --=== FFmpeg Nvenc 转码批处理  Ver 1.2  by YIU ===--
+echo --=== FFmpeg Nvenc 转码批处理  Ver 1.3  by YIU ===--
 goto :eof
