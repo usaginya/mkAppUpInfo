@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.4.76
+// @version      3.5.78
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -15,6 +15,8 @@
 // @grant        GM_setValue
 // @grant        GM_addValueChangeListener
 // @grant        unsafeWindow
+// @downloadURL https://update.sleazyfork.org/scripts/38672/%E7%BB%85%E5%A3%AB%E4%B9%8B%E5%BA%AD%E9%80%8F%E6%98%8E%E7%95%8C%E9%9D%A2.user.js
+// @updateURL https://update.sleazyfork.org/scripts/38672/%E7%BB%85%E5%A3%AB%E4%B9%8B%E5%BA%AD%E9%80%8F%E6%98%8E%E7%95%8C%E9%9D%A2.meta.js
 // ==/UserScript==
 
 (function() {
@@ -251,9 +253,24 @@ footer{background-color:#e2e2e2e0}
 			currentX = 0,
 			isDrag = false;
 
-		const moveEvent = function(e){
+		const handleStart = function(e){
+			e.stopPropagation();
+			if (e.button === 0 || e.touches) {
+				const cx = !e.touches ? e.clientX : e.touches[0].clientX;
+				isDrag = true;
+				startX = cx;
+				document.addEventListener('mousemove', handleMove);
+				document.addEventListener('mouseup', handleEnd);
+				document.addEventListener('touchmove', handleMove);
+				document.addEventListener('touchend', handleEnd);
+			}
+		};
+
+		const handleMove = function(e){
+			e.stopPropagation();
 			if(isDrag){
-				let diffX = e.clientX - startX;
+				const cx = !e.touches ? e.clientX : e.touches[0].clientX;
+				let diffX = cx - startX;
 				moveX = diffX + currentX;
 				if(moveX < 0) moveX = 0;
 				if(moveX > max) moveX = max;
@@ -263,15 +280,16 @@ footer{background-color:#e2e2e2e0}
 				process.style.width = (moveX + 10) + 'px';
 				if(moveCallback) moveCallback(pre);
 			}
-			e.stopPropagation();
 		}
 
-		const mouseupEvent = function(e){
+		const handleEnd = function(e){
+			e.stopPropagation();
 			isDrag = false;
 			currentX = moveX;
-			document.removeEventListener('mousemove', moveEvent);
-			document.removeEventListener('mouseup', mouseupEvent);
-			e.stopPropagation();
+			document.removeEventListener('mousemove', handleMove);
+			document.removeEventListener('mouseup', handleEnd);
+			document.removeEventListener('touchmove', handleMove);
+			document.removeEventListener('touchend', handleEnd);
 		}
 
 		gmSbar[0].setval = v =>{
@@ -286,16 +304,8 @@ footer{background-color:#e2e2e2e0}
 			process.style.width = (moveX + 10) + 'px';
 		};
 
-		slider.addEventListener('mousedown', function(e){
-			if (e.button === 0) {
-				isDrag = true;
-				startX = e.clientX;
-				document.addEventListener('mousemove', moveEvent);
-				document.addEventListener('mouseup', mouseupEvent);
-			}
-			e.stopPropagation();
-		});
-
+		slider.addEventListener('mousedown', handleStart);
+		slider.addEventListener('touchstart', handleStart);
 		return gmSbar[0];
 	}
 
