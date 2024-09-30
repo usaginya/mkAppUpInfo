@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         绅士之庭透明界面
 // @namespace    moe.moekai.gmgardtransparentpost
-// @version      3.5.78
+// @version      3.6.79
 // @description  让绅士之庭的界面和文章背景半透明
 // @author       YIU
 // @match        http*://gmgard.com/*
@@ -21,6 +21,7 @@
 
 (function() {
 	const $ = unsafeWindow.jQuery;
+	const addStyleDoms = {};
 	const settingsKeys = {
 		panelBgAlpha: 'panel-bg-alpha',
 		panelBgBlur: 'panel-bg-blur'
@@ -28,14 +29,13 @@
 
 	//============ < STYLE > =============================
 	const hartIcon = 'data:image/webp;base64,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';
-	const strs = `<style>
-#body{background-color:rgba(255,255,255,0.75);backdrop-filter:blur(0px)}
+	const strs = `#body{background-color:rgba(255,255,255,0.75);backdrop-filter:blur(0px)}
 .categories{background:#ffffff99}
 #blog{background-color:#fff0}
 #blog .uimg{background:#fff9}
 hr{border-top-color:#eee8!important;border-bottom-color:#eee8!important}
 .well{background-color:#f5f5f5b8}
-input.tagsearch{background-color:#f5f5f599}
+input.tagsearch{background-color:#f5f5f599!important;}
 span[style='background:#000000'],span[style='background: #000000'],span[style='background:rgb(0, 0, 0)'],
  span[style='background-color:#000000'],span[style='background-color: #000000'],span[style='background-color:rgb(0, 0, 0)']{background:#000000a5}
 span[style='background:#ffffff'],span[style='background: #ffffff'],span[style='background:rgb(255, 255, 255)'],
@@ -148,24 +148,49 @@ footer{background-color:#e2e2e2e0}
 .gm_process{background-color:#ff8fbc;background:linear-gradient(to right,#ffb0b0,#ff8fbc);z-index:20;width:0}
 .gm_slider{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:36px;height:31px;z-index:30;cursor:move;background-image:url('${hartIcon}');background-size:auto 100%;background-repeat:no-repeat;background-position:center}
 .gm_percent{position:absolute;top:50%;right:-60px;transform:translateY(-50%);color:#666}
-.gm_non-selectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-</style>`;
+.gm_non-selectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}`;
 
 
 	// ===================== < JS > =======================================
 	GM_addStyle(strs);
 
+
 	function setPanelBackground(alpha = 0.75){
-		$("#body").css("background-color",`rgba(255,255,255,${alpha})`);
+		const bubbleAlphaDiff = 0.37 - alpha;
+		const bubbleAfterAlpha =calculateTransparency(alpha, 0.3, 1, 0.7, 0.97);
+		const newcss = `#body,input.tagsearch{background-color:rgba(255,255,255,${alpha})!important}
+		.categories{background:rgba(255,255,255,${alpha - 0.11 > 0 ? alpha - 0.11 : 0 })}
+		.dropdown-menu{background-color:rgba(255,255,255,${alpha + 0.13 < 1 ? alpha + 0.13 : 1 })}
+		.btn-toolbar .btn,.searchbtn,.favbtn,#blog a[onclick*='rptBlog'],#newtag .btn,
+		.HGswitch .btn:not(.disabled),.author-info .btn:not(.disabled){background:rgba(245,245,245,${alpha - 0.05 > 0 ? alpha - 0.05 : 0 })}
+		.nav-tabs .active a,.nav-tabs .active a:hover,.nav-tabs .active a:focus,.user-comment,#multiview input[type='text'],
+		#multiview textarea{background-color:rgba(255,255,255,${alpha - 0.03 > 0 ? alpha - 0.03 : 0 })}
+		.bubble{background:rgba(255,255,255,${alpha + bubbleAlphaDiff < 1 ? alpha + bubbleAlphaDiff : 1 })}
+		.bubble:after{border-color:transparent rgba(255,255,255,${bubbleAfterAlpha})}
+		.well{background-color:rgba(245,245,245,${alpha + 0.01 < 1 ? alpha + 0.01 : 1 })}
+		.navbar-inner{background-image:linear-gradient(to bottom,rgba(255,255,255,${alpha + 0.07 < 1 ? alpha + 0.07 : 1 }),rgba(242,242,242,${alpha + 0.15 < 1 ? alpha + 0.15 : 1}))}`;
+
+		if (addStyleDoms.panelbg) {
+			addStyleDoms.panelbg.remove();
+		}
+		addStyleDoms.panelbg = GM_addStyle(newcss);
 	}
+
 
 	function setPanelBlur(blur = 0){
 		$("#body").css("backdrop-filter",`blur(${blur}px)`);
 	}
 
+
 	function initial(){
 		setPanelBackground(GM_getValue(settingsKeys.panelBgAlpha, undefined));
 		setPanelBlur(GM_getValue(settingsKeys.panelBgBlur, undefined));
+	}
+
+
+	function calculateTransparency(input, inputMin, inputMax, outputMin, outputMax) {
+		const output = outputMin + (outputMax - outputMin) * ((input - inputMin) / (inputMax - inputMin));
+		return output;
 	}
 
 
@@ -240,7 +265,7 @@ footer{background-color:#e2e2e2e0}
 	function createGMSliderBar(id, parent, moveCallback) {
 		const template = `<div id="${id}" class="gm_sliderBar gm_non-selectable"><div class="gm_slot"></div><div class="gm_slot gm_process"></div>
         <div class="gm_slider"></div><span class="gm_percent">0%</span>
-		</div>`;
+			</div>`;
 
 		const gmSbar = $(template);
 		$(parent).append(gmSbar);
@@ -331,7 +356,7 @@ footer{background-color:#e2e2e2e0}
 
 		// ------------- 背景透明度调整 --------------
 		const backgroundAlphaPanel = `<div class="gm_grid-container">
-		<div class="gm_grid-item"><strong>文章背景透明度调整</strong></div>
+		<div class="gm_grid-item"><strong>内容背景透明度</strong></div>
 		<div class="gm_grid-item gm-bgalpha-slider"></div><br>
 		</div>`;
 
@@ -349,7 +374,7 @@ footer{background-color:#e2e2e2e0}
 
 		// ------------- 背景模糊度调整 --------------
 		const backgroundBlurPanel = `<div class="gm_grid-container">
-		<div class="gm_grid-item"><strong>文章背景模糊度调整</strong></div>
+		<div class="gm_grid-item"><strong>内容背景模糊度</strong></div>
 		<div class="gm_grid-item gm-bgblur-slider"></div><br>
 		</div>`;
 
