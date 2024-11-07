@@ -1,0 +1,17 @@
+{
+  "version": "1.5",
+  "log": [
+    "Initial release.",
+    "Added new features.",
+    "Fixed minor bugs."
+  ],
+  "history_ver": [
+    "1.4",
+    "1.3"
+  ],
+  "urls": [
+    "https://www.google.com",
+    "https://www.baidu.com",
+    "https://tr.gamekee.com/"
+  ]
+}
