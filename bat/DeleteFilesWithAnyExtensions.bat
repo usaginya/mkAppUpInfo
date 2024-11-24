@@ -8,9 +8,12 @@ echo.
 echo 		   把包含要删除的文件的文件夹拖入窗口
 echo.
 echo.
-set /p ml=""
-if %ml%=="" goto badpath
-if not exist %ml% set badfolder=1 && goto badpath
+set /p ml=
+if not defined ml goto badpath
+set ml=%ml:"=%
+if "%ml%"=="" goto badpath
+set badfolder=0
+if not exist %ml% (set badfolder=1 && goto badpath)
 :startnext
 echo.
 echo.
@@ -20,8 +23,10 @@ echo         输入完成后按回车键开始删除
 echo.
 echo.
 set /p exts=
+if not defined exts goto badexts
+set exts=%exts:"=%
 if "%exts%"=="" goto badexts
-if not exist %ml% set badfolder=1 && goto badpath
+if not exist %ml% (set badfolder=1 && goto badpath)
 cls
 color e
 echo.
@@ -52,16 +57,15 @@ timeout /t 1 >nul
 goto :EOF
 :badpath
 echo. 
-if %badfolder% neq 1 (
+if "%badfolder%" neq "1" (
 echo         请把文件夹拖入窗口
 ) else (
 echo         文件夹不存在! 请重新拖入文件夹
 )
 echo.
 echo.
-set ml=""
+set ml=
 set exts=
-set badfolder=0
 pause
 cls
 goto start
