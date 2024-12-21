@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         常用网站自动签到
 // @namespace    moe.moekai.website.autosign
-// @version      0.8
+// @version      0.9
 // @description  每天打开常用的网站时自动签到特定的网站
 // @author       YIU
 // @icon         https://www.hfday.com/favicon.ico
@@ -86,16 +86,20 @@
 		},
 
 		signAction: function (response, results) {
-			let that = results.site;
-			let jobj = JSON.parse(response.responseText);
-			let day = jobj.ConsecutiveDays != undefined ? jobj.ConsecutiveDays : 0;
-			let lollipop = jobj.Points != undefined ? jobj.Points : 0;
+			try{
+				let that = results.site;
+				let jobj = JSON.parse(response.responseText);
+				let day = jobj.ConsecutiveDays != undefined ? jobj.ConsecutiveDays : 0;
+				let lollipop = jobj.Points != undefined ? jobj.Points : 0;
 
-			if (response.responseText.indexOf('success":true') > -1) {
-				that.setSignResult('签到成功', day, lollipop);
-			} else {
-				let errMsg = jobj.ErrorMessage != undefined ? jobj.ErrorMessage : (jobj.title != undefined ? jobj.title : '未知错误');
-				that.setSignResult('签到失败：' + errMsg, day, lollipop);
+				if (response.responseText.indexOf('success":true') > -1) {
+					that.setSignResult('签到成功', day, lollipop);
+				} else {
+					let errMsg = jobj.ErrorMessage != undefined ? jobj.ErrorMessage : (jobj.title != undefined ? jobj.title : '未知错误');
+					that.setSignResult('签到失败：' + errMsg, day, lollipop);
+				}
+			} catch(err){
+				console.error('签到过程失败：', response.responseText, err);
 			}
 		}
 	};
@@ -241,7 +245,7 @@
 				requestArgs,
 				urlItem, {
 					headers: headers,
-					timeout: 5000,
+					timeout: 8000,
 					onload: function (response) {
 						resolve(action(response, {
 							site: site,
@@ -254,6 +258,10 @@
 					},
 					onabort: function () {
 						console.warn(site, 'sign failed - abort');
+						resolve(()=> false);
+					},
+					onerror: function (e) {
+						console.error ('sign failed - error ', e);
 						resolve(()=> false);
 					}
 				});
