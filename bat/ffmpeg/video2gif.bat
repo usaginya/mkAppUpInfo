@@ -143,5 +143,5 @@ set tn=%~nx1
 
 :INFO
 echo.
-echo --=== FFmpeg Video to Gif 视频转GIF批处理  Ver 1.2  by YIU ===--
+echo --=== FFmpeg Video to Gif 视频转GIF批处理  Ver 1.3  by YIU ===--
 goto :eof
