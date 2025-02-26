@@ -1,6 +1,6 @@
 @echo off
 title ffmpeg 视频转 GIF 图片 by YIU
-::Last 2023-08-03
+::Last 2025-02-27
 
 :: 将下面一行的 = 后面改为你的ffmpeg路径
 set "ffmpeg=ffmpeg.exe"
@@ -111,16 +111,15 @@ goto InputColorBlend
 
 :convert
 ::取CPU核心数计算线程
-setlocal enabledelayedexpansion
-set line=0
-for /f  %%a in ('wmic cpu get numberofcores') do (
-set /a line+=1
-if !line!==2 set /a cpun=%%a / 2
-)
-setlocal disabledelayedexpansion
+for /f %%a in ('powershell -command "Get-WmiObject Win32_Processor | Measure-Object -Property NumberOfCores -Sum | Select-Object -ExpandProperty Sum"') do set /a cpun=%%a
 
-if ERRORLEVEL 1 set cpun=1
-if %cpun% lss 1 set cpun=1
+:: CPU核心数大于 2 时取一半
+setlocal enabledelayedexpansion
+if !cpun! gtr 2 (
+    set /a cpun=!cpun! / 2
+)
+if !cpun! lss 1 set cpun=1
+setlocal disabledelayedexpansion
 
 set ffmpegRun=%ffmpeg% -i "%invideo%" -threads %cpun% -vf "%colorkey%%fps%%scale%split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 -y "%fn%.gif"
 
