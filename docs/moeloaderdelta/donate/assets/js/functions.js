@@ -1,4 +1,4 @@
-$(window).load(function() {
+$(window).on('load', function() {
     DonateBtnBind();
 
     const C_colors = {
@@ -10,10 +10,10 @@ $(window).load(function() {
 
     $('#donatelist').hide();
 
-    var $tags = $('.tag');
+    const $tags = $('.tag');
     $tags.sort(function(a, b) {
-        var aV = parseFloat($(a).find('.tag_count').attr('title'));
-        var bV = parseFloat($(b).find('.tag_count').attr('title'));
+        const aV = parseFloat($(a).find('.tag_count').attr('title'));
+        const bV = parseFloat($(b).find('.tag_count').attr('title'));
 
         if ($(a).find('.tag_name').text() == "[匿名]" || $(a).find('.tag_name').text() == "[匿名]")
             return 0;
