@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         考试宝-溢烟丁真鉴定为：烤
 // @namespace    https://www.kaoshibao.com/
-// @version      2024.5.13.22
+// @version      2025.4.18.3
 // @description  轻轻敲醒厨圣的心灵
 // @author       YIU
 // @match        http*://www.kaoshibao.com/k*
@@ -15,7 +15,7 @@
 // @grant        GM_registerMenuCommand
 // ==/UserScript==
 
-(function() {
+(function () {
 
 	//+++++++++++++++++++++++ 全局量 +++++++++++++++++++++++++++++++++++++++++
 	// 已获取的答案列表
@@ -159,24 +159,24 @@
 	//
 	// xhr hook
 	//
-	function addXMLRequestCallback(callback){
-		if(XMLHttpRequest.callbacks) {
+	function addXMLRequestCallback(callback) {
+		if (XMLHttpRequest.callbacks) {
 			// we've already overridden send() so just add the callback
 			XMLHttpRequest.callbacks.push(callback);
-		}else{
+		} else {
 			// create a callback queue
 			XMLHttpRequest.callbacks = [callback];
 			// store the native send()
 			let oldSend = XMLHttpRequest.prototype.send;
 			// override the native send()
-			XMLHttpRequest.prototype.send = function(){
+			XMLHttpRequest.prototype.send = function () {
 				// process the callback queue
 				// the xhr instance is passed into each callback but seems pretty useless
 				// you can't tell what its destination is or call abort() without an error
 				// so only really good for logging that a request has happened
 				// I could be wrong, I hope so...
 				// EDIT: I suppose you could override the onreadystatechange handler though
-				for(let i = 0; i < XMLHttpRequest.callbacks.length; i++) {
+				for (let i = 0; i < XMLHttpRequest.callbacks.length; i++) {
 					XMLHttpRequest.callbacks[i](this);
 				}
 				// call the native send()
@@ -189,11 +189,11 @@
 	//
 	// 拦截题目列表请求响应
 	//
-	addXMLRequestCallback(function(xhr) {
-		xhr.addEventListener('load', function(){
-			if(xhr.readyState != 4 && xhr.status != 200){ return; }
+	addXMLRequestCallback(function (xhr) {
+		xhr.addEventListener('load', function () {
+			if (xhr.readyState != 4 && xhr.status != 200) { return; }
 
-			if((xhr.responseURL.includes('api/questions/ids') || xhr.responseURL.includes('api/examination/')) && !xhr.responseURL.includes('Count')){
+			if ((xhr.responseURL.includes('api/questions/ids') || xhr.responseURL.includes('detailWithQuestion')) && !xhr.responseURL.includes('Count')) {
 				//console.log("HOOK > " + xhr.responseURL );
 				//console.log(xhr.responseText);
 				AnalyzeAnswerData(xhr.responseText);
@@ -206,33 +206,43 @@
 	//
 	// 答案数据解析、保存题目答案到 answerList
 	//
-	function AnalyzeAnswerData(responseText){
-		if(!responseText){ return; }
-
-		let qJson = JSON.parse(responseText);
-		let qList = qJson.data;
-		answerList = [];
-
-		if(Array.isArray(qList)){
-			qList.map((qo)=>{
-				let answerData = {};
-				answerData.answer = qo.answer;
-				answerData.qtype = qo.qtype;
-				answerList.push(answerData);
-			});
+	function AnalyzeAnswerData(responseText) {
+		if (!responseText) {
+			console.log('未能获得请求响应内容', '鉴定为烤');
+			return;
 		}
-		else if(qList.hasOwnProperty('questions_detail')) {
-			answerDataType = 1;
-			for (let q in qList.questions_detail) {
-				let answerData = {};
-				let qo = qList.questions_detail[q];
-				answerData.question = qo.question;
-				answerData.answer = qo.answer;
-				answerData.qtype = qo.qtype;
-				answerList.push(answerData);
+		try {
+			let qJson = JSON.parse(responseText);
+			if (qJson) {
+				console.log('已获得题库答案数据', '鉴定为烤');
 			}
-		}
 
+			let qList = qJson.data;
+			answerList = [];
+
+			if (Array.isArray(qList)) {
+				qList.map((qo) => {
+					let answerData = {};
+					answerData.answer = qo.answer;
+					answerData.qtype = qo.qtype;
+					answerList.push(answerData);
+				});
+			}
+			else if (qList.hasOwnProperty('questions_detail')) {
+				answerDataType = 1;
+				for (let q in qList.questions_detail) {
+					let answerData = {};
+					let qo = qList.questions_detail[q];
+					answerData.question = qo.question;
+					answerData.answer = qo.answer;
+					answerData.qtype = qo.qtype;
+					answerData.options = qo.options;
+					answerList.push(answerData);
+				}
+			}
+		} catch (e) {
+			console.log('解析题库数据失败', '鉴定为烤', e)
+		}
 		//console.log(answerList);
 	}
 
@@ -249,7 +259,7 @@
 	//
 	// 答题开始
 	//
-	function AnswerStart(){
+	function AnswerStart() {
 		answerState = 1;
 		ShowAnswerMark(1);
 		answerAgainCount = 0;
@@ -261,15 +271,15 @@
 	//
 	// 获取当前题目编号 失败返回 -1
 	//
-	function GetQuestionNumber(){
+	function GetQuestionNumber() {
 		let qNumDom = examDom.querySelector('.topic-tit span:nth-child(2)');
-		if(!qNumDom || !qNumDom.innerText){ return -1; }
+		if (!qNumDom || !qNumDom.innerText) { return -1; }
 
 		let qNum = qNumDom.innerText.match(/\d+(\.\d+)?/);
-		if(!qNum){ return -1; }
+		if (!qNum) { return -1; }
 
 		let qNumInt = parseInt(qNum[0]);
-		if(isNaN(qNumInt)){ return -1; }
+		if (isNaN(qNumInt)) { return -1; }
 		return qNumInt;
 	}
 
@@ -278,13 +288,13 @@
 	// 获取当前题目标题
 	// simplify 为 true 时截取一半题目用于后续匹配
 	//
-	function GetQuestionTitle(simplify){
-		let qTitleDom = examDom.querySelector('.topic-tit .qusetion-box');
-		if(!qTitleDom || !qTitleDom.innerHTML){ return -1; }
+	function GetQuestionTitle(simplify) {
+		let qTitleDom = examDom.querySelector('.topic-tit [class*=qusetion-]');
+		if (!qTitleDom || !qTitleDom.innerHTML) { return -1; }
 
 		let qTitle;
 
-		if(simplify){
+		if (simplify) {
 			qTitle = qTitleDom.innerHTML;
 			qTitle = qTitle.slice(0, - parseInt(qTitle.length / 2));
 			return qTitle;
@@ -301,30 +311,71 @@
 
 
 	//
+	// 获取页面上元素的目标正确答案
+	//
+	function GetAnswerWithPage(answerData) {
+		if (answerDataType == 1) {
+			// 单选 多选 判断
+			if (answerData.qtype == '1' || answerData.qtype == '2' || answerData.qtype == '3') {
+				const qOptionsDom = examDom.querySelectorAll('.option > :last-child');
+				if (!qOptionsDom) {
+					return answerData;
+				}
+
+				const options = JSON.parse(answerData.options);
+				if (!Array.isArray(options) || options.length < 1) {
+					return answerData;
+				}
+				const optionKeys = answerData.answer.split('');
+				const matchedOptions = options.filter(opt => optionKeys.includes(opt.Key))
+					.map(opt => opt.Value);
+
+				const domTextsMap = new Map();
+				Array.from(qOptionsDom).forEach((el, index) => {
+					domTextsMap.set(el.textContent.trim(), index);
+				});
+
+				const reorderedAnswers = matchedOptions.map(optionValue => {
+					const index = domTextsMap.get(optionValue);
+					if (index !== undefined) {
+						return String.fromCharCode(65 + index); // 65 是 'A' 的 ASCII 码
+					}
+					return null;
+				}).filter(Boolean);
+
+				answerData.answer = reorderedAnswers.join('');
+			}
+		}
+		return answerData;
+	}
+
+
+	//
 	// 获取当前题目答案数据
 	// { id: 答案索引, data: 答案对象 }
 	//
-	function GetAnswerData(){
+	function GetAnswerData() {
 		let answerData = {};
 		let aId = -1;
 		let qNumber = GetQuestionNumber();
 		let qTitle = GetQuestionTitle();
 
-		if(answerDataType == 1){
+		if (answerDataType == 1) {
 			answerData = answerList.find(data => data.question.includes(qTitle));
 			//如果找不到题目则以半题模式搜索
-			if(!answerData){
+			if (!answerData) {
 				qTitle = GetQuestionTitle(!0);
 				answerData = answerList.find(data => data.question.includes(qTitle));
 			}
 			aId = answerList.indexOf(answerData);
+			answerData = GetAnswerWithPage(answerData);
 		}
-		else{
+		else {
 			aId = qNumber - 1;
 			aId = aId < 0 ? 0 : aId;
 			answerData = answerList[aId];
 		}
-		return {id: aId, data: answerData};
+		return { id: aId, data: answerData };
 	}
 
 
@@ -334,7 +385,7 @@
 	//
 	function generateWrongAnswerIds() {
 		const qCount = answerList.length;
-		if(qCount < 1) return;
+		if (qCount < 1) return;
 
 		// 存放分配为错误答案的索引
 		const wrongIndices = new Set();
@@ -366,7 +417,7 @@
 		count = Math.max(1, Math.min(26, count, maxIndex - 1));
 
 		// 最大区间与排除索引都为 1 时直接返回、因为处理这种情况不现实
-		if (maxIndex === 1 && excludedIndex === 1){
+		if (maxIndex === 1 && excludedIndex === 1) {
 			return String.fromCharCode(97);
 		}
 
@@ -379,15 +430,15 @@
 			let letter;
 
 			whileDoCount++;
-			if(whileDoCount > 1000){
-				console.warn('烤 - 1 取随机字母超出最大尝试次数');
+			if (whileDoCount > 1000) {
+				console.warn('1 取随机字母超出最大尝试次数', '鉴定为烤');
 				break;
 			}
 
 			do {
 				doWhileCount++;
-				if(doWhileCount > 1000){
-					console.warn('烤 - 2 取随机字母超出最大尝试次数');
+				if (doWhileCount > 1000) {
+					console.warn('2 取随机字母超出最大尝试次数', '鉴定为烤');
 					break;
 				}
 				// 生成 [1, maxIndex] 区间内的随机整数
@@ -470,23 +521,23 @@
 	//
 	// 进行答题 递归
 	//
-	function Answer(){
+	function Answer() {
 		// 检查答题状态是否停止
-		if(!answerState){
+		if (!answerState) {
 			return;
 		}
 
-		setTimeout(()=>{
+		setTimeout(() => {
 			// 取当前题目编号
 			let qNumInt = GetQuestionNumber();
-			if(qNumInt < 0){
+			if (qNumInt < 0) {
 				AnswerEnd();
-				console.warn('取当前题目编号失败');
+				console.warn('取当前题目编号失败', '鉴定为烤');
 				return;
 			}
 
 			// 检测是否开启自动下一题功能
-			if( beforeQusetionNumber && beforeQusetionNumber != qNumInt && (qNumInt - beforeQusetionNumber > 1) ){
+			if (beforeQusetionNumber && beforeQusetionNumber != qNumInt && (qNumInt - beforeQusetionNumber > 1)) {
 				isAutoNext = 1;
 				AnswerPrevious();
 				Answer();
@@ -494,10 +545,10 @@
 			}
 
 			// 防止重答题目 重复时切下一题
-			if(beforeQusetionNumber && beforeQusetionNumber == qNumInt){
+			if (beforeQusetionNumber && beforeQusetionNumber == qNumInt) {
 				// 重复超过 5 次则直接结束
-				if(answerAgainCount > 5){
-					console.warn(qNumInt, '题目重复次数超限');
+				if (answerAgainCount > 5) {
+					console.warn(qNumInt, '题目重复次数超限', '鉴定为烤');
 					AnswerEnd();
 					return;
 				}
@@ -526,12 +577,12 @@
 				// 生成错误回答
 				// 根据错误回答组匹配替换正确回答内容
 				if (wrongAnswerCount > 0 && wrongAnswerIds.has(answerData.id)) {
-					switch(answerData.data.qtype){
+					switch (answerData.data.qtype) {
 						case '1': case '2': case '3': //1单选 2多选 3判断
 							// 随机答案
 							// 截取第一个答案字母并获得索引
 							// 生成与答案总数相同而答案不同的答案
-							firstAnswerId = mapAnswerOption[answerString.slice(0,1)];
+							firstAnswerId = mapAnswerOption[answerString.slice(0, 1)];
 							answerOptions = examDom.querySelectorAll('[class*=options]>*');
 							if (!answerOptions) {
 								break;
@@ -556,46 +607,46 @@
 
 				// 答题操作
 				//1单选 2多选 3判断 4填空
-				switch(answerData.data.qtype){
+				switch (answerData.data.qtype) {
 					case '1':
 					case '2':
 					case '3':
 						examAnsDom = examDom.querySelector('[class*=options]');
-						if(!examAnsDom) {
+						if (!examAnsDom) {
 							ShowAnswer(qNumInt, answerData.data.answer);
-							console.warn(qNumInt, '未找到答题选项区域');
+							console.warn(qNumInt, '未找到答题选项区域', '鉴定为烤');
 							break;
 						}
 
 						// 如果答案字符串为空则跳过
 						if (!answerString) {
 							ShowAnswer(qNumInt, answerData.data.answer);
-							console.warn(qNumInt, '未得到答题原始字符串');
+							console.warn(qNumInt, '未得到答题原始字符串', '鉴定为烤');
 							break;
 						}
 
 						// 提取回答数组
 						answerGroup = answerString.toUpperCase().split('');
-						if(answerGroup.length < 1) break;
+						if (answerGroup.length < 1) break;
 
-						answerGroup.map((aKey)=>{
+						answerGroup.map((aKey) => {
 							aIndex = mapAnswerOption[aKey];
-							if(!aIndex && aIndex != 0) {
+							if (!aIndex && aIndex != 0) {
 								ShowAnswer(qNumInt, answerData.data.answer);
-								console.warn(qNumInt, '未找到答题选项索引');
+								console.warn(qNumInt, '未找到答题选项索引', '鉴定为烤');
 								return;
 							}
 
 							// 答题
-							if(aIndex || aIndex == 0){
+							if (aIndex || aIndex == 0) {
 								examAnsInputDom = examAnsDom.children[aIndex];
-								if(!examAnsInputDom) {
+								if (!examAnsInputDom) {
 									ShowAnswer(qNumInt, answerData.data.answer);
-									console.warn(qNumInt, '未找到答题选项元素');
+									console.warn(qNumInt, '未找到答题选项元素', '鉴定为烤');
 									return;
 								}
 
-								if(!examAnsInputDom.classList.contains('right')){
+								if (!examAnsInputDom.classList.contains('right')) {
 									examAnsInputDom.click();
 								}
 							}
@@ -603,18 +654,18 @@
 
 						//如果有提交答案按钮则提交
 						examAnsPostBtn = examAnsDom.nextElementSibling;
-						if(examAnsPostBtn && !examAnsPostBtn.classList.contains('next-preve')){
+						if (examAnsPostBtn && !examAnsPostBtn.classList.contains('next-preve')) {
 							examAnsPostBtn = examAnsPostBtn.querySelector('button');
 
 							for (let i = 0; i < 5; i++) {
 								(function (t, qNumInt, answerData, examAnsPostBtn) {
 									setTimeout(function () {
 
-										if(!examAnsPostBtn.disabled){
+										if (!examAnsPostBtn.disabled) {
 											examAnsPostBtn.click();
-										} else if (i > 4){
+										} else if (i > 4) {
 											ShowAnswer(qNumInt, answerData.data.answer);
-											console.warn(qNumInt, '提交答案超时');
+											console.warn(qNumInt, '提交答案超时', '鉴定为烤');
 										}
 
 									}, 200 * t);
@@ -626,38 +677,38 @@
 
 					case '4': // 填空题
 						examAnsDom = examDom.querySelector('[class*=custom-ans]');
-						if(!examAnsDom) {
+						if (!examAnsDom) {
 							ShowAnswer(qNumInt, answerData.data.answer);
-							console.warn(qNumInt, '未找到答题输入区域');
+							console.warn(qNumInt, '未找到答题输入区域', '鉴定为烤');
 							break;
 						}
 
 						// 如果答案字符串为空则跳过
 						if (!answerString) {
 							ShowAnswer(qNumInt, answerData.data.answer);
-							console.warn(qNumInt, '未得到答题原始字符串');
+							console.warn(qNumInt, '未得到答题原始字符串', '鉴定为烤');
 							break;
 						}
 
 						// 提取回答数组
 						answerGroup = answerString.split('|');
-						if(answerGroup.length < 1) break;
+						if (answerGroup.length < 1) break;
 
-						answerGroup.map((answer, aIndex)=>{
-							if(!answer) {
+						answerGroup.map((answer, aIndex) => {
+							if (!answer) {
 								ShowAnswer(qNumInt, answerData.data.answer);
-								console.warn(qNumInt, '未找到答案内容');
+								console.warn(qNumInt, '未找到答案内容', '鉴定为烤');
 								return;
 							}
 
 							examAnsInputDom = examAnsDom.children[aIndex];
-							if(!examAnsInputDom) {
+							if (!examAnsInputDom) {
 								ShowAnswer(qNumInt, answerData.data.answer);
-								console.warn(qNumInt, '未找到答题输入元素');
+								console.warn(qNumInt, '未找到答题输入元素', '鉴定为烤');
 								return;
 							}
 
-							if(!examAnsInputDom.__vue__.getInput().value){
+							if (!examAnsInputDom.__vue__.getInput().value) {
 								examAnsInputDom.__vue__.getInput().value = answer;
 								examAnsInputDom.__vue__.getInput().dispatchEvent(new Event('input'));
 							}
@@ -665,25 +716,25 @@
 
 						//点击保存答案
 						examAnsSaveBtn = examAnsDom.querySelector('button');
-						if(examAnsSaveBtn){
+						if (examAnsSaveBtn) {
 							examAnsSaveBtn.click();
 						} else {
 							ShowAnswer(qNumInt, answerData.data.answer);
-							console.warn(qNumInt, '未找到保存答案按钮元素');
+							console.warn(qNumInt, '未找到保存答案按钮元素', '鉴定为烤');
 						}
 						break;
 				} // switch end
 			} // 填写答案结束
 
 			//下一题
-			if(isAutoNext){
-				if(!AnswerNextCheck()){
+			if (isAutoNext) {
+				if (!AnswerNextCheck()) {
 					AnswerEnd();
 					return;
 				}
 			}
 
-			if(!isAutoNext && AnswerNext() > 1){
+			if (!isAutoNext && AnswerNext() > 1) {
 				AnswerEnd();
 				return;
 			}
@@ -698,7 +749,7 @@
 	//
 	// 切换上一题 失败返回0 成功返回1 无法继续上一题返回2
 	//
-	function AnswerPrevious(){
+	function AnswerPrevious() {
 		let examNextPreveDom = examDom.querySelector('.next-preve');
 		if (!examNextPreveDom) { return 0; }
 		let examPreviousBtn = examNextPreveDom.querySelector('button');
@@ -712,7 +763,7 @@
 	//
 	// 切换下一题 失败返回0 成功返回1 无法继续下一题返回2
 	//
-	function AnswerNext(){
+	function AnswerNext() {
 		let examNextPreveDom = examDom.querySelector('.next-preve');
 		if (!examNextPreveDom) { return 0; }
 		let examNextBtn = examNextPreveDom.querySelector('button:nth-child(2)');
@@ -726,8 +777,8 @@
 	//
 	// 检查下一题按钮是否可用 不可用返回 0
 	//
-	function AnswerNextCheck(answerNextBtn){
-		if(!answerNextBtn){
+	function AnswerNextCheck(answerNextBtn) {
+		if (!answerNextBtn) {
 			let examNextPreveDom = examDom.querySelector('.next-preve');
 			if (!examNextPreveDom) { return 0; }
 			answerNextBtn = examNextPreveDom.querySelector('button:nth-child(2)');
@@ -740,8 +791,8 @@
 	//
 	// 答题结束
 	//
-	function AnswerEnd(){
-		if(!answerState) { return; }
+	function AnswerEnd() {
+		if (!answerState) { return; }
 		answerState = null;
 		ShowAnswerMark(0);
 		alert('烤题完成！\n自行查看！');
@@ -764,12 +815,12 @@
 	//
 	// 显示答案到界面
 	//
-	function ShowAnswer(qNumInt, answer){
-		if(!answer) { return; }
+	function ShowAnswer(qNumInt, answer) {
+		if (!answer) { return; }
 
-		if(!answerShowDom){
+		if (!answerShowDom) {
 			answerShowDom = examDom.querySelector('#mk-ksb-a-sa');
-			if(!answerShowDom){
+			if (!answerShowDom) {
 				answerShowDom = document.createElement('div');
 				answerShowDom.className = 'mk-ksb-answer-show-box';
 				examDom.appendChild(answerShowDom);
@@ -784,7 +835,7 @@
 
 		// 定位已显示过的答案位置
 		const locateTheAnswer = answerShowDom.querySelector(`div[q-number="${qNumInt}"]`);
-		if(locateTheAnswer){
+		if (locateTheAnswer) {
 			locateTheAnswer.classList.add('mk-ksb-answer-show-grid-highlight');
 			//定位到答案显示位置
 			scrollIntoViewIfNeeded(locateTheAnswer);
@@ -792,7 +843,7 @@
 		}
 
 		// 替换简答题分隔符为换行
-		answer = answer.includes('|') ? `\n${answer.replaceAll('|','\n')}` : answer;
+		answer = answer.includes('|') ? `\n${answer.replaceAll('|', '\n')}` : answer;
 
 		const answerItemDom = document.createElement('div');
 		answerItemDom.className = 'topic-type mk-ksb-answer-show-grid mk-ksb-answer-show-grid-highlight';
@@ -807,52 +858,52 @@
 	//
 	// 创建操作按钮方法
 	//
-	function CreatBtn(id, text, callback){
-		let intervalAddBtn = setInterval(function(){
+	function CreatBtn(id, text, callback) {
+		let intervalAddBtn = setInterval(function () {
 
-			if(!examDom){
+			if (!examDom) {
 				examDom = document.querySelector('[class*=exam_modal]');
 			}
-			if(!examDom){ return; }
+			if (!examDom) { return; }
 
 			//如果按钮存在则不添加
-			if(document.querySelector(`#${id}`)){
-				console.log(`${text}按钮已添加过了`);
+			if (document.querySelector(`#${id}`)) {
+				console.log(`${text}按钮已添加过了`, '鉴定为烤');
 				return;
 			}
 
 			let btmDom = document.createElement('button');
 			btmDom.type = 'button';
-			btmDom.id = id || `mk-btn-${Math.floor(Math.random()*100)}`;
+			btmDom.id = id || `mk-btn-${Math.floor(Math.random() * 100)}`;
 			btmDom.className = 'el-button el-button--primary el-button--small';
 			btmDom.innerHTML = `<span>${text}</span>`;
-			btmDom.onclick = callback || function(){}
+			btmDom.onclick = callback || function () { }
 			examDom.querySelector('.next-preve').appendChild(btmDom);
 
 			clearInterval(intervalAddBtn);
-		},500);
+		}, 500);
 
-		setTimeout(function(){ clearInterval(intervalAddBtn); },1500);
+		setTimeout(function () { clearInterval(intervalAddBtn); }, 1500);
 	}
 
 
 	//
 	// 创建答题按钮
 	//
-	function CreatAnswerBtn(){
+	function CreatAnswerBtn() {
 		const id = 'mk-ksb-a-btn';
 		const text = '烤';
-		const callback = function(){
-			if(answerState){ return; }
+		const callback = function () {
+			if (answerState) { return; }
 
 			const qCount = answerList.length;
 			const maxErrorCount = parseInt(qCount / 2);
 
 			let eac = prompt('请输入错题个数，不输入或者输入0 按满分答题\n'
-							 + `错题个数最多可输入 ${maxErrorCount}\n`
-							 + '想要停止烤题可在右键脚本扩展找到此脚本菜单的强制停止') || '0';
+				+ `错题个数最多可输入 ${maxErrorCount}\n`
+				+ '想要停止烤题可在右键脚本扩展找到此脚本菜单的强制停止') || '0';
 
-			if(!/^\d+$/.test(eac.replace(/\s+/g,'')) || eac > maxErrorCount){
+			if (!/^\d+$/.test(eac.replace(/\s+/g, '')) || eac > maxErrorCount) {
 				alert(`输入不正确！请输入小于等于 ${maxErrorCount} 的错题个数`);
 				return;
 			}
@@ -861,8 +912,8 @@
 			AnswerStart();
 		}
 
-		if(!answerList || answerList.length < 1){
-			console.log('没有获得答案, 或者不在题目页面');
+		if (!answerList || answerList.length < 1) {
+			console.log('没有获得答案, 或者不在题目页面', '鉴定为烤');
 			return;
 		}
 		CreatBtn(id, text, callback);
@@ -872,35 +923,35 @@
 	//
 	// 创建查看答案按钮
 	//
-	function CreatViewAnswerBtn(){
+	function CreatViewAnswerBtn() {
 		let id = 'mk-ksb-va-btn';
 		let text = '查看答案';
-		let callback = function(){
-			if(answerState){ return; }
-			if(!answerList || answerList.length < 1){
-				console.log('找不到答案');
+		let callback = function () {
+			if (answerState) { return; }
+			if (!answerList || answerList.length < 1) {
+				console.log('找不到答案', '鉴定为烤');
 				return;
 			}
 
 			let qNumInt = GetQuestionNumber()
-			if(qNumInt < 0) {
+			if (qNumInt < 0) {
 				alert('未获得此题答案');
-				console.log('未找到答案 - 题号', qNumInt);
+				console.log('未找到答案 - 题号', qNumInt, '鉴定为烤');
 				return;
 			}
 
 			let answerData = GetAnswerData();
-			if(!answerData.data || !answerData.data.answer){
+			if (!answerData.data || !answerData.data.answer) {
 				alert('未获得此题答案');
-				console.log('未找到答案 - 题目', GetQuestionTitle());
+				console.log('未找到答案 - 题目', GetQuestionTitle(), '鉴定为烤');
 				return;
 			}
 
 			ShowAnswer(qNumInt, answerData.data.answer);
 		}
 
-		if(!answerList || answerList.length < 1){
-			console.log('没有获得答案');
+		if (!answerList || answerList.length < 1) {
+			console.log('没有获得答案', '鉴定为烤');
 			return;
 		}
 		CreatBtn(id, text, callback);
@@ -910,14 +961,14 @@
 	//
 	// 显示或隐藏正在答题水印
 	//
-	function ShowAnswerMark(show){
+	function ShowAnswerMark(show) {
 		const markDom = document.querySelector('.mk-ksb-a-mark');
-		if(show && !markDom){
+		if (show && !markDom) {
 			const answerMark = document.createElement('div');
 			answerMark.className = 'mk-ksb-a-mark';
 			answerMark.innerHTML = `<p>烤</p>`;
 			document.body.appendChild(answerMark);
-		}else if(markDom){
+		} else if (markDom) {
 			markDom.parentNode.removeChild(markDom);
 		}
 	}
@@ -925,17 +976,17 @@
 	//
 	// 反反作弊
 	//
-	function antiCheat(){
-		let intervalAntiCheat = setInterval(function(){
+	function antiCheat() {
+		let intervalAntiCheat = setInterval(function () {
 
-			if(!examBox){
+			if (!examBox) {
 				examBox = document.querySelector('[class*=exam-box]');
 			}
-			if(!examBox){ return; }
+			if (!examBox) { return; }
 
 			//如果没有vue对象则无法处理
-			if(!examBox.__vue__){
-				console.log('反反作弊失败、因为对象没有vue对象');
+			if (!examBox.__vue__) {
+				console.log('反反作弊失败、因为对象没有vue对象', '鉴定为烤');
 				clearInterval(intervalAntiCheat);
 				return;
 			}
@@ -945,20 +996,20 @@
 			examBox.__vue__.prevent_cheat_config_data.paste = '';
 
 			clearInterval(intervalAntiCheat);
-		},500);
+		}, 500);
 
-		setTimeout(function(){ clearInterval(intervalAntiCheat); }, 1700);
-		setTimeout(function(){
+		setTimeout(function () { clearInterval(intervalAntiCheat); }, 1700);
+		setTimeout(function () {
 			//解禁文本拖选
-			document.querySelectorAll('.no-select').forEach(e=>e.classList.remove('no-select'));
-		},3000);
+			document.querySelectorAll('.no-select').forEach(e => e.classList.remove('no-select'));
+		}, 3000);
 	}
 
 
 	//
 	// 初始化必要样式
 	//
-	function InitCss(){
+	function InitCss() {
 		addStyle('mk-ksb-style', myStyle);
 	}
 
@@ -979,22 +1030,22 @@
 	//
 	// 等待页面加载完毕 初始化答题按钮
 	//
-	window.onload = function(){
-		setTimeout(function(){
+	window.onload = function () {
+		setTimeout(function () {
 			InitCss();
 			CreatAnswerBtn();
 			CreatViewAnswerBtn();
 			antiCheat();
-		},800);
+		}, 800);
 	};
 
 
 	//
 	//-- 当网址被改变尝试显示答题按钮 ------
 	//
-	const addHistoryEvent = function(type) {
+	const addHistoryEvent = function (type) {
 		let originalMethod = history[type];
-		return function() {
+		return function () {
 			let recallMethod = originalMethod.apply(this, arguments);
 			let e = new Event(type);
 			e.arguments = arguments;
@@ -1005,13 +1056,13 @@
 	history.pushState = addHistoryEvent('pushState');
 	history.replaceState = addHistoryEvent('replaceState');
 
-	const handler = function(...arg){
-		setTimeout(()=>{
+	const handler = function (...arg) {
+		setTimeout(() => {
 			InitCss();
 			CreatAnswerBtn();
 			CreatViewAnswerBtn();
 			antiCheat();
-		},1000);
+		}, 1000);
 	}
 	window.addEventListener('pushState', handler);
 	window.addEventListener('replaceState', handler);
