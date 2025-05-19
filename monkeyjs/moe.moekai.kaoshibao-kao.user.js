@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         考试宝-溢烟丁真鉴定为：烤
 // @namespace    https://www.kaoshibao.com/
-// @version      2025.4.18.3
+// @version      2025.5.19.13
 // @description  轻轻敲醒厨圣的心灵
 // @author       YIU
 // @match        http*://www.kaoshibao.com/k*
@@ -44,6 +44,9 @@
 
 	// 要答错的题数
 	let wrongAnswerCount;
+
+	// 答题模式
+	let answerMode;
 
 	// 自动切题模式
 	let isAutoNext;
@@ -273,7 +276,10 @@
 	//
 	function GetQuestionNumber() {
 		let qNumDom = examDom.querySelector('.topic-tit span:nth-child(2)');
-		if (!qNumDom || !qNumDom.innerText) { return -1; }
+		if (!qNumDom || !qNumDom.innerText) {
+			qNumDom = examDom.querySelector('.topic-num');
+			if (!qNumDom || !qNumDom.innerText) { return -1; }
+		}
 
 		let qNum = qNumDom.innerText.match(/\d+(\.\d+)?/);
 		if (!qNum) { return -1; }
@@ -327,6 +333,10 @@
 					return answerData;
 				}
 				const optionKeys = answerData.answer.split('');
+				if (answerMode) {
+					answerData.answer = optionKeys.join('');
+					return answerData;
+				}
 				const matchedOptions = options.filter(opt => optionKeys.includes(opt.Key))
 					.map(opt => opt.Value);
 
@@ -909,6 +919,13 @@
 			}
 			eac = eac < 0 ? 0 : eac;
 			wrongAnswerCount = parseInt(eac);
+
+			let inputAM = prompt('请输入答题方式，不输入：按照答案为准进行答题\n'
+				+ '输入任意内容：按照答案对应的选项内容答题\n'
+				+ '如果不确定答题方式，可以先查看答案，再选择合适的答题方式\n'
+			);
+			answerMode = inputAM ? 1 : 0;
+
 			AnswerStart();
 		}
 
