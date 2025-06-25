@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      4.0.6
+// @version      4.0.7
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -68,6 +68,7 @@
 	const st = `<style id="dumoe-st">
 	#lg img{opacity:.2;transition:opacity 1s}
 	#lg:hover img{opacity:.9}
+	#wrapper{background-color:transparent}
 	#head_wrapper #lg [id*=s_lg_img]{filter:drop-shadow(0 0 3px #56acda9a);mix-blend-mode:color}
 	#su{background:#0072ffa8!important}
 	#su:hover{background:#0072ffcc!important}
@@ -322,7 +323,9 @@
 	 .darkmode.dark .a-se-st-single-video-zhanzhang-capsule,.darkmode.dark .translateContent,
 	 .darkmode.dark .col-header .overview-desc-wrap,.darkmode.dark .b2c-universal-card a .c-title .c-title-text,
 	 .darkmode.dark [class*=time_li_],.darkmode.dark [class*=card-more-link],
-	 .darkmode.dark [class*=info-row-btn_],.darkmode.dark [class*=button_],.darkmode.dark [class*=item-word_]{color:#9db2ff!important}
+	 .darkmode.dark [class*=info-row-btn_],.darkmode.dark [class*=button_],.darkmode.dark [class*=item-word_],
+	 .darkmode.dark [tpl=recommend_list_san] [class*=link_],.darkmode.dark [tpl=recommend_list_san] [class*=text-subtitle],
+	 .darkmode.dark [class*=cos-more-link-text],.darkmode.dark [class*=cos-fold-switch-text]{color:#9db2ff!important}
 	.darkmode.dark [class*=normal_color_],.darkmode.dark .result-op [class*=same_],.darkmode.dark [class*=LabelText_],
 	 .darkmode.dark [class*=Container_],.darkmode.dark [class*=description_],.darkmode.dark [class*=Label_],
 	 .darkmode.dark [class*=domain-name_],.darkmode.dark [class*=card-title-text],
@@ -334,7 +337,8 @@
 	 .darkmode.dark .b2c-universal-card a:hover .c-title .c-title-text,
 	 .darkmode.dark #timeRlt:hover,.darkmode.dark [class*=hovering_]:hover,.darkmode.dark [class*=hovering_]:hover i,
 	 .darkmode.dark [class*=time_li_]:hover,.darkmode.dark [class*=card-more-link]:hover,
-	 .darkmode.dark [class*=card-more_]:hover [class*=card-more-link]{color:#c8f!important}
+	 .darkmode.dark [class*=card-more_]:hover [class*=card-more-link],
+	 .darkmode.dark [tpl=recommend_list_san] [class*=link_]:hover{color:#c8f!important}
 	.darkmode.dark [class*=active_color_],.darkmode.dark [class*=active_color_] span,.darkmode.dark [class*=pick_color]{color:#89f!important}
 	.darkmode .s_ipt_wr{border:2px solid #556!important}
 	.darkmode .s_ipt_wr:hover{border-color:#99a!important}
@@ -387,7 +391,7 @@
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
 	 .darkmode.dark .new-pmd .c-border:hover,.darkmode.dark [class*=hover_]:hover,.darkmode.dark [class*=rel-divider],
 	 .darkmode.dark [class*=loc-wrapper_],.darkmode.dark [class*=episode-btn_],.darkmode.dark [class*=-tlinkur] a,
-	 .darkmode.dark [class*=input-box_],.darkmode.dark [class*=desc-common_],
+	 .darkmode.dark [class*=input-box_],.darkmode.dark [class*=desc-common_],.darkmode.dark [class*=query-btn],
 	 .darkmode.dark [class*=query-wrapper_],.darkmode.dark [class*=orientation-title-wrapper_]{background:#2225!important}
 	.darkmode.dark [class*=input-box_] [class*=input_]{background:#1115!important;border:1px solid #0000!important}
 	.darkmode.dark .new-pmd .c-tabs.c-sub-tabs .c-tabs-nav,.darkmode.dark .new-pmd .c-tabs-content,
@@ -468,7 +472,7 @@
 	 .darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .col-header .overview-display-text,
 	 .darkmode.dark .op_exactqa_detail_word_pronounce,.darkmode.dark [class*=search-container] input,
 	 .darkmode.dark [class*=select-container],.darkmode.dark .cu-color-text,.darkmode.dark .markdownsdk-wrapper,
-	 .darkmode.dark [data-pmd] .c-color-link{color:#bbb}
+	 .darkmode.dark .cos-color-text,.darkmode.dark [data-pmd] .c-color-link{color:#bbb}
 	.darkmode.dark .result-op [class*=card_],.darkmode.dark .c-onlyshow-toppic [class*=right-btn_],
 	 .darkmode.dark .c-onlyshow-toppic [class*=left-btn_]{border-radius:8px;background:#2226!important;backdrop-filter:blur(3px)!important;
 	   box-shadow:inset 0 0 12px 0 #0007!important}
@@ -571,8 +575,9 @@
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
 	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
 	.darkmode.dark #wrapper [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]):not([class*=pinyin])`
-	 +`:not([class*=chart-line_]):not([class*=blog-item_]):not([class*=praise-underline_]):not([class*=feed-news-container_] [class*=line_]),
+	 +`:not([class*=chart-line_]):not([class*=blog-item_]):not([class*=praise-underline_]):not([class*=feed-news-container_] [class*=line_]):not([class*=wrapper]),
 	 .darkmode.dark [class*=hasline_]:after,.darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
+	.darkmode.dark .cos-tag-filled{background-color:#9db2ff66!important}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
 	.darkmode.dark [class*=pop_over_] li:hover,.darkmode.dark [class*=_popup_] [class*=selectItem]:hover,
 	 .darkmode.dark [class*=select-container] li:hover{background-color:#0005!important;color:#b9f}
@@ -589,7 +594,8 @@
 	.darkmode.dark #wrapper [class*=table-body-row_] span{color:#09f}
 	.darkmode.dark #wrapper [class*=table-body-row_] span:hover{color:#0df}
 	.darkmode.dark #wrapper [class*=virus-item_] [style*="#4D5054"]{color:#999!important}
-	.darkmode.dark #wrapper [class*=episode-btn_]:hover,.darkmode.dark [class*=-tlinkur] a:hover{background:#111!important}
+	.darkmode.dark #wrapper [class*=episode-btn_]:hover,.darkmode.dark [class*=-tlinkur] a:hover,
+	 .darkmode.dark [class*=query-btn]:hover{background:#111!important}
 	.darkmode.dark #wrapper [class*=result] [class*=text-container_]{width:268px}
 	.darkmode.dark .op-unit-tabs-nav-left .tabs-nav,.darkmode.dark .single-answer,.darkmode.dark .ms-measures-content .op-result,
 	 .darkmode.dark .op-unit-tabs-nav-container .op-unit-tabs-nav-right{border-color:#6ff5!important}
@@ -663,7 +669,7 @@
 	.darkmode.dark #wrapper [class*=detail-bg_]{background-image:linear-gradient(#1117,#1111)}
 	.darkmode.dark .cos-city-selector-content,.darkmode.dark .cos-city-header-list-wrapper,
 	 .darkmode.dark [class*=selector-options_],
-	 .darkmode.dark [class*=selectWrapper_] [class*=select_] [class*=select-wrapper_]{background-color:#111a;backdrop-filter:blur(4px)}
+	 .darkmode.dark [class*=selectWrapper_] [class*=select_] [class*=select-wrapper_],{background-color:#111a;backdrop-filter:blur(4px)}
 	.darkmode.dark .cos-city-header-city-search,{background-color:#111a}
 	.darkmode.dark [class*=selectWrapper_] [class*=select_]{background-color:#1115}
 	.darkmode.dark .cos-city-content,.darkmode.dark .cos-city-header-city-sug-list,.cos-city-header-city-sug-none,
@@ -722,7 +728,7 @@
 	 .darkmode.dark [class*=month-title_]{color:var(--cos-color-text-slim)!important}
 	.darkmode.dark .cos-tooltip-content,.darkmode.dark .cos-tooltip-trigger .cos-tooltip-content,
 	 .darkmode.dark .cos-toast{background-color:var(--cos-color-text);color:var(--cos-color-text-slim)}
-	.darkmode.dark [class*=share_]{background-color:#2223}
+	.darkmode.dark [class*=share_],.darkmode.dark [class*=query-wrapper]{background-color:#2223}
 	.darkmode.dark [class*=share_]:hover,.darkmode.dark [class*=selector-tab_],.darkmode.dark [class*=month-title_]{background-color:#2228}
 	.darkmode.dark .cosd-citation-citationId,.darkmode.dark .cosd-markdown .marklang mark{color:var(--cos-color-text-inverse)}
 	.darkmode.dark [data-module="cardentry"]:hover{background:var(--cos-color-bg-primary-hover)!important}
@@ -730,9 +736,10 @@
 	.darkmode.dark [class*=_control_]{background:var(--cos-color-text)}
 	.darkmode.dark [class*=_control_] [class*=_control-icon_],
 	 .darkmode.dark [class*=state-button-] [class*=text-box_]{color:var(--cos-color-text-slim)}
-	.darkmode.dark [class*=interact-mask_],.darkmode.dark .sc-fold-switch-mask{background:#0000!important}
+	.darkmode.dark [class*=interact-mask_],.darkmode.dark [class*=cosd-fold-switch-mask]{background:#0000!important}
 	.darkmode.dark [class*=desc-common_]::before{border-right: .03rem solid #2225}
 	.darkmode.dark [class*=title-icon] img{filter:invert(1) hue-rotate(180deg)}
+	.darkmode.dark #aisouEntry{background-image:unset!important;border:solid #6e6a83 1px}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
@@ -783,6 +790,7 @@
 	#u .bdpfmenu a:hover,#u .usermenu a:hover{color:#fff762!important;background-color:#000!important;transition-duration:.3s}
 	.c-tip-con [class*=menu] li a,.bdpfmenu a:link,.bdpfmenu a:visited,#u .usermenu a:link,#u .usermenu a:visited{background-color:#fff0!important}
 	.darkmode.dark #u .bdpfmenu a,.darkmode.dark #u .usermenu a{border:none!important;background:#0000!important}
+	.darkmode.dark .cos-fold-switch-mask{linear-gradient(#fff0 0, #0000 31%, var(--cos-color-bg-raised-inverse) 62%)!important}
 	</style>`;
 
 	const foldSwitchFix = `linear-gradient(#fff0 0, #0000 31%, var(--cos-color-bg-raised-inverse) 62%)!important`;
