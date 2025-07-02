@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      4.0.7
+// @version      4.0.8
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -241,7 +241,7 @@
 	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal,#container.sam_newgrid div[class*=has-content_],
 	 [class*=select-container] ul,[class*=pop_over_],[class*=_popup_]{background:#fffb!important;backdrop-filter:blur(3px)}
 	[class*=normal_color_]{background:#fffb}
-	[class*=input_]{background-color:#fffb}
+	[class*=input_]:not([class*=wrapper]){background-color:#fffb}
 	[class*=dis_able]:not([class*=file_li_]){color:#88a!important}
 	[class*=calendar-wrapper_]{background:#fffe!important}
 	[class*=travel-select-board-layout]{background:#fff9;backdrop-filter:blur(3px)}
