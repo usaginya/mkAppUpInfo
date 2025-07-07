@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         考试宝-溢烟丁真鉴定为：烤
 // @namespace    https://www.kaoshibao.com/
-// @version      2025.5.19.13
+// @version      2025.7.7.18
 // @description  轻轻敲醒厨圣的心灵
 // @author       YIU
 // @match        http*://www.kaoshibao.com/k*
@@ -311,7 +311,7 @@
 		//- &nbsp;题目<br|<span|&nbsp;
 		//- 题目\n有换行<br|<span|&nbsp;
 		//- &nbsp;题目\n有换行<br|<span|&nbsp;
-		qTitle = qTitleDom.innerHTML.match(/(?:^|&nbsp;)([\s\S]*?)(?=(<br|<span|&nbsp;))/);
+		qTitle = qTitleDom.innerHTML.match(/(?:^|&nbsp;)([\s\S]*?)(?=(<br|<span|&nbsp;)|$)/g);
 		return qTitle ? qTitle[0] : null;
 	}
 
