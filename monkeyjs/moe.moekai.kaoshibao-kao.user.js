@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         考试宝-溢烟丁真鉴定为：烤
 // @namespace    https://www.kaoshibao.com/
-// @version      2025.7.7.18
+// @version      2025.7.7.19
 // @description  轻轻敲醒厨圣的心灵
 // @author       YIU
 // @match        http*://www.kaoshibao.com/k*
@@ -346,7 +346,7 @@
 				});
 
 				const reorderedAnswers = matchedOptions.map(optionValue => {
-					const index = domTextsMap.get(optionValue);
+					const index = domTextsMap.get(optionValue.trim());
 					if (index !== undefined) {
 						return String.fromCharCode(65 + index); // 65 是 'A' 的 ASCII 码
 					}
