@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      4.0.8
+// @version      4.0.9
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -165,6 +165,7 @@
 	</style>`;
 
 	const ru = `<style id="dumoe-ru">
+	.pc-fresh-wrapper-con{--left-container-width:700px!important}
 	pre{background:#0000!important}
 	#result_logo{opacity:.6}
 	#result_logo .index-logo-src{display:block!important}
@@ -178,6 +179,7 @@
 	#searchTag [class*=tags_]:hover{background-color:#f0f3fdcc!important}
 	#head:hover,#wrapper #s_tab:hover{background:#fff6!important;transition-duration:.3s}
 	#con-at .result-op{width:90%!important;border-radius:16px!important}
+	[class*=_bg-header_]{width:100%!important}
 	[class*="bac-box_"]{background:#fff0!important;color:#aaa}
 	[class*="bac-img_"]{opacity:.7!important}
 	[class^="view-right_"]{right:6%!important}
@@ -241,7 +243,8 @@
 	.c-tip-con,#c-tip-custom-calenderCont,#c-tip-custom-calenderCont .op_cal,#container.sam_newgrid div[class*=has-content_],
 	 [class*=select-container] ul,[class*=pop_over_],[class*=_popup_]{background:#fffb!important;backdrop-filter:blur(3px)}
 	[class*=normal_color_]{background:#fffb}
-	[class*=input_]:not([class*=wrapper]){background-color:#fffb}
+	[class*=input_]:not([class*=pc-input_]):not([class*=wrapper]){background-color:#fffb}
+	.darkmode.dark [class*=input_]:not([class*=pc-input_]):not([class*=wrapper]){background-color:#000a}
 	[class*=dis_able]:not([class*=file_li_]){color:#88a!important}
 	[class*=calendar-wrapper_]{background:#fffe!important}
 	[class*=travel-select-board-layout]{background:#fff9;backdrop-filter:blur(3px)}
@@ -299,7 +302,7 @@
 	 .darkmode.dark [class*=-chart-wrapper] [class*=time-text_]{background:#222}
 	.darkmode.dark #s_tab .cur-tab:hover,.darkmode.dark #s_tab .s-tab-item:hover,.darkmode.dark #u>a:hover{color:#9d9bff!important}
 	.darkmode.dark #s_tab .cur-tab,.darkmode.dark #u>a{color:#ddd!important}
-	.darkmode.dark #wrapper input:not(#kw):not([class*=c-btn]){background-color:#1118;color:#bbb!important}
+	.darkmode.dark #wrapper input:not(#kw):not([class*=c-btn]):not(.cos-input-box){background-color:#1118;color:#bbb!important}
 	.darkmode.dark #wrapper [class*=input_]:not([class*=c-btn]),.darkmode.dark .op_translation_usertip{color:#eee}
 	.darkmode.dark #aging-tools-pc>div{background:#0004!important}
 	.darkmode.dark #aging-tools-pc>div div[class|=item]>div[class|=icon]:not([class*=choosed]){background-color:#3339}
@@ -376,16 +379,17 @@
 	 +`:not([class*=bottom-scroll-item_]),.darkmode.dark [class*=sc-scroll-control-],
 	 .darkmode.dark div[class*=list_]>[class*=item_]:not([class*=_item_]),.darkmode.dark [class*=info-row-btn_],
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):not([class*=sc-link]),.darkmode.dark [class*=item-word_],
-	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_],
+	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_]:not([class*=color-text]),
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_],.darkmode.dark [class*=tag-common_],
-	 .darkmode.dark [class*=words-record_]{background:#2224!important}
+	 .darkmode.dark [class*=words-record_],.darkmode.dark .cosd-question-guide-option-content{background:#2224!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]`
 	 +`:not([class*=bottom-scroll-item_]):hover,.darkmode.dark [class*=sc-scroll-control-]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:not([class*=_item_]):hover,
 	 .darkmode.dark [class*=info-row-btn_]:hover,.darkmode.dark [class^=wrap_]:not([class*=like_]):hover,
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):not([class*=sc-link]):hover,.darkmode.dark [class*=item-word_]:hover,
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]:hover,.darkmode.dark [class*=tag-selected_],
-	 .darkmode.dark [class*=words-record_]:hover,.darkmode.dark [class*=orientation-title-wrapper_]{background:#2229!important}
+	 .darkmode.dark [class*=words-record_]:hover,.darkmode.dark [class*=orientation-title-wrapper_],
+	 .darkmode.dark .cosd-question-guide-option-content{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
@@ -431,10 +435,13 @@
 	.darkmode.dark .c-btn:active,.darkmode.dark [class*=hover_]:hover{-webkit-box-shadow:inset 1px 1px 0px #000,inset -1px -1px 0px #555}
 	.darkmode.dark .sam_newgrid~#page a{background-color:#2228!important}
 	.darkmode.dark .c-tabs-nav .c-tabs-nav-selected,.darkmode.dark .xcp-list-loader.is-second{color:#2c99ff!important}
-	.darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-con]):not([class^=_tabs-nav_]):not([class^=_tabs_]),
+	.darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-con]):not([class^=_tabs-nav_]):not([class^=_tabs_]):not([class*=-tabs-bar])`
+	 +`:not([class*=-tabs-header]):not([class*=-tabs-pill-filled]),
 	 .darkmode.dark .c-gap-top-large [class*=tag-item],
-	 .darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-con]):not([class^=_tabs-nav_]):not([class^=_tabs_]) a:not([class*=-links-]),
-	 .darkmode.dark .result-op [class*=tags-]:not([class*=tabs-con]) span,.darkmode.dark [class*=consulting-btn]{background-color:#2225}
+	 .darkmode.dark .result-op [class*=tabs-]:not([class*=tabs-con]):not([class^=_tabs-nav_]):not([class^=_tabs_]):not([class*=-tabs-bar])`
+	 +`:not([class*=-tabs-header]):not([class*=-tabs-pill-filled]) a:not([class*=-links-]),
+	 .darkmode.dark .result-op [class*=tags-]:not([class*=tabs-con]) span,.darkmode.dark [class*=consulting-btn],
+	 .darkmode.dark .cos-tabs.cos-tabs-bar .cos-tabs-header{background-color:#2225}
 	.darkmode.dark .result-op [class*=main-tabs_] [class*=tab-item-selected]{color:#ccc}
 	.darkmode.dark div[class*=calendar-box] div[class*=select]:not([class*=selecting]),
 	 .darkmode.dark div[class*=button-list_] div[class*=item_],.darkmode.dark .new-pmd .c-img,.darkmode.dark .op_cal table,
@@ -565,6 +572,7 @@
 	.darkmode.dark .c-tip-custom-input,.darkmode.dark .c-tip-si-input,.darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-custom-submit,
 	 .darkmode.dark .c-tip-con .c-tip-timerfilter li .c-tip-timerfilter-si-submit,.darkmode.dark #c-tip-custom-calenderCont,
 	 .darkmode.dark [class*=input_],.darkmode.dark [class*=car-pc-list],.darkmode.dark [class*=text-area-box_]{border:1px solid #778}
+	.darkmode.dark [class*=pc-input_]{border:1px solid #7798}
 	.darkmode.dark .op_mon h5{background:#0000;border-bottom:1px solid #448}
 	.darkmode.dark .op_mon td,.darkmode.dark .op_mon th{background:#0000;border:1px solid #448}
 	.darkmode.dark .op_mon th{background:#33a6}
@@ -575,7 +583,8 @@
 	.darkmode.dark .wa-zp-exact-new-aurl:not(.wa-zp-exact-new-current):hover{color:#c8f}
 	.darkmode.dark .wa-zp-exact-new-color{color:#99a}
 	.darkmode.dark #wrapper [class*=line_]:not([class*=timeline_]):not([class*=_fanyi]):not([class*=container-inline_]):not([class*=image-]):not([class*=pinyin])`
-	 +`:not([class*=chart-line_]):not([class*=blog-item_]):not([class*=praise-underline_]):not([class*=feed-news-container_] [class*=line_]):not([class*=wrapper]),
+	 +`:not([class*=chart-line_]):not([class*=blog-item_]):not([class*=praise-underline_]):not([class*=feed-news-container_] [class*=line_])`
+	 +`:not([class*=wrapper]):not([class*=three-line_]),
 	 .darkmode.dark [class*=hasline_]:after,.darkmode.dark [class*=Line_],.darkmode.dark [class*=activeCategoryItem_]:after{background:#9db2ff66}
 	.darkmode.dark .cos-tag-filled{background-color:#9db2ff66!important}
 	.darkmode.dark [class*=inpt_disable_]{background:#1118!important;color:#aaa!important}
@@ -610,11 +619,14 @@
 	.darkmode.dark .dropdown-menu-item:hover{background:#3c3c3c!important}
 	.darkmode.dark #wrapper [class*=container_] [class^=right-icon_],
 	 .darkmode.dark [class*=button_]:not([class*=slink-button]):not([class*=state-button-]),
-	 .darkmode.dark [class*=-button]:not([class*=slink-button]):not([class*=state-button-]),
-	 .darkmode.dark [class*=ala-box-pc_] [class*=zi_],.darkmode.dark [class*=zuci-link_]{background:#2228}
+	 .darkmode.dark [class*=-button]:not([class*=slink-button]):not([class*=state-button-]):not([class*=input-button-])`
+	 +`:not([class*=-content]):not([class*=button-link_]),.darkmode.dark [class*=comment-item_],
+	 .darkmode.dark [class*=ala-box-pc_] [class*=zi_],.darkmode.dark [class*=zuci-link_],.darkmode.dark .cos-tab [class*=item-container_],
+	 .darkmode.dark .cos-tabs.cos-tabs-bar .cos-tab.cos-tab-active{background:#2228}
 	.darkmode.dark #wrapper [class*=container_] [class^=right-icon_]:hover,
 	 .darkmode.dark #wrapper [class*=button_]:not([class*=slink-button]):hover,
-	 .darkmode.dark [class*=-button]:not([class*=slink-button]):hover,.darkmode.dark [class*=zuci-link_]:hover{background:#111!important}
+	 .darkmode.dark [class*=-button]:not([class*=slink-button]):not([class*=input-button-]):not([class*=-content]):hover,
+	 .darkmode.dark [class*=zuci-link_]:hover{background:#111!important}
 	.darkmode.dark #wrapper [class*=button_]:not([class*=slink-button]):hover [class*=content_]{color:#eee}
 	.darkmode.dark #wrapper [class^=title_],.darkmode.dark #wrapper [class^=list-gap_],.darkmode.dark #wrapper [class*=group-title_]{color:#a8b8c8}
 	.darkmode.dark #wrapper [class*=danmaku_] [class*=mask_]{background:linear-gradient(180deg,#222,#0000)}
@@ -704,7 +716,7 @@
 	.darkmode.dark .result-op [class*=bg_] [class*=select-entry_]{background:#0000}
 	.darkmode.dark .result-op [class*=bg_] [class*=_select-entry_]{border-color:#677799}
 	.darkmode.dark .result-op [class*=bg_] [class*=header-btn_],
-	 .darkmode.dark [class*=praise-wrapper_]:not([class*=unselected_]){background:#2225}
+	 .darkmode.dark [class*=praise-wrapper_]:not([class*=unselected_]),.darkmode.dark .cos-tab [class*=focus-item_]{background:#2225}
 	[class*=video-title_]{color:#6ea1ff!important}
 	[class*=exam-tab_] [class*=select-item_]:before{background-image:radial-gradient(circle at top left,transparent 0.09rem,#ffffff45 0)}
 	[class*=exam-tab_] [class*=select-item_]:after{background-image:radial-gradient(circle at top right,transparent .09rem,#ffffff45 0)}
@@ -725,7 +737,7 @@
 	.darkmode.dark .cosd-markdown .marklang,.darkmode.dark .cosd-markdown .marklang .marklang-paragraph,
 	 .darkmode.dark [class*=title-instance_],.darkmode.dark [class*=paragraph_]:not([class*=_paragraph_]),.darkmode.dark [class*=selector-tab_],
 	 .darkmode.dark [class*=schedule-title_],.darkmode.dark [class*=schedule-date_],
-	 .darkmode.dark [class*=month-title_]{color:var(--cos-color-text-slim)!important}
+	 .darkmode.dark [class*=month-title_]{color:var(--cos-color-text-minor)!important}
 	.darkmode.dark .cos-tooltip-content,.darkmode.dark .cos-tooltip-trigger .cos-tooltip-content,
 	 .darkmode.dark .cos-toast{background-color:var(--cos-color-text);color:var(--cos-color-text-slim)}
 	.darkmode.dark [class*=share_],.darkmode.dark [class*=query-wrapper]{background-color:#2223}
@@ -735,11 +747,35 @@
 	.darkmode.dark [data-module="cardentry"]:hover [class*=title-instance_]{color:var(--cos-color-text-inverse)!important}
 	.darkmode.dark [class*=_control_]{background:var(--cos-color-text)}
 	.darkmode.dark [class*=_control_] [class*=_control-icon_],
-	 .darkmode.dark [class*=state-button-] [class*=text-box_]{color:var(--cos-color-text-slim)}
-	.darkmode.dark [class*=interact-mask_],.darkmode.dark [class*=cosd-fold-switch-mask]{background:#0000!important}
+	 .darkmode.dark [class*=state-button-] [class*=text-box_],
+	 .darkmode.dark .cosd-searching-step-content{color:var(--cos-color-text-slim)}
+	.darkmode.dark [class*=interact-mask_],.darkmode.dark [class*=cosd-fold-switch-mask],
+	 .cos-tabs.cos-tabs-pill-filled .cos-tabs-header,
+	 .darkmode.dark [class*=ai-input-wrap_],.darkmode.dark [class*=ai-input_],
+	 #ai-accompanies-btn-fixed-container,[class*=ai-accompanies-btn-fixed-container],
+	 .darkmode.dark .right-ceiling-with-pseudo::before,
+	 .darkmode.dark [class*=ai-ask-input_]{background:#0000!important}
 	.darkmode.dark [class*=desc-common_]::before{border-right: .03rem solid #2225}
 	.darkmode.dark [class*=title-icon] img{filter:invert(1) hue-rotate(180deg)}
 	.darkmode.dark #aisouEntry{background-image:unset!important;border:solid #6e6a83 1px}
+	.darkmode.dark .cos-input-filled{background-color:#2228!important;}
+	.darkmode.dark [class*=ai-input_],.darkmode.dark [class*=ai-ask-input_]{border:none}
+	[class*=right-ai-accompanies-ceiling]{position:unset!important}
+	.darkmode.dark [class*=jump-btn_]{background:#3f3dc780!important}
+	.darkmode.dark [class*=jump-btn_]:hover{background:#5545ddaa!important}
+	.darkmode.dark [class*=ai-input-field_],.darkmode.dark .cos-input-box,.darkmode.dark .cos-color-text-tiny{color:var(--cos-color-text-minor)}
+	.darkmode.dark svg text{fill:var(--cos-color-text-minor)}
+	.darkmode.dark div[class*=_ai-input-send-btn],
+	 .darkmode.dark span[class^=_ai-input-send-text]{background:var(--cos-color-bg-raised-inverse)!important}
+	[class*=dqa-ai-ask-style_]{margin:0 16px 0 -16px!important}
+	.darkmode.dark .cosd-question-guide-option-text{color:var(--cos-link-color-text-hover)!important}
+	.darkmode.dark .cosd-citation-citationId,.darkmode.dark .cosd-citation-tag-citationId{background-color:var(--cos-color-bg-inverse)!important}
+	.darkmode.dark .cosd-searching-step-wait .cosd-searching-step-icon{background-color:var(--cos-color-bg-primary-disabled)!important}
+	.pc-fresh-smooth .c-group-wrapper::after{width:202%}
+	.darkmode.dark .pc-fresh-smooth .c-group-wrapper::after{border-color:var(--cos-color-border-inverse)}
+	.darkmode.dark [class*=_sc-divider-horizontal_]:after{background-color:var(--cos-color-border-inverse)}
+	.darkmode.dark .cosd-markdown-mask{background:linear-gradient(to bottom right, #fff0, #000)}
+	.darkmode.dark [class*=head-title_] a [class*=paragraph_]{color:var(--cos-color-text-on-primary-light)!important}
 	</style>`;
 
 	const rippleCss = `<style id="dumoe-rippleCss">
