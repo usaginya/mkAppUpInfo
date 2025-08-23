@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      4.0.9
+// @version      4.1.0
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -381,7 +381,8 @@
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):not([class*=sc-link]),.darkmode.dark [class*=item-word_],
 	 .darkmode.dark [class^=wrap_]:not([class*=like_]),.darkmode.dark [class^=comment-wrapper_] [class*=content_]:not([class*=color-text]),
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_],.darkmode.dark [class*=tag-common_],
-	 .darkmode.dark [class*=words-record_],.darkmode.dark .cosd-question-guide-option-content{background:#2224!important}
+	 .darkmode.dark [class*=words-record_],.darkmode.dark .cosd-question-guide-option-content,
+	 .darkmode.dark .cos-tabs-pill-filled .cos-tab{background:#2224!important}
 	.darkmode.dark .result-molecule[tpl*="app/rs"] td a:hover,.darkmode.dark .result-op:not([tpl=recommend_list]) a[class*=item_]`
 	 +`:not([class*=bottom-scroll-item_]):hover,.darkmode.dark [class*=sc-scroll-control-]:hover,
 	 .darkmode.dark div[class*=button-list_] div[class*=item_] a:hover,.darkmode.dark div[class*=list_]>[class*=item_]:not([class*=_item_]):hover,
@@ -389,7 +390,7 @@
 	 .darkmode.dark [class*=item-] [class*=link_]:not([class*=btn-]):not([class*=sc-link]):hover,.darkmode.dark [class*=item-word_]:hover,
 	 .darkmode.dark [class*=tabs-wrapper_] [class*=tab_]:hover,.darkmode.dark [class*=tag-selected_],
 	 .darkmode.dark [class*=words-record_]:hover,.darkmode.dark [class*=orientation-title-wrapper_],
-	 .darkmode.dark .cosd-question-guide-option-content{background:#2229!important}
+	 .darkmode.dark .cosd-question-guide-option-content,.darkmode.dark .cos-tabs-pill-filled .cos-tab:hover{background:#2229!important}
 	.darkmode.dark #foot,.darkmode.dark .sam_newgrid~#page,.darkmode.dark .x-interact-publish-cont,
 	 .darkmode.dark #container.sam_newgrid div[class*=has-content_] textarea,
 	 .darkmode.dark .result-molecule>#page,.darkmode.dark .recommend-line-one .recommend-item-a,
