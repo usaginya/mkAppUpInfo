@@ -38,7 +38,9 @@ if "!m!"=="i" (
     echo.
     echo 安装完成！
     echo.
+    echo.
     echo 使用方法：
+    echo.
     echo - 在需要清空的文件夹的右键菜单中，选择“快速清空文件夹”
 )
 
