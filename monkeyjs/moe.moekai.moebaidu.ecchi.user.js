@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         度娘搜索萌化ecchi
 // @namespace    https://cdn.jsdelivr.net/gh/usaginya/mkAppUpInfo@master/monkeyjs/moe.moekai.moebaidu.ecchi.user.js
-// @version      4.1.1
+// @version      4.1.2
 // @description  萌化度娘搜索R18限制级 [18+]
 // @author       YIU
 // @icon         https://www.baidu.com/favicon.ico
@@ -91,7 +91,8 @@
 	.s-top-more,.soutu-hover-tip,.s-mod-setweather,.c-floating-box{background:#fffb!important;backdrop-filter:blur(5px)!important}
 	.setweather-content .warn-mod{background:#f2f2f850!important}
 	.s-skin-hasbg .s-top-wrap{background:rgba(0,0,0,.15)}
-	.s-top-left .mnav,.s-top-left-new .mnav,.s-top-right .s-top-right-text,.s-weather-wrapper{margin-top:5px}
+	.s-top-left .mnav,.s-top-left-new .mnav,.s-top-right .s-top-right-text,.s-weather-wrapper,.divider,
+	 .new-search-mode-switch-wrapper{margin-top:5px}
 	.s-top-right .s-top-username,.s-top-right .operate-wrapper{margin-top:2px;vertical-align:top}
 	.s-top-right .s-top-username .s-top-img-wrapper{width:20px;height:20px;top:2px}
 	.s-top-right .s-top-username img{padding:0;width:20px;height:20px}
@@ -105,6 +106,11 @@
 	#aging-tools-pc>div div[class|=item]:hover>div[class|=icon],
 	 #aging-tools-pc>div div[class|=item][class*=checked]>div[class|=icon]{background-color:#6d87f2!important}
 	#aging-tools-pc>div div[class|=pop]{background:#fffc;backdrop-filter:blur(10px)}
+	#chat-input-main .chat-input-wrapper{background:#fff3!important}
+	#chat-input-main .chat-input-wrapper-border{background:linear-gradient(#ffffff66,#ffffff66) padding-box,linear-gradient(160deg,#3377fe22,#4c6fff30,#8370ff33,#ba59ff33) border-box!important}
+	#chat-input-main:hover .chat-input-wrapper-border{background:linear-gradient(#ffffff88,#ffffff99) padding-box,linear-gradient(160deg,#3377fe22,#4c6fff30,#8370ff33,#ba59ff33) border-box!important}
+	.smart_input_superman #chat-input-main #chat-textarea{background:#fff0!important}
+	#chat-input-main .chat-input-tool .right-tools-wrapper{background:#fff3!important}
 	.darkmode.dark #wrapper input:not(#kw):not([class*=select-input_]):not([class*=c-btn_]),.darkmode #s_side_wrapper{background-color:#1118}
 	.darkmode.dark #wrapper [class*=input_]{color:#eee}
 	.darkmode.dark{background-color:#1f1f25cc!important}
