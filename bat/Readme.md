@@ -9,3 +9,4 @@ Batch file made by yourself
 | DeleteFilesWithAnyExtensions.bat | 删除指定扩展名的文件并支持 \* 通配符 |
 | FastClearFolder.bat | 可在文件夹右键菜单中 添加\\移除 一个“🫧 快速清空文件夹”选项、以便快速清空文件夹 |
 | spine-export-easy.bat | 简单使用 spine-export 导出 spine 模型动画（见 [Nattsu39/spine-exporter](https://github.com/Nattsu39/spine-exporter)） |
+| png2webp_imk.bat | 使用 ImageMagick 把 png 格式的图片转换为 webp格式（[ImageMagick](https://imagemagick.org/script/download.php#windows)） |
